@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c827fd71695afc37a1424eba1faa1d3a",
+    "content-hash": "9cd45e7e1ad33f142658571636bafb5c",
     "packages": [
         {
             "name": "ankitpokhrel/tus-php",
@@ -804,7 +804,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

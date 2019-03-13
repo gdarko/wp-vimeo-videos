@@ -1,5 +1,5 @@
 {
     "require": {
-        "vimeo/vimeo-api": "^3.0"
+        "vimeo/vimeo-api": "^3.0.2"
     }
 }
