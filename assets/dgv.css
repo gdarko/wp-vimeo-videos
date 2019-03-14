@@ -1,4 +1,4 @@
-.form-row:last-child {
+.form-row.with-border {
     border-top: 1px solid #f0f0f0;
     padding-top: 25px;
 }
@@ -22,9 +22,9 @@
 .dgv-wrap h1, .dgv-wrap>h2:first-child {
     font-size: 23px;
     font-weight: 400;
-    margin: 0;
     padding: 9px 0 4px 0;
     line-height: 29px;
+    margin-bottom: 14px;
 }
 .dgv-wrap .page-title-action {
     margin-left: 4px;

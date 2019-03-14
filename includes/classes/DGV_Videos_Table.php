@@ -27,7 +27,7 @@ class DGV_Videos_Table extends \WP_List_Table {
 	 * @return void
 	 */
 	function no_items() {
-		_e( 'No videos found', 'dg-vimeo-videos' );
+		_e( 'No videos found', 'wp-vimeo-videos' );
 	}
 
 	/**
@@ -68,10 +68,10 @@ class DGV_Videos_Table extends \WP_List_Table {
 	function get_columns() {
 		$columns = array(
 			'cb'          => '<input type="checkbox" />',
-			'title'       => __( 'Title', 'dg-vimeo-videos' ),
-			'privacy'     => __( 'Privacy', 'dg-vimeo-videos' ),
-			'embed'       => __( 'Embed', 'dg-vimeo-videos' ),
-			'uploaded_at' => __( 'Uploaded', 'dg-vimeo-videos' ),
+			'title'       => __( 'Title', 'wp-vimeo-videos' ),
+			'privacy'     => __( 'Privacy', 'wp-vimeo-videos' ),
+			'embed'       => __( 'Embed', 'wp-vimeo-videos' ),
+			'uploaded_at' => __( 'Uploaded', 'wp-vimeo-videos' ),
 
 		);
 
@@ -88,10 +88,10 @@ class DGV_Videos_Table extends \WP_List_Table {
 	function column_title( $item ) {
 
 		$actions = array();
-		//$actions['edit']   = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=vimeo-videos&action=edit&id=' . $item->id ), $item->id, __( 'Edit this item', 'dg-vimeo-videos' ), __( 'Edit', 'dg-vimeo-videos' ) );
-		//$actions['delete'] = sprintf( '<a href="%s" class="submitdelete" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=vimeo-videos&action=delete&id=' . $item->id ), $item->id, __( 'Delete this item', 'dg-vimeo-videos' ), __( 'Delete', 'dg-vimeo-videos' ) );
+		//$actions['edit']   = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=vimeo-videos&action=edit&id=' . $item->id ), $item->id, __( 'Edit this item', 'wp-vimeo-videos' ), __( 'Edit', 'wp-vimeo-videos' ) );
+		//$actions['delete'] = sprintf( '<a href="%s" class="submitdelete" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=vimeo-videos&action=delete&id=' . $item->id ), $item->id, __( 'Delete this item', 'wp-vimeo-videos' ), __( 'Delete', 'wp-vimeo-videos' ) );
 
-		return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'upload.php?page=' . DGV_Backend::PAGE_HANDLE . '&action=edit&id=' . $item->ID ), $item->post_title, $this->row_actions( $actions ) );
+		return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE . '&action=edit&id=' . $item->ID ), $item->post_title, $this->row_actions( $actions ) );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class DGV_Videos_Table extends \WP_List_Table {
 	 * @return array
 	 */
 	function get_bulk_actions() {
-		$actions = array(//'trash'  => __( 'Move to Trash', 'dg-vimeo-videos' ),
+		$actions = array(//'trash'  => __( 'Move to Trash', 'wp-vimeo-videos' ),
 		);
 
 		return $actions;
@@ -138,7 +138,7 @@ class DGV_Videos_Table extends \WP_List_Table {
 	 */
 	public function get_views_() {
 		$status_links = array();
-		$base_link    = admin_url( 'upload.php?page=' . DGV_Backend::PAGE_HANDLE . '&upload_new=1' );
+		$base_link    = admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE . '&upload_new=1' );
 
 		foreach ( $this->counts as $key => $value ) {
 			$class                = ( $key == $this->page_status ) ? 'current' : 'status-' . $key;
