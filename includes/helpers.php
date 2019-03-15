@@ -145,7 +145,7 @@ function dgv_vimeo_upload( $file_path, $params ) {
  */
 function dgv_vimeo_upload_via_pull( $file_url, $params ) {
 	$vimeo    = dgv_new_vimeo_instance();
-	$params   = array_merge( array( 'approach' => 'pull', 'link' => $file_url ), $params );
+	$params   = array_merge( array( 'upload' => array('approach' => 'pull', 'link' => $file_url) ), $params );
 	$response = $vimeo->request( '/me/videos', $params, 'POST' );
 
 	return $response;
