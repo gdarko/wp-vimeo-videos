@@ -47,8 +47,14 @@
                 }
                 $self.prepend(notice(message, type));
             },
-            error: function () {
-                alert('Unhandled error...');
+            error: function (request, status, error) {
+                var message = request.responseText;
+                var type = 'error';
+                var $_notice = $self.find('#dg-notice');
+                if ($_notice.length > 0) {
+                    $_notice.remove();
+                }
+                $self.prepend(notice(message, type));
             }
         });
         return false;

@@ -14,7 +14,12 @@
 
 		<?php if ( isset( $_GET['action'] ) && $_GET['action'] === 'new' ) { ?>
 
-			<?php if ( false !== dgv_check_api_connection() ) { ?>
+            <?php
+            $is_api_connected = dgv_check_api_connection();
+            $is_site_accessible = dgv_is_wp_accessible_from_public();
+            ?>
+
+			<?php if ( false !== $is_api_connected && $is_site_accessible  ) { ?>
 
                 <h2><?php _e( 'Upload to Vimeo', 'dg-vimeo-upload' ); ?></h2>
 
@@ -48,17 +53,28 @@
                 </form>
 
 			<?php } else { ?>
-
-                <h2><?php _e( 'Invalid API Details', 'dg-vimeo-upload' ); ?></h2>
-                <form id="dg-vimeo-upload" class="dg-vimeo-form" enctype="multipart/form-data" method="post" action="">
-                    <div class="form-row">
-                        <p><?php _e( 'Blah! Your api details are missing or are invalid. Go to the Settings screen and enter valid vimeo details.' ); ?></p>
-                    </div>
-                    <div class="form-row with-border">
-                        <a href="<?php echo admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE ); ?>" class="button">Back</a>
-                        <a href="<?php echo admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE . '&action=settings' ); ?>" class="button-primary">Go to Settings</a>
-                    </div>
-                </form>
+                <?php if(!$is_site_accessible): ?>
+                    <h2><?php _e( 'Your site is not public', 'dg-vimeo-upload' ); ?></h2>
+                    <form id="dg-vimeo-upload" class="dg-vimeo-form" enctype="multipart/form-data" method="post" action="">
+                        <div class="form-row">
+                            <p><?php _e( 'Blah! It looks like you are trying to run the plugin from localhost. At this time the plugin will only work on sites hosted to public.', 'wp-vimeo-uploads' ); ?></p>
+                        </div>
+                        <div class="form-row with-border">
+                            <a href="<?php echo admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE ); ?>" class="button"><?php _e( 'Back', 'wp-vimeo-uploads' ); ?></a>
+                        </div>
+                    </form>
+                <?php else: ?>
+                    <h2><?php _e( 'Invalid API Details', 'dg-vimeo-upload' ); ?></h2>
+                    <form id="dg-vimeo-upload" class="dg-vimeo-form" enctype="multipart/form-data" method="post" action="">
+                        <div class="form-row">
+                            <p><?php _e( 'Blah! Your api details are missing or are invalid. Go to the Settings screen and enter valid vimeo details.', 'wp-vimeo-uploads' ); ?></p>
+                        </div>
+                        <div class="form-row with-border">
+                            <a href="<?php echo admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE ); ?>" class="button"><?php _e( 'Back', 'wp-vimeo-uploads' ); ?></a>
+                            <a href="<?php echo admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE . '&action=settings' ); ?>" class="button-primary"><?php _e( 'Go to Settings', 'wp-vimeo-uploads' ); ?></a>
+                        </div>
+                    </form>
+                <?php endif; ?>
 
 			<?php } ?>
 

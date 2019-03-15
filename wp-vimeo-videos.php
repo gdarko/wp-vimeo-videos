@@ -16,6 +16,6 @@ define('DGV_PATH', plugin_dir_path(__FILE__));
 define('DGV_ASSETS_URL', plugin_dir_url(__FILE__) . 'assets/');
 define('DGV_ASSETS_PATH', DGV_PATH . 'assets/');
 define('DGV_PT_VU', 'dgv-upload');
-define('DGV_MIN_PHP_VER', '7.1.0');
+define('DGV_MIN_PHP_VER', '5.5.0');
 
 require_once 'includes/classes/DGV_Plugin.php';

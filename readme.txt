@@ -3,7 +3,7 @@ Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 3.5
 Stable Tag: 1.0.0
-Requires PHP: 7.1.0
+Requires PHP: 5.5.0
 Tested up to: 5.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -39,6 +39,10 @@ Simple plugin that integrates your WordPress site with vimeo. Lets you upload vi
 = Can i use it without Client ID, Client Secret and Access Token? =
 
 No, you must have Client ID, Client Secret and Access Token with the required permissions.
+
+= Will you support PHP5+ ? =
+
+No, the official vimeo PHP library requires PHP 7.1.0. I tried to adopt the older vimeo library that supported PHP 5.5.0 and onwards but it was too buggy so i decided to bump the minimal PHP requirement to PHP 7.1.0. If you want to use the plugin please make sure you upgrade your PHP version or contact your host.
 
 == Screenshots ==
 

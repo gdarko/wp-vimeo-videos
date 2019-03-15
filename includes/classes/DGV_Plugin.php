@@ -39,8 +39,8 @@ class DGV_Plugin {
 	 */
 	protected function __construct() {
 
-		if(self::php_version_satisfied()) {
-			require_once DGV_PATH .'vendor/autoload.php';
+		if ( self::php_version_satisfied() ) {
+			require_once DGV_PATH . 'vendor/autoload.php';
 		}
 		require_once DGV_PATH . 'includes/helpers.php';
 		require_once DGV_PATH . 'includes/classes/DGV_Videos_Table.php';
@@ -83,20 +83,32 @@ class DGV_Plugin {
 			exit;
 		}
 
-		if(!dgv_check_api_connection()) {
+		if ( ! dgv_check_api_connection() ) {
 			wp_send_json_error( array(
 				'message' => __( 'Problem connecting to vimeo. Please check your settings!', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
 
-		$wp_uploads  = wp_upload_dir();
-		$destination = $wp_uploads['basedir'];
-		if ( ! file_exists( $destination ) ) {
-			@mkdir( $destination );
+		$wp_uploads       = wp_upload_dir();
+		$destination_path = $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . 'dgvimeo_tmp' . DIRECTORY_SEPARATOR;
+		$destination_url  = $wp_uploads['baseurl'] . '/dgvimeo_tmp/';
+		if ( ! file_exists( $destination_path ) ) {
+			if ( ! @mkdir( $destination_path ) ) {
+				wp_send_json_error( array(
+					'message' => __( 'Problem uploading the video. Please check your permissions!', 'wp-vimeo-videos' )
+				) );
+				exit;
+			}
 		}
-		$file_path = $destination . DIRECTORY_SEPARATOR . $_FILES['file']['name'];
+		$file_path = $destination_path . $_FILES['file']['name'];
+		$file_url  = $destination_url . $_FILES['file']['name'];
+		if ( file_exists( $file_path ) ) {
+			@unlink( $file_path );
+		}
+		@set_time_limit( 0 );
 		if ( move_uploaded_file( $_FILES['file']['tmp_name'], $file_path ) ) {
+			// We have the video file now.
 			try {
 				$privacy_view = isset( $_POST['privacy_view'] ) && ! empty( $_POST['privacy_view'] ) ? $_POST['privacy_view'] : 'anybody';
 				$title        = isset( $_POST['title'] ) && ! empty( $_POST['title'] ) ? $_POST['title'] : '';
@@ -106,28 +118,43 @@ class DGV_Plugin {
 					'description' => $destination,
 					'privacy'     => array( 'view' => $privacy_view )
 				);
-				$response = dgv_vimeo_upload( $file_path, $params );
-				unlink( $file_path );
-				$postID = wp_insert_post( array(
-					'post_title'   => wp_strip_all_tags( $title ),
-					'post_content' => $destination,
-					'post_status'  => 'publish',
-					'post_type'    => DGV_PT_VU,
-					'post_author'  => get_current_user_id(),
-				) );
-				if ( ! is_wp_error( $postID ) ) {
-					// Save the params
-					foreach ( array( 'privacy' ) as $param ) {
-						update_post_meta( $postID, 'dgv_' . $param, $params[ $param ] );
+				$response     = dgv_vimeo_upload_via_pull( $file_url, $params );
+				if ( isset( $response['body']['uri'] ) ) {
+					$postID = wp_insert_post( array(
+						'post_title'   => wp_strip_all_tags( $title ),
+						'post_content' => $destination,
+						'post_status'  => 'publish',
+						'post_type'    => DGV_PT_VU,
+						'post_author'  => get_current_user_id(),
+					) );
+					if ( ! is_wp_error( $postID ) ) {
+						// Save the params
+						foreach ( array( 'privacy' ) as $param ) {
+							update_post_meta( $postID, 'dgv_' . $param, $params[ $param ] );
+						}
+						// Save the response
+						update_post_meta( $postID, 'dgv_response', $response['body']['uri'] );
+						// Save the path for future deletion
+						// TODO: Cron to delete the uploaded videos from this server.
+						update_post_meta( $postID, 'dgv_local_file', $file_path );
 					}
-					// Save the response
-					update_post_meta( $postID, 'dgv_response', $response );
+					wp_send_json_success( array(
+						'message'  => __( 'Video uploaded successfully!', 'wp-vimeo-videos' ),
+						'response' => $response['body']['uri']
+					) );
+				} else {
+					if(file_exists($file_path)) {
+						@unlink($file_path);
+					}
+					wp_send_json_error( array(
+						'message'  => __( 'Response unreadable, but the video is most likely uploaded.', 'wp-vimeo-videos' ),
+						'response' => $response
+					) );
 				}
-				wp_send_json_success( array(
-					'message'  => __( 'Video uploaded successfully!', 'wp-vimeo-videos' ),
-					'response' => $response
-				) );
 			} catch ( \Exception $e ) {
+				if(file_exists($file_path)) {
+					@unlink($file_path);
+				}
 				wp_send_json_error( array( 'message' => $e->getMessage() ) );
 			}
 		} else {

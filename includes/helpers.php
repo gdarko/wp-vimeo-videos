@@ -88,13 +88,14 @@ function dgv_new_vimeo_instance() {
 	} else if ( empty( $access_token ) || strlen( trim( $access_token ) ) === 0 ) {
 		$error = __( 'Access Token is missing', 'wp-vimeo-videos' );
 	}
-	if(!class_exists('\Vimeo\Vimeo')) {
-		$error = __('Vimeo not loaded', 'wp-vimeo-videos');
+	if ( ! class_exists( '\Vimeo\Vimeo' ) ) {
+		$error = __( 'Vimeo not loaded', 'wp-vimeo-videos' );
 	}
-	if ( trim($error) !== '' ) {
+	if ( trim( $error ) !== '' ) {
 		throw new \Exception( $error );
 	}
 	$vimeo = new \Vimeo\Vimeo( $client_id, $client_secret, $access_token );
+
 	return $vimeo;
 }
 
@@ -105,19 +106,22 @@ function dgv_new_vimeo_instance() {
 function dgv_check_api_connection() {
 	try {
 		$vimeo = dgv_new_vimeo_instance();
+
 		return $vimeo instanceof \Vimeo\Vimeo;
-	} catch (\Exception $e) {
-		if(WP_DEBUG) {
-			error_log('DGV Error: ' . $e->getMessage());
+	} catch ( \Exception $e ) {
+		if ( WP_DEBUG ) {
+			error_log( 'DGV Error: ' . $e->getMessage() );
 		}
+
 		return false;
 	}
 }
 
 /**
  * Upload video
+ *
  * @param $file_path
- * @param $params
+ * @param array $params
  *
  * @return string
  * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -126,5 +130,47 @@ function dgv_check_api_connection() {
  */
 function dgv_vimeo_upload( $file_path, $params ) {
 	$vimeo = dgv_new_vimeo_instance();
+
 	return $vimeo->upload( $file_path, $params );
+}
+
+/**
+ * Upload video via pull method
+ *
+ * @param string $file_url
+ * @param array $params
+ *
+ * @return array
+ * @throws Exception
+ */
+function dgv_vimeo_upload_via_pull( $file_url, $params ) {
+	$vimeo    = dgv_new_vimeo_instance();
+	$params   = array_merge( array( 'approach' => 'pull', 'link' => $file_url ), $params );
+	$response = $vimeo->request( '/me/videos', $params, 'POST' );
+
+	return $response;
+}
+
+/**
+ * Check if WordPress can be accessed from public? Is this site running on local host?
+ * TODO: Ipv6 support
+ * @return bool
+ */
+function dgv_is_wp_accessible_from_public() {
+	if ( ! $is_accessible_from_public = wp_cache_get( 'dgv_is_accessible_from_public' ) ) {
+		$parts = parse_url( site_url() );
+		$host  = $parts['host'];
+		$ip    = @gethostbyname( $host );
+		if ( $ip === false ) {
+			$is_accessible_from_public = false;
+		} else {
+			$is_accessible_from_public = filter_var(
+				$ip,
+				FILTER_VALIDATE_IP,
+				FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+			);
+		}
+		wp_cache_set( 'dgv_is_accessible_from_public', $is_accessible_from_public );
+	}
+	return $is_accessible_from_public;
 }
