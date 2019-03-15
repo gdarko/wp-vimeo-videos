@@ -110,9 +110,9 @@ class DGV_Plugin {
 		if ( move_uploaded_file( $_FILES['file']['tmp_name'], $file_path ) ) {
 			// We have the video file now.
 			try {
-				$privacy_view = isset( $_POST['privacy_view'] ) && ! empty( $_POST['privacy_view'] ) ? $_POST['privacy_view'] : 'anybody';
-				$title        = isset( $_POST['title'] ) && ! empty( $_POST['title'] ) ? $_POST['title'] : '';
-				$destination  = isset( $_POST['description'] ) && ! empty( $_POST['description'] ) ? $_POST['description'] : '';
+				$privacy_view = isset( $_POST['privacy_view'] ) && ! empty( $_POST['privacy_view'] ) ? sanitize_text_field( $_POST['privacy_view'] ) : 'anybody';
+				$title        = isset( $_POST['title'] ) && ! empty( $_POST['title'] ) ? sanitize_text_field($_POST['title']) : '';
+				$destination  = isset( $_POST['description'] ) && ! empty( $_POST['description'] ) ? sanitize_textarea_field($_POST['description']) : '';
 				$params       = array(
 					'name'        => $title,
 					'description' => $destination,

@@ -12,7 +12,11 @@ Upload vimeo videos and embed the uploaded videos directly from WordPress
 
 == Description ==
 
-Simple plugin that integrates your WordPress site with vimeo. Lets you upload vimeo videos directly through WordPress and embed to your site using  shortcode.
+Lightweight and simple plugin that integrates your WordPress site with the popular video service <a href="https://vimeo.com/">vimeo</a>.
+
+Allows you to upload vimeo videos directly through WordPress and embed to your site using  shortcode.
+
+Please note that this plugin is unofficial and initially was written for own purposes. If you have any ideas feel free to share.
 
 == Installation ==
 
@@ -40,11 +44,11 @@ Simple plugin that integrates your WordPress site with vimeo. Lets you upload vi
 
 No, you must have Client ID, Client Secret and Access Token with the required permissions.
 
-= Will you localhost ? =
+= I see that the plugin doesn't support localhost. Any plans for support for non-public sites ? =
 
 At this time no, we are doing the uploads using public url as it is more reliable for shared environments.
 
-= I am uploading bigger files. Do i need to do any tweaks to the hosting configuration? ? =
+= Do i need to do any tweaks to the hosting configuration for bigger files ? =
 
 Most likely yes. You will need to edit php.ini and increase upload_max_filesize=MAXFILESIZE, post_max_size=MAXPOSTSIZE and max_execution_time=0 (unlimited).
 
