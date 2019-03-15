@@ -40,9 +40,13 @@ Simple plugin that integrates your WordPress site with vimeo. Lets you upload vi
 
 No, you must have Client ID, Client Secret and Access Token with the required permissions.
 
-= Will you support PHP5+ ? =
+= Will you localhost ? =
 
-No, the official vimeo PHP library requires PHP 7.1.0. I tried to adopt the older vimeo library that supported PHP 5.5.0 and onwards but it was too buggy so i decided to bump the minimal PHP requirement to PHP 7.1.0. If you want to use the plugin please make sure you upgrade your PHP version or contact your host.
+At this time no, we are doing the uploads using public url as it is more reliable for shared environments.
+
+= I am uploading bigger files. Do i need to do any tweaks to the hosting configuration? ? =
+
+Most likely yes. You will need to edit php.ini and increase upload_max_filesize=MAXFILESIZE, post_max_size=MAXPOSTSIZE and max_execution_time=0 (unlimited).
 
 == Screenshots ==
 
