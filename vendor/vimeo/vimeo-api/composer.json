@@ -12,10 +12,9 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=5.3.0",
         "ext-curl": "*",
-        "ext-json":"*",
-        "ankitpokhrel/tus-php": "v0.1.0"
+        "ext-json":"*"
     },
     "autoload": {
         "psr-4": {
@@ -28,15 +27,11 @@
         }
     },
     "require-dev": {
-        "php-coveralls/php-coveralls": "^1.0",
-        "phpunit/phpunit": "^7.4",
-        "vimeo/psalm": "^2.0"
+        "phpunit/phpunit": "^4.8 || ^6.5",
+        "php-coveralls/php-coveralls": "^1.0"
     },
     "scripts": {
         "coverage": "phpunit --coverage-html reports/",
-        "tests": [
-            "psalm",
-            "phpunit"
-        ]
+        "tests": "phpunit"
     }
 }
