@@ -3,7 +3,7 @@
  * Plugin Name: WP Vimeo Videos
  * Plugin URI: https://darkog.com/plugins/wp-vimeo-videos
  * Description: Easily upload vimeo videos and embed them on your site from WordPress Dashboard.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Darko Gjorgjijoski
  * Author URI: https://darkog.com/
  */

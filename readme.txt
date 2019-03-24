@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 3.5
-Stable Tag: 1.0.2
+Stable Tag: 1.0.3
 Requires PHP: 5.5.0
 Tested up to: 5.1.1
 License: GPLv2 or later
@@ -59,6 +59,9 @@ Most likely yes. You will need to edit php.ini and increase upload_max_filesize=
 3. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.0.3 =
+* Fix fatal error in some cases.
 
 = Version 1.0.2 =
 * Fix problem with file names that vimeo didn't accepted.
