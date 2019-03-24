@@ -1,14 +1,11 @@
 <?php
-
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
-
 /**
  * List table class
  */
 class DGV_Videos_Table extends \WP_List_Table {
-
 	function __construct() {
 		parent::__construct( array(
 			'singular' => 'video',
@@ -16,11 +13,9 @@ class DGV_Videos_Table extends \WP_List_Table {
 			'ajax'     => false
 		) );
 	}
-
 	function get_table_classes() {
 		return array( 'widefat', 'fixed', 'striped', $this->_args['plural'] );
 	}
-
 	/**
 	 * Message to show if no designation found
 	 *
@@ -29,7 +24,6 @@ class DGV_Videos_Table extends \WP_List_Table {
 	function no_items() {
 		_e( 'No videos found', 'wp-vimeo-videos' );
 	}
-
 	/**
 	 * Default column values if no callback found
 	 *
@@ -39,17 +33,9 @@ class DGV_Videos_Table extends \WP_List_Table {
 	 * @return string
 	 */
 	function column_default( $item, $column_name ) {
-
 		switch ( $column_name ) {
 			case 'title':
 				return $item->post_title;
-			case 'privacy':
-				$privacy = get_post_meta( $item->ID, 'dgv_privacy', true );
-				if ( isset( $privacy['view'] ) ) {
-					return '<code>' . $privacy['view'] . '</code>';
-				} else {
-					return 'unknown';
-				}
 			case 'embed':
 				$vimeo_id = dgv_get_vimeo_id($item->ID);
 				return '<code>[vimeo_video id="' . $vimeo_id . '"]</code>';
@@ -59,7 +45,6 @@ class DGV_Videos_Table extends \WP_List_Table {
 				return isset( $item->$column_name ) ? $item->$column_name : '';
 		}
 	}
-
 	/**
 	 * Get the column names
 	 *
@@ -69,15 +54,11 @@ class DGV_Videos_Table extends \WP_List_Table {
 		$columns = array(
 			'cb'          => '<input type="checkbox" />',
 			'title'       => __( 'Title', 'wp-vimeo-videos' ),
-			'privacy'     => __( 'Privacy', 'wp-vimeo-videos' ),
 			'embed'       => __( 'Embed', 'wp-vimeo-videos' ),
 			'uploaded_at' => __( 'Uploaded', 'wp-vimeo-videos' ),
-
 		);
-
 		return $columns;
 	}
-
 	/**
 	 * Render the designation name column
 	 *
@@ -86,14 +67,11 @@ class DGV_Videos_Table extends \WP_List_Table {
 	 * @return string
 	 */
 	function column_title( $item ) {
-
 		$actions = array();
 		//$actions['edit']   = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=vimeo-videos&action=edit&id=' . $item->id ), $item->id, __( 'Edit this item', 'wp-vimeo-videos' ), __( 'Edit', 'wp-vimeo-videos' ) );
 		//$actions['delete'] = sprintf( '<a href="%s" class="submitdelete" data-id="%d" title="%s">%s</a>', admin_url( 'admin.php?page=vimeo-videos&action=delete&id=' . $item->id ), $item->id, __( 'Delete this item', 'wp-vimeo-videos' ), __( 'Delete', 'wp-vimeo-videos' ) );
-
 		return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE . '&action=edit&id=' . $item->ID ), $item->post_title, $this->row_actions( $actions ) );
 	}
-
 	/**
 	 * Get sortable columns
 	 *
@@ -102,10 +80,8 @@ class DGV_Videos_Table extends \WP_List_Table {
 	function get_sortable_columns() {
 		$sortable_columns = array(//'name' => array( 'name', true ),
 		);
-
 		return $sortable_columns;
 	}
-
 	/**
 	 * Set the bulk actions
 	 *
@@ -114,10 +90,8 @@ class DGV_Videos_Table extends \WP_List_Table {
 	function get_bulk_actions() {
 		$actions = array(//'trash'  => __( 'Move to Trash', 'wp-vimeo-videos' ),
 		);
-
 		return $actions;
 	}
-
 	/**
 	 * Render the checkbox column
 	 *
@@ -130,7 +104,6 @@ class DGV_Videos_Table extends \WP_List_Table {
 			'<input type="checkbox" name="video_id[]" value="%d" />', $item->id
 		);
 	}
-
 	/**
 	 * Set the views
 	 *
@@ -139,45 +112,36 @@ class DGV_Videos_Table extends \WP_List_Table {
 	public function get_views_() {
 		$status_links = array();
 		$base_link    = admin_url( 'upload.php?page=' . DGV_Plugin::PAGE_HANDLE . '&upload_new=1' );
-
 		foreach ( $this->counts as $key => $value ) {
 			$class                = ( $key == $this->page_status ) ? 'current' : 'status-' . $key;
 			$status_links[ $key ] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>', add_query_arg( array( 'status' => $key ), $base_link ), $class, $value['label'], $value['count'] );
 		}
-
 		return $status_links;
 	}
-
 	/**
 	 * Prepare the class items
 	 *
 	 * @return void
 	 */
 	function prepare_items() {
-
 		$columns               = $this->get_columns();
 		$hidden                = array();
 		$sortable              = $this->get_sortable_columns();
 		$this->_column_headers = array( $columns, $hidden, $sortable );
-
 		$per_page          = 20;
 		$current_page      = $this->get_pagenum();
 		$offset            = ( $current_page - 1 ) * $per_page;
 		$this->page_status = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : '2';
-
 		// only ncessary because we have sample data
 		$args = array(
 			'offset' => $offset,
 			'number' => $per_page,
 		);
-
 		if ( isset( $_REQUEST['orderby'] ) && isset( $_REQUEST['order'] ) ) {
 			$args['orderby'] = $_REQUEST['orderby'];
 			$args['order']   = $_REQUEST['order'];
 		}
-
 		$this->items = dgv_videos_get( $args );
-
 		$this->set_pagination_args( array(
 			'total_items' => dgv_videos_count(),
 			'per_page'    => $per_page

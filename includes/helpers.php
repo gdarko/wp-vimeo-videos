@@ -13,10 +13,8 @@ function dgv_videos_get( $args ) {
 		'offset'         => $args['offset'],
 		'post_status'    => 'publish'
 	) );
-
 	return $posts;
 }
-
 /**
  * Get total videos count
  * @return int
@@ -27,10 +25,8 @@ function dgv_videos_count() {
 		'posts_per_page' => - 1,
 		'post_status'    => 'publish'
 	) );
-
 	return count( $posts );
 }
-
 /**
  * Returns view, allows to pass data
  *
@@ -47,15 +43,12 @@ function dgv_get_view( $view, $data = array() ) {
 	if ( file_exists( $path ) ) {
 		ob_start();
 		include( $path );
-
 		return ob_get_clean();
 	} else {
 		error_log( __( 'DGV: Template file does not exists.', 'wp-vimeo-videos' ) );
-
 		return '';
 	}
 }
-
 /**
  * Extract vimeo ID out of the vimeo CREATE/UPLOAD response
  *
@@ -66,17 +59,14 @@ function dgv_get_view( $view, $data = array() ) {
 function dgv_get_vimeo_id( $post_ID ) {
 	$response = get_post_meta( $post_ID, 'dgv_response', true );
 	$vimeo_id = str_replace( '/videos/', '', $response );
-
 	return $vimeo_id;
 }
-
 /**
  * Returns the vimeo instance
  * @return bool|\Vimeo\Vimeo
  * @throws Exception
  */
 function dgv_new_vimeo_instance() {
-
 	$client_id     = get_option( 'dgv_client_id' );
 	$client_secret = get_option( 'dgv_client_secret' );
 	$access_token  = get_option( 'dgv_access_token' );
@@ -95,10 +85,8 @@ function dgv_new_vimeo_instance() {
 		throw new \Exception( $error );
 	}
 	$vimeo = new \Vimeo\Vimeo( $client_id, $client_secret, $access_token );
-
 	return $vimeo;
 }
-
 /**
  * Check if the credentials are valid
  * @return array|bool
@@ -106,17 +94,14 @@ function dgv_new_vimeo_instance() {
 function dgv_check_api_connection() {
 	try {
 		$vimeo = dgv_new_vimeo_instance();
-
 		return $vimeo instanceof \Vimeo\Vimeo;
 	} catch ( \Exception $e ) {
 		if ( WP_DEBUG ) {
 			error_log( 'DGV Error: ' . $e->getMessage() );
 		}
-
 		return false;
 	}
 }
-
 /**
  * Upload video
  *
@@ -130,10 +115,8 @@ function dgv_check_api_connection() {
  */
 function dgv_vimeo_upload( $file_path, $params ) {
 	$vimeo = dgv_new_vimeo_instance();
-
 	return $vimeo->upload( $file_path, $params );
 }
-
 /**
  * Upload video via pull method
  *
@@ -147,10 +130,11 @@ function dgv_vimeo_upload_via_pull( $file_url, $params ) {
 	$vimeo    = dgv_new_vimeo_instance();
 	$params   = array_merge( array( 'upload' => array('approach' => 'pull', 'link' => $file_url) ), $params );
 	$response = $vimeo->request( '/me/videos', $params, 'POST' );
-
-	return $response;
+	return array(
+		'params' => $params,
+		'response' => $response
+	);
 }
-
 /**
  * Check if WordPress can be accessed from public? Is this site running on local host?
  * TODO: Ipv6 support
