@@ -1,18 +1,54 @@
 <?php
 /**
- * Plugin Name: WP Vimeo Videos
- * Plugin URI: https://darkog.com/plugins/wp-vimeo-videos
- * Description: Easily upload vimeo videos and embed them on your site from WordPress Dashboard.
- * Version: 1.0.3
- * Author: Darko Gjorgjijoski
- * Author URI: https://darkog.com/
+ * Plugin Name:       WP Vimeo Videos
+ * Plugin URI:        https://codeverve.com
+ * Description:       Embed and upload videos to Vimeo directly from WordPress
+ * Version:           1.1.1
+ * Author:            Darko Gjorgjijoski
+ * Author URI:        https://darkog.com
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       wp-vimeo-videos
+ * Domain Path:       /languages
  */
-if(!defined('ABSPATH')){
-	exit;
+
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
 }
-define('DGV_PATH', plugin_dir_path(__FILE__));
-define('DGV_ASSETS_URL', plugin_dir_url(__FILE__) . 'assets/');
-define('DGV_ASSETS_PATH', DGV_PATH . 'assets/');
-define('DGV_PT_VU', 'dgv-upload');
-define('DGV_MIN_PHP_VER', '5.5.0');
-require_once 'includes/classes/DGV_Plugin.php';
+
+define( 'WP_VIMEO_VIDEOS_VERSION', '1.1.1' );
+define( 'WP_VIMEO_VIDEOS_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WP_VIMEO_VIDEOS_URL', plugin_dir_url( __FILE__ ) );
+define( 'WP_VIMEO_VIDEOS_MIN_PHP_VERSION', '5.5.0' );
+
+
+if ( ! function_exists( 'is_plugin_active' ) ) {
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+}
+
+if ( ! is_plugin_active( 'wp-vimeo-videos-pro/wp-vimeo-videos-pro.php' ) ) {
+	function activate_wp_vimeo_videos() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-dgv-activator.php';
+		WP_DGV_Activator::activate();
+	}
+
+	function deactivate_wp_vimeo_videos() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-dgv-deactivator.php';
+		WP_DGV_Deactivator::deactivate();
+	}
+
+	register_activation_hook( __FILE__, 'activate_wp_vimeo_videos' );
+	register_deactivation_hook( __FILE__, 'deactivate_wp_vimeo_videos' );
+	require plugin_dir_path( __FILE__ ) . 'includes/class-wp-dgv.php';
+	function run_wp_vimeo_videos() {
+
+		$plugin = new WP_DGV();
+		$plugin->run();
+
+	}
+
+	run_wp_vimeo_videos();
+}
+
+

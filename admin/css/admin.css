@@ -1,0 +1,228 @@
+.form-row.with-border {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 25px;
+}
+
+.form-row textarea, .form-row input[type=text], .form-row select {
+    max-width: 500px;
+    width: 100%;
+}
+
+.form-row textarea {
+    height: 109px;
+}
+
+.wvv-box {
+    background: #fff;
+    padding: 20px;
+    border-left: 4px solid #fff;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+}
+
+.dgv-wrap {
+    margin: 10px 20px 0 2px;
+}
+
+.dgv-wrap h1, .dgv-wrap > h2:first-child {
+    font-size: 23px;
+    font-weight: 400;
+    padding: 9px 0 4px 0;
+    line-height: 29px;
+    margin-bottom: 14px;
+}
+
+.dgv-wrap .page-title-action {
+    margin-left: 4px;
+    padding: 4px 8px;
+    position: relative;
+    top: -3px;
+    text-decoration: none;
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background: #f7f7f7;
+    text-shadow: none;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: normal;
+    color: #0073aa;
+    cursor: pointer;
+    outline: 0;
+}
+
+.form-row {
+    margin-bottom: 25px;
+}
+
+.form-row > label {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.dgv-clear-padding {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.vimeo-api-info p.wvv-status-red {
+    color: red;
+    font-weight: bold;
+}
+
+.vimeo-api-info p.wvv-status-green {
+    color: green;
+    font-weight: bold;
+}
+
+.vimeo-api-info th {
+    text-align: left;
+}
+
+.vimeo-api-info p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.vimeo-api-info {
+    border: 1px solid #ccc;
+    background: #fcfcfc;
+    padding: 10px;
+}
+
+h2.wvv-form-heading {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 12px;
+}
+
+.wvv-row {
+    width: 100%;
+    float:left;
+}
+.wvv-col {
+    margin-right: 2%;
+}
+.wvv-col:last-child {
+    margin-right: 0;
+}
+.wvv-col-60 {
+    width:59%;
+    float:left;
+}
+.wvv-col-40 {
+    width:39%;
+    float:left;
+}
+.wvv-list {
+    list-style: square;
+    padding-left: 30px;
+}
+.wvv-form-notice {
+    margin-top: 12px;
+}
+
+.wvv-form-notice p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.wvv-form-notice {
+    padding: 10px;
+    background: #f5f5f5;
+    border: 1px solid #f3f3f3;
+}
+
+/**
+ Upload form
+ */
+
+.dgv-vimeo-form-row input[type=text] {
+    width: 100%;
+}
+.dgv-progress-bar {
+    height: 20px;
+    width: 100%;
+    background: #f0f0f0;
+    text-align: center;
+    position: relative;
+}
+.dgv-progress-bar-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #2593c5;
+    max-width: 100%;
+}
+.dgv-progress-bar-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.dgv-loader:before {
+    height: 25px;
+    width: 25px;
+    content: '';
+    animation: spin 1s ease-in-out infinite;
+    background: url(../img/loader.gif) center center;
+    background-size: cover;
+    line-height: 1;
+    text-align: center;
+    font-size: 2em;
+    color: rgba(78, 59, 59, 0.75);
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* News */
+.wvv-news-entry {
+    border-bottom: 1px solid #ccc;
+    padding: 15px 20px;
+    background: #fff;
+}
+
+.wvv-news-entry:last-child {
+    border-bottom: 0;
+}
+
+.wvv-news-entry h4 {
+    margin-bottom: 0 !important;
+    margin-top: 5px;
+    font-style: italic;
+    font-size: 12px !important;
+}
+.wvv-news-entry h3 {
+    margin-bottom: 0 !important;
+    margin-top: 0;
+}
+.wvv-news-panel {
+    background: #fff;
+    float: left;
+    max-width: 90%;
+}
+.wvv-news-panel > h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+.wvv-news-entry p {
+    margin-bottom: 0;
+}
+
+.wvv-news-entry p {
+    margin-bottom: 0;
+    margin-top: 5px;
+    color: #4e4e4e;
+}
+.wvv-mb-20 {
+    margin-bottom: 20px !important;
+}

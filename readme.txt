@@ -1,22 +1,47 @@
 === WP Vimeo Videos ===
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
-Requires at least: 3.5
-Stable Tag: 1.0.3
+Requires at least: 4.2
+Stable Tag: 1.1.1
 Requires PHP: 5.5.0
-Tested up to: 5.1.1
+Tested up to: 5.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Upload vimeo videos and embed the uploaded videos directly from WordPress
+Embed and upload videos to Vimeo directly from WordPress
 
 == Description ==
 
-Lightweight and simple plugin that integrates your WordPress site with the popular video service <a href="https://vimeo.com/">vimeo</a>.
+**Integrtes your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. :)**
 
-Allows you to upload vimeo videos directly through WordPress and embed to your site using  shortcode.
+**Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo sofware. It just uses their Developer API to provide interface for uploading videos directly from WordPress.
 
-Please note that this plugin is unofficial and initially was written for own purposes. If you have any ideas feel free to share.
+Especially useful in the following cases:
+- If you want to speed up the entire process. No need to login to Vimeo, you can now upload videos directly WordPress.
+- If you don't want to share your Vimeo login credentials especially when running multi-author blog.
+
+=== How it works ===
+
+In order to be able to connect to Vimeo you will need to sign up on <a target="_blank" href="https://developer.vimeo.com/">Vimeo Developer Portal</a> and request access to the Vimeo API. Please check the Installation tab and also the screenshot 4.
+
+=== Features  ===
+
+* Upload videos from the Media screen
+* Upload videos from the Gutenberg editor
+* Responsive embeds from the Gutenberg editor
+* Media > Vimeo is accessible by the users that have the capability upload_files (Author, Editor, Administrators by default)
+* Settings > Vimeo is accessible by the users that have the capability manage_options (Administrators by default)
+* Shortcode available [dgv_vimeo_video id="the_vimeo_id"]
+* Useful API information and tips in the Settings > Vimeo Page
+
+=== Premium Version (Coming Soon) ===
+We are working on premium version of the plugin with the following features
+ - import Vimeo videos to the local library,
+ - update Vimeo video from WordPress,
+ - delete Vimeo video from WordPress,
+ - upload Vimeo video from the front-end (Initially i will support only GravityForms.)
+ - it also supports me to continue maintaining this plugin
+ Stay tuned! 🙏
 
 == Installation ==
 
@@ -24,13 +49,14 @@ Please note that this plugin is unofficial and initially was written for own pur
 
 * Download the plugin from the WordPress.org repository
 * Go to your WordPress Dashboard, navigate to Plugins > Add Plugin and upload the zip file you downloaded.
-* Assuming you installed the plugin successfully, you can continue using the plugin by navigating to Media > Vimeo
+* Setup your pereferences and API credentials from Settings > Vimeo
+* Upload videos from Media > Vimeo or the editor
 
 = Plugin Configuration =
 
 * Go to <a target="_blank" href="https://developer.vimeo.com/">Vimeo Developer Portal</a> sign up and "Create App"
 * Navigate to My Apps in developer portal, click the app you created
-* You need to obtain the following keys and save them in the "Settings" page:
+* You need to obtain the following keys and save them in the "Settings > Vimeo" page:
 * Client ID: Copy the code from "Client Identifier"
 * Client Secret: Copy the code that is shown in the "Client Secrets" area
 * Access Token: Click "Generate an access token", select "Authenticated" and select the following scopes: "Public, Private, Edit, Upload, Delete, Create, Interact, Video Files"
@@ -40,25 +66,39 @@ Please note that this plugin is unofficial and initially was written for own pur
 
 == Frequently Asked Questions ==
 
-= Can i use it without Client ID, Client Secret and Access Token? =
+= Can i use it without Client ID, Client Secret or Access Token? =
 
-No, you must have Client ID, Client Secret and Access Token with the required permissions.
+No, you must have Client ID, Client Secret and Access Token with the required scopes/permissions.
 
-= I see that the plugin doesn't support localhost. Any plans for support for non-public sites ? =
+= Which API scopes are required =
 
-At this time no, we are doing the uploads using public url as it is more reliable for shared environments.
+Most of them. Especially if you are using the premium version. So it's best to select the following at least: public, private, create, edit, delete, upload, video_files
 
 = Do i need to do any tweaks to the hosting configuration for bigger files ? =
 
-Most likely yes. You will need to edit php.ini and increase upload_max_filesize=MAXFILESIZE, post_max_size=MAXPOSTSIZE and max_execution_time=0 (unlimited).
+The files are streamed directly from your browser to Vimeo using the TUS protocol, so the upload process doesn't rely on the server where your site is hosted anymore. Therefore no need to adjust any settings.
 
 == Screenshots ==
 
-1. Vimeo Uploads
-2. Vimeo Settings
-3. Example Vimeo Developer APP and how to get the required access keys.
+1. Main upload form
+2. Gutenberg upload block
+3. Settings screen that showing useful API information
+4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.1.1 =
+* Fix Settings form saving
+
+= Version 1.1.0 =
+* Major rewrite. Includes lots of code improvements and paves the way for more development in future.
+* Added API Information section in the settings page. You can now see if you are connected, which scopes you have assigned and much more.
+* Added Gutenberg block. It's now possible to upload video or choose from existing directly from the editor.
+* Added support for direct upload approach that doesn't require the files to stay on the server for some time. You can easily switch through Settings now.
+* Moved Settings page to Settings menu in the Dashboard
+* Improved Media > Vimeo permissions. The page is accessible for Authors, Editors and Administrators or other users that have the capability upload_files
+* Improved Settings > Vimeo permissions. The page is accessible only by Administrators or other users that have the capability manage_options
+* Fixed cron clean up task problem for the pull upload approach
 
 = Version 1.0.3 =
 * Fix fatal error in some cases.

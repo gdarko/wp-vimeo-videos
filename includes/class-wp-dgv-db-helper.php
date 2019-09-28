@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * The db access helper class
+ *
+ * @since      1.0.0
+ * @package    WP_DGV
+ * @subpackage WP_DGV/includes
+ * @copyright     Darko Gjorgjijoski <info@codeverve.com>
+ * @license    GPLv2
+ */
+class WP_DGV_Db_Helper {
+
+	const POST_TYPE_UPLOADS = 'dgv-upload';
+
+	/**
+	 * The WPDB Instance
+	 * @var wpdb
+	 */
+	protected $db;
+
+	/**
+	 * WP_DGV_Db_Helper constructor.
+	 */
+	public function __construct() {
+		global $wpdb;
+		$this->db = &$wpdb;
+	}
+
+	/**
+	 * Return all the vimeo videos from the local database.
+	 *
+	 * @param array $args
+	 *
+	 * @return int[]|WP_Post[]
+	 */
+	public function get_videos( $args = array() ) {
+		$params = array(
+			'post_type'      => self::POST_TYPE_UPLOADS,
+			'posts_per_page' => isset( $args['number'] ) ? $args['number'] : - 1,
+			'offset'         => isset( $args['offset'] ) ? $args['offset'] : 0,
+			'post_status'    => 'publish'
+		);
+		$posts  = get_posts( $params );
+
+		return $posts;
+	}
+
+	/**
+	 * Return total videos count
+	 * @return string|null
+	 */
+	public function get_videos_count() {
+		$query = $this->db->prepare( "SELECT COUNT(*) FROM {$this->db->posts} P WHERE P.post_status='publish' AND P.post_type=%s", self::POST_TYPE_UPLOADS );
+		$count = $this->db->get_var( $query );
+
+		return $count;
+	}
+
+	/**
+	 * Return the vimeo uri for specific local vimeo video.
+	 *
+	 * @param $post_id
+	 *
+	 * @return mixed
+	 */
+	public function get_vimeo_uri( $post_id ) {
+		$response = get_post_meta( $post_id, 'dgv_response', true );
+
+		return $response;
+	}
+
+	/**
+	 * Return the vimeo video id for specific local vimeo video.
+	 *
+	 * @param $post_id
+	 * @param int
+	 *
+	 * @return mixed
+	 */
+	public function get_vimeo_id( $post_id ) {
+		$vimeo_uri = $this->get_vimeo_uri( $post_id );
+		$vimeo_id  = str_replace( '/videos/', '', $vimeo_uri );
+
+		return $vimeo_id;
+	}
+
+	/**
+	 * Returns local vimeo video post id.
+	 *
+	 * @param $vimeo_uri
+	 *
+	 * @return string|null
+	 */
+	public function get_post_id( $vimeo_uri ) {
+		$table     = $this->db->postmeta;
+		$query     = $this->db->prepare( "SELECT post_id FROM {$table} PM WHERE PM.meta_key='dgv_response' AND PM.meta_value='%s'", $vimeo_uri );
+		return $this->db->get_var( $query );
+	}
+
+	/**
+	 * Set the database defaults
+	 */
+	public function set_defaults() {}
+
+	/**
+	 * Returns the local video
+	 * @param $title
+	 * @param $description
+	 * @param $uri
+	 *
+	 * @return int|WP_Error
+	 */
+	public function create_local_video($title, $description, $uri) {
+		$postID = wp_insert_post( array(
+			'post_title'   => wp_strip_all_tags( $title ),
+			'post_content' => wp_strip_all_tags( $description ),
+			'post_status'  => 'publish',
+			'post_type'    => WP_DGV_Db_Helper::POST_TYPE_UPLOADS,
+			'post_author'  => get_current_user_id(),
+		) );
+
+		if(!is_wp_error($postID)) {
+			update_post_meta($postID, 'dgv_response', $uri);
+		}
+		return $postID;
+	}
+}

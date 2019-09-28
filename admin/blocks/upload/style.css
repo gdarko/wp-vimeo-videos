@@ -1,0 +1,25 @@
+.dgv-vimeo-form-row input[type="submit"] {
+    width: 100%;
+}
+
+.dgv-vimeo-form-row textarea {
+    width: 100%;
+}
+
+.dgv-vimeo-form-row {
+    margin-bottom: 10px;
+}
+
+.dgv-vimeo-form-row label {
+    display: block !important;
+    width: 100%;
+    margin-right: 5px !important;
+}
+
+.dgv-embed-container iframe {
+    width: 100%;
+    display: block;
+    background: #f0f0f0;
+    padding: 5px;
+    border: 1px solid #cccc;
+}
