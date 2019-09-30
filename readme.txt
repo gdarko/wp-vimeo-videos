@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 4.2
-Stable Tag: 1.1.1
+Stable Tag: 1.1.2
 Requires PHP: 5.5.0
 Tested up to: 5.2.3
 License: GPLv2 or later
@@ -14,7 +14,7 @@ Embed and upload videos to Vimeo directly from WordPress
 
 **Integrtes your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. :)**
 
-**Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo sofware. It just uses their Developer API to provide interface for uploading videos directly from WordPress.
+**Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo software. It just uses their Developer API to provide interface for uploading videos directly from WordPress.
 
 Especially useful in the following cases:
 - If you want to speed up the entire process. No need to login to Vimeo, you can now upload videos directly WordPress.
@@ -86,6 +86,9 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.1.2 =
+* Fix Fatal Error in the Settings page (news section)
 
 = Version 1.1.1 =
 * Fix Settings form saving

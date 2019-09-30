@@ -49,7 +49,7 @@ class WP_DGV_Product_News_Helper {
 			$url      = add_query_arg( 'product', $this->handle, $this->endpoint );
 			$response = wp_remote_get( $url );
 			$news     = array();
-			if ( is_wp_error( $news ) && $news instanceof WP_Error ) {
+			if ( is_wp_error( $response ) ) {
 				error_log( 'DGV News Error: ' . $news->get_error_message() );
 			} else {
 				$data = $response['body'];
