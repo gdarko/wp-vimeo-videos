@@ -104,21 +104,31 @@ class WP_DGV_Admin {
 		) );
 
 		// Vimeo Upload Block
-		wp_enqueue_script( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/script.js', array( 'wp-blocks', 'wp-editor', 'jquery', 'dgv-uploader' ), filemtime(WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/script.js') );
-		wp_enqueue_style( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/style.css', array(), filemtime(WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/style.css'), 'all' );
-		$_uploads = $this->db_helper->get_videos();
-		$uploads  = array();
-		foreach ( $_uploads as $_upload ) {
-			$uploads[] = array(
-				'title'    => $_upload->post_title,
-				'vimeo_id' => $this->db_helper->get_vimeo_id( $_upload->ID ),
-				'ID'       => $_upload->ID
-			);
+		$current_screen   = get_current_screen();
+		$is_edit_screen   = isset( $_GET['post'] ) && is_numeric( $_GET['post'] );
+		$is_create_screen = $current_screen->action === 'add' && $current_screen->base === 'post';
+		if ( $is_create_screen || $is_edit_screen ) {
+			wp_enqueue_script( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/script.js', array(
+				'wp-blocks',
+				'wp-editor',
+				'jquery',
+				'dgv-uploader'
+			), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/script.js' ) );
+			wp_enqueue_style( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/style.css', array(), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/style.css' ), 'all' );
+			$_uploads = $this->db_helper->get_videos();
+			$uploads  = array();
+			foreach ( $_uploads as $_upload ) {
+				$uploads[] = array(
+					'title' => $_upload->post_title,
+					'vimeo_id' => $this->db_helper->get_vimeo_id( $_upload->ID ),
+					'ID' => $_upload->ID
+				);
+			}
+			wp_localize_script( 'wvv-vimeo-upload-block', 'DGVUB', array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'uploads'  => $uploads,
+			) );
 		}
-		wp_localize_script( 'wvv-vimeo-upload-block', 'DGVUB', array(
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-			'uploads'  => $uploads,
-		) );
 	}
 
 
