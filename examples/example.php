@@ -18,4 +18,4 @@ function _dgv_after_upload_whitelist_domain( $uri, $api ) {
 	}
 
 }
-add_action( 'dgv_after_upload', '_dgv_after_upload_whitelist_domain' );
+add_action( 'dgv_after_upload', '_dgv_after_upload_whitelist_domain', 100, 2 );
