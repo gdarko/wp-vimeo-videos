@@ -58,13 +58,12 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	 * @return string
 	 */
 	public function column_default( $item, $column_name ) {
+
+
 		switch ( $column_name ) {
-			case 'title':
-				return $item->post_title;
 			case 'embed':
 				$vimeo_id = $this->db_helper->get_vimeo_id( $item->ID );
-
-				return '<code>[vimeo_video id="' . $vimeo_id . '"]</code>';
+				return '<code>[dgv_vimeo_video id="' . $vimeo_id . '"]</code>';
 			case 'uploaded_at':
 				return get_the_date( get_option( 'date_format' ), $item );
 			default:

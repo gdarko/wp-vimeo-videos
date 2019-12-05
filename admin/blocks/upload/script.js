@@ -93,7 +93,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                     var video_uri = currentUpload.uri;
                     var video_uri_parts = video_uri.split('/');
                     var video_id = video_uri_parts[video_uri_parts.length - 1];
-                    DGVUB.uploads.push({title: props.attributes.title, ID: null, vimeo_id: video_id});
+                    DGV.uploads.push({title: props.attributes.title, ID: null, vimeo_id: video_id});
                     props.setAttributes({
                         'vimeo_id': video_id,
                         'current_message_type': 'success',
@@ -132,7 +132,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
         var vimeo_video_id = props.attributes.vimeo_id;
 
         // Setup the uploads
-        var uploads = DGVUB.uploads;
+        var uploads = DGV.uploads;
         var uploads_options = [];
         uploads_options.push(React.createElement("option", {
             value: -1,

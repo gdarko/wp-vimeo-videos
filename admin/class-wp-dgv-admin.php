@@ -67,7 +67,7 @@ class WP_DGV_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/admin.css', array(), filemtime(plugin_dir_path( __FILE__ ) . 'css/admin.css'), 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/admin.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'css/admin.css' ), 'all' );
 	}
 
 	/**
@@ -77,6 +77,20 @@ class WP_DGV_Admin {
 	 */
 	public function enqueue_scripts() {
 
+		// Validate the current screen
+		$current_screen           = get_current_screen();
+		$is_edit_screen           = isset( $_GET['post'] ) && is_numeric( $_GET['post'] );
+		$is_create_screen         = $current_screen->action === 'add' && $current_screen->base === 'post';
+		$is_gutenberg_active      = wvv_is_gutenberg_active();
+		$is_create_or_edit_screen = $is_create_screen || $is_edit_screen;
+
+
+		// Get all uploads
+		$uploads = null;
+		if ( $is_create_or_edit_screen ) {
+			$uploads = $this->db_helper->get_uploaded_videos();
+		}
+
 		// Sweetalert
 		wp_enqueue_script( 'swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/swal.min.js', null, null, true );
 
@@ -84,30 +98,31 @@ class WP_DGV_Admin {
 		wp_enqueue_script( 'dgv-tus', WP_VIMEO_VIDEOS_URL . 'admin/js/tus.min.js', null, '1.8.0' );
 
 		// Uploader
-		wp_enqueue_script( 'dgv-uploader', WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js', array('dgv-tus'), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/uploader.js' ));
+		wp_enqueue_script( 'dgv-uploader', WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js', array( 'dgv-tus' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/uploader.js' ) );
 
 		// Admin
-		wp_enqueue_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array( 'jquery', 'dgv-uploader' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
+		wp_enqueue_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array(
+			'jquery',
+			'dgv-uploader'
+		), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
 		wp_localize_script( $this->plugin_name, 'DGV', array(
-			'nonce'                => wp_create_nonce( 'dgvsecurity' ),
-			'ajax_url'             => admin_url( 'admin-ajax.php' ),
-			'access_token'         => get_option( 'dgv_access_token' ),
-			'api_scopes'           => $this->api_helper->scopes,
-			'default_privacy'      => apply_filters( 'dgv_default_privacy', 'anybody' ),
-			'uploading'            => sprintf( '%s %s', '<img src="' . admin_url( 'images/spinner.gif' ) . '">', __( 'Uploading video. Please wait...', 'wp-vimeo-videos' ) ),
-			'sorry'                => __( 'Sorry', 'wp-vimeo-videos' ),
-			'upload_invalid_file'  => __('Please select valid video file.', 'wp-vimeo-videos'),
-			'success'              => __( 'Success', 'wp-vimeo-videos' ),
-			'cancel'               => __( 'Cancel', 'wp-vimeo-videos' ),
-			'confirm'              => __( 'Confirm', 'wp-vimeo-videos' ),
-			'close'                => __( 'Close', 'wp-vimeo-videos' ),
+			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
+			'ajax_url'            => admin_url( 'admin-ajax.php' ),
+			'access_token'        => get_option( 'dgv_access_token' ),
+			'api_scopes'          => $this->api_helper->scopes,
+			'default_privacy'     => apply_filters( 'dgv_default_privacy', 'anybody' ),
+			'uploading'           => sprintf( '%s %s', '<img src="' . admin_url( 'images/spinner.gif' ) . '">', __( 'Uploading video. Please wait...', 'wp-vimeo-videos' ) ),
+			'sorry'               => __( 'Sorry', 'wp-vimeo-videos' ),
+			'upload_invalid_file' => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
+			'success'             => __( 'Success', 'wp-vimeo-videos' ),
+			'cancel'              => __( 'Cancel', 'wp-vimeo-videos' ),
+			'confirm'             => __( 'Confirm', 'wp-vimeo-videos' ),
+			'close'               => __( 'Close', 'wp-vimeo-videos' ),
+			'uploads'             => $uploads,
 		) );
 
-		// Vimeo Upload Block
-		$current_screen   = get_current_screen();
-		$is_edit_screen   = isset( $_GET['post'] ) && is_numeric( $_GET['post'] );
-		$is_create_screen = $current_screen->action === 'add' && $current_screen->base === 'post';
-		if ( $is_create_screen || $is_edit_screen ) {
+
+		if ( $is_gutenberg_active && $is_create_or_edit_screen ) {
 			wp_enqueue_script( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/script.js', array(
 				'wp-blocks',
 				'wp-editor',
@@ -115,18 +130,9 @@ class WP_DGV_Admin {
 				'dgv-uploader'
 			), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/script.js' ) );
 			wp_enqueue_style( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/style.css', array(), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/style.css' ), 'all' );
-			$_uploads = $this->db_helper->get_videos();
-			$uploads  = array();
-			foreach ( $_uploads as $_upload ) {
-				$uploads[] = array(
-					'title' => $_upload->post_title,
-					'vimeo_id' => $this->db_helper->get_vimeo_id( $_upload->ID ),
-					'ID' => $_upload->ID
-				);
-			}
+
 			wp_localize_script( 'wvv-vimeo-upload-block', 'DGVUB', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'uploads'  => $uploads,
 			) );
 		}
 	}
