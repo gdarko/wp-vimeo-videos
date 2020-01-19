@@ -54,6 +54,18 @@ class  WP_DGV_Api_Helper {
 	public $user_type = '';
 
 	/**
+	 * The upload quota
+	 * @var array
+	 */
+	public $upload_quota = [];
+
+	/**
+	 * The headers
+	 * @var array
+	 */
+	public $headers = [];
+
+	/**
 	 * The oAuth APP name
 	 * @var string
 	 */
@@ -158,6 +170,8 @@ class  WP_DGV_Api_Helper {
 			$this->app_name  = isset( $data['body']['app']['name'] ) ? $data['body']['app']['name'] : '';
 			$this->app_uri   = isset( $data['body']['app']['uri'] ) ? $data['body']['app']['uri'] : '';
 			$_scopes         = isset( $data['body']['scope'] ) ? $data['body']['scope'] : '';
+			$this->headers      = isset( $data['headers'] ) ? $data['headers'] : array();
+			$this->upload_quota = isset( $data['body']['user']['upload_quota'] ) ? $data['body']['user']['upload_quota'] : array();
 			if ( ! empty( $_scopes ) ) {
 				$this->scopes = explode( ' ', $_scopes );
 			}
