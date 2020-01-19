@@ -180,6 +180,57 @@ h2.wvv-form-heading {
     margin-right: 5px;
 }
 
+
+.dgv-embed-container, .dgv-embed-container iframe {
+    box-sizing: border-box;
+}
+
+.dgv-vimeo-form-row input[type="submit"] {
+    width: 100%;
+}
+
+.dgv-vimeo-form-row textarea {
+    width: 100%;
+}
+
+.dgv-vimeo-form-row {
+    margin-bottom: 10px;
+}
+
+.dgv-vimeo-form-row label {
+    display: block !important;
+    width: 100%;
+    margin-right: 5px !important;
+    line-height: 1.4rem;
+    font-size: 1rem;
+}
+.dgv-vimeo-upload-form > h4 {
+    margin-bottom: 10px !important;
+}
+.dgv-vimeo-form-row label,
+.dgv-vimeo-video .button {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+}
+
+.dgv-embed-container iframe {
+    width: 100%;
+    display: block;
+    background: #f0f0f0;
+    padding: 5px;
+    border: 1px solid #cccc;
+}
+
+.submitSearch {
+    position: relative;
+    top: 5px;
+    min-height: 30px !important;
+}
+
+.dgv-font-weight-normal {
+    font-weight: normal !important;
+}
+
+
 /* News */
 .wvv-news-entry {
     border-bottom: 1px solid #ccc;
