@@ -42,12 +42,13 @@ Additional features as follows:
 
  * Gutenberg Support
  * Classic Editor Support (TinyMCE)
- * Option to search your Vimeo account for existing videos when embedding video
  * Front-end upload via Gravtiy Forms
- * Whitelist Embed domains, allow embed on specific domains only
+ * Option to upload existing Media Library videos to Vimeo in WordPress with one click
+ * Option to search your Vimeo account for existing videos when embedding video
+ * Whitelist domains for embedding, allow embed on specific domains only for newly uploaded videos
  * Update Vimeo Videos from your WordPress site
  * Delete Vimeo Videos from your WordPress site
- * Fast Dedicated Support
+ * Fast Dedicated Support for premium customers
 
  <a href="http://bit.ly/wvvpurchase" target="_blank">Get Premium Version</a>
 
