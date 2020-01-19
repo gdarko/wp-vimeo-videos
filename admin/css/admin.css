@@ -223,6 +223,121 @@ h2.wvv-form-heading {
     margin-top: 5px;
     color: #4e4e4e;
 }
-.wvv-mb-20 {
-    margin-bottom: 20px !important;
+
+.wvv-mt-0 {
+    margin-top: 0 !important;
+}
+.wvv-mt-20 {
+    margin-top: 20px !important;
+}
+.wvv-pt-0 {
+    padding-top: 0 !important;
+}
+.wvv-pb-0 {
+    padding-bottom:0 !important;
+}
+
+/**
+ * Instructions
+ */
+.dgv-instructions {
+    width: 100%;
+    max-width: 98.5%;
+}
+.instructions .dgv-instructions-card {
+    background: #fff;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.instructions .dgv-instructions-card .dgv-instructions-header {
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 10px;
+}
+
+.instructions .dgv-instructions-card .dgv-instructions-header p.lead {
+    font-size: 23px;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+
+}
+
+.instructions .dgv-instructions-card .dgv-instructions-header p.desc {
+    font-size: 15px;
+}
+
+.instructions .dgv-instructions-row {
+    float:left;
+    width: 96%;
+}
+
+.instructions .dgv-instructions-colf {
+    width: 100%;
+    float: left;
+    padding: 1%;
+}
+
+.instructions .dgv-instructions-col3 {
+    width: 31%;
+    float: left;
+    padding: 1%;
+}
+.instructions .dgv-instructions-col4 {
+    width: 23%;
+    float: left;
+    padding: 1%;
+}
+.instructions h4 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.dgv-notice-dismiss {
+    text-decoration: none;
+}
+@media(max-width: 767px) {
+    .instructions .dgv-instructions-col3 {
+        width: 100%;
+    }
+    .instructions .dgv-instructions-col4 {
+        width: 100%;
+    }
+}
+
+.instructions .green {
+    color: #1abc9c;
+}
+
+.instructions .navy {
+    color: #2f4154;
+    font-size: 17px;
+}
+
+.instructions .dgv-instructions-row.dgv-instructions-header .dgv-instructions-colf {
+    padding-bottom: 0;
+}
+
+.instructions .dgv-instructions-link {
+    background-color: #2f4154;
+    padding: 10px;
+    min-width: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #1abc9c;
+    font-size: 1rem;
+}
+
+.instructions .dgv-instructions-link:hover, .instructions .dgv-instructions-link:active, .instructions .dgv-instructions-link:focus {
+    outline: none;
+    opacity: 0.8;
+}
+
+.instructions a.dgv-instructions-link {
+    text-transform: none;
+    text-decoration: none;
+}
+
+.instructions.is-dismissible {
+    padding-right: 0 !important;
 }

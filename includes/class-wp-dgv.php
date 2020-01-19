@@ -190,6 +190,7 @@ class WP_DGV {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_admin_menu' );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'instructions' );
 
 		// Int Cron tasks
 		$this->loader->add_filter( 'cron_schedules', $cron_system, 'cron_schedules', 15, 1 );

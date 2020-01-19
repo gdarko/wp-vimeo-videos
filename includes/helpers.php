@@ -93,3 +93,19 @@ function wvv_is_gutenberg_active() {
 	}
 	return false;
 }
+
+/**
+ * Return the guide url
+ * @return string
+ */
+function wvv_get_guide_url() {
+	return 'https://bit.ly/wvvdocs';
+}
+
+/**
+ * Return the purchase url
+ * @return string
+ */
+function wvv_get_purchase_url() {
+	return 'http://bit.ly/wvvpurchase';
+}
