@@ -97,7 +97,11 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	public function column_title( $item ) {
 		$actions           = array();
 		$url               = admin_url( 'upload.php?page=' . WP_DGV_Admin::PAGE_VIMEO . '&action=edit&id=' . $item->ID );
+		$vimeo_uri  = $this->db_helper->get_vimeo_uri($item->ID);
+		$vimeo_id   = $this->db_helper->get_vimeo_id($item->ID);
+		$vimeo_link       = 'https://vimeo.com/'.$vimeo_id;
 		$actions['edit']   = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url, $item->ID, __( 'Manage this video', 'wp-vimeo-videos' ), __( 'Manage', 'wp-vimeo-videos' ) );
+		$actions['vimeo'] = sprintf('<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', $vimeo_link, $item->ID, __('Vimeo video link', 'wp-vimeo-videos'), __('Vimeo Link', 'wp-vimeo-videos'));
 
 		return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', $url, $item->post_title, $this->row_actions( $actions ) );
 	}
