@@ -42,8 +42,6 @@
                 </div>
 
                 <div class="form-row with-border">
-                    <a href="<?php echo admin_url( 'upload.php?page=' . WP_DGV_Admin::PAGE_SETTINGS ); ?>"
-                       class="button"><?php _e( 'Back', 'wp-vimeo-videos' ); ?></a>
                     <input type="submit" class="button-primary" name="dgv_settings_save" value="Save">
                     <div class="footer-info" style="float:right; display: inline-block;">
                         <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>"><?php _e('Documentation', 'wp-vimeo-videos'); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp;
