@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 4.2
-Stable Tag: 1.1.2
+Stable Tag: 1.2.0
 Requires PHP: 5.5.0
 Tested up to: 5.2.3
 License: GPLv2 or later
@@ -24,6 +24,8 @@ Especially useful in the following cases:
 
 In order to be able to connect to Vimeo you will need to sign up on <a target="_blank" href="https://developer.vimeo.com/">Vimeo Developer Portal</a> and request access to the Vimeo API. Please check the Installation tab and also the screenshot 4.
 
+<a href="https://bit.ly/wvvdocs" target="_blank">Detailed Guide</a>
+
 === Features  ===
 
 * Upload videos from the Media screen
@@ -34,14 +36,20 @@ In order to be able to connect to Vimeo you will need to sign up on <a target="_
 * Shortcode available [dgv_vimeo_video id="the_vimeo_id"]
 * Useful API information and tips in the Settings > Vimeo Page
 
-=== Premium Version (Coming Soon) ===
-We are working on premium version of the plugin with the following features
- - import Vimeo videos to the local library,
- - update Vimeo video from WordPress,
- - delete Vimeo video from WordPress,
- - upload Vimeo video from the front-end (Initially i will support only GravityForms.)
- - it also supports me to continue maintaining this plugin
- Stay tuned! 🙏
+=== Premium Version ===
+
+Additional features as follows:
+
+ * Gutenberg Support
+ * Classic Editor Support (TinyMCE)
+ * Option to search your Vimeo account for existing videos when embedding video
+ * Front-end upload via Gravtiy Forms
+ * Whitelist Embed domains, allow embed on specific domains only
+ * Update Vimeo Videos from your WordPress site
+ * Delete Vimeo Videos from your WordPress site
+ * Fast Dedicated Support
+
+ <a href="http://bit.ly/wvvpurchase" target="_blank">Get Premium Version</a>
 
 == Installation ==
 
@@ -72,7 +80,7 @@ No, you must have Client ID, Client Secret and Access Token with the required sc
 
 = Which API scopes are required =
 
-Most of them. Especially if you are using the premium version. So it's best to select the following at least: public, private, create, edit, delete, upload, video_files
+Most of them. Especially if you are using the premium version. So it's best to select the following at least: public, private, create, edit, delete, upload, video_files, interact
 
 = Do i need to do any tweaks to the hosting configuration for bigger files ? =
 
@@ -86,6 +94,23 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.2.0 =
+* Added tinyMCE/Classic Editor support (PRO)
+* Added front-End upload support for GravityForms via field (PRO)
+* Added Vimeo Video Delete Option (PRO)
+* Added Vimeo Video Privacy Management (PRO)
+* Added option to upload existing media library videos to Vimeo (PRO)
+* Added option to search your Vimeo account when embedding video (PRO)
+* Added direct link in the admin Vimeo list table
+* Added instructions/welcome screen
+* Added option to enable/disable view access in the list table if the user didn't uploaded the video
+* Added author filter on the videos list table
+* Added author column on the videos list table
+* Added performance tweaks
+* Added UI improvements in dashboard screens
+* Added useful information in the Settings screen
+* Updated examples
 
 = Version 1.1.2 =
 * Fix Fatal Error in the Settings page (news section)
@@ -107,7 +132,7 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 * Fix fatal error in some cases.
 
 = Version 1.0.2 =
-* Fix problem with file names that vimeo didn't accepted.
+* Fix problem with file names that Vimeo didn't accepted.
 * Added cron event to automatically clean up the videos that are already processed.
 
 = Version 1.0.1 =
