@@ -133,3 +133,41 @@ function wvv_format_bytes( $bytes, $precision = 4 ) {
 
 	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 }
+
+/**
+ * Convert Vimeo URI to ID
+ *
+ * @param $uri
+ *
+ * @return mixed
+ */
+function wvv_uri_to_id( $uri ) {
+	$parts = explode( '/', $uri );
+
+	return end( $parts );
+}
+
+/**
+ * Convert Response to URI
+ *  -- Support for pull method which returns array structure ['body']['uri']
+ *  -- Support for upload stream method which returns the uri directly.
+ *
+ * @param $response
+ *
+ * @return string
+ */
+function wvv_response_to_uri( $response ) {
+	$uri = '';
+	if ( isset( $response['body']['uri'] ) ) { // Support for pull method
+		$uri = $response['body']['uri'];
+	} else {
+		if ( is_string( $response ) ) { // Support for upload method.
+			$video_id = wvv_uri_to_id( $response );
+			if ( is_numeric( $video_id ) ) {
+				$uri = $response;
+			}
+		}
+	}
+
+	return $uri;
+}

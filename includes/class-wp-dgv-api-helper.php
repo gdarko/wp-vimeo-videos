@@ -323,6 +323,41 @@ class  WP_DGV_Api_Helper {
 	}
 
 	/**
+	 * Set the embed privacy
+	 *
+	 * @param $uri
+	 * @param $privacy
+	 *
+	 * @return array
+	 * @throws \Vimeo\Exceptions\VimeoRequestException
+	 */
+	public function set_embed_privacy( $uri, $privacy ) {
+		$response = $this->api->request( $uri, array(
+			'privacy' => array(
+				'embed' => $privacy
+			)
+		), 'PATCH' );
+
+		return $response;
+	}
+
+	/**
+	 * Add domain to embed whitelist for specific video
+	 *
+	 * @param $uri
+	 * @param $domain
+	 *
+	 * @return array
+	 * @throws \Vimeo\Exceptions\VimeoRequestException
+	 */
+	public function whitelist_domain_add( $uri, $domain ) {
+		$request_uri = "{$uri}/privacy/domains/{$domain}";
+		$response    = $this->api->request( $request_uri, [], 'PUT' );
+
+		return $response;
+	}
+
+	/**
 	 * Sync videos with vimeo api
 	 * @throws Exception
 	 */
