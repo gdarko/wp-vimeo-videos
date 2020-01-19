@@ -58,7 +58,7 @@ class WP_DGV_Ajax_Handler {
 			'dgv_client_id'       => __( 'Client ID', 'wp-vimeo-videos' ),
 			'dgv_client_secret'   => __( 'Client Secret', 'wp-vimeo-videos' ),
 			'dgv_access_token'    => __( 'Access Token', 'wp-vimeo-videos' ),
-			'dgv_upload_approach' => __( 'Upload Approach', 'wp-vimeo-videos' ),
+			'dgv_author_uploads_only' => __( 'Show Author uploads only', 'wp-vimeo-videos' ),
 		);
 
 		// validate
@@ -75,13 +75,20 @@ class WP_DGV_Ajax_Handler {
 
 		// save
 		foreach ( $fields as $key => $field ) {
-			if ( in_array( $key, array( 'dgv_client_id', 'dgv_client_secret', 'dgv_access_token' ) ) ) {
+			if(!isset($_POST[$key])) {
+				continue;
+			}
+			if ( in_array( $key, array( 'dgv_client_id', 'dgv_client_secret', 'dgv_access_token', 'dgv_author_uploads_only' ) ) ) {
 				$option_value = sanitize_text_field( $_POST[ $key ] );
 			} else {
 				$option_value = $_POST[ $key ];
 			}
 			update_option( $key, $option_value );
 		}
+		if(!isset($_POST['dgv_author_uploads_only'])) {
+			update_option('dgv_author_uploads_only', 0);
+		}
+
 
 		// Re-render the api details
 		WP_DGV_Api_Helper::flush_cache();

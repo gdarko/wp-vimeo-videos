@@ -15,6 +15,8 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  */
 class WP_DGV_List_Table extends \WP_List_Table {
 
+    protected $author_uploads_only;
+
 	/**
 	 * @var WP_DGV_Db_Helper
 	 */
@@ -32,6 +34,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 			'ajax'     => false
 		) );
 
+		$this->author_uploads_only = (int) get_option('dgv_author_uploads_only');
 		$this->db_helper  = new WP_DGV_Db_Helper();
 		$this->api_helper = new WP_DGV_Api_Helper();
 	}
@@ -182,9 +185,13 @@ class WP_DGV_List_Table extends \WP_List_Table {
 			'offset' => $offset,
 			'number' => $per_page,
 		);
-		$filter_author_ID = isset($_POST['author']) ? $_POST['author'] : 0;
-		if($filter_author_ID > 0) {
-			$args['author'] = $filter_author_ID;
+		if($this->author_uploads_only && !current_user_can('administrator')) {
+			$args['author'] = get_current_user_id();
+		} else {
+			$filter_author_ID = isset($_POST['author']) ? $_POST['author'] : 0;
+			if($filter_author_ID > 0) {
+				$args['author'] = $filter_author_ID;
+			}
 		}
 		if ( isset( $_REQUEST['orderby'] ) && isset( $_REQUEST['order'] ) ) {
 			$args['orderby'] = $_REQUEST['orderby'];
@@ -205,6 +212,11 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	 * @param string $which
 	 */
 	protected function display_tablenav( $which ) {
+
+		if($this->author_uploads_only && !current_user_can('administrator')) {
+			return;
+		}
+
 		if ( 'top' === $which ) {
 			wp_nonce_field( 'bulk-' . $this->_args['plural'] );
 		}
