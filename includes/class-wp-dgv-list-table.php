@@ -182,6 +182,10 @@ class WP_DGV_List_Table extends \WP_List_Table {
 			'offset' => $offset,
 			'number' => $per_page,
 		);
+		$filter_author_ID = isset($_POST['author']) ? $_POST['author'] : 0;
+		if($filter_author_ID > 0) {
+			$args['author'] = $filter_author_ID;
+		}
 		if ( isset( $_REQUEST['orderby'] ) && isset( $_REQUEST['order'] ) ) {
 			$args['orderby'] = $_REQUEST['orderby'];
 			$args['order']   = $_REQUEST['order'];
@@ -192,5 +196,69 @@ class WP_DGV_List_Table extends \WP_List_Table {
 			'total_items' => $this->db_helper->get_videos_count(),
 			'per_page'    => $per_page
 		) );
+	}
+
+	/**
+	 * Generate the table navigation above or below the table
+	 *
+	 * @since 3.1.0
+	 * @param string $which
+	 */
+	protected function display_tablenav( $which ) {
+		if ( 'top' === $which ) {
+			wp_nonce_field( 'bulk-' . $this->_args['plural'] );
+		}
+		?>
+		<div class="tablenav <?php echo esc_attr( $which ); ?>">
+
+			<?php
+			$this->extra_tablenav( $which );
+			$this->pagination( $which );
+			?>
+			<br class="clear" />
+		</div>
+		<?php
+	}
+
+	/**
+	 * Extra controls to be displayed between bulk actions and pagination
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $which
+	 */
+	protected function extra_tablenav( $which ) {
+		if ( $which == "top" ) {
+			?>
+			<div class="alignleft actions bulkactions">
+				<?php
+				$users = get_users( array(
+					'role__in' => array( 'administrator', 'editor', 'author' ),
+				) );
+				if ( !empty($users) ) {
+					?>
+					<?php
+					$filter_author_ID = isset($_POST['author']) ? $_POST['author'] : 0;
+					?>
+					<div class="alignleft actions">
+						<label class="screen-reader-text" for="author"><?php __('Filter by author', 'wp-vimeo-videos'); ?></label>
+						<select name="author" id="author" class="postform">
+							<option value="0">All Users</option>
+							<?php
+							foreach ( $users as $user ) {
+								?>
+								<option <?php selected($filter_author_ID, $user->ID); ?> value="<?php echo $user->ID; ?>"><?php echo $user->display_name; ?></option>
+								<?php
+							}
+							?>
+						</select>
+						<input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filter">
+					</div>
+					<?php
+				}
+				?>
+			</div>
+			<?php
+		}
 	}
 }

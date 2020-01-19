@@ -41,6 +41,11 @@ class WP_DGV_Db_Helper {
 			'offset'         => isset( $args['offset'] ) ? $args['offset'] : 0,
 			'post_status'    => 'publish'
 		);
+
+		if ( isset( $args['author'] ) ) {
+			$params['author'] = $args['author'];
+		}
+
 		$posts  = get_posts( $params );
 
 		return $posts;
