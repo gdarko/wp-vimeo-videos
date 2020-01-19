@@ -39,8 +39,10 @@
                     <a href="<?php echo admin_url( 'upload.php?page=' . WP_DGV_Admin::PAGE_SETTINGS ); ?>"
                        class="button"><?php _e( 'Back', 'wp-vimeo-videos' ); ?></a>
                     <input type="submit" class="button-primary" name="dgv_settings_save" value="Save">
-                    <a target="_blank" style="float:right;"
-                       href="https://wordpress.org/support/plugin/wp-vimeo-videos/">Need help? Contact us!</a>
+                    <div class="footer-info" style="float:right; display: inline-block;">
+                        <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>"><?php _e('Documentation', 'wp-vimeo-videos'); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a target="_blank" href="https://wordpress.org/support/plugin/wp-vimeo-videos/"><?php _e('Need help? Contact us!', 'wp-vimeo-videos'); ?></a>
+                    </div>
                 </div>
 
             </form>
