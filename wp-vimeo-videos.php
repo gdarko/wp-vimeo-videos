@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'WP_VIMEO_VIDEOS_VERSION', '1.2.0' );
 define( 'WP_VIMEO_VIDEOS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_VIMEO_VIDEOS_URL', plugin_dir_url( __FILE__ ) );
+define( 'WP_VIMEO_VIDEOS_BASENAME', plugin_basename(__FILE__));
 define( 'WP_VIMEO_VIDEOS_MIN_PHP_VERSION', '5.5.0' );
 
 

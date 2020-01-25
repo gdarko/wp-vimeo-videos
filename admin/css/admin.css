@@ -301,6 +301,10 @@ h2.wvv-form-heading {
     padding-bottom:0 !important;
 }
 
+.wvv-color-green {
+    color: ##08b908;
+}
+
 /**
  * Instructions
  */

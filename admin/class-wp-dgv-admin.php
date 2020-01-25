@@ -208,4 +208,44 @@ class WP_DGV_Admin {
 		}
 	}
 
+    /**
+     * Add a link to the settings page on the plugins.php page.
+     *
+     * @param  array  $links  List of existing plugin action links.
+     *
+     * @return array         List of modified plugin action links.
+     *
+     */
+    function plugin_action_links($links)
+    {
+
+        $links = array_merge(array(
+            '<a href="'.esc_url(admin_url('/options-general.php?page=dgv-settings')).'">'.__('Settings',
+                'wp-vimeo-videos').'</a>'
+        ), $links);
+
+        return $links;
+    }
+
+    /**
+     * Add link to the PRO version on the plugins.php page.
+     *
+     * @param $plugin_meta
+     * @param $plugin_file
+     * @param $plugin_data
+     * @param $status
+     *
+     * @return mixed
+     */
+    public function plugin_row_meta($plugin_meta, $plugin_file, $plugin_data, $status)
+    {
+
+        if (WP_VIMEO_VIDEOS_BASENAME === $plugin_file) {
+            $plugin_meta[] = '<a class="wvv-color-green" target="_blank" href="'.esc_url(wvv_get_purchase_url()).'"><strong>'.__('Buy PRO Version',
+                    'wp-vimeo-videos').'</strong></a>';
+        }
+
+        return $plugin_meta;
+    }
+
 }

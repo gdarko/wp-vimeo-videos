@@ -191,8 +191,11 @@ class WP_DGV {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_admin_menu' );
 		$this->loader->add_action( 'admin_notices', $plugin_admin, 'instructions' );
+		$this->loader->add_filter( 'plugin_action_links_' . WP_VIMEO_VIDEOS_BASENAME, $plugin_admin, 'plugin_action_links', 100, 1);
+		$this->loader->add_filter('plugin_row_meta', $plugin_admin, 'plugin_row_meta', 100, 4 );
 
-		// Int Cron tasks
+
+        // Int Cron tasks
 		$this->loader->add_filter( 'cron_schedules', $cron_system, 'cron_schedules', 15, 1 );
 		$this->loader->add_action( 'init', $cron_system, 'register_events' );
 		$this->loader->add_action( 'wvv_event_clean_local_files', $cron_system, 'cleanup' );
