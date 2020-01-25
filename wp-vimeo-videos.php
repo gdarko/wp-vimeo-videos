@@ -17,18 +17,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'WP_VIMEO_VIDEOS_VERSION', '1.2.0' );
-define( 'WP_VIMEO_VIDEOS_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WP_VIMEO_VIDEOS_URL', plugin_dir_url( __FILE__ ) );
-define( 'WP_VIMEO_VIDEOS_BASENAME', plugin_basename(__FILE__));
-define( 'WP_VIMEO_VIDEOS_MIN_PHP_VERSION', '5.5.0' );
-
+define('WP_VIMEO_VIDEOS_FREE_ACTIVE', true);
 
 if ( ! function_exists( 'is_plugin_active' ) ) {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 }
 
 if ( ! is_plugin_active( 'wp-vimeo-videos-pro/wp-vimeo-videos-pro.php' ) ) {
+
+    define('WP_VIMEO_VIDEOS_VERSION', '1.2.0');
+    define('WP_VIMEO_VIDEOS_PATH', plugin_dir_path(__FILE__));
+    define('WP_VIMEO_VIDEOS_URL', plugin_dir_url(__FILE__));
+    define('WP_VIMEO_VIDEOS_BASENAME', plugin_basename(__FILE__));
+    define('WP_VIMEO_VIDEOS_MIN_PHP_VERSION', '5.5.0');
+
 	function activate_wp_vimeo_videos() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-dgv-activator.php';
 		WP_DGV_Activator::activate();
