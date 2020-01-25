@@ -6,6 +6,8 @@
 <div class="wrap">
     <h2 class="wvv-mb-20"><?php _e( 'WP Vimeo Settings', 'wp-vimeo-videos' ); ?></h2>
 
+    <div class="wvv-notice-wrapper"></div>
+
     <div class="wvv-row">
         <div class="wvv-col-60 wvv-col">
             <form id="dg-vimeo-settings" class="wvv-box" method="post" action="">
@@ -45,6 +47,7 @@
                     <input type="submit" class="button-primary" name="dgv_settings_save" value="Save">
                     <div class="footer-info" style="float:right; display: inline-block;">
                         <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>"><?php _e('Documentation', 'wp-vimeo-videos'); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a target="_blank" href="<?php echo wvv_get_purchase_url(); ?>"><?php _e('Buy PRO Version', 'wp-vimeo-videos'); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp;
                         <a target="_blank" href="https://wordpress.org/support/plugin/wp-vimeo-videos/"><?php _e('Need help? Contact us!', 'wp-vimeo-videos'); ?></a>
                     </div>
                 </div>

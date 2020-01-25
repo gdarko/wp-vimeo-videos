@@ -1,5 +1,5 @@
 var notice = function (message, type) {
-    return '<div class="wvv-notice-wrapper form-row"><div class="notice notice-' + type + ' is-dismissible dgv-clear-padding"><p>' + message + '</p></div></div>\n';
+    return '<div class="notice notice-' + type + ' is-dismissible dgv-clear-padding"><p>' + message + '</p></div>\n';
 };
 
 // Handle vimeo upload
@@ -119,7 +119,7 @@ var notice = function (message, type) {
                 if ($_notice.length > 0) {
                     $_notice.remove();
                 }
-                $self.prepend(notice(message, type));
+                $self.closest('.wrap').find('.wvv-notice-wrapper').prepend(notice(message, type));
             }
         });
         return false;
