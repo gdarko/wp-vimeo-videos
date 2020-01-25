@@ -41,7 +41,6 @@
     position: relative;
     top: -3px;
     text-decoration: none;
-    border: none;
     border: 1px solid #ccc;
     border-radius: 2px;
     background: #f7f7f7;
@@ -302,7 +301,7 @@ h2.wvv-form-heading {
 }
 
 .wvv-color-green {
-    color: ##08b908;
+    color: #08b908;
 }
 
 /**
