@@ -115,11 +115,11 @@ var notice = function (message, type) {
                     message = response.data.message;
                     type = 'error';
                 }
-                var $_notice = $self.find('.wvv-notice-wrapper');
-                if ($_notice.length > 0) {
-                    $_notice.remove();
+                var $_nwrapper = $self.closest('.wrap').find('.wvv-notice-wrapper');
+                if ($_nwrapper.length > 0) {
+                    $_nwrapper.html('');
                 }
-                $self.closest('.wrap').find('.wvv-notice-wrapper').prepend(notice(message, type));
+                $_nwrapper.prepend(notice(message, type));
             }
         });
         return false;
