@@ -17,7 +17,6 @@ class WP_DGV_Product_News_Helper {
 	 */
 	protected $handle = 'wp-vimeo-videos';
 
-
 	/**
 	 * Cache time
 	 * @var float|int
