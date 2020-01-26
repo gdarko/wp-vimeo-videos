@@ -65,8 +65,8 @@ class WP_DGV {
 	 */
 	public function __construct() {
 		$this->version         = WP_VIMEO_VIDEOS_VERSION;
-		$this->plugin_name     = 'wp-vimeo-videos-pro';
-		$this->plugin_basename = 'wp-vimeo-videos-pro/wp-vimeo-videos-pro.php';
+		$this->plugin_name     = 'wp-vimeo-videos';
+		$this->plugin_basename = 'wp-vimeo-videos/wp-vimeo-videos.php';
 
 		$this->load_dependencies();
 		$this->set_locale();
