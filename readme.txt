@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 4.2
-Stable Tag: 1.2.0
+Stable Tag: 1.2.1
 Requires PHP: 5.5.0
 Tested up to: 5.3.2
 License: GPLv2 or later
@@ -95,6 +95,11 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.2.1 =
+* Improved front-end upload. Merge tags are now supported: {field:id}, {field:id:title}, {field:id:description} (PRO)
+* Imrpoved documentation
+* Plugin is now translatable
 
 = Version 1.2.0 =
 * Added tinyMCE/Classic Editor support (PRO)

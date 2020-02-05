@@ -82,7 +82,7 @@ $dismiss_link = add_query_arg( 'wvv_dismiss_instructions', 1, $dismiss_link );
 						<?php _e( 'We have premium version of this plugin that is improved, has more features, regular updates and dedicated support team ready to help you. If you are interested to find out about the complete list of the features click on the button below.', 'wp-vimeo-videos' ); ?>
 					</p>
 					<p>
-						<a href="<?php echo wvv_get_purchase_url(); ?>" class="button-small button-primary"><?php _e('Read more', 'wp-vimeo-videos'); ?></a>
+						<a target="_blank" href="<?php echo wvv_get_purchase_url(); ?>" class="button-small button-primary"><?php _e('Read more', 'wp-vimeo-videos'); ?></a>
 					</p>
 				</div>
 			</div>
