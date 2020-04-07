@@ -58,15 +58,26 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
             loader.style.display = 'inline-block';
         }
 
+        /**
+         * Stop Loading
+         * @param form
+         * @param hide_progressbar
+         */
+        function stopLoading(form, hide_progressbar) {
+            var loader = form.querySelector('.dgv-loader');
+            loader.style.display = 'none';
+            if(hide_progressbar) {
+                var progressBar = form.querySelector('.dgv-progress-bar');
+                progressBar.style.display = 'none';
+            }
+        }
+
         function submitVideo(event) {
             event.preventDefault();
 
             var target = event.target;
-
             var submitButton = event.target.querySelector('.submitUpload');
-
             var videoFile = (props.attributes.files instanceof FileList && props.attributes.files.length > 0)  ? props.attributes.files[0] : null;
-
             if (!WPVimeoVideos.Uploader.validateVideo(videoFile)) {
                 swal.fire(DGV.sorry, DGV.upload_invalid_file, 'error');
                 return false;
@@ -107,21 +118,41 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                         'current_message_type': 'error',
                         'current_message': error
                     });
+                    stopLoading(target, true);
                     submitButton.disabled = false;
+                    alert('Vimeo upload error.');
                 },
                 'onVideoCreateError': function (error) {
+                    var message = '';
+                    var parsedError = JSON.parse(error);
+                    if(parsedError.hasOwnProperty('invalid_parameters')) {
+                        message = parsedError['invalid_parameters'][0]['developer_message'];
+                    } else {
+                        message = parsedError['developer_message'];
+                    }
                     props.setAttributes({
                         'current_message_type': 'error',
-                        'current_message': error
+                        'current_message': message
                     });
+                    stopLoading(target, true);
                     submitButton.disabled = false;
+                    alert(message);
                 },
                 'onWPNotifyError': function (error) {
+                    var message = '';
+                    var parsedError = JSON.parse(error);
+                    if(parsedError.hasOwnProperty('data')) {
+                        message = parsedError.data;
+                    } else {
+                        message = 'Error notifying WordPress about the file upload.';
+                    }
                     props.setAttributes({
                         'current_message_type': 'error',
-                        'current_message': error
+                        'current_message': message
                     });
+                    stopLoading(target, true);
                     submitButton.disabled = false;
+                    alert(message);
                 }
             });
             uploader.start();
