@@ -69,7 +69,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 				return '<code>[dgv_vimeo_video id="' . $vimeo_id . '"]</code>';
 			case 'author':
 				$user      = get_user_by( 'id', $item->post_author );
-				$user_name = $user->exists() ? $user->display_name : 'Unknown';
+				$user_name = ($user instanceof WP_User && $user->exists()) ? $user->display_name : 'Unknown';
 				return $user_name;
 			case 'uploaded_at':
 				return get_the_date( get_option( 'date_format' ), $item );
