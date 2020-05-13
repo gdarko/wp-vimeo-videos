@@ -25,17 +25,28 @@ var notice = function (message, type) {
         var privacy = DGV.default_privacy;
 
         var errorHandler = function ($eself, error) {
-            var message = error;
             var type = 'error';
             var $_notice = $eself.find('.wvv-notice-wrapper');
             if ($_notice.length > 0) {
                 $_notice.remove();
             }
+            var message = '';
+            try {
+                var errorObject = JSON.parse(error);
+                if(errorObject.hasOwnProperty('invalid_parameters')) {
+                    for(var i in errorObject.invalid_parameters) {
+                        var msg = errorObject.invalid_parameters[i].error + ' ' + errorObject.invalid_parameters[i].developer_message;
+                        message += '<li>'+msg+'</li>';
+                    }
+                }
+                message = '<p style="margin-bottom: 0;font-weight: bold;">'+DGV.correct_errors+':</p>' + '<ul style="list-style: circle;padding-left: 20px;">'+message+'</ul>';
+            } catch (e) {
+                message = error;
+            }
+
             $eself.prepend(notice(message, type));
             $eself.find('.dgv-loader').css({'display': 'none'});
             $eself.find('button[type=submit]').prop('disabled', false);
-            //$eself.find('.dgv-progress-bar').hide();
-            //updateProgressBar($eself.find('.dgv-progress-bar'), 0);
         };
 
         var updateProgressBar = function($pbar, value) {
