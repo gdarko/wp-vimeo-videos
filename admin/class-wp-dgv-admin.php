@@ -118,6 +118,7 @@ class WP_DGV_Admin {
 			'cancel'              => __( 'Cancel', 'wp-vimeo-videos' ),
 			'confirm'             => __( 'Confirm', 'wp-vimeo-videos' ),
 			'close'               => __( 'Close', 'wp-vimeo-videos' ),
+			'correct_errors'      => __('Please correct the following errors', 'wp-vimeo-videos'),
 			'uploads'             => $uploads,
 		) );
 

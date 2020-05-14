@@ -2,9 +2,9 @@
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 4.2
-Stable Tag: 1.2.1
+Stable Tag: 1.3.0
 Requires PHP: 5.5.0
-Tested up to: 5.3.2
+Tested up to: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,12 +40,12 @@ In order to be able to connect to Vimeo you will need to sign up on <a target="_
 
 Additional features as follows:
 
- * Gutenberg Support
- * Classic Editor Support (TinyMCE)
  * Front-end upload via Gravtiy Forms
+ * Upload videos form the Classic Editor (TinyMCE)
  * Option to upload existing Media Library videos to Vimeo in WordPress with one click
  * Option to search your Vimeo account for existing videos when embedding video
- * Whitelist domains for embedding, allow embed on specific domains only for newly uploaded videos
+ * Option to set different Vimeo View Privacy for Front-end and Back-end upload
+ * Option to whitelist domains for embedding. Allow embedding on specific domains only for newly uploaded videos
  * Update Vimeo Videos from your WordPress site
  * Delete Vimeo Videos from your WordPress site
  * Fast Dedicated Support for premium customers
@@ -95,6 +95,13 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.3.0 =
+* Fix fatal error in the table screen
+* Improved Gutenberg Upload block, added error reporting
+* Improved Admin Upload form, added error reporting
+* Improved front-end upload (PRO)
+* Added option to make videos post type publically accessible (PRO)
 
 = Version 1.2.1 =
 * Improved front-end upload. Merge tags are now supported: {field:id}, {field:id:title}, {field:id:description} (PRO)
