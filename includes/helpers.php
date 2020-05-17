@@ -35,42 +35,6 @@ function wvv_php_version_ok() {
 }
 
 /**
- * Clean up the local files, if the user used PULL method to upload the plugin stores the videos locally and then vimeo downloads those videos.
- * In 24 hours they are deleted assuming vimeo processed and stored those files on their end.
- * @since 1.0.0
- * @retrun void
- */
-function wvv_cleanup_local_files() {
-	$args   = array(
-		'post_type'      => 'dgv-upload',
-		'posts_per_page' => - 1,
-		'meta_query'     => array(
-			array(
-				'key'     => 'dgv_local_file',
-				'value'   => '',
-				'compare' => '!='
-			)
-		),
-		'date_query'     => array(
-			array(
-				'before'    => '24 hours ago',
-				'inclusive' => true,
-			),
-		),
-	);
-	$videos = get_posts( $args );
-	foreach ( $videos as $video ) {
-		$local_path = get_post_meta( $video->ID, 'dgv_local_file', true );
-		if ( ! empty( $local_path ) ) {
-			if ( file_exists( $local_path ) ) {
-				@unlink( $local_path );
-				delete_post_meta( $video->ID, 'dgv_local_file' );
-			}
-		}
-	}
-}
-
-/**
  * Check if the block editor is active.
  * @return bool
  */

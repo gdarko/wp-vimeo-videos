@@ -32,7 +32,6 @@ class WP_DGV_Cron_System {
 	 * Clean up local files
 	 */
 	public function cleanup() {
-		error_log('cleanup executing...');
-		wvv_cleanup_local_files();
+	    // Do nothing for now
 	}
 }
