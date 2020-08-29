@@ -83,6 +83,12 @@ class  WP_DGV_Api_Helper {
 	 */
 	public $error = null;
 
+    /**
+     * The settings helper
+     * @var WP_DGV_Settings_Helper
+     */
+    public $settings_helper;
+
 	/**
 	 * Cache key name when caching the vimeo user data
 	 * @var string
@@ -99,7 +105,10 @@ class  WP_DGV_Api_Helper {
 	 * WP_DGV_Api_Helper constructor.
 	 */
 	public function __construct() {
-		$this->connect();
+
+        $this->settings_helper = new WP_DGV_Settings_Helper();
+
+        $this->connect();
 	}
 
 	/**
@@ -109,9 +118,9 @@ class  WP_DGV_Api_Helper {
 	 */
 	public function connect( $flush_cache = false ) {
 
-		$client_id     = get_option( 'dgv_client_id' );
-		$client_secret = get_option( 'dgv_client_secret' );
-		$access_token  = get_option( 'dgv_access_token' );
+		$client_id     = $this->settings_helper->get( 'dgv_client_id' );
+		$client_secret = $this->settings_helper->get( 'dgv_client_secret' );
+		$access_token  = $this->settings_helper->get( 'dgv_access_token' );
 		$error         = null;
 
 		if ( empty( $client_id ) || strlen( trim( $client_id ) ) === 0 ) {

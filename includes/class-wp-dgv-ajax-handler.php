@@ -13,6 +13,12 @@
  */
 class WP_DGV_Ajax_Handler {
 
+    /**
+     * The settings api
+     * @var WP_DGV_Settings_Helper
+     */
+    protected $settings_helper;
+
 	/**
 	 * The api helper
 	 * @var WP_DGV_Api_Helper
@@ -34,7 +40,8 @@ class WP_DGV_Ajax_Handler {
 	public function __construct( $plugin_name, $plugin_version ) {
 		$this->api_helper = new WP_DGV_Api_Helper();
 		$this->db_helper  = new WP_DGV_Db_Helper();
-	}
+        $this->settings_helper = new WP_DGV_Settings_Helper();
+    }
 
 	/**
 	 * Handles settings storage
@@ -74,20 +81,16 @@ class WP_DGV_Ajax_Handler {
 		}
 
 		// save
-		foreach ( $fields as $key => $field ) {
-			if(!isset($_POST[$key])) {
-				continue;
-			}
-			if ( in_array( $key, array( 'dgv_client_id', 'dgv_client_secret', 'dgv_access_token', 'dgv_author_uploads_only' ) ) ) {
-				$option_value = sanitize_text_field( $_POST[ $key ] );
-			} else {
-				$option_value = $_POST[ $key ];
-			}
-			update_option( $key, $option_value );
-		}
-		if(!isset($_POST['dgv_author_uploads_only'])) {
-			update_option('dgv_author_uploads_only', 0);
-		}
+        foreach ($fields as $key => $field) {
+            if ( ! isset($_POST[$key])) {
+                $this->settings_helper->remove($key);
+            } else {
+                $option_value = $this->prepare_setting($key, $_POST[$key]);
+                $this->settings_helper->set($key, $option_value);
+            }
+        }
+
+        $this->settings_helper->save();
 
 
 		// Re-render the api details
@@ -103,6 +106,24 @@ class WP_DGV_Ajax_Handler {
 			'product_key_valid' => false,
 		) );
 	}
+
+    /**
+     * Prepare
+     *
+     * @param $key
+     * @param $value
+     *
+     * @return array|string
+     */
+    public function prepare_setting($key, $value) {
+
+        if($key === 'dgv_embed_domains') {
+            foreach(array('https://', 'http://', 'www.') as $part) {
+                $value = str_replace($part, '', $value);
+            }
+        }
+        return $value;
+    }
 
 	/**
 	 * Store upload on the server

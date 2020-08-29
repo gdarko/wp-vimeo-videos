@@ -27,6 +27,14 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	 */
 	protected $api_helper;
 
+    /**
+     * @var WP_DGV_Settings_Helper
+     */
+	protected $settings_helper;
+
+    /**
+     * WP_DGV_List_Table constructor.
+     */
 	public function __construct() {
 		parent::__construct( array(
 			'singular' => 'video',
@@ -34,11 +42,15 @@ class WP_DGV_List_Table extends \WP_List_Table {
 			'ajax'     => false
 		) );
 
-		$this->author_uploads_only = (int) get_option('dgv_author_uploads_only');
+		$this->settings_helper = new WP_DGV_Settings_Helper();
+		$this->author_uploads_only = $this->settings_helper->get('dgv_author_uploads_only');
 		$this->db_helper  = new WP_DGV_Db_Helper();
 		$this->api_helper = new WP_DGV_Api_Helper();
 	}
 
+    /**
+     * @return array|string[]
+     */
 	public function get_table_classes() {
 		return array( 'widefat', 'fixed', 'striped', $this->_args['plural'] );
 	}

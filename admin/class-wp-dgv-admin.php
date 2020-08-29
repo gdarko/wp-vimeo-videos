@@ -22,6 +22,12 @@ class WP_DGV_Admin {
 	 */
 	public $api_helper = null;
 
+    /**
+     * The settings helper
+     * @var WP_DGV_Settings_Helper
+     */
+	public $settings_helper = null;
+
 	/**
 	 * The database helper
 	 * @var null
@@ -55,10 +61,11 @@ class WP_DGV_Admin {
 	 * @since    1.0.0
 	 */
 	public function __construct( $plugin_name, $version ) {
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-		$this->api_helper  = new WP_DGV_Api_Helper();
-		$this->db_helper   = new WP_DGV_Db_Helper();
+        $this->plugin_name     = $plugin_name;
+        $this->version         = $version;
+        $this->api_helper      = new WP_DGV_Api_Helper();
+        $this->db_helper       = new WP_DGV_Db_Helper();
+        $this->settings_helper = new WP_DGV_Settings_Helper();
 	}
 
 	/**
@@ -101,14 +108,12 @@ class WP_DGV_Admin {
 		wp_enqueue_script( 'dgv-uploader', WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js', array( 'dgv-tus' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/uploader.js' ) );
 
 		// Admin
-		wp_enqueue_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array(
-			'jquery',
-			'dgv-uploader'
-		), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
+		wp_enqueue_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array( 'jquery',  'dgv-uploader'), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
+
 		wp_localize_script( $this->plugin_name, 'DGV', array(
 			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
-			'access_token'        => get_option( 'dgv_access_token' ),
+			'access_token'        => $this->settings_helper->get( 'dgv_access_token' ),
 			'api_scopes'          => $this->api_helper->scopes,
 			'default_privacy'     => apply_filters( 'dgv_default_privacy', 'anybody' ),
 			'uploading'           => sprintf( '%s %s', '<img src="' . admin_url( 'images/spinner.gif' ) . '">', __( 'Uploading video. Please wait...', 'wp-vimeo-videos' ) ),

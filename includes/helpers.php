@@ -135,3 +135,33 @@ function wvv_response_to_uri( $response ) {
 
 	return $uri;
 }
+
+/**
+ * Returns the tmp dir
+ * @return string
+ */
+function wvv_get_tmp_dir() {
+    $uploads = wp_upload_dir();
+    $base = trailingslashit($uploads['basedir'].DIRECTORY_SEPARATOR);
+    $dir = "{$base}wp-vimeo-videos";
+    if(is_writable($base)) {
+        // Note: If dir already exists it will return TRUE
+        if(wp_mkdir_p($dir)) {
+            return $dir;
+        } else {
+            error_log('DGV: Failed to create tmp dir: '.$dir);
+        }
+    } else {
+        error_log('DGV: Base '.$base . ' not writable.');
+    }
+    return false;
+}
+
+/**
+ * Return the tmp dir url
+ * @return string
+ */
+function wvv_get_tmp_dir_url() {
+    $uploads = wp_upload_dir();
+    return $uploads['baseurl'] . '/wp-vimeo-videos';
+}

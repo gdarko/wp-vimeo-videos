@@ -92,6 +92,16 @@ class WP_DGV {
 		 */
 		require_once WP_VIMEO_VIDEOS_PATH . 'vendor/autoload.php';
 
+        /**
+         * The class responsible for settings management
+         */
+        require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-settings-helper.php';
+
+        /**
+         * The class responsible for logging
+         */
+        require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-logger.php';
+
 		/**
 		 * The class responsible for displaying notices
 		 */
@@ -150,6 +160,11 @@ class WP_DGV {
 		 */
 		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-ajax-handler.php';
 
+        /**
+         * The class responsible for logging
+         */
+        require_once WP_VIMEO_VIDEOS_PATH.'includes/class-wp-dgv-migrator.php';
+
 
 		$this->loader = new WP_DGV_Loader();
 
@@ -182,9 +197,13 @@ class WP_DGV {
 	private function define_admin_hooks() {
 
 		// Init Classes
-		$plugin_admin = new WP_DGV_Admin( $this->get_plugin_name(), $this->get_version() );
-		$ajax_handler = new WP_DGV_Ajax_Handler( $this->get_plugin_name(), $this->get_version() );
-		$cron_system  = new WP_DGV_Cron_System();
+        $plugin_admin = new WP_DGV_Admin($this->get_plugin_name(), $this->get_version());
+        $ajax_handler = new WP_DGV_Ajax_Handler($this->get_plugin_name(), $this->get_version());
+        $cron_system  = new WP_DGV_Cron_System();
+        $migrator     = new WP_DGV_Migrator();
+
+        // Init Migration
+        $this->loader->add_action('init', $migrator, 'init');
 
 		// Init Dashboard
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
@@ -193,7 +212,6 @@ class WP_DGV {
 		$this->loader->add_action( 'admin_notices', $plugin_admin, 'instructions' );
 		$this->loader->add_filter( 'plugin_action_links_' . WP_VIMEO_VIDEOS_BASENAME, $plugin_admin, 'plugin_action_links', 100, 1);
 		$this->loader->add_filter('plugin_row_meta', $plugin_admin, 'plugin_row_meta', 100, 4 );
-
 
         // Int Cron tasks
 		$this->loader->add_filter( 'cron_schedules', $cron_system, 'cron_schedules', 15, 1 );

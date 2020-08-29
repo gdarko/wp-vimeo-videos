@@ -1,6 +1,9 @@
 <?php
 /* @var WP_DGV_Api_Helper $vimeo_helper */
 /* @var WP_DGV_Db_Helper $db_helper */
+
+$settings = new WP_DGV_Settings_Helper();
+
 ?>
 
 <div class="wrap">
@@ -22,24 +25,24 @@
                     <div class="form-row">
                         <label for="dgv_client_id"><?php _e( 'Client ID', 'wp-vimeo-videos' ); ?></label>
                         <input type="text" name="dgv_client_id" id="dgv_client_id"
-                               value="<?php echo get_option( 'dgv_client_id' ); ?>">
+                               value="<?php echo $settings->get( 'dgv_client_id' ); ?>">
                     </div>
                     <div class="form-row">
                         <label for="dgv_client_secret"><?php _e( 'Client Secret', 'wp-vimeo-videos' ); ?></label>
                         <input type="text" name="dgv_client_secret" id="dgv_client_secret"
-                               value="<?php echo get_option( 'dgv_client_secret' ); ?>">
+                               value="<?php echo $settings->get( 'dgv_client_secret' ); ?>">
                     </div>
                     <div class="form-row">
                         <label for="dgv_access_token"><?php _e( 'Access Token', 'wp-vimeo-videos' ); ?></label>
                         <input type="text" name="dgv_access_token" id="dgv_access_token"
-                               value="<?php echo get_option( 'dgv_access_token' ); ?>">
+                               value="<?php echo $settings->get( 'dgv_access_token' ); ?>">
                     </div>
                 </div>
 
                 <div class="dgv-settings-section">
                     <h2 class="wvv-form-heading"><?php _e( 'Miscellaneous' ); ?></h2>
                     <div class="form-row">
-                        <label for="dgv_author_uploads_only" class="dgv-font-weight-normal"><input type="checkbox" name="dgv_author_uploads_only" id="dgv_author_uploads_only" value="1" <?php checked(get_option('dgv_author_uploads_only'), '1'); ?>> <?php _e( 'Hide videos uploaded from different authors for non-admin users', 'wp-vimeo-videos' ); ?></label>
+                        <label for="dgv_author_uploads_only" class="dgv-font-weight-normal"><input type="checkbox" name="dgv_author_uploads_only" id="dgv_author_uploads_only" value="1" <?php checked($settings->get('dgv_author_uploads_only'), '1'); ?>> <?php _e( 'Hide videos uploaded from different authors for non-admin users', 'wp-vimeo-videos' ); ?></label>
                     </div>
                 </div>
 
