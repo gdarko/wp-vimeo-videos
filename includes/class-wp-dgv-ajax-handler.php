@@ -171,6 +171,38 @@ class WP_DGV_Ajax_Handler {
 
 	}
 
+    /**
+     * Handles user search
+     */
+    public function handle_user_search() {
+
+        if ( ! $this->check_referer('dgvsecurity') ) {
+            wp_send_json_error( array(
+                'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+            ) );
+            exit;
+        }
+
+        $items = array();
+
+        $phrase = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : '';
+
+        $params = array();
+        if ( ! empty($phrase)) {
+            $params['search'] = $phrase;
+        }
+        $_users = get_users($params);
+        foreach ($_users as $user) {
+            array_push($items, array(
+                'id'   => $user->ID,
+                'name' => $user->display_name,
+            ));
+        }
+
+        wp_send_json_success($items);
+
+    }
+
 	/**
 	 * Utility function to check if the request is GET
 	 * @return bool

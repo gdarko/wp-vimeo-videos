@@ -98,6 +98,28 @@ class WP_DGV_Admin {
 			$uploads = $this->db_helper->get_uploaded_videos();
 		}
 
+		// Select2
+        if ( ! wp_script_is('select2', 'enqueued')) {
+
+            wp_enqueue_script(
+                'dgv-select2',
+                WP_VIMEO_VIDEOS_URL.'admin/resources/select2/select2.min.js',
+                null,
+                null,
+                true
+            );
+        }
+
+        if ( ! wp_style_is('select2', 'enqueued')) {
+            wp_enqueue_style(
+                'dgv-select2',
+                WP_VIMEO_VIDEOS_URL.'admin/resources/select2/select2.min.css',
+                array(),
+                null,
+                'all'
+            );
+        }
+
 		// Sweetalert
 		wp_enqueue_script( 'swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/swal.min.js', null, null, true );
 
@@ -109,7 +131,6 @@ class WP_DGV_Admin {
 
 		// Admin
 		wp_enqueue_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array( 'jquery',  'dgv-uploader'), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
-
 		wp_localize_script( $this->plugin_name, 'DGV', array(
 			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),

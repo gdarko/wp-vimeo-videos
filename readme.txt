@@ -4,7 +4,7 @@ Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 4.2
 Stable Tag: 1.4.0
 Requires PHP: 5.5.0
-Tested up to: 5.4
+Tested up to: 5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ Embed and upload videos to Vimeo directly from WordPress
 
 == Description ==
 
-**Integrtes your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. :)**
+**Integrtes your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. 8-) **
 
-**Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo software. It just uses their Developer API to provide interface for uploading videos directly from WordPress.
+**Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo software. It just uses Vimeo Developer API to provide interface for uploading videos directly from WordPress.
 
 Especially useful in the following cases:
 - If you want to speed up the entire process. No need to login to Vimeo, you can now upload videos directly WordPress.
@@ -95,6 +95,20 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.4.0 =
+* Refactored the settings backend to improve performance during read/write operations
+* Added dgv_uploaded_videos_query_args filter to allow devs to filter the Local Video Library dropdown list in upload modals.
+* Improved code quality
+* Improved the user dropdown in the Library Screen, added lazy loading.
+* Improved translations
+* Added experimential thumbnails support for the admin list table screen (PRO)
+* Added option to show only the videos uploaded by the current user in the Local Library dropdown in upload forms (PRO)
+* Added option to enable/disable video insert methods in Gutenberg and TinyMCE upload forms (PRO)
+* Added TinyMCE upload form compatibility for the front-end TinyMCE editors utilizing wp_editor() (eg. found in BuddyPress, LearnDash, etc) (PRO)
+* Added dgv_enable_tinymce_upload_plugin filter to allow devs to enable or disable the TinyMCE plugin completely (PRO)
+* Deprecate wvv_get_whitelisted_domains(),wvv_get_default_admin_view_privacy(),wvv_get_default_frontend_view_privacy() in favor of the new WP_DGV_Settings_Helper class. (PRO)
+* Improved video deletion process (PRO)
 
 = Version 1.3.0 =
 * Fix fatal error in the table screen

@@ -244,45 +244,36 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		<?php
 	}
 
-	/**
-	 * Extra controls to be displayed between bulk actions and pagination
-	 *
-	 * @since 3.1.0
-	 *
-	 * @param string $which
-	 */
-	protected function extra_tablenav( $which ) {
-		if ( $which == "top" ) {
-			?>
-			<div class="alignleft actions bulkactions">
-				<?php
-				$users = get_users( array(
-					'role__in' => array( 'administrator', 'editor', 'author' ),
-				) );
-				if ( !empty($users) ) {
-					?>
-					<?php
-					$filter_author_ID = isset($_POST['author']) ? $_POST['author'] : 0;
-					?>
-					<div class="alignleft actions">
-						<label class="screen-reader-text" for="author"><?php __('Filter by author', 'wp-vimeo-videos'); ?></label>
-						<select name="author" id="author" class="postform">
-							<option value="0">All Users</option>
-							<?php
-							foreach ( $users as $user ) {
-								?>
-								<option <?php selected($filter_author_ID, $user->ID); ?> value="<?php echo $user->ID; ?>"><?php echo $user->display_name; ?></option>
-								<?php
-							}
-							?>
-						</select>
-						<input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filter">
-					</div>
-					<?php
-				}
-				?>
-			</div>
-			<?php
-		}
-	}
+    /**
+     * Extra controls to be displayed between bulk actions and pagination
+     *
+     * @since 3.1.0
+     *
+     * @param string $which
+     */
+    protected function extra_tablenav( $which ) {
+        if ( $which == "top" ) {
+            ?>
+            <div class="alignleft actions bulkactions">
+                <?php
+                $filter_author = false;
+                $filter_author_ID = isset($_REQUEST['author']) ? intval($_REQUEST['author']) : 0;
+                if($filter_author_ID) {
+                    $filter_author = get_user_by('id', $filter_author_ID);
+                }
+                ?>
+                <div class="alignleft actions">
+                    <label class="screen-reader-text" for="author"><?php __('Filter by author', 'wp-vimeo-videos-pro'); ?></label>
+                    <select name="author" id="author" class="postform dgv-select2" data-placeholder="<?php _e('Filter by author'); ?>">
+                        <?php if(!empty($filter_author)): ?>
+                            <option selected value="<?php echo $filter_author->ID; ?>"><?php echo $filter_author->display_name; ?></option>
+                        <?php endif; ?>
+                    </select>
+                    <input type="submit" name="filter_action" id="post-query-submit" class="button-primary" value="Filter">
+                    <a href="" class="dgv-clear-selection" data-target=".dgv-select2" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e('Clear'); ?></a>
+                </div>
+            </div>
+            <?php
+        }
+    }
 }

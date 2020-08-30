@@ -1,3 +1,14 @@
+.tablenav .select2 {
+    width: 140px !important;
+}
+
+.tablenav .select2, .tablenav .button {
+    display: inline-block;
+}
+.dgv-clear-selection {
+    text-decoration: none;
+}
+
 .form-row.with-border {
     border-top: 1px solid #f0f0f0;
     padding-top: 25px;

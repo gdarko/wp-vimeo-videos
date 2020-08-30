@@ -222,7 +222,8 @@ class WP_DGV {
 		$this->loader->add_action( 'wp_ajax_dgv_handle_upload', $ajax_handler, 'handle_upload' );
 		$this->loader->add_action( 'wp_ajax_dgv_handle_settings', $ajax_handler, 'handle_settings' );
 		$this->loader->add_action( 'wp_ajax_dgv_store_upload', $ajax_handler, 'store_upload' );
-	}
+        $this->loader->add_action( 'wp_ajax_dgv_user_search', $ajax_handler, 'handle_user_search' );
+    }
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality

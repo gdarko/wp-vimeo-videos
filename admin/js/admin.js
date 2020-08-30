@@ -2,6 +2,84 @@ var notice = function (message, type) {
     return '<div class="notice notice-' + type + ' is-dismissible dgv-clear-padding"><p>' + message + '</p></div>\n';
 };
 
+(function ($) {
+    /**
+     * Ajax select plugin
+     * @param url
+     * @param opts
+     * @returns {*|jQuery|HTMLElement}
+     */
+    $.fn.ajaxSelect = function (url, opts) {
+
+        if(!jQuery.fn.select2) {
+            console.log('WP Vimeo Videos: Select2 library is not initialized.');
+            return false;
+        }
+
+        var params = {
+            ajax: {
+                url: url,
+                dataType: 'json',
+                delay: 250,
+                type: 'POST',
+                headers: {'Accept': 'application/json'},
+                data: function (params) {
+                    return {
+                        s: params.term,
+                    };
+                },
+                processResults: function (response) {
+                    var options = [];
+                    if (response.success) {
+                        for (var i in response.data) {
+                            var id = response.data[i].id;
+                            var name = response.data[i].name;
+                            options.push({id: id, text: name});
+                        }
+                    }
+                    return {results: options};
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            width: '100%'
+        };
+
+        $.extend(params, opts);
+        $(this).select2(params);
+        return $(this);
+    }
+
+
+    // Initialize
+    var url = DGV.ajax_url + '?action=dgv_user_search&_wpnonce='+ DGV.nonce;
+    $(document).find('.dgv-select2').each(function () {
+        console.log('initializing select2');
+        var params = {};
+        var placehodler = $(this).data('placeholder');
+        if(placehodler) {
+            params.placeholder = placehodler;
+        }
+        $(this).ajaxSelect(url, params);
+    });
+    $(document).on('change', '.dgv-select2', function(){
+        var value = $(this).val();
+        if(value) {
+            $('.dgv-clear-selection').show();
+        } else {
+            $('.dgv-clear-selection').hide();
+        }
+    });
+    $(document).on('click', '.dgv-clear-selection', function(e){
+        e.preventDefault();
+        var target = $(this).data('target');
+        $(target).each(function(e){
+            $(this).val(null).trigger('change');
+        })
+    })
+
+})(jQuery);
+
 // Handle vimeo upload
 (function ($) {
 
