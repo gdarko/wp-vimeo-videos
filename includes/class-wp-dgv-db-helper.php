@@ -136,19 +136,21 @@ class WP_DGV_Db_Helper {
 	 * @return array
 	 */
 	public function get_uploaded_videos() {
-		$uploads_formatted = wp_cache_get( 'wvv_uploads_formatted' );
-		if ( false === $uploads_formatted ) {
-			$uploads           = $this->get_videos();
-			$uploads_formatted = array();
-			foreach ( $uploads as $_upload ) {
-				$uploads_formatted[] = array(
-					'title'    => $_upload->post_title,
-					'vimeo_id' => $this->get_vimeo_id( $_upload->ID ),
-					'ID'       => $_upload->ID
-				);
-			}
-			wp_cache_set( 'wvv_uploads_formatted', $uploads_formatted );
-		}
-		return $uploads_formatted;
+        $uploads_formatted = wp_cache_get('wvv_uploads_formatted');
+        if (false === $uploads_formatted) {
+            $params            = apply_filters('dgv_uploaded_videos_query_args', array());
+            $uploads           = $this->get_videos($params);
+            $uploads_formatted = array();
+            foreach ($uploads as $_upload) {
+                $uploads_formatted[] = array(
+                    'title'    => $_upload->post_title,
+                    'vimeo_id' => $this->get_vimeo_id($_upload->ID),
+                    'ID'       => $_upload->ID
+                );
+            }
+            wp_cache_set('wvv_uploads_formatted', $uploads_formatted);
+        }
+
+        return $uploads_formatted;
 	}
 }
