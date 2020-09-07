@@ -24,6 +24,20 @@ class  WP_DGV_Api_Helper {
 	public $api = null;
 
 	/**
+	 * List of the required scopes
+	 * @var array
+	 */
+	public $scopes_required = array(
+		'create', 'interact', 'private', 'edit', 'upload', 'delete'
+	);
+
+	/**
+	 * List of the missing scopes
+	 * @var array
+	 */
+	public $scopes_missing = array();
+
+	/**
 	 * List of scopes tied to the authenticated user
 	 * @var array
 	 */
@@ -183,6 +197,7 @@ class  WP_DGV_Api_Helper {
 			$this->upload_quota = isset( $data['body']['user']['upload_quota'] ) ? $data['body']['user']['upload_quota'] : array();
 			if ( ! empty( $_scopes ) ) {
 				$this->scopes = explode( ' ', $_scopes );
+				$this->scopes_missing = array_diff($this->scopes_required, $this->scopes);
 			}
 		} else {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
