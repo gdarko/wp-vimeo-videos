@@ -5,25 +5,23 @@
 
 <h2><?php _e( 'Upload to Vimeo', 'wp-vimeo-videos' ); ?></h2>
 
-<h2><?php _e( 'Upload to Vimeo', 'wp-vimeo-videos-pro' ); ?></h2>
-
 <div class="wvv-box">
-    <h3><?php _e('Oh, snap!'); ?></h3>
+    <h3><?php _e('Oh, snap!', 'wp-vimeo-videos'); ?></h3>
     <p>
-		<?php _e('Sorry. Looks like you are not allowed to upload videos to vimeo.', 'wp-vimeo-uploads'); ?>
+		<?php _e('Sorry. Looks like you are not allowed to upload videos to vimeo.', 'wp-vimeo-videos'); ?>
     </p>
 	<?php if ( is_array( $vimeo_helper->scopes ) && count( $vimeo_helper->scopes ) > 0 ): ?>
 
         <ul>
-            <li><strong><?php _e('Current scopes', 'wp-vimeo-uploads'); ?></strong>: <?php echo implode( ', ', $vimeo_helper->scopes ); ?></li>
+            <li><strong><?php _e('Current scopes', 'wp-vimeo-videos'); ?></strong>: <?php echo implode( ', ', $vimeo_helper->scopes ); ?></li>
 			<?php if(!empty($vimeo_helper->scopes_missing)): ?>
-                <li><strong><?php _e('Missing scopes', 'wp-vimeo-uploads'); ?></strong>: <?php echo implode( ', ', $vimeo_helper->scopes_missing ); ?></li>
+                <li><strong><?php _e('Missing scopes', 'wp-vimeo-videos'); ?></strong>: <?php echo implode( ', ', $vimeo_helper->scopes_missing ); ?></li>
 			<?php endif; ?>
         </ul>
 
 	<?php endif; ?>
     <p>
-		<?php echo sprintf(__('Please go to the %s and re-generate your access token with all the required scopes. If you need help check the link bellow.', 'wp-vimeo-videos-pro'), '<a target="_blank" href="https://developer.vimeo.com/">Vimeo developer portal</a>', '<strong>upload</strong>' ); ?>
+		<?php echo sprintf(__('Please go to the %s and re-generate your access token with all the required scopes. If you need help check the link bellow.', 'wp-vimeo-videos'), '<a target="_blank" href="https://developer.vimeo.com/">Vimeo developer portal</a>', '<strong>upload</strong>' ); ?>
     </p>
     <p>
         <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>" class="button"><?php _e('Documentation'); ?></a>

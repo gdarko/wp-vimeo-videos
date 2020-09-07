@@ -5,22 +5,22 @@
 
 <h2><?php _e( 'Invalid API Details', 'wp-vimeo-videos' ); ?></h2>
 
-<form id="wp-vimeo-videos" class="wvv-box" enctype="multipart/form-data" method="post" action="">
+<div class="wvv-box">
 
-	<div class="form-row">
+    <h3><?php _e('Oh, snap!', 'wp-vimeo-videos'); ?></h3>
 
-		<p><?php _e( 'Blah! Your api details are missing or are invalid. Go to the Settings screen and enter valid vimeo details.', 'wp-vimeo-uploads' ); ?></p>
+    <p><?php _e( 'Your Vimeo API credentials are missing or are invalid. Go to the Settings > Vimeo screen and enter valid vimeo details.', 'wp-vimeo-uploads' ); ?></p>
 
-	</div>
+    <p>
+		<?php echo sprintf(__('Please go to the %s and re-generate your access token with all the required scopes. If you need help check the link bellow.', 'wp-vimeo-videos'), '<a target="_blank" href="https://developer.vimeo.com/">Vimeo developer portal</a>', '<strong>upload</strong>' ); ?>
+    </p>
 
-	<div class="form-row with-border">
+    <p>
+        <a href="<?php echo admin_url( 'upload.php?page=' . WP_DGV_Admin::PAGE_VIMEO ); ?>"
+           class="button"><?php _e( 'Back', 'wp-vimeo-videos' ); ?></a>
 
-		<a href="<?php echo admin_url( 'upload.php?page=' . WP_DGV_Admin::PAGE_VIMEO ); ?>"
-		   class="button"><?php _e( 'Back', 'wp-vimeo-uploads' ); ?></a>
+        <a href="<?php echo admin_url( 'options-general.php?page=' .  WP_DGV_Admin::PAGE_SETTINGS . '&action=settings' ); ?>"
+           class="button-primary"><?php _e( 'Settings', 'wp-vimeo-videos' ); ?></a>
+    </p>
 
-		<a href="<?php echo admin_url( 'options-general.php?page=' .  WP_DGV_Admin::PAGE_SETTINGS . '&action=settings' ); ?>"
-		   class="button-primary"><?php _e( 'Go to Settings', 'wp-vimeo-uploads' ); ?></a>
-
-	</div>
-
-</form>
+</div>
