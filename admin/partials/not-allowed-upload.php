@@ -23,7 +23,10 @@
     <p>
 		<?php echo sprintf(__('Please go to the %s and re-generate your access token with all the required scopes. If you need help check the link bellow.', 'wp-vimeo-videos'), '<a target="_blank" href="https://developer.vimeo.com/">Vimeo developer portal</a>', '<strong>upload</strong>' ); ?>
     </p>
+
+    <hr/>
+
     <p>
-        <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>" class="button"><?php _e('Documentation'); ?></a>
+        <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>" class="button-primary"><?php _e('Documentation', 'wp-vimeo-videos-pro'); ?></a>
     </p>
 </div>
