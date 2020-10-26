@@ -65,7 +65,7 @@
 }
 
 .form-row {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .form-row > label {
@@ -260,7 +260,7 @@ h2.wvv-form-heading {
 .dgv-embed-container iframe {
     width: 100%;
     display: block;
-    background: #f0f0f0;
+    background: #000;
     padding: 5px;
     border: 1px solid #cccc;
 }
