@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 4.2
-Stable Tag: 1.4.0
+Stable Tag: 1.5.0
 Requires PHP: 5.5.0
 Tested up to: 5.5
 License: GPLv2 or later
@@ -12,7 +12,7 @@ Embed and upload videos to Vimeo directly from WordPress
 
 == Description ==
 
-**Integrtes your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. 8-) **
+**Integrtes your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. 8-)**
 
 **Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo software. It just uses Vimeo Developer API to provide interface for uploading videos directly from WordPress.
 
@@ -35,20 +35,34 @@ In order to be able to connect to Vimeo you will need to sign up on <a target="_
 * Settings > Vimeo is accessible by the users that have the capability manage_options (Administrators by default)
 * Shortcode available [dgv_vimeo_video id="the_vimeo_id"]
 * Useful API information and tips in the Settings > Vimeo Page
+* Vimeo connection problem detection mechanism in Settings page
 
 === Premium Version ===
 
 Additional features as follows:
 
- * Front-end upload via Gravtiy Forms
- * Upload videos form the Classic Editor (TinyMCE)
- * Option to upload existing Media Library videos to Vimeo in WordPress with one click
- * Option to search your Vimeo account for existing videos when embedding video
- * Option to set different Vimeo View Privacy for Front-end and Back-end upload
- * Option to whitelist domains for embedding. Allow embedding on specific domains only for newly uploaded videos
- * Update Vimeo Videos from your WordPress site
- * Delete Vimeo Videos from your WordPress site
- * Fast Dedicated Support for premium customers
+* Front-end upload via Gravtiy Forms
+* Gutenberg Support with additional options (eg. account search)
+* Classic Editor Support (TinyMCE) in admin and Front-end for plugins that use wp_editor()
+* Option to upload existing Media Library videos to Vimeo in WordPress with one click
+* Option to search your Vimeo account for existing videos when embedding video via Gutenberg and TinyMCE
+* Option to show only the videos uploaded by the current user in the library page
+* Option to enable/disable single video pages that show the Video
+* Option to whitelist domains that are allowed to embed the uploaded videos
+* Option to control who can view the uploaded videos through the admin or the front-end separately
+* Option to select who can view the video in the upload forms (Gutenberg, Classic editor, Vimeo tab or Media Library push buttons)
+* Option to edit view privacy in the Media > Vimeo tab for each video
+* Option to enable/disable certain embed methods in the Gutenberg and TinyMCE Vimeo Upload forms
+* Option to select default folder for videos uploaded in the admin dashboard
+* Option to select default folder for videos uploaded from the front-end forms
+* Option to edit folder in Media > Vimeo for each video
+* Option to select default embed preset for videos uploaded in the admin dashboard
+* Option to select default embed preset for videos uploaded from the front-end forms
+* Option to embed preset in Media > Vimeo for each video
+* Update Vimeo Videos from your WordPress site
+* Delete Vimeo Videos from your WordPress site
+* Experimental Thumbnails support
+* Fast Dedicated Support for premium customers
 
  <a href="http://bit.ly/wvvpurchase" target="_blank">Get Premium Version</a>
 
@@ -95,6 +109,31 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.5.0 =
+FREE/PRO:
+* Added problem detection mechanism in the Settings API box. If your connection is missing scopes or is using "Unauthorized" access token warning will appear and instructions how to fix it.
+* Added various improvements to the codebase
+* Fixed different warnings in the Gutenberg block
+* Fixed bug in the Gutenberg block that broke the selection of the current block video after upload
+* Fixed bug in the Video edit screen not showing the loader animation
+* Improved style of the Video edit page
+
+PRO ONLY:
+* Added Embed Preset options in Settings. It's now possible to select default embed preset for both admin/front-end uploads
+* Added Embed Preset options in the Video edit screen. It's now possible to change the embed preset of Video
+* Added Folders options in Settings. It's now possible to select default folder for both admin/front-end uploads
+* Added Folders options in the Video edit screen. It's now possible to change the folder of the Video
+* Added view privacy option in Video upload/edit screens
+* Added view privacy option in Gutenberg block upload form
+* Added view privacy option in TinyMCE upload form
+* Added view privacy option to the Media Library local video upload modal
+* Added proper warning for the front-end upload in case that the Vimeo connection is missing scopes or using "Unauthorized" access token
+* Fixed bug that prevented creating local video entries after upload in the Media Library local video upload modal
+* Fixed bug in the Gutenberg block that broke the creation of local entries after upload
+
+= Version 1.4.1 =
+* Added dgv_gravityforms_after_vimeo_upload_tasks_dispatched action that is triggered after vimeo upload background tasks are dispatched.
 
 = Version 1.4.0 =
 * Refactored the settings backend to improve performance during read/write operations
