@@ -214,3 +214,23 @@ var notice = function (message, type) {
         return false;
     });
 })(jQuery);
+
+
+// Fix problems
+(function($){
+    $(document).on('click', '.wvv-problem-fix-trigger', function(e){
+        e.preventDefault();
+        var $wrap = $(this).closest('.wvv-problem-wrapper');
+        var $fixWrap = $wrap.find('.wvv-problem--fix')
+        var text = $fixWrap.text();
+        swal.fire({
+            showCloseButton: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+            html: '<div class="wvv-problem-solution">\n' +
+                '\t<h2>'+DGV.problem_solution+'</h2>\n' +
+                '\t<p>'+text+'</p>\n' +
+                '</div>',
+        });
+    });
+})(jQuery);

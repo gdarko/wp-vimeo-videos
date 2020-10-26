@@ -9,31 +9,40 @@
 				<?php _e( 'Status', 'wp-vimeo-videos' ); ?>
             </th>
             <td>
-				<?php if ( $vimeo_helper->is_connected ): ?>
-                    <p class="wvv-status-green"><?php _e( 'Connected', 'wp-vimeo-videos' ); ?></p>
-				<?php else: ?>
-                    <p class="wvv-status-red"><?php _e( 'Not Connected', 'wp-vimeo-videos' ); ?></p>
-				<?php endif; ?>
+	            <?php if ( $vimeo_helper->is_connected && $vimeo_helper->is_authenticated_connection ): ?>
+                    <p class="wvv-status-green"><?php _e( 'Connected', 'wp-vimeo-videos-pro' ); ?></p>
+	            <?php elseif($vimeo_helper->is_connected && !$vimeo_helper->is_authenticated_connection): ?>
+                    <p class="wvv-status-yellow"><?php _e( 'Connected (Unauthenticated)', 'wp-vimeo-videos-pro' ); ?></p>
+	            <?php else: ?>
+                    <p class="wvv-status-red"><?php _e( 'Not Connected', 'wp-vimeo-videos-pro' ); ?></p>
+	            <?php endif; ?>
             </td>
         </tr>
 		<?php if ( $vimeo_helper->is_connected ): ?>
-            <tr>
-                <th>
-					<?php _e( 'User', 'wp-vimeo-videos' ); ?>
-                </th>
-                <td>
-                    <a href="<?php echo $vimeo_helper->user_link; ?>"
-                       target="_blank"><?php echo $vimeo_helper->user_name; ?></a>
-                </td>
-            </tr>
-            <tr>
-                <th>
-					<?php _e( 'Plan', 'wp-vimeo-videos' ); ?>
-                </th>
-                <td>
-					<?php echo 'Vimeo ' . ucfirst( $vimeo_helper->user_type ); ?>
-                </td>
-            </tr>
+
+			<?php if ( $vimeo_helper->is_authenticated_connection ): ?>
+                <tr>
+                    <th>
+						<?php _e( 'User', 'wp-vimeo-videos-pro' ); ?>
+                    </th>
+                    <td>
+                        <a href="<?php echo $vimeo_helper->user_link; ?>"
+                           target="_blank"><?php echo $vimeo_helper->user_name; ?></a>
+                    </td>
+                </tr>
+			<?php endif; ?>
+
+			<?php if ( $vimeo_helper->is_authenticated_connection ): ?>
+                <tr>
+                    <th>
+						<?php _e( 'Plan', 'wp-vimeo-videos-pro' ); ?>
+                    </th>
+                    <td>
+						<?php echo 'Vimeo ' . ucfirst( $vimeo_helper->user_type ); ?>
+                    </td>
+                </tr>
+			<?php endif; ?>
+
             <tr>
                 <th>
 					<?php _e( 'App', 'wp-vimeo-videos' ); ?>
@@ -121,5 +130,37 @@
 				<?php echo ini_get( 'post_max_size' ); ?>
             </td>
         </tr>
+
+	    <?php
+	    // Detect problems
+	    $problems = $vimeo_helper->find_problems();
+	    ?>
+
+	    <?php if(!empty($problems) && count($problems)>0): ?>
+            <tr class="wvv-problems">
+                <th>
+				    <?php _e( 'Detected Problems', 'wp-vimeo-videos-pro' ); ?>
+                </th>
+                <td>
+                    <p class="wvv-problem-head"><?php _e('Fix the following problems to ensure proper function:'); ?></p>
+                    <ol>
+					    <?php foreach($problems as $problem): ?>
+                            <li>
+                                <div class="wvv-problem-wrapper">
+                                    <div class="wvv-problem--info">
+                                        <p><?php echo $problem['info']; ?></p>
+                                        <p><a class="wvv-problem-fix-trigger" href="#"><?php _e('Fix prolbem', 'wp-vimeo-videos-pro'); ?></a></p>
+                                    </div>
+                                    <div class="wvv-problem--fix" style="display: none;">
+									    <?php echo $problem['fix']; ?>
+                                    </div>
+                                </div>
+                            </li>
+					    <?php endforeach; ?>
+                    </ol>
+                </td>
+            </tr>
+	    <?php endif; ?>
+
     </table>
 </div>

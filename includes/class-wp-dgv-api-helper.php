@@ -18,6 +18,17 @@ class  WP_DGV_Api_Helper {
 	public $is_connected = null;
 
 	/**
+	 * Is authenticated connection?
+	 *
+	 * Authenticated connections are required.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var bool
+	 */
+	public $is_authenticated_connection = true;
+
+	/**
 	 * Return the vimeo instance
 	 * @var null|\Vimeo\Vimeo
 	 */
@@ -174,8 +185,13 @@ class  WP_DGV_Api_Helper {
 			$status = $data['status'];
 			if ( $status === 200 ) {
 				$this->is_connected = true;
+				// If user object is not present assume this is unauthenticated connection.
+				if ( ! isset( $data['body']['user'] ) ) {
+					$this->is_authenticated_connection = false;
+				}
 			} else {
 				$this->is_connected = false;
+				$this->is_authenticated_connection = false;
 				if ( isset( $data['body']['developer_message'] ) ) {
 					$this->error = $data['body']['developer_message'];
 				}
@@ -204,6 +220,53 @@ class  WP_DGV_Api_Helper {
 				error_log( 'DGV VIMEO CONNECTION ERROR: ' . $this->error );
 			}
 		}
+	}
+
+	/**
+	 * Used to detect problems with active connection
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return array
+	 */
+	public function find_problems() {
+		$problems = array();
+
+		// Check connection, if wrong bail immediately.
+		if ( ! $this->is_authenticated_connection ) {
+			array_push( $problems, array(
+				'code' => 'unauthenticated',
+				'info' => __( 'Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos-pro' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+			) );
+
+			return $problems;
+		}
+
+		// Continue with scopes.
+		if ( ! $this->can_upload() ) {
+			array_push( $problems, array(
+				'code' => 'cant_upload',
+				'info' => __( 'Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos-pro' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+			) );
+		}
+		if ( ! $this->can_edit() ) {
+			array_push( $problems, array(
+				'code' => 'cant_edit',
+				'info' => __( 'Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos-pro' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+			) );
+		}
+		if ( ! $this->can_delete() ) {
+			array_push( $problems, array(
+				'code' => 'cant_delete',
+				'info' => __( 'Your Access Token is missing "Delete" scope. This will prevent deleting Videos from the admin dashboard.' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+			) );
+		}
+
+		return $problems;
 	}
 
 	/**

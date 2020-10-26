@@ -80,6 +80,9 @@
     margin-right: 0 !important;
 }
 
+.vimeo-api-info tr {
+    vertical-align: top;
+}
 .vimeo-api-info p.wvv-status-red {
     color: red;
     font-weight: bold;
@@ -87,6 +90,11 @@
 
 .vimeo-api-info p.wvv-status-green {
     color: green;
+    font-weight: bold;
+}
+
+.vimeo-api-info p.wvv-status-yellow {
+    color: #cfbf08;
     font-weight: bold;
 }
 
@@ -104,6 +112,21 @@
     background: #fcfcfc;
     padding: 10px;
 }
+
+.wvv-problems ul {
+    list-style: nu;
+}
+.wvv-problems {
+}
+.wvv-problems ol {
+    padding-left: 0;
+    margin-left: 13px;
+    margin-top: 5px;
+}
+.wvv-problem-head {
+    font-weight: bold;
+}
+
 
 h2.wvv-form-heading {
     border-bottom: 1px solid #ccc;
