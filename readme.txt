@@ -58,7 +58,7 @@ Additional features as follows:
 * Option to edit folder in Media > Vimeo for each video
 * Option to select default embed preset for videos uploaded in the admin dashboard
 * Option to select default embed preset for videos uploaded from the front-end forms
-* Option to embed preset in Media > Vimeo for each video
+* Option to edit embed preset in Media > Vimeo for each video
 * Update Vimeo Videos from your WordPress site
 * Delete Vimeo Videos from your WordPress site
 * Experimental Thumbnails support
