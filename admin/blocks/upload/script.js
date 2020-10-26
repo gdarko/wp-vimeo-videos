@@ -166,15 +166,14 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
         var uploads = DGV.uploads;
         var uploads_options = [];
         uploads_options.push(React.createElement("option", {
+            key:'standard-1',
             value: -1,
-            selected: true,
             disabled: true
         }, 'Select existing video'));
         for (var i in uploads) {
-            var is_selected = vimeo_video_id == uploads[i].vimeo_id;
             uploads_options.push(React.createElement("option", {
+                key: uploads[i].vimeo_id,
                 value: uploads[i].vimeo_id,
-                selected: is_selected
             }, uploads[i].title));
         }
 
@@ -182,10 +181,11 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
         var elements = [];
         if (!isNaN(vimeo_video_id)) {
             var iframe_src = 'https://player.vimeo.com/video/' + vimeo_video_id;
-            elements.push(React.createElement('h4', {}, 'Edit Vimeo'));
-            elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
-                React.createElement('label', {},
+            elements.push(React.createElement('h4', {key:'heading-1'}, 'Edit Vimeo'));
+            elements.push(React.createElement('div', {key:'option-1', className: 'dgv-vimeo-form-row'},
+                React.createElement('label', {key:'label-1'},
                     React.createElement('input', {
+                        key:'field-1',
                         type: 'radio',
                         onChange: handleFormFields,
                         // name: 'method',
@@ -195,8 +195,9 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                     }),
                     'Insert existing vimeo video'
                 ),
-                React.createElement('label', {},
+                React.createElement('label', {key:'label-2'},
                     React.createElement('input', {
+                        key:'field-2',
                         type: 'radio',
                         onChange: handleFormFields,
                         // name: 'method',
@@ -207,32 +208,39 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                     'Upload new vimeo video'
                 )
             ));
-            elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
+
+            var existing_params = {onChange: updateCurrentVimeoId, className: 'dgv-field-row', key: 'options--71'};
+            var current_video_id = props.attributes.vimeo_id;
+            if(current_video_id) {
+                existing_params.value = current_video_id;
+            }
+            elements.push(React.createElement('div', {key:'option-2',className: 'dgv-vimeo-form-row'},
                 React.createElement(
                     'select',
-                    {onChange: updateCurrentVimeoId, className: 'dgv-field-row'},
+                    existing_params,
                     uploads_options
                 )
             ));
-            elements.push(React.createElement('hr', {}));
-            elements.push(React.createElement('div', {'className': 'dgv-embed-container'},
+            elements.push(React.createElement('hr', {key:'separator-1'}));
+            elements.push(React.createElement('div', {key:'preview-1','className': 'dgv-embed-container'},
                 React.createElement('iframe', {
+                    key:'iframe-1',
                     'src': iframe_src,
-                    'frameborder': '0',
-                    'webkitAllowFullScreen': 'true',
-                    'mozallowfullscreen': 'true',
-                    'allowFullScreen': 'true'
+                    frameBorder: '0',
+                    mozallowfullscreen: 'true',
+                    allowFullScreen: true,
                 })
             ));
             //elements.push(React.createElement('button', {onClick: deleteVideo, 'class': 'button'}, 'Delete'))
 
-            return React.createElement('div', {'className': 'dgv-embed-container'}, elements);
+            return React.createElement('div', {  key:'container-1', 'className': 'dgv-embed-container'}, elements);
         } else { // Render the editor view (when nothing is uploaded)
 
-            elements.push(React.createElement('h4', {}, 'Upload Vimeo'));
-            elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
+            elements.push(React.createElement('h4', {key:'heading-2'}, 'Upload Vimeo'));
+            elements.push(React.createElement('div', {key:'option-3',className: 'dgv-vimeo-form-row'},
                 React.createElement('label', {},
                     React.createElement('input', {
+                        key:'field-8',
                         type: 'radio',
                         onChange: handleFormFields,
                         //name: 'method',
@@ -242,8 +250,9 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                     }),
                     'Insert existing vimeo video'
                 ),
-                React.createElement('label', {},
+                React.createElement('label', {key:'label-3'},
                     React.createElement('input', {
+                        key:'field-4',
                         type: 'radio',
                         onChange: handleFormFields,
                         //name: 'method',
@@ -256,8 +265,9 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
             ));
             // If the method is Upload
             if (props.attributes.method === 'upload') {
-                elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
+                elements.push(React.createElement('div', {key:'option-4',className: 'dgv-vimeo-form-row'},
                     React.createElement('input', {
+                        key:'field-5',
                         type: 'text',
                         placeholder: 'Title',
                         onChange: updateTitle,
@@ -265,8 +275,9 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                         className: 'dgv-field-row',
                     })
                 ));
-                elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
+                elements.push(React.createElement('div', {key:'option-5',className: 'dgv-vimeo-form-row'},
                     React.createElement('textarea', {
+                        key:'field-6',
                         placeholder: 'Description',
                         onChange: updateDescription,
                         //name: 'description',
@@ -275,8 +286,9 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                         rows: 8
                     })
                 ));
-                elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
+                elements.push(React.createElement('div', {key:'option-6',className: 'dgv-vimeo-form-row'},
                     React.createElement('input', {
+                        key:'field-7',
                         type: 'file',
                         placeholder: 'File',
                         onChange: updateFile,
@@ -284,38 +296,43 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                         className: 'dgv-field-row',
                     }),
                 ));
-                elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
+                elements.push(React.createElement('div', {key:'option-7',className: 'dgv-vimeo-form-row'},
                     React.createElement('div', {
+                        key:'progressbar',
                         className: 'dgv-progress-bar',
                         style: {display: 'none'}
                     }, [
                         React.createElement('div', {
-                                className: 'dgv-progress-bar-inner',
+                            key:'progressbar-inner',
+                            className: 'dgv-progress-bar-inner',
                                 style: {width: 0 + '%'}
                             },
                         ),
                         React.createElement('div', {
-                                className: 'dgv-progress-bar-value',
+                            key:'progressbar-inner-value',
+                            className: 'dgv-progress-bar-value',
                             }, '0%'
                         )
                     ]),
                 ));
             } else {
-                elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'},
+                elements.push(React.createElement('div', {key:'option-12',className: 'dgv-vimeo-form-row'},
                     React.createElement(
                         'select',
-                        {onChange: updateCurrentVimeoId, className: 'dgv-field-row'},
+                        { key:'field-8',onChange: updateCurrentVimeoId, className: 'dgv-field-row'},
                         uploads_options
                     )
                 ));
             }
-            elements.push(React.createElement('div', {className: 'dgv-vimeo-form-row'}, [
+            elements.push(React.createElement('div', {key:'option-13',className: 'dgv-vimeo-form-row'}, [
                     React.createElement('div', {
+                            key:'loader-1',
                             className: 'dgv-loader',
                             style: {display: 'none'}
                         },
                     ),
                     React.createElement('button', {
+                        key:'button-1',
                         type: 'submit',
                         className: 'button submitUpload',
                         'data-waiting': 'Sending...',
@@ -323,7 +340,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                     }, "Upload")
                 ]
             ));
-            return React.createElement('form', {className: 'dgv-vimeo-upload-form', onSubmit: submitVideo}, elements);
+            return React.createElement('form', { key:'form-8',className: 'dgv-vimeo-upload-form', onSubmit: submitVideo}, elements);
         }
     },
     save: function (props) {
