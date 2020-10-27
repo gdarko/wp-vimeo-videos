@@ -111,7 +111,9 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 == Changelog ==
 
 = Version 1.5.0 =
+
 FREE/PRO:
+
 * Added problem detection mechanism in the Settings API box. If your connection is missing scopes or is using "Unauthorized" access token warning will appear and instructions how to fix it.
 * Added various improvements to the codebase
 * Fixed different warnings in the Gutenberg block
@@ -120,6 +122,7 @@ FREE/PRO:
 * Improved style of the Video edit page
 
 PRO ONLY:
+
 * Added Embed Preset options in Settings. It's now possible to select default embed preset for both admin/front-end uploads
 * Added Embed Preset options in the Video edit screen. It's now possible to change the embed preset of Video
 * Added Folders options in Settings. It's now possible to select default folder for both admin/front-end uploads
