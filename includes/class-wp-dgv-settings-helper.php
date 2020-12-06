@@ -97,8 +97,9 @@ class WP_DGV_Settings_Helper
     public function get($key, $default = null)
     {
         $key = $this->prepare_key($key);
+	    $value = isset($this->data[$key]) ? $this->data[$key] : $default;
 
-        return isset($this->data[$key]) ? $this->data[$key] : $default;
+	    return apply_filters('dgv_settings_get', $value, $key, $default);
     }
 
     /**

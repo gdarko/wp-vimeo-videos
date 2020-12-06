@@ -2,9 +2,9 @@
 Contributors: DarkoG
 Tags: vimeo, videos, upload, embed video, embed, embed vimeo
 Requires at least: 4.2
-Stable Tag: 1.5.0
+Stable Tag: 1.5.4
 Requires PHP: 5.5.0
-Tested up to: 5.5
+Tested up to: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,35 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 4. Example Vimeo Developer APP and how to get the required access keys.
 
 == Changelog ==
+
+= Version 1.5.4 =
+
+FREE/PRO:
+
+* Added support for WordPress 5.6
+* Added dgv_settings_get filter to allow filtering options
+* Added dgv_shortcode_output filter to allow filtering the shortcodes
+* Improved compatibility with PHP 8
+
+PRO ONLY:
+* Added option to disable View Privacy in Gutenberg upload form
+* Added option to disable View Privacy in TinyMCE upload form
+* Added option to disable View Privacy in other media upload forms
+* Improved TinyMCE sweetalert compatibility with Tutor LMS
+
+= Version 1.5.3 =
+
+PRO ONLY:
+
+* Fixed fatal error triggered in the Settings page if the user is not logged in to Vimeo API.
+
+= Version 1.5.2 =
+
+PRO ONLY:
+
+* Fixed incorrect quota calculaton causing the front-end upload to fail
+* Fixed Date formatting in the Settings API screen
+* Fixed front-end upload validation allowing to continue if failed
 
 = Version 1.5.0 =
 

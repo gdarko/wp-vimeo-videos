@@ -73,17 +73,15 @@ class WP_DGV_Public {
 	 */
 	public function shortcode_video( $atts ) {
 		$a = shortcode_atts( array( 'id' => '', ), $atts );
-		if ( ! empty( $a['id'] ) ) {
-
+		$content  = '';
+		$video_id = isset( $a['id'] ) ? $a['id'] : null;
+		if ( ! empty( $video_id ) ) {
 			wp_enqueue_style( $this->plugin_name );
-
-			return wvv_get_view( 'public/partials/video', array(
-				'vimeo_id' => $a['id']
+			$content = wvv_get_view( 'public/partials/video', array(
+				'vimeo_id' => $video_id
 			) );
-
-		} else {
-			return '';
 		}
+		return apply_filters('dgv_shortcode_output', $content, $video_id);
 	}
 
 }
