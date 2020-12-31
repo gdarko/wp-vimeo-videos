@@ -16,6 +16,53 @@ var notice = function (message, type) {
             return false;
         }
 
+        var translated = {
+            errorLoading: function () {
+                return DGV.phrases.select2.errorLoading;
+            },
+            inputTooLong: function (args) {
+                var overChars = args.input.length - args.maximum;
+                var message = DGV.phrases.select2.inputTooShort;
+                message = message.replace('{number}', overChars);
+                if (overChars != 1) {
+                    message += 's';
+                }
+                return message;
+            },
+            inputTooShort: function (args) {
+                var remainingChars = args.minimum - args.input.length;
+                var message = DGV.phrases.select2.inputTooShort;
+                message = message.replace('{number}', remainingChars);
+                return message;
+            },
+            loadingMore: function () {
+                return DGV.phrases.select2.loadingMore;
+            },
+            maximumSelected: function (args) {
+                var message = DGV.phrases.select2.maximumSelected;
+                message = message.replace('{number}', args.maximum);
+                if (args.maximum != 1) {
+                    message += 's';
+                }
+                return message;
+            },
+            noResults: function () {
+                return DGV.phrases.select2.noResults;
+            },
+            searching: function () {
+                return DGV.phrases.select2.searching;
+            },
+            removeAllItems: function () {
+                return DGV.phrases.select2.removeAllItems;
+            },
+            removeItem: function () {
+                return DGV.phrases.select2.removeItem;
+            },
+            search: function () {
+                return DGV.phrases.select2.search;
+            }
+        }
+
         var params = {
             ajax: {
                 url: url,
@@ -41,6 +88,7 @@ var notice = function (message, type) {
                 },
                 cache: true
             },
+            language: translated,
             minimumInputLength: 2,
             width: '100%'
         };

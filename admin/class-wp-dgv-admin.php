@@ -147,6 +147,20 @@ class WP_DGV_Admin {
 			'correct_errors'      => __('Please correct the following errors', 'wp-vimeo-videos'),
 			'problem_solution'    => __( 'Problem solution' ),
 			'uploads'             => $uploads,
+			'phrases' => array(
+				'select2' => array(
+					'errorLoading'    => __( 'The results could not be loaded.', 'wp-vimeo-videos' ),
+					'inputTooLong'    => __( 'Please delete {number} character', 'wp-vimeo-videos' ),
+					'inputTooShort'   => __( 'Please enter {number} or more characters', 'wp-vimeo-videos' ),
+					'loadingMore'     => __( 'Loading more results...', 'wp-vimeo-videos' ),
+					'maximumSelected' => __( 'You can only select {number} item', 'wp-vimeo-videos' ),
+					'noResults'       => __( 'No results found', 'wp-vimeo-videos' ),
+					'searching'       => __( 'Searching...', 'wp-vimeo-videos' ),
+					'removeAllItems'  => __( 'Remove all items', 'wp-vimeo-videos' ),
+					'removeItem'      => __( 'Remove item', 'wp-vimeo-videos' ),
+					'search'          => __( 'Search', 'wp-vimeo-videos' ),
+				)
+			)
 		) );
 
 
