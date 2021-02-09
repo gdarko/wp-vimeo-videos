@@ -1,0 +1,459 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Vimeo Videos\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-05 15:24+0000\n"
+"PO-Revision-Date: 2021-02-09 14:56+0100\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
+"|| n%100>14) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Loco-Version: 2.3.1; wp-5.3.2\n"
+"Last-Translator: \n"
+"Language: pl\n"
+
+#: admin/partials/api.php:69
+#, php-format
+msgid "%s / %s (resets on %s)"
+msgstr "%s / %s (resetuje się %s)"
+
+#: admin/partials/api.php:84
+#, php-format
+msgid "%s / %s per minute (resets on %s)"
+msgstr "%s / %s na minutę (resetuje się na %s)"
+
+#: admin/partials/instructions.php:40
+msgid "(1-5 days required for approval)"
+msgstr "(1-5 dni wymagane do zatwierdzenia)"
+
+#: admin/partials/instructions.php:25
+msgid "1. Vimeo Developer Portal"
+msgstr "1. Vimeo Portal deweloperski"
+
+#: admin/partials/instructions.php:37
+msgid "2. Request Upload Access"
+msgstr "2. Poproś o dostęp do przekazywania"
+
+#: admin/partials/instructions.php:46
+msgid "3. Obtain API Credentials"
+msgstr "3. Uzyskiwanie poświadczeń interfejsu API"
+
+#: admin/partials/instructions.php:59
+msgid "4. Setup Credentials"
+msgstr "4. Poświadczenia instalacji"
+
+#: admin/partials/library-upload.php:35
+msgid "< Back to library"
+msgstr "< Powrót do biblioteki"
+
+#: includes/class-wp-dgv-ajax-handler.php:60 admin/partials/instructions.php:51
+#: admin/partials/settings.php:33
+msgid "Access Token"
+msgstr "Token dostępu"
+
+#: includes/class-wp-dgv-api-helper.php:122
+msgid "Access Token is missing"
+msgstr "Brak tokenu dostępu"
+
+#: admin/partials/instructions.php:52
+#, php-format
+msgid ""
+"After your upload access is approved you will need to create access token "
+"and also collect the required credentials such as %s, %s, %s."
+msgstr ""
+"Po zatwierdzeniu dostępu do przekazywania należy utworzyć token dostępu, a "
+"także zebrać wymagane poświadczenia, takie jak %s, %s, %s."
+
+#: admin/partials/api.php:39
+msgid "App"
+msgstr "Aplikacja"
+
+#: includes/class-wp-dgv-list-table.php:91
+msgid "Author"
+msgstr "Autor"
+
+#: admin/class-wp-dgv-admin.php:244 admin/partials/settings.php:50
+msgid "Buy PRO Version"
+msgstr "Kup wersję PRO"
+
+#: admin/class-wp-dgv-admin.php:118
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: includes/class-wp-dgv-ajax-handler.php:58 admin/partials/instructions.php:49
+#: admin/partials/settings.php:23
+msgid "Client ID"
+msgstr "ID klienta"
+
+#: includes/class-wp-dgv-api-helper.php:118
+msgid "Client ID is missing"
+msgstr "Brak identyfikatora klienta"
+
+#: includes/class-wp-dgv-ajax-handler.php:59 admin/partials/instructions.php:50
+#: admin/partials/settings.php:28
+msgid "Client Secret"
+msgstr "Tajny klucz klienta"
+
+#: includes/class-wp-dgv-api-helper.php:120
+msgid "Client Secret is missing"
+msgstr "Brak tajnego klucza klienta"
+
+#: admin/class-wp-dgv-admin.php:120
+msgid "Close"
+msgstr "Zamknij"
+
+#: admin/class-wp-dgv-admin.php:119
+msgid "Confirm"
+msgstr "Potwierdź"
+
+#: admin/partials/api.php:13
+msgid "Connected"
+msgstr "Połączony"
+
+#: admin/partials/instructions.php:28
+msgid "Create App"
+msgstr "Utwórz aplikację"
+
+#. Author of the plugin
+msgid "Darko Gjorgjijoski"
+msgstr "Darko Gjorgjijoski"
+
+#: admin/partials/library-upload.php:15
+msgid "Description"
+msgstr "Opis"
+
+#: admin/partials/instructions.php:91
+msgid "Dismiss this notice"
+msgstr "Odrzuć to powiadomienie"
+
+#: admin/partials/settings.php:49
+msgid "Documentation"
+msgstr "Dokumentacja"
+
+#: includes/class-wp-dgv-list-table.php:90
+msgid "Embed"
+msgstr "Osadź"
+
+#. Description of the plugin
+msgid "Embed and upload videos to Vimeo directly from WordPress"
+msgstr ""
+"Osadzanie i przesyłanie filmów do Vimeo bezpośrednio z kokpitu Wordpressa"
+
+#: includes/class-wp-dgv-ajax-handler.php:69
+#, php-format
+msgid "Error: %s is required."
+msgstr "Błąd: %s jest wymagane."
+
+#: includes/class-wp-dgv-ajax-handler.php:146
+msgid "Failed to store the video entry in the local db."
+msgstr "Nie można zapisać pliku wideo w lokalnej bazie danych."
+
+#: includes/class-wp-dgv-list-table.php:256
+msgid "Filter by author"
+msgstr "Filtrowanie według autora"
+
+#: admin/partials/instructions.php:63
+#, php-format
+msgid ""
+"Finally, assuming that you have upload access and all the credentials from "
+"the step 3, you need to enter those in the plugin %s page"
+msgstr ""
+"Wreszcie, zakładając, że masz dostęp do przesyłania i wszystkie "
+"poświadczenia z kroku 3, musisz wprowadzić te w %s pluginu"
+
+#: admin/partials/instructions.php:19
+msgid "get started"
+msgstr "rozpocznij"
+
+#: admin/partials/settings.php:42
+msgid "Hide videos uploaded from different authors for non-admin users"
+msgstr ""
+"Ukryj filmy przesłane przez różnych autorów dla użytkowników niebędących "
+"administratorami"
+
+#. URI of the plugin
+msgid "https://codeverve.com"
+msgstr "https://codeverve.com"
+
+#. Author URI of the plugin
+msgid "https://darkog.com"
+msgstr "https://darkog.com"
+
+#: admin/partials/instructions.php:39
+msgid ""
+"In order to be able to upload videos from external software like this plugin "
+"you need to request Upload Access from Vimeo and wait for approval."
+msgstr ""
+"Aby móc przesyłać filmy z zewnętrznego oprogramowania, takiego jak ta "
+"wtyczka, musisz poprosić o dostęp do uploadu od Vimeo i czekać na "
+"zatwierdzenie."
+
+#: admin/partials/library.php:28
+msgid "Invalid action"
+msgstr "Nieprawidłowa akcja"
+
+#: admin/partials/not-connected.php:6
+msgid "Invalid API Details"
+msgstr "Nieprawidłowe szczegóły interfejsu API"
+
+#: includes/class-wp-dgv-ajax-handler.php:127
+msgid "Invalid request."
+msgstr "Nieprawidłowe żądanie."
+
+#: includes/class-wp-dgv-list-table.php:111
+msgid "Manage"
+msgstr "Zarządzaj"
+
+#: includes/class-wp-dgv-list-table.php:111
+msgid "Manage this video"
+msgstr "Zarządzaj tym filmem"
+
+#: admin/partials/api.php:118
+msgid "Max Post Size"
+msgstr "Maksymalny rozmiar wgrywanego pliku"
+
+#: admin/partials/api.php:110
+msgid "Max Upload Size"
+msgstr "Maksymalny rozmiar pliku"
+
+#: admin/partials/settings.php:51
+msgid "Need help? Contact us!"
+msgstr "Potrzebujesz pomocy? Napisz do nas!"
+
+#: admin/partials/api.php:54
+msgid "No scopes found"
+msgstr "Nie znaleziono zakresów"
+
+#: includes/class-wp-dgv-list-table.php:52
+msgid "No videos found"
+msgstr "Nie znaleziono filmów"
+
+#: admin/partials/api.php:15
+msgid "Not Connected"
+msgstr "Nie podłączony"
+
+#: admin/partials/outdated.php:6
+msgid "Outdated PHP version"
+msgstr "Przestarzała wersja PHP"
+
+#: admin/partials/api.php:92
+msgid "PHP Version"
+msgstr "Wersja PHP"
+
+#: admin/partials/api.php:31
+msgid "Plan"
+msgstr "Plan"
+
+#: admin/class-wp-dgv-admin.php:116
+msgid "Please select valid video file."
+msgstr "Wybierz prawidłowy plik wideo."
+
+#: admin/partials/instructions.php:80
+msgid "Premium Version"
+msgstr "Wersja Premium"
+
+#: admin/partials/library-edit.php:29
+msgid "premium Version"
+msgstr "wersja premium"
+
+#: admin/partials/library-edit.php:17
+msgid "Preview Video"
+msgstr "Podgląd wideo"
+
+#: admin/partials/library-edit.php:29
+#, php-format
+msgid ""
+"Privacy management, front-end upload and more options available in the %s."
+msgstr ""
+"Zarządzanie prywatnością, przesyłanie front-end i inne opcje dostępne w %s."
+
+#: admin/partials/api.php:62
+msgid "Quota"
+msgstr "Liczba"
+
+#: admin/partials/api.php:77
+msgid "Rate Limits"
+msgstr "Limity stawek"
+
+#: admin/partials/instructions.php:71
+msgid "Read guide"
+msgstr "Przeczytaj przewodnik"
+
+#: admin/partials/instructions.php:85
+msgid "Read more"
+msgstr "Czytaj więcej"
+
+#: admin/partials/api.php:47
+msgid "Scopes"
+msgstr "Zakresy"
+
+#: includes/class-wp-dgv-ajax-handler.php:46
+#: includes/class-wp-dgv-ajax-handler.php:114
+msgid "Security Check Failed."
+msgstr "Sprawdzanie zabezpieczeń nie powiodło się."
+
+#: admin/class-wp-dgv-admin.php:223 admin/partials/library-list.php:13
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: admin/partials/instructions.php:62
+msgid "settings"
+msgstr "ustawienia"
+
+#: includes/class-wp-dgv-ajax-handler.php:101
+msgid "Settings saved successfully!"
+msgstr "Ustawienia konfiguracji zostały zapisane!"
+
+#: includes/class-wp-dgv-ajax-handler.php:61
+msgid "Show Author uploads only"
+msgstr "Pokaż filmy przesłane tylko przez autora"
+
+#: admin/partials/not-allowed-upload.php:18
+#, php-format
+msgid "Simply go to the %s and request %s scope to your application."
+msgstr "Wystarczy przejść do %s i zażądać %s zakresu do aplikacji."
+
+#: admin/class-wp-dgv-admin.php:115
+msgid "Sorry"
+msgstr "Przepraszamy"
+
+#: admin/partials/api.php:9
+msgid "Status"
+msgstr "Status"
+
+#: admin/class-wp-dgv-admin.php:117
+msgid "Success"
+msgstr "Sukces"
+
+#: admin/partials/instructions.php:16
+msgid "Thanks for installing"
+msgstr "Dziękujemy za instalację"
+
+#: admin/partials/instructions.php:18
+msgid ""
+"This plugin allows you to easily upload and embed Vimeo videos through your "
+"WordPress website."
+msgstr ""
+"Ta wtyczka pozwala łatwo przesyłać i osadzać filmy Vimeo za pośrednictwem "
+"witryny WordPress."
+
+#: includes/class-wp-dgv-list-table.php:89 admin/partials/library-upload.php:11
+msgid "Title"
+msgstr "Tytuł"
+
+#: admin/partials/instructions.php:19
+#, php-format
+msgid "To %s please follow the steps below:"
+msgstr "Aby %s, wykonaj poniższe czynności:"
+
+#: admin/partials/instructions.php:30
+#, php-format
+msgid ""
+"To get started and successfully connect the plugin to Vimeo you will need to "
+"sign up at %s and then %s that will be used by your website."
+msgstr ""
+"Aby rozpocząć i pomyślnie podłączyć wtyczkę do Vimeo, musisz zarejestrować "
+"się w %s a następnie %s, które będą używane przez Twoją witrynę."
+
+#: includes/class-wp-dgv-ajax-handler.php:52
+msgid "Unauthorized action"
+msgstr "Nieautoryzowane działanie"
+
+#: includes/class-wp-dgv-ajax-handler.php:120
+msgid ""
+"Unauthorized action. User must be Author, Editor or Administrator to edit."
+msgstr ""
+"Nieautoryzowane działanie. Użytkownik musi być autorem, edytorem lub "
+"administratorem, aby edytować."
+
+#: includes/class-wp-dgv-ajax-handler.php:131
+msgid "Untitled"
+msgstr "Bez nazwy"
+
+#: admin/partials/library-upload.php:29
+msgid "Upload"
+msgstr "Prześlij"
+
+#: admin/partials/library-list.php:9
+msgid "Upload new"
+msgstr "Dodaj nową"
+
+#: admin/partials/library-upload.php:6 admin/partials/not-allowed-upload.php:6
+msgid "Upload to Vimeo"
+msgstr "Prześlij do Vimeo"
+
+#: includes/class-wp-dgv-list-table.php:92
+msgid "Uploaded"
+msgstr "Przesłano"
+
+#: admin/class-wp-dgv-admin.php:114
+msgid "Uploading video. Please wait..."
+msgstr "Przesyłanie wideo. Proszę czekać..."
+
+#: admin/partials/api.php:22
+msgid "User"
+msgstr "Użytkownik"
+
+#: admin/partials/library-upload.php:19
+msgid "Video File"
+msgstr "Plik filmu"
+
+#: includes/class-wp-dgv-ajax-handler.php:141
+msgid "Video uploaded successfully."
+msgstr "Film został pomyślnie przesłany."
+
+#: admin/partials/library-edit.php:23
+msgid "View On Vimeo"
+msgstr "Zobacz na Vimeo"
+
+#: admin/partials/instructions.php:29
+msgid "Vimeo Developer Portal"
+msgstr "1. Vimeo Portal deweloperski"
+
+#: includes/class-wp-dgv-list-table.php:112
+msgid "Vimeo Link"
+msgstr "Link do Vimeo"
+
+#: includes/class-wp-dgv-api-helper.php:126
+msgid "Vimeo not loaded"
+msgstr "Film nie został załadowany"
+
+#: includes/class-wp-dgv-list-table.php:112
+msgid "Vimeo video link"
+msgstr "Link do filmu"
+
+#: admin/partials/library-list.php:6
+msgid "Vimeo Videos"
+msgstr "Filmy"
+
+#: admin/partials/instructions.php:82
+msgid ""
+"We have premium version of this plugin that is improved, has more features, "
+"regular updates and dedicated support team ready to help you. If you are "
+"interested to find out about the complete list of the features click on the "
+"button below."
+msgstr ""
+"Mamy wersję premium tej wtyczki, która jest ulepszona, ma więcej funkcji, "
+"regularne aktualizacje i dedykowany zespół wsparcia gotowy, aby Ci pomóc. "
+"Jeśli jesteś zainteresowany, aby dowiedzieć się o pełnej liście funkcji "
+"kliknij przycisk poniżej."
+
+#: admin/partials/api.php:101
+msgid "Web Server"
+msgstr "Serwer www"
+
+#: admin/class-wp-dgv-admin.php:148
+msgid "WP Vimeo Library"
+msgstr "Biblioteka Vimeo"
+
+#: admin/class-wp-dgv-admin.php:156 admin/partials/settings.php:7
+msgid "WP Vimeo Settings"
+msgstr "Ustawienia Vimeo"
+
+#. Name of the plugin
+#: admin/partials/instructions.php:17
+msgid "WP Vimeo Videos"
+msgstr "Filmy vimeo"
