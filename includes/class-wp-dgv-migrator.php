@@ -35,7 +35,6 @@ class WP_DGV_Migrator
      */
     public function migrate_settings()
     {
-
         $settings = new WP_DGV_Settings_Helper();
         if ( ! $settings->requires_migration()) {
             $this->logger->log('No migration required.');

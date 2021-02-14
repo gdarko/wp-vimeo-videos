@@ -1,3 +1,8 @@
+// Copyright Darko Gjorgjijoski <info@codeverve.com>
+// 2020. All Rights Reserved.
+// This file is licensed under the GPLv2 License.
+// License text available at https://opensource.org/licenses/gpl-2.0.php
+
 var notice = function (message, type) {
     return '<div class="notice notice-' + type + ' is-dismissible dgv-clear-padding"><p>' + message + '</p></div>\n';
 };

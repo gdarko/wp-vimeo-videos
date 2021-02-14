@@ -1,3 +1,9 @@
+// Copyright Darko Gjorgjijoski <info@codeverve.com>
+// 2020. All Rights Reserved.
+// This file is licensed under the GPLv2 License.
+// License text available at https://opensource.org/licenses/gpl-2.0.php
+
+
 var WPVimeoVideos = {};
 
 /**

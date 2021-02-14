@@ -1,13 +1,31 @@
 <?php
+/********************************************************************
+ * Copyright (C) 2020 Darko Gjorgjijoski (https://codeverve.com)
+ *
+ * This file is part of  WP Vimeo Videos PRO
+ *
+ * WP Vimeo Videos PRO is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ *  WP Vimeo Videos PRO is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with  WP Vimeo Videos PRO. If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************/
 
 /**
- * Class responsible for logging data
+ * Class WP_DGV_Logger
  *
- * @since      1.0.0
- * @package    WP_DGV
- * @subpackage WP_DGV/includes
- * @copyright     Darko Gjorgjijoski <info@codeverve.com>
- * @license    GPLv2
+ * Responsible for logging data
+ *
+ * @license GPLv2
+ * @copyright Darko Gjorgjijoski <info@codeverve.com>
+ * @since 1.4.0
  */
 class WP_DGV_Logger
 {
@@ -54,13 +72,13 @@ class WP_DGV_Logger
             $is_object = true;
         }
 
-        if(!empty($tag)) {
-            if($is_object) {
-                $message = $tag . "\n" . $message;
-            } else {
-                $message = $tag.": ".$message;
-            }
-        }
+	    if(!empty($tag)) {
+		    if($is_object) {
+			    $message = $tag . "\n" . $message ."\n";
+		    } else {
+			    $message = $tag.": ".$message . "\n";
+		    }
+	    }
 
         $this->writeln($log_file_path, $message);
 
@@ -105,9 +123,27 @@ class WP_DGV_Logger
         if ($noindex) {
             $htaccess_path = $dir.DIRECTORY_SEPARATOR.'.htaccess';
             if ( ! file_exists($htaccess_path)) {
-                $contents = '<IfModule headers_module>
-Header set X-Robots-Tag "noindex"
-</IfModule>';
+                $contents = '# BEGIN WP Vimeo Videos
+# The directives (lines) between "BEGIN Vimeo Videos" and "END Vimeo Videos" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+# Disable PHP and Python scripts parsing.
+<Files *>
+  SetHandler none
+  SetHandler default-handler
+  RemoveHandler .cgi .php .php3 .php4 .php5 .phtml .pl .py .pyc .pyo
+  RemoveType .cgi .php .php3 .php4 .php5 .phtml .pl .py .pyc .pyo
+</Files>
+<IfModule mod_php5.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+  php_flag engine off
+</IfModule>
+<IfModule headers_module>
+  Header set X-Robots-Tag "noindex"
+</IfModule>
+# END Vimeo Videos';
                 $this->writeln($htaccess_path, $contents);
             }
         }

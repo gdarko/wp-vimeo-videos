@@ -1,15 +1,31 @@
 <?php
+/********************************************************************
+ * Copyright (C) 2020 Darko Gjorgjijoski (https://codeverve.com)
+ *
+ * This file is part of  WP Vimeo Videos PRO
+ *
+ * WP Vimeo Videos PRO is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ *  WP Vimeo Videos PRO is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with  WP Vimeo Videos PRO. If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************/
 
 /**
- * The admin-specific functionality of the plugin.
+ * Class WP_DGV_Admin
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Main class for initializing the admin functionality
  *
- * @package    WP_DGV
- * @subpackage WP_DGV/admin
- * @copyright     Darko Gjorgjijoski <info@codeverve.com>
  * @license GPLv2
+ * @copyright Darko Gjorgjijoski <info@codeverve.com>
+ * @since 1.0.0
  */
 class WP_DGV_Admin {
 
@@ -124,7 +140,7 @@ class WP_DGV_Admin {
 		wp_enqueue_script( 'swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/swal.min.js', null, null, true );
 
 		// TUS
-		wp_enqueue_script( 'dgv-tus', WP_VIMEO_VIDEOS_URL . 'admin/js/tus.min.js', null, '1.8.0' );
+		wp_enqueue_script( 'dgv-tus', WP_VIMEO_VIDEOS_URL . 'admin/resources/tus-js-client/tus.min.js', null, '1.8.0' );
 
 		// Uploader
 		wp_enqueue_script( 'dgv-uploader', WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js', array( 'dgv-tus' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/uploader.js' ) );

@@ -1,17 +1,35 @@
 <?php
+/********************************************************************
+ * Copyright (C) 2020 Darko Gjorgjijoski (https://codeverve.com)
+ *
+ * This file is part of  WP Vimeo Videos PRO
+ *
+ * WP Vimeo Videos PRO is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ *  WP Vimeo Videos PRO is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with  WP Vimeo Videos PRO. If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************/
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
 /**
- * The videos list table used to display all the videos
+ * Class WP_DGV_List_Table
  *
- * @since      1.0.0
- * @package    WP_DGV
- * @subpackage WP_DGV/includes
- * @copyright     Darko Gjorgjijoski <info@codeverve.com>
- * @license    GPLv2
+ * Responsible for displaying the admin table
+ *
+ * @license GPLv2
+ * @copyright Darko Gjorgjijoski <info@codeverve.com>
+ * @since 1.0.0
  */
 class WP_DGV_List_Table extends \WP_List_Table {
 
