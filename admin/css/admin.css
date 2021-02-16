@@ -23,6 +23,12 @@
     height: 109px;
 }
 
+.wp-block .dgv-vimeo-upload-form {
+    background: #fff;
+    padding: 1px 22px;
+    border: 1px solid #000;
+}
+
 .wvv-box {
     background: #fff;
     padding: 20px;
@@ -296,6 +302,7 @@ h2.wvv-form-heading {
 .wvv-news-entry h3 {
     margin-bottom: 0 !important;
     margin-top: 0;
+    line-height: 1.4;
 }
 .wvv-news-panel {
     background: #fff;
