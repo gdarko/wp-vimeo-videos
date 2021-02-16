@@ -235,6 +235,13 @@ class WP_DGV {
 		$this->loader->add_action( 'wp_ajax_dgv_handle_settings', $ajax_handler, 'handle_settings' );
 		$this->loader->add_action( 'wp_ajax_dgv_store_upload', $ajax_handler, 'store_upload' );
         $this->loader->add_action( 'wp_ajax_dgv_user_search', $ajax_handler, 'handle_user_search' );
+		$this->loader->add_action( 'wp_ajax_dgv_get_uploads', $ajax_handler, 'get_uploads' );
+
+		// Register tinymce modal
+		$this->loader->add_action( 'after_setup_theme', $plugin_admin, 'tinymce_styles' );
+		$this->loader->add_action( 'before_wp_tiny_mce', $plugin_admin, 'tinymce_globals' );
+		$this->loader->add_filter( 'mce_buttons', $plugin_admin, 'tinymce_vimeo_button' );
+		$this->loader->add_filter( 'mce_external_plugins', $plugin_admin, 'tinymce_vimeo_plugin' );
     }
 
 	/**
