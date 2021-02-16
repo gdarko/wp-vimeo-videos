@@ -183,3 +183,15 @@ function wvv_get_tmp_dir_url() {
     $uploads = wp_upload_dir();
     return $uploads['baseurl'] . '/wp-vimeo-videos';
 }
+
+
+/**
+ * The vimeo insert methods in the Gutenberg and TinyMCE editors that are supported.
+ * @return array
+ */
+function wvv_get_editor_insert_methods() {
+	return array(
+		'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos' ),
+		'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
+	);
+}

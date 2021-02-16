@@ -194,7 +194,7 @@ class WP_DGV_Ajax_Handler {
 
         if ( ! $this->check_referer('dgvsecurity') ) {
             wp_send_json_error( array(
-                'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+                'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
             ) );
             exit;
         }
@@ -218,6 +218,44 @@ class WP_DGV_Ajax_Handler {
         wp_send_json_success($items);
 
     }
+
+
+	/**
+	 * Return the uploaded videos
+	 */
+	public function get_uploads() {
+
+		if ( ! $this->check_referer( 'dgvsecurity' ) ) {
+			wp_send_json_error( array(
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
+			) );
+			exit;
+		}
+
+		if ( ! current_user_can( 'upload_files' ) ) {
+			wp_send_json_error( array(
+				'message' => __( 'Unauthorized action', 'wp-vimeo-videos' )
+			) );
+			exit;
+		}
+
+		if ( ! $this->is_http_get() ) {
+			wp_send_json_error( array(
+				'message' => __( 'Invalid request', 'wp-vimeo-videos' )
+			) );
+			exit;
+		}
+
+		$current_user_uploads = (int) $this->settings_helper->get( 'dgv_local_current_user_only' );
+
+		$uplaods = $this->db_helper->get_uploaded_videos( $current_user_uploads );
+
+		wp_send_json_success( array(
+			'uploads' => $uplaods,
+		) );
+		exit;
+
+	}
 
 	/**
 	 * Utility function to check if the request is GET
