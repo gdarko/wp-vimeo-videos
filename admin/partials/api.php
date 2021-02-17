@@ -10,11 +10,11 @@
             </th>
             <td>
 	            <?php if ( $vimeo_helper->is_connected && $vimeo_helper->is_authenticated_connection ): ?>
-                    <p class="wvv-status-green"><?php _e( 'Connected', 'wp-vimeo-videos-pro' ); ?></p>
+                    <p class="wvv-status-green"><?php _e( 'Connected', 'wp-vimeo-videos' ); ?></p>
 	            <?php elseif($vimeo_helper->is_connected && !$vimeo_helper->is_authenticated_connection): ?>
-                    <p class="wvv-status-yellow"><?php _e( 'Connected (Unauthenticated)', 'wp-vimeo-videos-pro' ); ?></p>
+                    <p class="wvv-status-yellow"><?php _e( 'Connected (Unauthenticated)', 'wp-vimeo-videos' ); ?></p>
 	            <?php else: ?>
-                    <p class="wvv-status-red"><?php _e( 'Not Connected', 'wp-vimeo-videos-pro' ); ?></p>
+                    <p class="wvv-status-red"><?php _e( 'Not Connected', 'wp-vimeo-videos' ); ?></p>
 	            <?php endif; ?>
             </td>
         </tr>
@@ -23,7 +23,7 @@
 			<?php if ( $vimeo_helper->is_authenticated_connection ): ?>
                 <tr>
                     <th>
-						<?php _e( 'User', 'wp-vimeo-videos-pro' ); ?>
+						<?php _e( 'User', 'wp-vimeo-videos' ); ?>
                     </th>
                     <td>
                         <a href="<?php echo $vimeo_helper->user_link; ?>"
@@ -35,7 +35,7 @@
 			<?php if ( $vimeo_helper->is_authenticated_connection ): ?>
                 <tr>
                     <th>
-						<?php _e( 'Plan', 'wp-vimeo-videos-pro' ); ?>
+						<?php _e( 'Plan', 'wp-vimeo-videos' ); ?>
                     </th>
                     <td>
 						<?php echo 'Vimeo ' . ucfirst( $vimeo_helper->user_type ); ?>
@@ -139,7 +139,7 @@
 	    <?php if(!empty($problems) && count($problems)>0): ?>
             <tr class="wvv-problems">
                 <th>
-				    <?php _e( 'Detected Problems', 'wp-vimeo-videos-pro' ); ?>
+				    <?php _e( 'Detected Problems', 'wp-vimeo-videos' ); ?>
                 </th>
                 <td>
                     <p class="wvv-problem-head"><?php _e('Fix the following problems to ensure proper function:'); ?></p>
@@ -149,7 +149,7 @@
                                 <div class="wvv-problem-wrapper">
                                     <div class="wvv-problem--info">
                                         <p><?php echo $problem['info']; ?></p>
-                                        <p><a class="wvv-problem-fix-trigger" href="#"><?php _e('Fix prolbem', 'wp-vimeo-videos-pro'); ?></a></p>
+                                        <p><a class="wvv-problem-fix-trigger" href="#"><?php _e('Fix prolbem', 'wp-vimeo-videos'); ?></a></p>
                                     </div>
                                     <div class="wvv-problem--fix" style="display: none;">
 									    <?php echo $problem['fix']; ?>

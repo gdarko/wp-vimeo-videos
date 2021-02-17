@@ -281,7 +281,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
                 }
                 ?>
                 <div class="alignleft actions">
-                    <label class="screen-reader-text" for="author"><?php __('Filter by author', 'wp-vimeo-videos-pro'); ?></label>
+                    <label class="screen-reader-text" for="author"><?php __('Filter by author', 'wp-vimeo-videos'); ?></label>
                     <select name="author" id="author" class="postform dgv-select2" data-placeholder="<?php _e('Filter by author'); ?>">
                         <?php if(!empty($filter_author)): ?>
                             <option selected value="<?php echo $filter_author->ID; ?>"><?php echo $filter_author->display_name; ?></option>

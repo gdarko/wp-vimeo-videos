@@ -27,6 +27,6 @@
     <hr/>
 
     <p>
-        <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>" class="button-primary"><?php _e('Documentation', 'wp-vimeo-videos-pro'); ?></a>
+        <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>" class="button-primary"><?php _e('Documentation', 'wp-vimeo-videos'); ?></a>
     </p>
 </div>
