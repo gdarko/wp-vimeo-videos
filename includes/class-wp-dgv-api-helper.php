@@ -57,7 +57,12 @@ class  WP_DGV_Api_Helper {
 	 * @var array
 	 */
 	public $scopes_required = array(
-		'create', 'interact', 'private', 'edit', 'upload', 'delete'
+		'create',
+		'interact',
+		'private',
+		'edit',
+		'upload',
+		'delete'
 	);
 
 	/**
@@ -126,11 +131,11 @@ class  WP_DGV_Api_Helper {
 	 */
 	public $error = null;
 
-    /**
-     * The settings helper
-     * @var WP_DGV_Settings_Helper
-     */
-    public $settings_helper;
+	/**
+	 * The settings helper
+	 * @var WP_DGV_Settings_Helper
+	 */
+	public $settings_helper;
 
 	/**
 	 * Cache key name when caching the vimeo user data
@@ -149,9 +154,9 @@ class  WP_DGV_Api_Helper {
 	 */
 	public function __construct() {
 
-        $this->settings_helper = new WP_DGV_Settings_Helper();
+		$this->settings_helper = new WP_DGV_Settings_Helper();
 
-        $this->connect();
+		$this->connect();
 	}
 
 	/**
@@ -208,7 +213,7 @@ class  WP_DGV_Api_Helper {
 					$this->is_authenticated_connection = false;
 				}
 			} else {
-				$this->is_connected = false;
+				$this->is_connected                = false;
 				$this->is_authenticated_connection = false;
 				if ( isset( $data['body']['developer_message'] ) ) {
 					$this->error = $data['body']['developer_message'];
@@ -220,22 +225,24 @@ class  WP_DGV_Api_Helper {
 		}
 
 		if ( $this->is_connected ) {
-			$this->user_name = isset( $data['body']['user']['name'] ) ? $data['body']['user']['name'] : '';
-			$this->user_uri  = isset( $data['body']['user']['uri'] ) ? $data['body']['user']['uri'] : '';
-			$this->user_link = isset( $data['body']['user']['link'] ) ? $data['body']['user']['link'] : '';
-			$this->user_type = isset( $data['body']['user']['account'] ) ? $data['body']['user']['account'] : '';
-			$this->app_name  = isset( $data['body']['app']['name'] ) ? $data['body']['app']['name'] : '';
-			$this->app_uri   = isset( $data['body']['app']['uri'] ) ? $data['body']['app']['uri'] : '';
-			$_scopes         = isset( $data['body']['scope'] ) ? $data['body']['scope'] : '';
+			$this->user_name    = isset( $data['body']['user']['name'] ) ? $data['body']['user']['name'] : '';
+			$this->user_uri     = isset( $data['body']['user']['uri'] ) ? $data['body']['user']['uri'] : '';
+			$this->user_link    = isset( $data['body']['user']['link'] ) ? $data['body']['user']['link'] : '';
+			$this->user_type    = isset( $data['body']['user']['account'] ) ? $data['body']['user']['account'] : '';
+			$this->app_name     = isset( $data['body']['app']['name'] ) ? $data['body']['app']['name'] : '';
+			$this->app_uri      = isset( $data['body']['app']['uri'] ) ? $data['body']['app']['uri'] : '';
+			$_scopes            = isset( $data['body']['scope'] ) ? $data['body']['scope'] : '';
 			$this->headers      = isset( $data['headers'] ) ? $data['headers'] : array();
 			$this->upload_quota = isset( $data['body']['user']['upload_quota'] ) ? $data['body']['user']['upload_quota'] : array();
 			if ( ! empty( $_scopes ) ) {
-				$this->scopes = explode( ' ', $_scopes );
-				$this->scopes_missing = array_diff($this->scopes_required, $this->scopes);
+				$this->scopes         = explode( ' ', $_scopes );
+				$this->scopes_missing = array_diff( $this->scopes_required, $this->scopes );
 			}
 		} else {
+			$logger = new WP_DGV_Logger();
+			$logtag = 'DGV-VIMEO-CONNECTION';
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				error_log( 'DGV VIMEO CONNECTION ERROR: ' . $this->error );
+				$logger->log( sprintf( 'Error connecting to Vimeo: %s', $this->error ), $logtag );
 			}
 		}
 	}
@@ -243,9 +250,8 @@ class  WP_DGV_Api_Helper {
 	/**
 	 * Used to detect problems with active connection
 	 *
-	 * @since 1.5.0
-	 *
 	 * @return array
+	 * @since 1.5.0
 	 */
 	public function find_problems() {
 		$problems = array();
@@ -254,8 +260,8 @@ class  WP_DGV_Api_Helper {
 		if ( ! $this->is_authenticated_connection ) {
 			array_push( $problems, array(
 				'code' => 'unauthenticated',
-				'info' => __( 'Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos-pro' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+				'info' => __( 'Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
 			) );
 
 			return $problems;
@@ -265,22 +271,22 @@ class  WP_DGV_Api_Helper {
 		if ( ! $this->can_upload() ) {
 			array_push( $problems, array(
 				'code' => 'cant_upload',
-				'info' => __( 'Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos-pro' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+				'info' => __( 'Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
 			) );
 		}
 		if ( ! $this->can_edit() ) {
 			array_push( $problems, array(
 				'code' => 'cant_edit',
-				'info' => __( 'Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos-pro' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+				'info' => __( 'Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
 			) );
 		}
 		if ( ! $this->can_delete() ) {
 			array_push( $problems, array(
 				'code' => 'cant_delete',
 				'info' => __( 'Your Access Token is missing "Delete" scope. This will prevent deleting Videos from the admin dashboard.' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos-pro' ), implode( ', ', $this->scopes_required ) )
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
 			) );
 		}
 
