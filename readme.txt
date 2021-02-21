@@ -17,7 +17,8 @@ Embed and upload videos to Vimeo directly from your WordPress site
 > **Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo software. It just uses Vimeo Developer API to provide interface for uploading videos directly from you WordPress site.
 
 Especially useful in the following cases:
-* If you want to speed up the entire process. No need to login to Vimeo, you can now upload videos directly from WordPress.
+
+* If you want to speed up the entire process. No need to login to Vimeo, you can now upload videos to Vimeo directly from WordPress.
 * If you don't want to share your Vimeo login credentials with other people especially when running multi-author blog.
 * If you want to accept videos in the front-end forms (WPForms or GravityForms) uploaded directly to your Vimeo account (feature available in PRO version)
 
@@ -34,18 +35,20 @@ In order to be able to connect to Vimeo you will need to sign up on <a target="_
 * Upload videos from the Classic/TinyMCE editor (**NEW!**)
 * Responsive embeds from the Gutenberg editor
 * Responsive embeds from the Classic editor
-* "Media > Vimeo" page is accessible by the users that have the capability upload_files (Author, Editor, Administrators by default)
-* "Settings > Vimeo" page is accessible by the users that have the capability manage_options (Administrators by default)
+* **"Media > Vimeo"** page is accessible by the users that have the capability upload_files (Author, Editor, Administrators by default)
+* **"Settings > Vimeo"** page is accessible by the users that have the capability manage_options (Administrators by default)
 * Shortcode available [dgv_vimeo_video id="the_vimeo_id"]
 * Useful API information and tips in the "Settings > Vimeo"
 * Potentional problem detection tool in "Settings > Vimeo" page
 
 === Premium Version ===
 
-Additional features as follows:
+Core premium features are: **Front-end upload via GravityForms and WPForms**, **Embed Privacy**, **View Privacy**, **Folders** and **Embed Presets management** and a lot more.
 
-* Front-end upload via GravtiyForms (**NEW!** - now supports chunked uploads with progress bar via the "Modern" field)
-* Front-end upload via WPForms Lite/Premium (**NEW!** - now supports chunked uploads with progress bar when Theme is set to "Modern")
+The following is full list of additional features:
+
+* Front-end upload via **GravtiyForms** (**NEW!** - now supports chunked uploads with progress bar via the "Modern" field)
+* Front-end upload via **WPForms Lite/Premium** (**NEW!** - now supports chunked uploads with progress bar when Theme is set to "Modern")
 * Enhanced Gutenberg Support with additional options (eg. account video search)
 * Enhanced TinyMCE / Classic ("Vimeo" button is available everywhere - not only in admin, supports account video search)
 * TutorLMS / TutorLMS PRO integration with course builder in frontend and backend
