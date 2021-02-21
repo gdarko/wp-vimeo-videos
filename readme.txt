@@ -127,7 +127,8 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 * Added TinyMCE / Classic editor support
 * General code improvements
 * Fixed various PHP warnings
-* UI Improvements
+* Improved upload form style
+* Improved public video embed (added black color as background)
 * Re-synced pot files
 
 _PRO ONLY:_
