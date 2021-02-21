@@ -2,20 +2,20 @@
 /********************************************************************
  * Copyright (C) 2020 Darko Gjorgjijoski (https://codeverve.com)
  *
- * This file is part of  WP Vimeo Videos PRO
+ * This file is part of WP Vimeo Videos
  *
- * WP Vimeo Videos PRO is free software: you can redistribute it and/or modify
+ *WP Vimeo Videos is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
- *  WP Vimeo Videos PRO is distributed in the hope that it will be useful,
+ * WP Vimeo Videos is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with  WP Vimeo Videos PRO. If not, see <https://www.gnu.org/licenses/>.
+ * along with WP Vimeo Videos. If not, see <https://www.gnu.org/licenses/>.
  **********************************************************************/
 
 /**
