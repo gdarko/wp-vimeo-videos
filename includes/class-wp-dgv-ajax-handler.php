@@ -4,7 +4,7 @@
  *
  * This file is part of WP Vimeo Videos
  *
- *WP Vimeo Videos is free software: you can redistribute it and/or modify
+ * WP Vimeo Videos is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
