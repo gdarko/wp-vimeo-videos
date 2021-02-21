@@ -94,6 +94,7 @@
             showCancelButton: false,
             showConfirmButton: false,
             allowOutsideClick: false,
+            allowEscapeKey : false,
             html: form,
         });
     }

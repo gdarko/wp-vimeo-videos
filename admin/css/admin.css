@@ -435,8 +435,11 @@ h2.wvv-form-heading {
     line-height: 1.4rem;
     font-size: 1rem;
 }
-.dgv-vimeo-upload-form > h4 {
-    margin-bottom: 10px !important;
+.dgv-vimeo-upload-form h4 {
+    margin-top: 10px !important;
+    font-size: 22px !important;
+    margin-bottom: 5px !important;
+    padding: 0 !important;
 }
 .dgv-vimeo-form-row label,
 .dgv-vimeo-video .button {

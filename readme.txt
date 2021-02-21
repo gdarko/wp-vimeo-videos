@@ -129,6 +129,7 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 * Fixed various PHP warnings
 * Improved upload form style
 * Improved public video embed (added black color as background)
+* Disabled ESC key close action on Classic Editor / TinyMCE upload form modal
 * Re-synced pot files
 
 _PRO ONLY:_
