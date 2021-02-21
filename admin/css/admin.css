@@ -23,12 +23,6 @@
     height: 109px;
 }
 
-.wp-block .dgv-vimeo-upload-form {
-    background: #fff;
-    padding: 1px 22px;
-    border: 1px solid #000;
-}
-
 .wvv-box {
     background: #fff;
     padding: 20px;
@@ -183,116 +177,15 @@ h2.wvv-form-heading {
     margin-bottom: 0;
 }
 
-/**
- Upload form
- */
-
-.dgv-vimeo-form-row input[type=text] {
-    width: 100%;
-}
-.dgv-progress-bar {
-    height: 20px;
-    width: 100%;
-    background: #f0f0f0;
-    text-align: center;
-    position: relative;
-}
-.dgv-progress-bar-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: #2593c5;
-    max-width: 100%;
-}
-.dgv-progress-bar-value {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    line-height: 20px;
-    font-size: 14px;
-}
-
-.dgv-loader:before {
-    height: 25px;
-    width: 25px;
-    content: '';
-    animation: spin 1s ease-in-out infinite;
-    background: url(../img/loader.gif) center center;
-    background-size: cover;
-    line-height: 1;
-    text-align: center;
-    font-size: 2em;
-    color: rgba(78, 59, 59, 0.75);
-    display: inline-block;
-    margin-right: 5px;
-}
-
-
-.dgv-embed-container, .dgv-embed-container iframe {
-    box-sizing: border-box;
-}
-
-.dgv-vimeo-form-row input[type="submit"] {
-    width: 100%;
-}
-
-.dgv-vimeo-form-row textarea {
-    width: 100%;
-}
-
-.dgv-vimeo-form-row {
-    margin-bottom: 10px;
-}
-
-.dgv-vimeo-form-row label {
-    display: block !important;
-    width: 100%;
-    margin-right: 5px !important;
-    line-height: 1.4rem;
-    font-size: 1rem;
-}
-.dgv-vimeo-upload-form > h4 {
-    margin-bottom: 10px !important;
-}
-.dgv-vimeo-form-row label,
-.dgv-vimeo-video .button {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
-}
-
-.dgv-embed-container iframe {
-    width: 100%;
-    display: block;
-    background: #000;
-    padding: 5px;
-    border: 1px solid #cccc;
-}
-
-.submitSearch {
-    position: relative;
-    top: 5px;
-    min-height: 30px !important;
-}
-
-.dgv-font-weight-normal {
-    font-weight: normal !important;
-}
-
-
 /* News */
 .wvv-news-entry {
     border-bottom: 1px solid #ccc;
     padding: 15px 20px;
     background: #fff;
 }
-
 .wvv-news-entry:last-child {
     border-bottom: 0;
 }
-
 .wvv-news-entry h4 {
     margin-bottom: 0 !important;
     margin-top: 5px;
@@ -451,6 +344,129 @@ h2.wvv-form-heading {
 }
 
 
+/**
+ Upload form
+ */
+
+.dgv-vimeo-form-row input[type=text] {
+    width: 100%;
+}
+.dgv-progress-bar {
+    height: 20px;
+    width: 100%;
+    background: #f0f0f0;
+    text-align: center;
+    position: relative;
+}
+.dgv-progress-bar-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #2593c5;
+    max-width: 100%;
+}
+.dgv-progress-bar-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.dgv-loader:before {
+    height: 25px;
+    width: 25px;
+    content: '';
+    animation: spin 1s ease-in-out infinite;
+    background: url(../img/loader.gif) center center;
+    background-size: cover;
+    line-height: 1;
+    text-align: center;
+    font-size: 2em;
+    color: rgba(78, 59, 59, 0.75);
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+.dgv-embed-container, .dgv-embed-container iframe {
+    box-sizing: border-box;
+}
+.dgv-embed-container iframe {
+    border: 1px solid #000;
+}
+
+.dgv-vimeo-form-row input[type="submit"] {
+    width: 100%;
+}
+
+.dgv-vimeo-form-row textarea {
+    width: 100%;
+}
+
+.dgv-vimeo-form-row select, .dgv-vimeo-form-row input[type=text], .dgv-vimeo-form-row textarea {
+    font-size: 16px !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    border: 1px solid !important;
+    border-radius: 0 !important;
+}
+
+.dgv-vimeo-form-row button[type=button], .dgv-vimeo-form-row button[type=submit]  {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 15px;
+    padding-right: 16px !important;
+    font-size: 14px;
+}
+
+.dgv-vimeo-form-row {
+    margin-bottom: 10px;
+}
+
+.dgv-vimeo-form-row label {
+    display: block !important;
+    width: 100%;
+    margin-right: 5px !important;
+    line-height: 1.4rem;
+    font-size: 1rem;
+}
+.dgv-vimeo-upload-form > h4 {
+    margin-bottom: 10px !important;
+}
+.dgv-vimeo-form-row label,
+.dgv-vimeo-video .button {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+}
+
+.dgv-embed-container iframe {
+    width: 100%;
+    display: block;
+    background: #000 !important;
+    padding: 5px;
+    border: 1px solid #000 !important;
+}
+
+.submitSearch {
+    position: relative;
+    top: 5px;
+    min-height: 30px !important;
+}
+
+.dgv-font-weight-normal {
+    font-weight: normal !important;
+}
+
+.wp-block .dgv-vimeo-upload-form {
+    background: #fff;
+    padding: 1px 22px;
+    border: 1px solid #000;
+}
+
 /* Embed */
 .dgv-embed-container {
     position: relative;
@@ -458,6 +474,7 @@ h2.wvv-form-heading {
     height: 0;
     overflow: hidden;
     max-width: 100%;
+    margin-bottom: 15px;
 }
 .dgv-embed-container iframe, .dgv-embed-container object, .dgv-embed-container embed {
     position: absolute;

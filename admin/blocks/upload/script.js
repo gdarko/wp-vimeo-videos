@@ -221,7 +221,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                     uploads_options
                 )
             ));
-            elements.push(React.createElement('hr', {key:'separator-1'}));
+            //elements.push(React.createElement('hr', {key:'separator-1'}));
             elements.push(React.createElement('div', {key:'preview-1','className': 'dgv-embed-container'},
                 React.createElement('iframe', {
                     key:'iframe-1',
@@ -233,7 +233,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
             ));
             //elements.push(React.createElement('button', {onClick: deleteVideo, 'class': 'button'}, 'Delete'))
 
-            return React.createElement('div', {  key:'container-1', 'className': 'dgv-embed-container'}, elements);
+            return React.createElement('div', {  key:'container-1', 'className': 'dgv-vimeo-upload-form'}, elements);
         } else { // Render the editor view (when nothing is uploaded)
 
             elements.push(React.createElement('h4', {key:'heading-2'}, 'Upload Vimeo'));
