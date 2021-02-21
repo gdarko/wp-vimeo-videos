@@ -12,7 +12,7 @@ Embed and upload videos to Vimeo directly from your WordPress site
 
 == Description ==
 
-**Integrtes your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. 8-)**
+**Integrates your WordPress site with Vimeo using the Vimeo API and allows the user to upload videos directly from WordPress. 8-)**
 
 > **Disclaimer:** I don't work for Vimeo and the plugin is not official Vimeo software. It just uses Vimeo Developer API to provide interface for uploading videos directly from you WordPress site.
 
