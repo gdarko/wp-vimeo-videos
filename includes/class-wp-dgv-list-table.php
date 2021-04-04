@@ -92,25 +92,31 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	 */
 	public function column_default( $item, $column_name ) {
 
-
 		switch ( $column_name ) {
 			case 'embed':
 				$vimeo_id = $this->db_helper->get_vimeo_id( $item->ID );
 
 				return '<code>[dgv_vimeo_video id="' . $vimeo_id . '"]</code>';
 			case 'author':
-				$user      = get_user_by( 'id', $item->post_author );
-				$user_name = ( $user instanceof WP_User && $user->exists() ) ? $user->display_name : 'Unknown';
+				$name = '';
+				$link = '';
+				$user = get_user_by( 'id', $item->post_author );
+				if ( is_a( $user, '\WP_User' ) ) {
+					$link = get_edit_profile_url( $user->ID );
+					if ( ! empty( $user->display_name ) ) {
+						$name = $user->display_name;
+					} else if ( ! empty( $user->user_nicename ) ) {
+						$name = $user->user_nicename;
+					} else if ( ! empty( $user->user_login ) ) {
+						$name = $user->user_login;
+					}
+				}
 
-				return $user_name;
+				return $name ? sprintf( '<a href="%s">%s</a>', $link, $name ) : __( 'Unknown' );
 			case 'size':
 				$size = get_post_meta( $item->ID, 'dgv_size', true );
-				if(is_numeric($size)) {
-					$size = wvv_format_bytes($size);
-                } else {
-				    $size = __('Not available', 'wp-vimeo-videos');
-                }
-				return $size;
+
+				return is_numeric( $size ) ? wvv_format_bytes( $size ) : __( 'Not available' );
 			case 'uploaded_at':
 				return get_the_date( get_option( 'date_format' ), $item );
 			default:
