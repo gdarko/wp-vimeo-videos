@@ -224,8 +224,8 @@ WPVimeoVideos.Uploader.prototype.notifyWP = function (callback) {
     var data = WPVimeoVideos.Uploader.serializeObject({
         title: self.params.title,
         description: self.params.description,
-        uri: self.currentUpload.uri
+        uri: self.currentUpload.uri,
+        size: self.file.size
     });
-    console.log(data);
     http.send(data);
 };

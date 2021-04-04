@@ -48,6 +48,12 @@ class WP_DGV_Ajax_Handler {
 	protected $db_helper;
 
 	/**
+	 * The logger
+	 * @var WP_DGV_Logger
+	 */
+	protected $logger;
+
+	/**
 	 * WP_DGV_Ajax_Handler constructor.
 	 *
 	 * @param $plugin_name
@@ -57,6 +63,7 @@ class WP_DGV_Ajax_Handler {
 		$this->api_helper = new WP_DGV_Api_Helper();
 		$this->db_helper  = new WP_DGV_Db_Helper();
         $this->settings_helper = new WP_DGV_Settings_Helper();
+        $this->logger = new WP_DGV_Logger();
     }
 
 	/**
@@ -146,6 +153,8 @@ class WP_DGV_Ajax_Handler {
 	 */
 	public function store_upload() {
 
+		$logtag = 'DGV-EDITOR-UPLOAD';
+
 		if ( ! $this->check_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
 				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
@@ -167,22 +176,29 @@ class WP_DGV_Ajax_Handler {
 
 		$title       = isset( $_POST['title'] ) ? $_POST['title'] : __( 'Untitled', 'wp-vimeo-videos' );
 		$description = isset( $_POST['description'] ) ? $_POST['description'] : '';
+		$size        = isset( $_POST['size'] ) ? intval( $_POST['size'] ) : false;
 		$uri         = $_POST['uri'];
+		$video_id    = wvv_uri_to_id( $uri );
 
-		$result = $this->db_helper->create_local_video( $title, $description, $uri );
-		if ( ! is_wp_error( $result ) ) {
+		/**
+		 * Upload success hook
+		 */
+		do_action( 'dgv_backend_after_upload', array(
+			'vimeo_title'       => $title,
+			'vimeo_description' => $description,
+			'vimeo_id'          => $video_id,
+			'vimeo_size'        => $size,
+			'source'            => array(
+				'software' => 'Editor',
+			),
+		) );
 
-			do_action( 'dgv_after_upload', $uri, $this->api_helper->api );
+		$this->logger->log( sprintf( 'Video %s stored.', $uri ), $logtag );
 
-			wp_send_json_success( array(
-				'message' => __( 'Video uploaded successfully.', 'wp-vimeo-videos' ),
-				'post_id' => $result,
-			) );
-		} else {
-			wp_send_json_error( array(
-				'message' => __( 'Failed to store the video entry in the local db.', 'wp-vimeo-videos' ),
-			) );
-		}
+		wp_send_json_success( array(
+			'message' => __( 'Video uploaded successfully.', 'wp-vimeo-videos' ),
+		) );
+
 		exit;
 
 	}
