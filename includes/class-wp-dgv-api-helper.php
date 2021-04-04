@@ -380,16 +380,43 @@ class  WP_DGV_Api_Helper {
 	 *
 	 * @param $file_path
 	 * @param array $params
+	 * @param bool $process_after_hook
 	 *
 	 * @return array
+	 *
+	 * Example Response:
+	 *
+	 * Array(
+	 *    [params] = > (...)
+	 *      [response] => /videos/385731411
+	 * )
+	 *
+	 *
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
 	 * @throws \Vimeo\Exceptions\VimeoUploadException
-	 * @throws \Exception
+	 * @since 1.0.0
 	 */
-	public function upload( $file_path, $params ) {
+	public function upload( $file_path, $params, $process_after_hook = false ) {
+
 		$response = $this->api->upload( $file_path, $params );
 
-		do_action( 'dgv_after_upload', $response, $this->api );
+		if ( $process_after_hook ) {
+
+			$file_size = file_exists( $file_path ) ? filesize( $file_path ) : false;
+
+			/**
+			 * Upload success hook
+			 */
+			do_action( 'dgv_backend_after_upload', array(
+				'vimeo_title'       => isset( $params['name'] ) ? $params['name'] : '',
+				'vimeo_description' => isset( $params['description'] ) ? $params['description'] : '',
+				'vimeo_id'          => wvv_uri_to_id( $response ),
+				'vimeo_size'        => $file_size,
+				'source'            => array(
+					'software' => 'API::upload',
+				),
+			) );
+		}
 
 		return array(
 			'params'   => $params,
@@ -405,17 +432,47 @@ class  WP_DGV_Api_Helper {
 	 *
 	 * @return array
 	 * @throws Exception
+	 * @since 1.1.0
+	 *
 	 */
 	public function upload_pull( $file_url, $params ) {
 		$params   = array_merge( array( 'upload' => array( 'approach' => 'pull', 'link' => $file_url ) ), $params );
 		$response = $this->api->request( '/me/videos', $params, 'POST' );
 
-		do_action( 'dgv_after_upload', $response, $this->api );
+		/**
+		 * Upload success hook
+		 */
+		do_action( 'dgv_backend_after_upload', array(
+			'vimeo_title'       => isset( $params['name'] ) ? $params['name'] : '',
+			'vimeo_description' => isset( $params['description'] ) ? $params['description'] : '',
+			'vimeo_id'          => wvv_uri_to_id( $response ),
+			'vimeo_size'        => false,
+			'source'            => array(
+				'software' => 'API::upload_pull',
+			),
+		) );
 
 		return array(
 			'params'   => $params,
 			'response' => $response
 		);
+	}
+
+
+	/**
+	 * Get video by uri
+	 *
+	 * @param $uri
+	 *
+	 * @return array
+	 * @throws \Vimeo\Exceptions\VimeoRequestException
+	 * @since 1.0.0
+	 *
+	 */
+	public function get( $uri ) {
+		$response = $this->api->request( $uri, [], 'GET' );
+
+		return $response;
 	}
 
 
@@ -468,17 +525,97 @@ class  WP_DGV_Api_Helper {
 		return $response;
 	}
 
+
 	/**
-	 * Sync videos with vimeo api
-	 * @throws Exception
+	 * Set additional meta data for the video. If response is not provided or empty, call the api.
+	 *
+	 * @param $id - local video id
+	 * @param $response - Response data from /videos/{video_id} endpoint
+	 *
+	 * @return void
+	 *
+	 * @since 1.7.0
 	 */
-	public function sync() {
-		$videos = $this->get_uploaded_videos( array( 'per_page' => 100 ), true );
+	public function set_video_metadata( $id, $response = null ) {
 
-		if ( ! empty( $videos ) ) {
-
+		// Cehck existing response?
+		if ( is_null( $response ) ) {
+			$video_id = wvv_uri_to_id( $id );
+			try {
+				$response = $this->get( "/videos/{$video_id}?fields=upload" );
+			} catch ( \Exception $e ) {
+			}
+		}
+		if ( is_null( $response ) ) {
+			return;
 		}
 
+		// Find size
+		$size = isset( $response['body']['upload']['size'] ) ? $response['body']['upload']['size'] : '';
+		if ( ! empty( $size ) ) {
+			update_post_meta( $id, 'dgv_size', $size );
+		}
+
+		// Find duration
+		$duration = isset( $response['body']['duration'] ) ? $response['body']['duration'] : '';
+		if ( ! empty( $duration ) ) {
+			update_post_meta( $id, 'dgv_duration', $duration );
+		}
+
+		// Find dimensions
+		$width  = isset( $response['body']['width'] ) ? $response['body']['width'] : '';
+		$height = isset( $response['body']['height'] ) ? $response['body']['height'] : '';
+		if ( ! empty( $width ) ) {
+			update_post_meta( $id, 'dgv_width', $width );
+		}
+		if ( ! empty( $height ) ) {
+			update_post_meta( $id, 'dgv_height', $height );
+		}
+
+		// Check playability
+		$is_playable = isset( $response['body']['is_playable'] ) ? $response['body']['is_playable'] : null;
+		if ( ! is_null( $is_playable ) ) {
+			update_post_meta( $id, 'dgv_playable', $is_playable );
+		}
+
+	}
+
+	/**
+	 * Retrieve video from vimeo API.
+	 *
+	 * @param $id
+	 * @param array $fields
+	 *
+	 * @return array
+	 * @throws \Vimeo\Exceptions\VimeoRequestException
+	 * @since 1.7.0
+	 *
+	 */
+	public function get_video_by_local_id( $id, $fields = array() ) {
+		$db       = new WP_DGV_Db_Helper();
+		$vimeo_id = $db->get_vimeo_id( $id );
+		$response = $this->get_video_by_id( $vimeo_id );
+		if ( is_array( $response ) ) {
+			$this->set_video_metadata( $id, $response );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Returns video form the api
+	 *
+	 * @param $id
+	 * @param array $fields
+	 *
+	 * @return array
+	 * @throws \Vimeo\Exceptions\VimeoRequestException
+	 */
+	public function get_video_by_id( $id, $fields = array() ) {
+		$fields_s = ! empty( $fields ) ? sprintf( '?fields=%s', implode( ',', $fields ) ) : '';
+		$full_uri = sprintf( '/videos/%s%s', $id, $fields_s );
+
+		return $this->get( $full_uri );
 	}
 
 

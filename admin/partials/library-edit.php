@@ -1,13 +1,26 @@
 <?php
 /* @var WP_DGV_Api_Helper $vimeo_helper */
 /* @var WP_DGV_Db_Helper $db_helper */
+
+$video_id = isset( $_GET['id'] ) ? $_GET['id'] : null;
+$vimeo_id = $db_helper->get_vimeo_id( $_GET['id'] );
+$video    = $vimeo_helper->get_video_by_local_id( $video_id, array(
+	'uri',
+	'name',
+	'description',
+	'duration',
+	'width',
+	'height',
+	'is_playable',
+	'privacy',
+	'embed',
+	'parent_folder',
+	'upload'
+) );
+
 ?>
 
 <h2 class="wvv-mb-0"><?php echo get_the_title( $_GET['id'] ); ?></h2>
-
-<?php
-$vimeo_id = $db_helper->get_vimeo_id( $_GET['id'] );
-?>
 
 <div class="wvv-row">
     <div class="wvv-col-40">
