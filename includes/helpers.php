@@ -93,6 +93,89 @@ function wvv_get_purchase_url() {
 }
 
 /**
+ * String contains
+ *
+ * @param $str
+ * @param $substr
+ *
+ * @return bool
+ * @since 1.5.0
+ *
+ */
+function wvv_str_contains( $str, $substr ) {
+	return strpos( $str, $substr ) !== false;
+}
+
+/**
+ * Convert Response to URI
+ *  -- Support for pull method which returns array structure ['body']['uri']
+ *  -- Support for upload stream method which returns the uri directly.
+ *
+ * @param $response
+ *
+ * @return string
+ */
+function wvv_response_to_uri( $response ) {
+
+	$uri = '';
+	if ( isset( $response['body']['uri'] ) ) { // Support for pull method
+		$uri = $response['body']['uri'];
+	} else {
+		if ( is_numeric( $response ) ) {
+			$uri = sprintf( '/videos/%s', $response );
+		} else if ( is_string( $response ) ) { // Support for upload method.
+			$id = wvv_uri_to_id( $response );
+			if ( is_numeric( $id ) ) {
+				$uri = $response;
+			}
+		}
+	}
+
+	return $uri;
+}
+
+/**
+ * Convert Vimeo URI to ID
+ *
+ * @param $uri
+ *
+ * @return mixed
+ * @since 1.0.0
+ *
+ */
+function wvv_uri_to_id( $uri ) {
+
+	if ( is_array( $uri ) ) {
+		if ( isset( $uri['body']['uri'] ) ) {
+			$uri = $uri['body']['uri'];
+		}
+	}
+
+	if ( ! is_string( $uri ) ) {
+		return $uri;
+	}
+
+	$parts = explode( '/', $uri );
+
+	return end( $parts );
+}
+
+/**
+ * Ensure that uri is always uri.
+ *
+ * @param $id
+ *
+ * @return string
+ */
+function wvv_id_to_uri( $id ) {
+	if ( is_numeric( $id ) || ! wvv_str_contains( $id, '/' ) ) {
+		return '/videos/' . $id;
+	} else {
+		return $id;
+	}
+}
+
+/**
  * Format bytes
  *
  * @param $bytes
@@ -100,7 +183,7 @@ function wvv_get_purchase_url() {
  *
  * @return string
  */
-function wvv_format_bytes( $bytes, $precision = 4 ) {
+function wvv_format_bytes( $bytes, $precision = 2 ) {
 
 	$units = array( 'B', 'KB', 'MB', 'GB', 'TB' );
 
@@ -114,44 +197,6 @@ function wvv_format_bytes( $bytes, $precision = 4 ) {
 	$bytes /= (1 << (10 * $pow));
 
 	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
-}
-
-/**
- * Convert Vimeo URI to ID
- *
- * @param $uri
- *
- * @return mixed
- */
-function wvv_uri_to_id( $uri ) {
-	$parts = explode( '/', $uri );
-
-	return end( $parts );
-}
-
-/**
- * Convert Response to URI
- *  -- Support for pull method which returns array structure ['body']['uri']
- *  -- Support for upload stream method which returns the uri directly.
- *
- * @param $response
- *
- * @return string
- */
-function wvv_response_to_uri( $response ) {
-	$uri = '';
-	if ( isset( $response['body']['uri'] ) ) { // Support for pull method
-		$uri = $response['body']['uri'];
-	} else {
-		if ( is_string( $response ) ) { // Support for upload method.
-			$video_id = wvv_uri_to_id( $response );
-			if ( is_numeric( $video_id ) ) {
-				$uri = $response;
-			}
-		}
-	}
-
-	return $uri;
 }
 
 /**
