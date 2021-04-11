@@ -240,3 +240,16 @@ function wvv_get_editor_insert_methods() {
 		'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
 	);
 }
+
+/**
+ * Return the vimeo icon url
+ *
+ * @param null $size
+ *
+ * @return string
+ *
+ * @since 1.7.0
+ */
+function wvv_get_vimeo_icon_url( $size = null ) {
+	return sprintf( '%s/%s', WP_VIMEO_VIDEOS_URL, 'admin/img/icon-64.png' );
+}

@@ -27,9 +27,8 @@
 
     tinymce.PluginManager.add('dgv_vimeo_button', function (editor, url) {
         var tmpEditor = editor;
-        editor.addButton('dgv_vimeo_button', {
+        var params = {
             text: DGV_MCE_Config.phrases.tmce_title,
-            icon: false,
             classes: 'ed_button button button-small',
             tooltip: DGV_MCE_Config.phrases.tmce_tooltip,
             onclick: function () {
@@ -37,7 +36,11 @@
                 var uploadModal = new WPVimeoVideos.UploaderModal('tinymce');
                 uploadModal.open();
             }
-        });
+        }
+        if(DGV_MCE_Config.icon) {
+            params.image = DGV_MCE_Config.icon_url;
+        }
+        editor.addButton('dgv_vimeo_button', params);
     });
 
     $(window).on('wpdgv.events.insert', function (e, data) {

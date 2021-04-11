@@ -412,11 +412,19 @@ class WP_DGV_Admin {
 			array_push( $styles, WP_VIMEO_VIDEOS_URL . 'admin/css/upload-modal.css' );
 		}
 
-		$mce_config = array(
-			'phrases' => array(
-				'tmce_title'   => apply_filters( 'dgv_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos' ) ),
-				'tmce_tooltip' => __( 'Insert Vimeo Video', 'wp-vimeo-videos' ),
+		// Config
+		$mce_icon     = apply_filters( 'dgv_mce_toolbar_icon_enable', true );
+		$mce_icon_url = $mce_icon ? apply_filters( 'dgv_mce_toolbar_icon_url', wvv_get_vimeo_icon_url() ) : null;
+		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos' ) );
+		$mce_text     = $mce_icon && $mce_text ? sprintf( ' %s', $mce_text ) : $mce_text;
+		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) );
+		$mce_config   = array(
+			'phrases'  => array(
+				'tmce_title'   => $mce_text,
+				'tmce_tooltip' => $mce_tooltip,
 			),
+			'icon'     => $mce_icon,
+			'icon_url' => $mce_icon_url,
 		);
 
 		// Print out scripts
@@ -458,7 +466,7 @@ class WP_DGV_Admin {
 				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos' ),
 			),
 			'phrases'         => array(
-				'title'                 => __( 'Insert Vimeo Video', 'wp-vimeo-videos' ),
+				'title'                 => apply_filters( 'dgv_upload_modal_title', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) ),
 				'http_error'            => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos' ),
 				'upload_invalid_file'   => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
 				'invalid_search_phrase' => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
