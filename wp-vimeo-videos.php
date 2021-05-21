@@ -3,7 +3,7 @@
  * Plugin Name:       WP Vimeo Videos
  * Plugin URI:        https://codeverve.com
  * Description:       Embed and upload videos to Vimeo directly from WordPress
- * Version:           1.6.0
+ * Version:           1.7.0
  * Author:            Darko Gjorgjijoski
  * Author URI:        https://darkog.com
  * License:           GPL-2.0+
@@ -25,7 +25,7 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 
 if ( ! is_plugin_active( 'wp-vimeo-videos-pro/wp-vimeo-videos-pro.php' ) ) {
 
-    define('WP_VIMEO_VIDEOS_VERSION', '1.6.0');
+    define('WP_VIMEO_VIDEOS_VERSION', '1.7.0');
     define('WP_VIMEO_VIDEOS_PATH', plugin_dir_path(__FILE__));
     define('WP_VIMEO_VIDEOS_URL', plugin_dir_url(__FILE__));
     define('WP_VIMEO_VIDEOS_BASENAME', plugin_basename(__FILE__));
@@ -53,5 +53,3 @@ if ( ! is_plugin_active( 'wp-vimeo-videos-pro/wp-vimeo-videos-pro.php' ) ) {
 
 	run_wp_vimeo_videos();
 }
-
-
