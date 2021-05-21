@@ -122,6 +122,23 @@ class WP_DGV_Db_Helper {
 	}
 
 	/**
+	 * Return vimeo link
+	 *
+	 * @param $post_id
+	 *
+	 * @return mixed|string
+	 */
+	public function get_vimeo_link( $post_id ) {
+		$vimeo_link = get_post_meta( $post_id, 'dgv_link', true );
+		if ( empty( $vimeo_link ) ) {
+			$vimeo_id   = $this->get_vimeo_id( $post_id );
+			$vimeo_link = sprintf( 'https://vimeo.com/%s', $vimeo_id );
+		}
+
+		return $vimeo_link;
+	}
+
+	/**
 	 * Set the database defaults
 	 */
 	public function set_defaults() {}

@@ -158,11 +158,32 @@ class WP_DGV_Internal_Hooks {
 		$description = isset( $data['vimeo_description'] ) ? $data['vimeo_description'] : '';
 		$post_id     = $this->db->create_local_video( $title, $description, $id, 'frontend' );
 		$source      = isset( $data['source'] ) ? $data['source'] : array();
+
 		if ( ! is_wp_error( $post_id ) ) {
+			/**
+			 * Update meta
+			 */
 			update_post_meta( $post_id, 'dgv_source', $source );
 			if ( isset( $data['vimeo_size'] ) && $data['vimeo_size'] ) {
 				update_post_meta( $post_id, 'dgv_size', (int) $data['vimeo_size'] );
 			}
+
+			/**
+			 * Set link to the Video. Note: For some videos Vimeo creates non-standard links.
+			 * e.g View privacy: Those with link only.
+			 */
+			if ( ! empty( $id ) ) {
+				try {
+					$response = $this->api->get_video_by_id( $id, array( 'link' ) );
+					if ( ! empty( $response['body']['link'] ) ) {
+						update_post_meta( $post_id, 'dgv_link', $response['body']['link'] );
+					}
+				} catch ( \Exception $e ) {
+				}
+			}
+			/**
+			 * Set media library attachment source
+			 */
 			if ( isset( $data['source']['media_id'] ) ) {
 				update_post_meta( $data['source']['media_id'], 'dgv', array(
 					'vimeo_id' => $id,

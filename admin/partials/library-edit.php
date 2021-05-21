@@ -2,21 +2,28 @@
 /* @var WP_DGV_Api_Helper $vimeo_helper */
 /* @var WP_DGV_Db_Helper $db_helper */
 
-$video_id = isset( $_GET['id'] ) ? $_GET['id'] : null;
-$vimeo_id = $db_helper->get_vimeo_id( $_GET['id'] );
-$video    = $vimeo_helper->get_video_by_local_id( $video_id, array(
-	'uri',
-	'name',
-	'description',
-	'duration',
-	'width',
-	'height',
-	'is_playable',
-	'privacy',
-	'embed',
-	'parent_folder',
-	'upload'
-) );
+$video_id   = isset( $_GET['id'] ) ? sanitize_text_field( $_GET['id'] ) : null;
+$vimeo_id   = $db_helper->get_vimeo_id( $video_id );
+$vimeo_link = $db_helper->get_vimeo_link( $video_id );
+$video      = array();
+try {
+	$video = $vimeo_helper->get_video_by_local_id( $video_id, array(
+		'uri',
+		'name',
+		'description',
+		'link',
+		'duration',
+		'width',
+		'height',
+		'is_playable',
+		'privacy',
+		'embed',
+		'parent_folder',
+		'upload'
+	) );
+} catch ( \Exception $e ) {
+
+}
 
 ?>
 
@@ -35,12 +42,15 @@ $video    = $vimeo_helper->get_video_by_local_id( $video_id, array(
 						<?php echo do_shortcode( '[dgv_vimeo_video id="' . $vimeo_id . '"]' ); ?>
                     </div>
                     <div class="form-row">
-                        <p class="wvv-mb-0"><a href="https://vimeo.com/<?php echo $vimeo_id; ?>" class="button-primary"><?php _e('View On Vimeo', 'wp-vimeo-videos'); ?></a></p>
+                        <p class="wvv-mb-0"><a href="<?php echo $vimeo_link; ?>" class="button-primary"><?php _e( 'View On Vimeo', 'wp-vimeo-videos' ); ?></a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <p><small><em><?php echo sprintf(__('Privacy management, front-end upload and more options available in the %s.', 'wp-vimeo-videos'), '<a href="'.wvv_get_purchase_url().'" target="_blank">'.__('premium Version', 'wp-vimeo-videos').'</a>'); ?></em></small></p>
+        <p>
+            <small><em><?php echo sprintf( __( 'Privacy management, front-end upload and more options available in the %s.', 'wp-vimeo-videos' ), '<a href="' . wvv_get_purchase_url() . '" target="_blank">' . __( 'premium Version', 'wp-vimeo-videos' ) . '</a>' ); ?></em></small>
+        </p>
     </div>
 </div>

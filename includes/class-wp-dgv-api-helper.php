@@ -578,6 +578,12 @@ class  WP_DGV_Api_Helper {
 			update_post_meta( $id, 'dgv_playable', $is_playable );
 		}
 
+		// Set link
+		$link = isset( $response['body']['link'] ) && ! empty( $response['body']['link'] ) ? $response['body']['link'] : null;
+		if ( ! is_null( $link ) ) {
+			update_post_meta( $id, 'dgv_link', $link );
+		}
+
 	}
 
 	/**
