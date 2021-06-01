@@ -64,7 +64,7 @@ class WP_DGV_Db_Helper {
 			$params['author'] = $args['author'];
 		}
 
-		$posts  = get_posts( $params );
+		$posts = get_posts( $params );
 
 		return $posts;
 	}
@@ -111,13 +111,15 @@ class WP_DGV_Db_Helper {
 	/**
 	 * Returns local vimeo video post id.
 	 *
-	 * @param $vimeo_uri
+	 * @param $vimeo_uri_or_id
 	 *
 	 * @return string|null
 	 */
-	public function get_post_id( $vimeo_uri ) {
-		$table     = $this->db->postmeta;
-		$query     = $this->db->prepare( "SELECT post_id FROM {$table} PM WHERE PM.meta_key='dgv_response' AND PM.meta_value='%s'", $vimeo_uri );
+	public function get_post_id( $vimeo_uri_or_id ) {
+		$vimeo_id = wvv_uri_to_id( $vimeo_uri_or_id ); // Ensure id.
+		$table    = $this->db->postmeta;
+		$query    = $this->db->prepare( "SELECT post_id FROM {$table} PM WHERE PM.meta_key='dgv_response' AND PM.meta_value='%s'", $vimeo_id );
+
 		return $this->db->get_var( $query );
 	}
 
@@ -141,51 +143,78 @@ class WP_DGV_Db_Helper {
 	/**
 	 * Set the database defaults
 	 */
-	public function set_defaults() {}
+	public function set_defaults() {
+	}
 
 	/**
 	 * Returns the local video
+	 *
 	 * @param $title
 	 * @param $description
-	 * @param $uri
+	 * @param $vimeo_id - (eg. 18281821)
+	 * @param string $context
 	 *
 	 * @return int|WP_Error
 	 */
-	public function create_local_video($title, $description, $uri) {
-		$postID = wp_insert_post( array(
+	public function create_local_video( $title, $description, $vimeo_id, $context = 'admin' ) {
+
+		$vimeo_id = wvv_uri_to_id( $vimeo_id );
+
+		// Do not create local video if it already exists.
+		$postID = $this->get_post_id( $vimeo_id );
+		if ( ! empty( $postID ) ) {
+			return $postID;
+		}
+
+		$args = array(
 			'post_title'   => wp_strip_all_tags( $title ),
 			'post_content' => wp_strip_all_tags( $description ),
 			'post_status'  => 'publish',
 			'post_type'    => WP_DGV_Db_Helper::POST_TYPE_UPLOADS,
-			'post_author'  => get_current_user_id(),
-		) );
+			'post_author'  => is_user_logged_in() ? get_current_user_id() : 0,
+		);
 
-		if(!is_wp_error($postID)) {
-			update_post_meta($postID, 'dgv_response', $uri);
+		$args = apply_filters( 'dgv_insert_video_args', $args, $context ); // Deprecated.
+		$args = apply_filters( 'dgv_before_create_local_video_params', $args, $vimeo_id, $context );
+
+		$postID = wp_insert_post( $args );
+
+		if ( ! is_wp_error( $postID ) ) {
+			update_post_meta( $postID, 'dgv_response', $vimeo_id );
 		}
+
+		update_post_meta( $postID, 'dgv_context', $context );
+
 		return $postID;
 	}
 
 	/**
 	 * Check for uploads
+	 *
+	 * @param bool $current_user_uploads_only
+	 *
 	 * @return array
 	 */
-	public function get_uploaded_videos() {
-        $uploads_formatted = wp_cache_get('wvv_uploads_formatted');
-        if (false === $uploads_formatted) {
-            $params            = apply_filters('dgv_uploaded_videos_query_args', array());
-            $uploads           = $this->get_videos($params);
-            $uploads_formatted = array();
-            foreach ($uploads as $_upload) {
-                $uploads_formatted[] = array(
-                    'title'    => $_upload->post_title,
-                    'vimeo_id' => $this->get_vimeo_id($_upload->ID),
-                    'ID'       => $_upload->ID
-                );
-            }
-            wp_cache_set('wvv_uploads_formatted', $uploads_formatted);
-        }
+	public function get_uploaded_videos( $current_user_uploads_only = false ) {
+		$uploads_formatted = wp_cache_get( 'wvv_uploads_formatted' );
+		if ( false === $uploads_formatted ) {
+			$params = array();
+			if ( $current_user_uploads_only ) {
+				$params['author'] = get_current_user_id();
+			}
+			$params            = apply_filters( 'dgv_uploaded_videos_query_args', $params );
+			$uploads           = $this->get_videos( $params );
+			$uploads_formatted = array();
+			foreach ( $uploads as $_upload ) {
+				$uploads_formatted[] = array(
+					'title'    => $_upload->post_title,
+					'vimeo_id' => $this->get_vimeo_id( $_upload->ID ),
+					'ID'       => $_upload->ID
+				);
+			}
+			wp_cache_set( 'wvv_uploads_formatted', $uploads_formatted );
+		}
 
-        return $uploads_formatted;
+		return $uploads_formatted;
 	}
 }

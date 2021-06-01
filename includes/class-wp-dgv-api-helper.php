@@ -380,7 +380,7 @@ class  WP_DGV_Api_Helper {
 	 *
 	 * @param $file_path
 	 * @param array $params
-	 * @param bool $process_after_hook
+	 * @param bool $process_after_hook - (Processing the after hook will make sure the local video is created and other settings processed like, folders, privacy, etc)
 	 *
 	 * @return array
 	 *
@@ -397,6 +397,8 @@ class  WP_DGV_Api_Helper {
 	 * @since 1.0.0
 	 */
 	public function upload( $file_path, $params, $process_after_hook = false ) {
+
+		$params = apply_filters( 'dgv_before_create_api_video_params', $params, $file_path, null );
 
 		$response = $this->api->upload( $file_path, $params );
 
@@ -429,28 +431,33 @@ class  WP_DGV_Api_Helper {
 	 *
 	 * @param string $file_url
 	 * @param array $params
+	 * @param bool $process_after_hook (Processing the after hook will make sure the local video is created and other settings processed like, folders, privacy, etc)
 	 *
 	 * @return array
-	 * @throws Exception
+	 * @throws \Vimeo\Exceptions\VimeoRequestException
 	 * @since 1.1.0
-	 *
 	 */
-	public function upload_pull( $file_url, $params ) {
-		$params   = array_merge( array( 'upload' => array( 'approach' => 'pull', 'link' => $file_url ) ), $params );
+	public function upload_pull( $file_url, $params, $process_after_hook = false ) {
+
+		$params = array_merge( array( 'upload' => array( 'approach' => 'pull', 'link' => $file_url ) ), $params );
+		$params = apply_filters( 'dgv_before_create_api_video_params', $params, null, $file_url );
+
 		$response = $this->api->request( '/me/videos', $params, 'POST' );
 
-		/**
-		 * Upload success hook
-		 */
-		do_action( 'dgv_backend_after_upload', array(
-			'vimeo_title'       => isset( $params['name'] ) ? $params['name'] : '',
-			'vimeo_description' => isset( $params['description'] ) ? $params['description'] : '',
-			'vimeo_id'          => wvv_uri_to_id( $response ),
-			'vimeo_size'        => false,
-			'source'            => array(
-				'software' => 'API::upload_pull',
-			),
-		) );
+		if ( $process_after_hook ) {
+			/**
+			 * Upload success hook
+			 */
+			do_action( 'dgv_backend_after_upload', array(
+				'vimeo_title'       => isset( $params['name'] ) ? $params['name'] : '',
+				'vimeo_description' => isset( $params['description'] ) ? $params['description'] : '',
+				'vimeo_id'          => wvv_uri_to_id( $response ),
+				'vimeo_size'        => false,
+				'source'            => array(
+					'software' => 'API::upload_pull',
+				),
+			) );
+		}
 
 		return array(
 			'params'   => $params,
