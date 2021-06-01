@@ -50,7 +50,7 @@ try {
         </div>
 
         <p>
-            <small><em><?php echo sprintf( __( 'Privacy management, front-end upload and more options available in the %s.', 'wp-vimeo-videos' ), '<a href="' . wvv_get_purchase_url() . '" target="_blank">' . __( 'premium Version', 'wp-vimeo-videos' ) . '</a>' ); ?></em></small>
+            <small><em><?php echo sprintf( __( 'Privacy management, folder management, front-end upload and more options available in the %s.', 'wp-vimeo-videos' ), '<a href="' . wvv_get_purchase_url() . '" target="_blank">' . __( 'premium Version', 'wp-vimeo-videos' ) . '</a>' ); ?></em></small>
         </p>
     </div>
 </div>
