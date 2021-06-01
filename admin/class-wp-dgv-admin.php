@@ -111,7 +111,8 @@ class WP_DGV_Admin {
 		// Get all uploads
 		$uploads = null;
 		if ( $is_create_or_edit_screen ) {
-			$uploads = $this->db_helper->get_uploaded_videos();
+			$current_user_uploads = ! current_user_can( 'administrator' ) && (int) $this->settings_helper->get( 'dgv_local_current_user_only' );
+			$uploads              = $this->db_helper->get_uploaded_videos( $current_user_uploads );
 		}
 
 		// Select2

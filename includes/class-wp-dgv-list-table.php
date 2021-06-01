@@ -61,7 +61,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		) );
 
 		$this->settings_helper     = new WP_DGV_Settings_Helper();
-		$this->author_uploads_only = $this->settings_helper->get( 'dgv_author_uploads_only' );
+		$this->author_uploads_only = (int) $this->settings_helper->get( 'dgv_author_uploads_only' );
 		$this->db_helper           = new WP_DGV_Db_Helper();
 		$this->api_helper          = new WP_DGV_Api_Helper();
 	}

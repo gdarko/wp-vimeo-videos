@@ -262,7 +262,7 @@ class WP_DGV_Ajax_Handler {
 			exit;
 		}
 
-		$current_user_uploads = (int) $this->settings_helper->get( 'dgv_local_current_user_only' );
+		$current_user_uploads = ! current_user_can( 'administrator' ) && (int) $this->settings_helper->get( 'dgv_local_current_user_only' );
 
 		$uplaods = $this->db_helper->get_uploaded_videos( $current_user_uploads );
 
