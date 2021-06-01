@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.7.0
+Stable Tag: 1.7.1
 Requires PHP: 5.5.0
 Tested up to: 5.7
 License: GPLv2 or later
@@ -125,29 +125,41 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 
 == Changelog ==
 
-= Version 1.7.0 =
-
-- Added size column in Vimeo videos admin table
-- Added metadata caching functionality. The plugin now caches the duration, size, dimensions of a video. Useful for future development.
-- Added a lot of improvements to the logging feature. Logs can be found in uploads/wp-vimeo-videos/debug.log
-- Added dgv_upload_modal_title filter for filtering the Upload modal title
-- Added dgv_mce_toolbar_icon_enable filter for enabling or disabling TinyMCE vimeo icon
-- Added dgv_mce_toolbar_tooltip filter for filtering the TinyMCE toolbar tooltip
-- Added dgv_mce_toolbar_icon_url filter for filtering the default Vimeo logo icon
-- Fixed a bug when the view privacy is 'Only those with link'. Video links were pointing to wrong link, instead of private video link
-- Renamed dgv_toolbar_title to dgv_mce_toolbar_title. The filter can be used to change the TinyMCE toolbar title (default: Vimeo). Return empty string to remove it
-- Refactored post upload hooks
-- Link author to its WordPress user profile page in Vimeo videos admin table
+= Version 1.7.1 =
+* Added additional check if local video is already created, if so, skip creation process in db->create_local_video().
+* Added dgv_before_create_api_video_params filter for filtering the API parameters before remote Video is created. <a target="_blank" href="https://github.com/gdarko/wp-vimeo-videos/issues/26#issuecomment-852452619">More info here</a>
+* Added dgv_before_create_local_video_params filter for filtering the parameters before local Video is created. <a target="_blank" href="https://github.com/gdarko/wp-vimeo-videos/issues/26#issuecomment-852452619">More info here</a>
+* Fixed author filter in tinymce / gutenberg upload modal when show videos of current author option is enabled.
+* Fixed a bug when editing a video title, it was not editing the local video title
 
 _PRO ONLY:_
-- Added APIs that can be used to integrate chunked progress bar uploads in custom forms
-- Added [dgv_user_uploads user=current allow_delete=1 allow_edit=1] shortcode that lists the current user uploads and allows the logged in user to manage those if the user is owner of the videos
-- Added diagnostics and error messages if access token doesn't support Interact scope. Interact is required for the for the folders functionality.
-- Switch input field to textarea for description in front-end upload integrations
-- Added dgv_frontend_after_upload_gravityforms action triggered after front-end upload using GravityFroms
-- Added dgv_frontend_after_upload_wpforms action triggered after front-end upload using WPForms
-- Fixed problem with the chunked progress-bar front-end upload in GravityForms.
-- Revamped product activation system
+
+* Fixed GravityForms integration problem caused by third party plugins making the uploads to fail.
+
+= Version 1.7.0 =
+
+* Added size column in Vimeo videos admin table
+* Added metadata caching functionality. The plugin now caches the duration, size, dimensions of a video. Useful for future development.
+* Added a lot of improvements to the logging feature. Logs can be found in uploads/wp-vimeo-videos/debug.log
+* Added dgv_upload_modal_title filter for filtering the Upload modal title
+* Added dgv_mce_toolbar_icon_enable filter for enabling or disabling TinyMCE vimeo icon
+* Added dgv_mce_toolbar_tooltip filter for filtering the TinyMCE toolbar tooltip
+* Added dgv_mce_toolbar_icon_url filter for filtering the default Vimeo logo icon
+* Fixed a bug when the view privacy is 'Only those with link'. Video links were pointing to wrong link, instead of private video link
+* Renamed dgv_toolbar_title to dgv_mce_toolbar_title. The filter can be used to change the TinyMCE toolbar title (default: Vimeo). Return empty string to remove it
+* Refactored post upload hooks
+* Link author to its WordPress user profile page in Vimeo videos admin table
+
+_PRO ONLY:_
+
+* Added APIs that can be used to integrate chunked progress bar uploads in custom forms
+* Added [dgv_user_uploads user=current allow_delete=1 allow_edit=1] shortcode that lists the current user uploads and allows the logged in user to manage those if the user is owner of the videos
+* Added diagnostics and error messages if access token doesn't support Interact scope. Interact is required for the for the folders functionality.
+* Switch input field to textarea for description in front-end upload integrations
+* Added dgv_frontend_after_upload_gravityforms action triggered after front-end upload using GravityFroms
+* Added dgv_frontend_after_upload_wpforms action triggered after front-end upload using WPForms
+* Fixed problem with the chunked progress-bar front-end upload in GravityForms.
+* Revamped product activation system
 
 = Version 1.6.0 =
 
