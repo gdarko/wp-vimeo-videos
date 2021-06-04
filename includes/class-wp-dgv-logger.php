@@ -172,14 +172,7 @@ class WP_DGV_Logger {
 	 * @param $data
 	 */
 	private function dump( $data ) {
-		$prev = ini_get( 'xdebug.overload_var_dump' );
-		if ( ! empty( $prev ) ) {
-			ini_set( "xdebug.overload_var_dump", "off" );
-		}
 		var_dump( $data );
-		if ( ! empty( $prev ) ) {
-			ini_set( "xdebug.overload_var_dump", $prev );
-		}
 	}
 
 }
