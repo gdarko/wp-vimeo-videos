@@ -80,16 +80,16 @@
                     </td>
                 </tr>
 			<?php endif; ?>
-			<?php if ( isset( $vimeo_helper->headers['X-RateLimit-Limit'] ) && is_numeric( $vimeo_helper->headers['X-RateLimit-Limit'] ) ): ?>
+			<?php if ( isset( $vimeo_helper->headers['x-ratelimit-limit'] ) && is_numeric( $vimeo_helper->headers['x-ratelimit-limit'] ) ): ?>
                 <tr>
                     <th>
 						<?php _e( 'Rate Limits', 'wp-vimeo-videos' ); ?>
                     </th>
                     <td>
 						<?php
-						$used  = $vimeo_helper->headers['X-RateLimit-Limit'] - $vimeo_helper->headers['X-RateLimit-Remaining'];
-						$max   = $vimeo_helper->headers['X-RateLimit-Limit'];
-						$reset = $vimeo_helper->headers['X-RateLimit-Reset'];
+						$used  = $vimeo_helper->headers['x-ratelimit-limit'] - $vimeo_helper->headers['x-ratelimit-remaining'];
+						$max   = $vimeo_helper->headers['x-ratelimit-limit'];
+						$reset = $vimeo_helper->headers['x-ratelimit-reset'];
 						echo sprintf( __( '%s / %s per minute (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
 						?>
                     </td>

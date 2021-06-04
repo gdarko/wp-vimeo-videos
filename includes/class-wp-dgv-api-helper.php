@@ -196,6 +196,7 @@ class  WP_DGV_Api_Helper {
 		if ( false === $data ) {
 			try {
 				$data = $this->api->request( '/oauth/verify', [], 'GET' );
+				$data = $this->prepare_response( $data );
 				set_transient( self::CACHE_KEY, $data, $this->cache_time );
 			} catch ( \Exception $e ) {
 				$data        = null;
@@ -225,14 +226,14 @@ class  WP_DGV_Api_Helper {
 		}
 
 		if ( $this->is_connected ) {
-			$this->user_name    = isset( $data['body']['user']['name'] ) ? $data['body']['user']['name'] : '';
-			$this->user_uri     = isset( $data['body']['user']['uri'] ) ? $data['body']['user']['uri'] : '';
-			$this->user_link    = isset( $data['body']['user']['link'] ) ? $data['body']['user']['link'] : '';
-			$this->user_type    = isset( $data['body']['user']['account'] ) ? $data['body']['user']['account'] : '';
-			$this->app_name     = isset( $data['body']['app']['name'] ) ? $data['body']['app']['name'] : '';
-			$this->app_uri      = isset( $data['body']['app']['uri'] ) ? $data['body']['app']['uri'] : '';
-			$_scopes            = isset( $data['body']['scope'] ) ? $data['body']['scope'] : '';
-			$this->headers      = isset( $data['headers'] ) ? $data['headers'] : array();
+			$this->user_name = isset( $data['body']['user']['name'] ) ? $data['body']['user']['name'] : '';
+			$this->user_uri  = isset( $data['body']['user']['uri'] ) ? $data['body']['user']['uri'] : '';
+			$this->user_link = isset( $data['body']['user']['link'] ) ? $data['body']['user']['link'] : '';
+			$this->user_type = isset( $data['body']['user']['account'] ) ? $data['body']['user']['account'] : '';
+			$this->app_name  = isset( $data['body']['app']['name'] ) ? $data['body']['app']['name'] : '';
+			$this->app_uri   = isset( $data['body']['app']['uri'] ) ? $data['body']['app']['uri'] : '';
+			$_scopes         = isset( $data['body']['scope'] ) ? $data['body']['scope'] : '';
+			$this->headers   = isset( $data['headers'] ) ? $data['headers'] : array();
 			$this->upload_quota = isset( $data['body']['user']['upload_quota'] ) ? $data['body']['user']['upload_quota'] : array();
 			if ( ! empty( $_scopes ) ) {
 				$this->scopes         = explode( ' ', $_scopes );
@@ -346,6 +347,7 @@ class  WP_DGV_Api_Helper {
 
 		$query['page'] = 1;
 		$response      = $this->api->request( '/me/videos', $query, 'GET' );
+		$response      = $this->prepare_response($response);
 
 		if ( isset( $response['status'] ) && $response['status'] === 200 ) {
 			$videos = array_merge( $videos, $response['body']['data'] );
@@ -355,13 +357,18 @@ class  WP_DGV_Api_Helper {
 					wp_parse_str( $response['body']['paging']['last'], $query_params );
 				}
 				$last_page = isset( $query_params['page'] ) ? $query_params['page'] : 1;
-				if ( isset( $response['headers']['X-RateLimit-Remaining'] ) && $response['headers']['X-RateLimit-Remaining'] > 5 && $last_page > 1 ) {
+				$remaining = null;
+				if ( isset( $response['headers']['x-ratelimit-remaining'] ) ) {
+					$remaining = $response['headers']['X-rateLimit-remaining'];
+				}
+				if ( ! is_null( $remaining ) && $remaining > 5 && $last_page > 1 ) {
 					for ( $i = 2; $i <= $last_page; $i ++ ) {
 						$query['page'] = $i;
-						$response      = $this->api->request( '/me/videos', $query, 'GET' );
+						$response = $this->api->request( '/me/videos', $query, 'GET' );
+						$response = $this->prepare_response( $response );
 						if ( isset( $response['status'] ) && $response['status'] === 200 ) {
 							$videos = array_merge( $videos, $response['body']['data'] );
-							if ( $response['headers']['X-RateLimit-Remaining'] < 5 ) {
+							if ( $response['headers']['x-ratelimit-remaining'] < 5 ) {
 								break;
 							}
 						}
@@ -443,6 +450,7 @@ class  WP_DGV_Api_Helper {
 		$params = apply_filters( 'dgv_before_create_api_video_params', $params, null, $file_url );
 
 		$response = $this->api->request( '/me/videos', $params, 'POST' );
+		$response = $this->prepare_response( $response );
 
 		if ( $process_after_hook ) {
 			/**
@@ -479,7 +487,7 @@ class  WP_DGV_Api_Helper {
 	public function get( $uri ) {
 		$response = $this->api->request( $uri, [], 'GET' );
 
-		return $response;
+		return $this->prepare_response($response);
 	}
 
 
@@ -494,7 +502,7 @@ class  WP_DGV_Api_Helper {
 	public function delete( $uri ) {
 		$response = $this->api->request( $uri, [], 'DELETE' );
 
-		return $response;
+		return $this->prepare_response($response);
 	}
 
 	/**
@@ -513,7 +521,7 @@ class  WP_DGV_Api_Helper {
 			)
 		), 'PATCH' );
 
-		return $response;
+		return $this->prepare_response($response);
 	}
 
 	/**
@@ -529,7 +537,7 @@ class  WP_DGV_Api_Helper {
 		$request_uri = "{$uri}/privacy/domains/{$domain}";
 		$response    = $this->api->request( $request_uri, [], 'PUT' );
 
-		return $response;
+		return $this->prepare_response($response);
 	}
 
 
@@ -550,6 +558,7 @@ class  WP_DGV_Api_Helper {
 			$video_id = wvv_uri_to_id( $id );
 			try {
 				$response = $this->get( "/videos/{$video_id}?fields=upload" );
+				$response = $this->prepare_response($response);
 			} catch ( \Exception $e ) {
 			}
 		}
@@ -631,6 +640,24 @@ class  WP_DGV_Api_Helper {
 		return $this->get( $full_uri );
 	}
 
+	/**
+	 * Prepare the response data from Vimeo libraries.
+	 */
+	private function prepare_response( $response ) {
+
+		/**
+		 * Make response headers all lowercase to comply with HTTPv2
+		 */
+		$headers = isset( $response['headers'] ) ? $response['headers'] : array();
+		if ( ! empty( $headers ) ) {
+			$response['headers'] = array();
+			foreach ( $headers as $key => $value ) {
+				$response['headers'][ strtolower( $key ) ] = $value; // Support for HTTPv2
+			}
+		}
+
+		return $response;
+	}
 
 	/**
 	 * Flushes user data cache
