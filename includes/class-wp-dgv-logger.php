@@ -172,7 +172,7 @@ class WP_DGV_Logger {
 	 * @param $data
 	 */
 	private function dump( $data ) {
-		var_dump( $data );
+		print_r( $data );
 	}
 
 }

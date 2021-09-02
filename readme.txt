@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.7.1
+Stable Tag: 1.7.2
 Requires PHP: 5.5.0
 Tested up to: 5.7
 License: GPLv2 or later
@@ -124,6 +124,16 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 10. GravityForms Integration (PRO version)
 
 == Changelog ==
+
+= Version 1.7.2 =
+* Fixed a lot of problems related to lowercase HTTPv2 headers for users that use HTTPv2
+* Improved 'Hide videos uploaded from different authors for non-admin use" option in the Gutenberg and TinyMCE blocks
+* Removed xdebug ini_set/get calls in the logger. The directive to overload var_dump was removed in xdebug.
+* Updated the underlying PHP libraries to their latest versions
+
+_PRO ONLY:_
+* Improved GravityForms front-end processing
+* Improved logging in the front-end implementations
 
 = Version 1.7.1 =
 * Added additional check if local video is already created, if so, skip creation process in db->create_local_video().
