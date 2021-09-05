@@ -5,6 +5,10 @@
 // License text available at https://opensource.org/licenses/gpl-2.0.php
  */
 
+#dgv-vimeo-upload-modal {
+    max-width: 99.2%;
+}
+
 .dgv-settings-section {
     margin-bottom: 32px;
 }
@@ -112,6 +116,10 @@ span.dgv-close-modal:hover {
     color: #000;
 }
 
+div.swal2-html-container {
+    overflow-x: hidden;
+}
+
 span.dgv-close-modal {
     position: absolute;
     top: 7px;
@@ -121,6 +129,7 @@ span.dgv-close-modal {
     background: #f0f0f0;
     width: 33px;
     height: 33px;
+    line-height: 33px;
     text-align: center;
     border-radius: 50%;
     cursor: pointer;
