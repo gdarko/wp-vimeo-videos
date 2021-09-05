@@ -2,9 +2,9 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.7.2
+Stable Tag: 1.7.3
 Requires PHP: 5.5.0
-Tested up to: 5.7
+Tested up to: 5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,20 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 10. GravityForms Integration (PRO version)
 
 == Changelog ==
+
+= Version 1.7.3 =
+- Fixed user filter dropdown in Media > Vimeo
+- Fixed user admin url when clicking on the author in Media > Vimeo
+- Improved the TinyMCE upload modal styling
+- Updated sweetalert2 from version 8.17.1 to version 11.1.4 (latest)
+- Updated and resynced the .pot i18n template to add the new strings
+
+_PRO ONLY:_
+- Added enhanced LeardDash integration. Besides the Gutenberg & Classic editor integrations, it now integrates in "Video Progression" field in Topic/Lesson settings.
+- Added merge tags support for the GravityForms integration
+- Added support for Live Pro, Live Business, Live Premium, Producer plans
+- Fixed Vimeo deletion. It failed to delete remote (vimeo.com) video when user deletes Video form the admin screens
+- Fixed fatal error triggered when activating the plugin
 
 = Version 1.7.2 =
 * Fixed a lot of problems related to lowercase HTTPv2 headers for users that use HTTPv2
