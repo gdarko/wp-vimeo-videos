@@ -138,7 +138,7 @@ class WP_DGV_Admin {
 		}
 
 		// Sweetalert
-		wp_enqueue_script( 'swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/swal.min.js', null, null, true );
+		wp_enqueue_script( 'swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/sweetalert2/sweetalert2.min.js', null, '11.1.4', true );
 
 		// TUS
 		wp_enqueue_script( 'dgv-tus', WP_VIMEO_VIDEOS_URL . 'admin/resources/tus-js-client/tus.min.js', null, '1.8.0' );
@@ -389,7 +389,7 @@ class WP_DGV_Admin {
 		$styles  = array();
 
 		if ( ! wp_script_is( 'dgv-swal', 'enqueued' ) ) {
-			array_push( $scripts, WP_VIMEO_VIDEOS_URL . 'admin/resources/swal.min.js' );
+			array_push( $scripts, WP_VIMEO_VIDEOS_URL . 'admin/resources/sweetalert2/sweetalert2.min.js' );
 		}
 		if ( ! wp_script_is( 'dgv-tus', 'enqueued' ) ) {
 			array_push( $scripts, WP_VIMEO_VIDEOS_URL . 'admin/resources/tus-js-client/tus.min.js' );
