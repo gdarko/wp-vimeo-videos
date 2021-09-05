@@ -253,3 +253,53 @@ function wvv_get_editor_insert_methods() {
 function wvv_get_vimeo_icon_url( $size = null ) {
 	return sprintf( '%s/%s', WP_VIMEO_VIDEOS_URL, 'admin/img/icon-64.png' );
 }
+
+/**
+ * Returns the user edit url
+ * @param int $id
+ *
+ * @return string
+ *
+ * @since 1.7.3
+ */
+function wvv_get_user_edit_url($id) {
+	if(is_object($id) && isset($id->ID)) {
+		$id = $id->ID;
+	} else if(is_array($id) && isset($id['ID'])) {
+		$id = $id['ID'];
+	}
+	return admin_url(sprintf('user-edit.php?user_id=%s', $id));
+}
+
+/**
+ * Returns link to the user profile
+ * @param $id
+ *
+ * @return string|void
+ *
+ * @since 1.7.3
+ */
+function wvv_get_user_edit_link($id) {
+
+	$user = wp_cache_get('user_'.$id, 'dgv');
+	if(false === $user) {
+		$user = get_user_by( 'id', $id  );
+		wp_cache_set('user_'.$id, $user, 'dgv');
+	}
+
+	$name = '';
+	$link = '';
+	if ( is_a( $user, '\WP_User' ) ) {
+		$link = wvv_get_user_edit_url( $user->ID );
+		if ( ! empty( $user->display_name ) ) {
+			$name = $user->display_name;
+		} else if ( ! empty( $user->user_nicename ) ) {
+			$name = $user->user_nicename;
+		} else if ( ! empty( $user->user_login ) ) {
+			$name = $user->user_login;
+		}
+	}
+	return $name ? sprintf( '<a href="%s">%s</a>', $link, $name ) : __( 'Unknown' );
+}
+
+
