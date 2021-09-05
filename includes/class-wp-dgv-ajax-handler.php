@@ -215,24 +215,30 @@ class WP_DGV_Ajax_Handler {
             exit;
         }
 
-        $items = array();
+	    $items = array();
+	    $phrase = isset( $_REQUEST['s'] ) ? sanitize_text_field( $_REQUEST['s'] ) : '';
 
-        $phrase = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : '';
+	    $params = array(
+		    'number' => 100,
+	    );
+	    if ( ! empty( $phrase ) ) {
+		    $params['search'] = '*' . esc_attr( $phrase ) . '*';
+		    $params['search_columns'] = array(
+			    'user_login',
+			    'user_nicename',
+			    'user_email',
+			    'user_url',
+		    );
+	    }
+	    $query = new \WP_User_Query( $params );
+	    foreach( $query->get_results() as $user ) {
+		    $items[] = array(
+			    'id'   => $user->ID,
+			    'name' => sprintf( '%s (#%d - %s)', $user->user_nicename, $user->ID, $user->user_email )
+		    );
+	    }
 
-        $params = array();
-        if ( ! empty($phrase)) {
-            $params['search'] = $phrase;
-        }
-        $_users = get_users($params);
-        foreach ($_users as $user) {
-            array_push($items, array(
-                'id'   => $user->ID,
-                'name' => $user->display_name,
-            ));
-        }
-
-        wp_send_json_success($items);
-
+	    wp_send_json_success( $items );
     }
 
 
