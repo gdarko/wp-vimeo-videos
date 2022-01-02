@@ -239,11 +239,15 @@ var notice = function (message, type) {
 (function ($) {
     $('#dg-vimeo-settings').submit(function (e) {
         var $self = $(this);
+        var $btn = $self.find('button[type=submit]');
         var data = $self.serialize();
         $.ajax({
             url: DGV.ajax_url + '?action=dgv_handle_settings&_wpnonce=' + DGV.nonce,
             type: 'POST',
             data: data,
+            beforeSend: function(){
+                $btn.prepend('<span class="dashicons dashicons-update dgv-spin"></span>');
+            },
             success: function (response) {
                 var message;
                 var type;
@@ -262,6 +266,11 @@ var notice = function (message, type) {
                     $_nwrapper.html('');
                 }
                 $_nwrapper.prepend(notice(message, type));
+            },
+            complete: function() {
+                setTimeout(function(){
+                    $btn.find('.dashicons-update').remove().detach();
+                }, 200);
             }
         });
         return false;
