@@ -244,6 +244,18 @@ class WP_DGV_Admin {
 	}
 
 	/**
+	 * Unset third party notices.
+	 */
+	public function do_admin_notices() {
+		if ( $this->is_any_page() ) {
+			\remove_all_actions( 'admin_notices' );
+		}
+		if ( ! $this->is_list_page() && ! $this->is_edit_page() ) {
+			$this->instructions();
+		}
+	}
+
+	/**
 	 * Add instructions view
 	 */
 	public function instructions() {
@@ -488,6 +500,33 @@ class WP_DGV_Admin {
 		}
 
 		return $dgv_nonce;
+	}
+
+	/**
+	 * Is any page?
+	 * @return bool
+	 */
+	public function is_any_page() {
+		return is_admin() && isset( $_GET['page'] ) && in_array( $_GET['page'], array(
+				self::PAGE_VIMEO,
+				self::PAGE_SETTINGS
+			) );
+	}
+
+	/**
+	 * Is the list page?
+	 * @return bool
+	 */
+	public function is_list_page() {
+		return $this->is_any_page() && ! isset( $_GET['action'] );
+	}
+
+	/**
+	 * Is the edit page?
+	 * @return bool
+	 */
+	public function is_edit_page() {
+		return $this->is_any_page() && isset( $_GET['action'] ) && 'edit' === $_GET['action'];
 	}
 
 }

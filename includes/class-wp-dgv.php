@@ -227,7 +227,7 @@ class WP_DGV {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_admin_menu' );
-		$this->loader->add_action( 'admin_notices', $plugin_admin, 'instructions' );
+		$this->loader->add_action( 'in_admin_header', $plugin_admin, 'do_admin_notices', 50 );
 		$this->loader->add_filter( 'plugin_action_links_' . WP_VIMEO_VIDEOS_BASENAME, $plugin_admin, 'plugin_action_links', 100, 1 );
 		$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'plugin_row_meta', 100, 4 );
 
