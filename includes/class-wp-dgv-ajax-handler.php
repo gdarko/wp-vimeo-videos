@@ -89,7 +89,10 @@ class WP_DGV_Ajax_Handler {
 			'dgv_client_secret'   => __( 'Client Secret', 'wp-vimeo-videos' ),
 			'dgv_access_token'    => __( 'Access Token', 'wp-vimeo-videos' ),
 			'dgv_author_uploads_only' => __( 'Show Author uploads only', 'wp-vimeo-videos' ),
+			'dgv_enable_single_pages'         => __( 'Single Video Pages', 'wp-vimeo-videos-pro' ),
 		);
+
+		$enable_single_pages = $this->settings_helper->get( 'enable_single_pages' );
 
 		// validate
 		foreach ( $fields as $key => $field ) {
@@ -113,7 +116,13 @@ class WP_DGV_Ajax_Handler {
             }
         }
 
-        $this->settings_helper->save();
+		// flush permalinks
+		if ( $enable_single_pages !== $_POST['dgv_enable_single_pages'] ) {
+			flush_rewrite_rules( true );
+		}
+
+		// Save
+		$this->settings_helper->save();
 
 
 		// Re-render the api details

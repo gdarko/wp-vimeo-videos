@@ -1,6 +1,7 @@
 <?php
 /* @var WP_DGV_Api_Helper $vimeo_helper */
 /* @var WP_DGV_Db_Helper $db_helper */
+/* @var WP_DGV_Settings_Helper $settings_helper */
 
 ?>
 <div class="wrap dgv-wrap">

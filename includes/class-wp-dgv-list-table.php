@@ -36,6 +36,11 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	protected $author_uploads_only;
 
 	/**
+	 * @var WP_DGV_Settings_Helper
+	 */
+	protected $settings_helper;
+
+	/**
 	 * @var WP_DGV_Db_Helper
 	 */
 	protected $db_helper;
@@ -46,9 +51,10 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	protected $api_helper;
 
 	/**
-	 * @var WP_DGV_Settings_Helper
+	 * Enable or disable local pages for videos
+	 * @var bool
 	 */
-	protected $settings_helper;
+	protected $front_pages;
 
 	/**
 	 * WP_DGV_List_Table constructor.
@@ -64,6 +70,8 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		$this->author_uploads_only = (int) $this->settings_helper->get( 'dgv_author_uploads_only' );
 		$this->db_helper           = new WP_DGV_Db_Helper();
 		$this->api_helper          = new WP_DGV_Api_Helper();
+
+		$this->front_pages    = (int) $this->settings_helper->get( 'dgv_enable_single_pages' );
 	}
 
 	/**
@@ -136,11 +144,17 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	 * @return string
 	 */
 	public function column_title( $item ) {
-		$actions          = array();
-		$url              = admin_url( 'upload.php?page=' . WP_DGV_Admin::PAGE_VIMEO . '&action=edit&id=' . $item->ID );
-		$vimeo_link       = $this->db_helper->get_vimeo_link( $item->ID );
+		$actions    = array();
+		$url        = admin_url( 'upload.php?page=' . WP_DGV_Admin::PAGE_VIMEO . '&action=edit&id=' . $item->ID );
+		$vimeo_link = $this->db_helper->get_vimeo_link( $item->ID );
+		$url_local  = get_permalink( $item->ID );
+
 		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url, $item->ID, __( 'Manage this video', 'wp-vimeo-videos' ), __( 'Manage', 'wp-vimeo-videos' ) );
 		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', $vimeo_link, $item->ID, __( 'Vimeo video link', 'wp-vimeo-videos' ), __( 'Vimeo Link', 'wp-vimeo-videos' ) );
+
+		if ( $this->front_pages ) {
+			$actions['view'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_local, $item->ID, __( 'View the video on the front-end', 'wp-vimeo-videos-pro' ), __( 'View', 'wp-vimeo-videos' ) );
+		}
 
 		return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', $url, $item->post_title, $this->row_actions( $actions ) );
 	}

@@ -1,10 +1,14 @@
 <?php
 /* @var WP_DGV_Api_Helper $vimeo_helper */
 /* @var WP_DGV_Db_Helper $db_helper */
+/* @var WP_DGV_Settings_Helper $settings_helper */
 
-$video_id   = isset( $_GET['id'] ) ? sanitize_text_field( $_GET['id'] ) : null;
-$vimeo_id   = $db_helper->get_vimeo_id( $video_id );
-$vimeo_link = $db_helper->get_vimeo_link( $video_id );
+$video_id    = isset( $_GET['id'] ) ? sanitize_text_field( $_GET['id'] ) : null;
+$vimeo_id    = $db_helper->get_vimeo_id( $video_id );
+$permalink   = get_permalink( $video_id );
+$front_pages = (int) $settings_helper->get( 'dgv_enable_single_pages' );
+$vimeo_link  = $db_helper->get_vimeo_link( $video_id );
+
 $video      = array();
 try {
 	$video = $vimeo_helper->get_video_by_local_id( $video_id, array(
@@ -29,6 +33,13 @@ try {
 
 <h2 class="wvv-mb-0"><?php echo get_the_title( $_GET['id'] ); ?></h2>
 
+<?php if ( $front_pages ) : ?>
+    <div id="edit-slug-box" class="wvv-p-0">
+        <strong><?php _e( 'Permalink:', 'wp-vimeo-videos-pro' ); ?></strong>
+        <span id="sample-permalink"><a href="<?php echo $permalink; ?>"><?php echo $permalink; ?></a></span>
+    </div>
+<?php endif; ?>
+
 <div class="wvv-row">
     <div class="wvv-col-40">
         <!-- Basic Information -->
@@ -42,7 +53,7 @@ try {
 						<?php echo do_shortcode( '[dgv_vimeo_video id="' . $vimeo_id . '"]' ); ?>
                     </div>
                     <div class="form-row">
-                        <p class="wvv-mb-0"><a href="<?php echo $vimeo_link; ?>" class="button-primary"><?php _e( 'View On Vimeo', 'wp-vimeo-videos' ); ?></a>
+                        <p class="wvv-mb-0"><a href="<?php echo $vimeo_link; ?>" class="button-primary"><?php _e( 'View on Vimeo', 'wp-vimeo-videos' ); ?></a>
                         </p>
                     </div>
                 </div>

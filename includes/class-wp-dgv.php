@@ -135,6 +135,11 @@ class WP_DGV {
 		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-news-helper.php';
 
 		/**
+		 * The class responsible for registering the post types
+		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-post-types.php';
+
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
@@ -219,6 +224,7 @@ class WP_DGV {
 		$cron_system    = new WP_DGV_Cron_System();
 		$migrator       = new WP_DGV_Migrator();
 		$internal_hooks = new WP_DGV_Internal_Hooks();
+		$post_types     = new WP_DGV_Post_Types();
 
 		// Init Migration
 		$this->loader->add_action( 'init', $migrator, 'init' );
@@ -230,6 +236,9 @@ class WP_DGV {
 		$this->loader->add_action( 'in_admin_header', $plugin_admin, 'do_admin_notices', 50 );
 		$this->loader->add_filter( 'plugin_action_links_' . WP_VIMEO_VIDEOS_BASENAME, $plugin_admin, 'plugin_action_links', 100, 1 );
 		$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'plugin_row_meta', 100, 4 );
+
+		// Init Post Types
+		$this->loader->add_action( 'init', $post_types, 'init' );
 
 		// Int Cron tasks
 		$this->loader->add_filter( 'cron_schedules', $cron_system, 'cron_schedules', 15, 1 );
@@ -266,6 +275,7 @@ class WP_DGV {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_filter( 'the_content', $plugin_public, 'video_contents' );
 
 		add_shortcode( 'vimeo_video', array( $plugin_public, 'shortcode_video' ) ); // DEPRECATED.
 		add_shortcode( 'dgv_vimeo_video', array( $plugin_public, 'shortcode_video' ) );

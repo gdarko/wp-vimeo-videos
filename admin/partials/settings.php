@@ -44,6 +44,11 @@ $settings = new WP_DGV_Settings_Helper();
                     <div class="form-row">
                         <label for="dgv_author_uploads_only" class="dgv-font-weight-normal"><input type="checkbox" name="dgv_author_uploads_only" id="dgv_author_uploads_only" value="1" <?php checked($settings->get('dgv_author_uploads_only'), '1'); ?>> <?php _e( 'Hide videos uploaded from different authors for non-admin users', 'wp-vimeo-videos' ); ?></label>
                     </div>
+                    <div class="form-row form-row-checkbox">
+                        <label for="dgv_enable_single_pages" class="dgv-font-weight-normal">
+                            <input type="checkbox" name="dgv_enable_single_pages" id="dgv_enable_single_pages" value="1" <?php checked( $settings->get( 'dgv_enable_single_pages' ), '1' ); ?>> <?php _e( 'Enable single video pages for the uploaded videos', 'wp-vimeo-videos' ); ?>
+                        </label>
+                    </div>
                 </div>
 
                 <div class="form-row with-border">

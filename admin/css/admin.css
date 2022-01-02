@@ -245,6 +245,9 @@ h2.wvv-form-heading {
 .wvv-pb-0 {
     padding-bottom:0 !important;
 }
+.wvv-p-0 {
+    padding: 0 !important;
+}
 
 .wvv-color-green {
     color: #08b908;

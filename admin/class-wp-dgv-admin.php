@@ -230,6 +230,7 @@ class WP_DGV_Admin {
 		echo wvv_get_view( 'admin/partials/library', array(
 			'vimeo_helper' => $this->api_helper,
 			'db_helper'    => $this->db_helper,
+			'settings_helper' => $this->settings_helper,
 		) );
 	}
 
