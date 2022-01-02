@@ -153,6 +153,14 @@ h2.wvv-form-heading {
     width:39%;
     float:left;
 }
+@media(max-width: 767px) {
+    .wvv-col {
+        margin-right: 0;
+    }
+    .wvv-col-60,.wvv-col-40 {
+        width: 100%;
+    }
+}
 .wvv-list {
     list-style: square;
     padding-left: 30px;
@@ -213,12 +221,16 @@ h2.wvv-form-heading {
 }
 .wvv-news-entry p {
     margin-bottom: 0;
-}
-
-.wvv-news-entry p {
-    margin-bottom: 0;
     margin-top: 5px;
     color: #4e4e4e;
+}
+@media(max-width: 767px) {
+    .wvv-news-panel {
+        width: 100% !important;
+        max-width: 100%;
+        margin-top: 25px;
+        margin-bottom: 0;
+    }
 }
 
 .wvv-mt-0 {
