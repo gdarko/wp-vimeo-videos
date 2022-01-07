@@ -505,14 +505,12 @@ h2.wvv-form-heading {
 /**
 Dashicons spin
  */
-.dgv-settings-save .dashicons {
+.dgv-spin {
     font-size: 16px;
     line-height: 21px;
     position: relative;
     top: 3px;
     left: -4px;
-}
-.dashicons.dgv-spin {
     animation: dashicons-spin 1s infinite;
     animation-timing-function: linear;
 }
