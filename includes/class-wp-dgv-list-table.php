@@ -259,10 +259,6 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	 */
 	protected function display_tablenav( $which ) {
 
-		if ( $this->author_uploads_only && ! current_user_can( 'administrator' ) ) {
-			return;
-		}
-
 		if ( 'top' === $which ) {
 			wp_nonce_field( 'bulk-' . $this->_args['plural'] );
 		}
