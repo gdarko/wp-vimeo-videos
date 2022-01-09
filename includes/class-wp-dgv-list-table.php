@@ -71,7 +71,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		$this->db_helper           = new WP_DGV_Db_Helper();
 		$this->api_helper          = new WP_DGV_Api_Helper();
 
-		$this->front_pages    = (int) $this->settings_helper->get( 'dgv_enable_single_pages' );
+		$this->front_pages = (int) $this->settings_helper->get( 'dgv_enable_single_pages' );
 	}
 
 	/**
@@ -93,8 +93,8 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	/**
 	 * Default column values if no callback found
 	 *
-	 * @param object $item
-	 * @param string $column_name
+	 * @param  object  $item
+	 * @param  string  $column_name
 	 *
 	 * @return string
 	 */
@@ -106,7 +106,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 
 				return '<code>[dgv_vimeo_video id="' . $vimeo_id . '"]</code>';
 			case 'author':
-                return wvv_get_user_edit_link($item->post_author);
+				return wvv_get_user_edit_link( $item->post_author );
 			case 'size':
 				$size = get_post_meta( $item->ID, 'dgv_size', true );
 
@@ -139,7 +139,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	/**
 	 * Render the designation name column
 	 *
-	 * @param object $item
+	 * @param  object  $item
 	 *
 	 * @return string
 	 */
@@ -185,7 +185,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	/**
 	 * Render the checkbox column
 	 *
-	 * @param object $item
+	 * @param  object  $item
 	 *
 	 * @return string
 	 */
@@ -217,6 +217,8 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	 * @return void
 	 */
 	public function prepare_items() {
+		global $wp_query;
+
 		$columns               = $this->get_columns();
 		$hidden                = array();
 		$sortable              = $this->get_sortable_columns();
@@ -230,30 +232,33 @@ class WP_DGV_List_Table extends \WP_List_Table {
 			'offset' => $offset,
 			'number' => $per_page,
 		);
+
 		if ( $this->author_uploads_only && ! current_user_can( 'administrator' ) ) {
 			$args['author'] = get_current_user_id();
 		} else {
-			$filter_author_ID = isset( $_POST['author'] ) ? $_POST['author'] : 0;
+			$filter_author_ID = isset( $_REQUEST['author'] ) ? $_REQUEST['author'] : 0;
 			if ( $filter_author_ID > 0 ) {
 				$args['author'] = $filter_author_ID;
 			}
 		}
+
 		if ( isset( $_REQUEST['orderby'] ) && isset( $_REQUEST['order'] ) ) {
 			$args['orderby'] = $_REQUEST['orderby'];
 			$args['order']   = $_REQUEST['order'];
 		}
-		$this->items = $this->db_helper->get_videos( $args );
+		$wp_query    = $this->db_helper->get_videos( $args, 'query' );
+		$this->items = $wp_query->get_posts();
 
 		$this->set_pagination_args( array(
-			'total_items' => $this->db_helper->get_videos_count(),
-			'per_page'    => $per_page
+			'total_items' => $wp_query->found_posts,
+			'per_page'    => $per_page,
 		) );
 	}
 
 	/**
 	 * Generate the table navigation above or below the table
 	 *
-	 * @param string $which
+	 * @param  string  $which
 	 *
 	 * @since 3.1.0
 	 */
@@ -277,7 +282,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 	/**
 	 * Extra controls to be displayed between bulk actions and pagination
 	 *
-	 * @param string $which
+	 * @param  string  $which
 	 *
 	 * @since 3.1.0
 	 *
@@ -294,19 +299,14 @@ class WP_DGV_List_Table extends \WP_List_Table {
 				}
 				?>
                 <div class="alignleft actions">
-                    <label class="screen-reader-text"
-                           for="author"><?php __( 'Filter by author', 'wp-vimeo-videos' ); ?></label>
-                    <select name="author" id="author" class="postform dgv-select2"
-                            data-placeholder="<?php _e( 'Filter by author' ); ?>">
+                    <label class="screen-reader-text" for="author"><?php __( 'Filter by author', 'wp-vimeo-videos' ); ?></label>
+                    <select name="author" id="author" class="postform dgv-select2" data-placeholder="<?php _e( 'Filter by author' ); ?>">
 						<?php if ( ! empty( $filter_author ) ): ?>
-                            <option selected
-                                    value="<?php echo $filter_author->ID; ?>"><?php echo $filter_author->display_name; ?></option>
+                            <option selected value="<?php echo $filter_author->ID; ?>"><?php echo $filter_author->display_name; ?></option>
 						<?php endif; ?>
                     </select>
-                    <input type="submit" name="filter_action" id="post-query-submit" class="button-primary"
-                           value="Filter">
-                    <a href="" class="dgv-clear-selection" data-target=".dgv-select2"
-                       style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear' ); ?></a>
+                    <input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filter">
+                    <a href="" class="dgv-clear-selection" data-target=".dgv-select2" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear' ); ?></a>
                 </div>
             </div>
 			<?php

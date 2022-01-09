@@ -15,9 +15,9 @@
 
 </h2>
 
-<form method="post">
+<form method="get">
 
-    <input type="hidden" name="page" value="ttest_list_table">
+    <input type="hidden" name="page" value="<?php echo WP_DGV_Admin::PAGE_VIMEO; ?>">
 
 	<?php
 

@@ -49,24 +49,28 @@ class WP_DGV_Db_Helper {
 	 * Return all the vimeo videos from the local database.
 	 *
 	 * @param array $args
+	 * @param string $type
 	 *
-	 * @return int[]|WP_Post[]
+	 * @return int[]|WP_Post[]|WP_Query
 	 */
-	public function get_videos( $args = array() ) {
+	public function get_videos( $args = array(), $type = 'items' ) {
 		$params = array(
 			'post_type'      => self::POST_TYPE_UPLOADS,
 			'posts_per_page' => isset( $args['number'] ) ? $args['number'] : - 1,
 			'offset'         => isset( $args['offset'] ) ? $args['offset'] : 0,
 			'post_status'    => 'publish'
 		);
-
 		if ( isset( $args['author'] ) ) {
 			$params['author'] = $args['author'];
 		}
 
-		$posts = get_posts( $params );
+		if ( 'items' === $type ) {
+			$result = get_posts( $params );
+		} else {
+			$result = new WP_Query( $params );
+		}
 
-		return $posts;
+		return $result;
 	}
 
 	/**
