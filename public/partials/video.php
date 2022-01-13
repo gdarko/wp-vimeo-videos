@@ -1,3 +1,9 @@
+<?php
+/* @var string $vimeo_id */
+
+$vimeo_id  = esc_attr( $vimeo_id );
+$embed_url = sprintf( 'https://player.vimeo.com/video/%s', $vimeo_id );
+?>
 <div class='dgv-embed-container'>
-	<iframe src='https://player.vimeo.com/video/<?php echo $vimeo_id; ?>' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+	<?php echo sprintf( "<iframe src='%s' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>", $embed_url ); ?>
 </div>

@@ -144,7 +144,7 @@ class WP_DGV_Notices_Helper {
 					if ( $admin_notice->dismiss_option ) {
 						echo ' is-dismissible" data-dismiss-url="' . esc_url( $dismiss_url );
 					} ?>">
-                        <h2><?php echo "$this->title $type"; ?></h2>
+                        <h2><?php echo sprintf("%s %s", esc_html($this->title), $type) ?></h2>
                         <p><?php echo $admin_notice->message; ?></p>
                     </div>
 					<?php
