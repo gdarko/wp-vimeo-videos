@@ -219,14 +219,14 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		if ( $this->author_uploads_only && ! current_user_can( 'administrator' ) ) {
 			$args['author'] = get_current_user_id();
 		} else {
-			$filter_author_ID = isset( $_POST['author'] ) ? $_POST['author'] : 0;
+			$filter_author_ID = isset( $_POST['author'] ) ? intval($_POST['author']) : 0;
 			if ( $filter_author_ID > 0 ) {
 				$args['author'] = $filter_author_ID;
 			}
 		}
 		if ( isset( $_REQUEST['orderby'] ) && isset( $_REQUEST['order'] ) ) {
-			$args['orderby'] = $_REQUEST['orderby'];
-			$args['order']   = $_REQUEST['order'];
+			$args['orderby'] = sanitize_text_field($_REQUEST['orderby']);
+			$args['order']   = sanitize_text_field($_REQUEST['order']);
 		}
 		$this->items = $this->db_helper->get_videos( $args );
 

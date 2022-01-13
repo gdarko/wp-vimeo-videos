@@ -27,7 +27,7 @@ try {
 
 ?>
 
-<h2 class="wvv-mb-0"><?php echo get_the_title( $_GET['id'] ); ?></h2>
+<h2 class="wvv-mb-0"><?php echo get_the_title( sanitize_text_field($_GET['id']) ); ?></h2>
 
 <div class="wvv-row">
     <div class="wvv-col-40">

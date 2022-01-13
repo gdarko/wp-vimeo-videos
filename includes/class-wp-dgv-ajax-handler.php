@@ -108,7 +108,8 @@ class WP_DGV_Ajax_Handler {
             if ( ! isset($_POST[$key])) {
                 $this->settings_helper->remove($key);
             } else {
-                $option_value = $this->prepare_setting($key, $_POST[$key]);
+            	$value = sanitize_text_field($_POST[$key]);
+                $option_value = $this->prepare_setting($key, $value);
                 $this->settings_helper->set($key, $option_value);
             }
         }
@@ -174,10 +175,10 @@ class WP_DGV_Ajax_Handler {
 			) );
 		}
 
-		$title       = isset( $_POST['title'] ) ? $_POST['title'] : __( 'Untitled', 'wp-vimeo-videos' );
-		$description = isset( $_POST['description'] ) ? $_POST['description'] : '';
+		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Untitled', 'wp-vimeo-videos' );
+		$description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
 		$size        = isset( $_POST['size'] ) ? intval( $_POST['size'] ) : false;
-		$uri         = $_POST['uri'];
+		$uri         = sanitize_text_field( $_POST['uri'] );
 		$video_id    = wvv_uri_to_id( $uri );
 
 		/**
