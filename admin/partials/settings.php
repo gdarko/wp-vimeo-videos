@@ -7,7 +7,7 @@ $settings = new WP_DGV_Settings_Helper();
 ?>
 
 <div class="wrap">
-    <h2 class="wvv-mb-20"><?php _e( 'WP Vimeo Settings', 'wp-vimeo-videos' ); ?></h2>
+    <h2 class="wvv-mb-20"><?php _e( 'Video Uploads for Vimeo Settings', 'wp-vimeo-videos' ); ?></h2>
 
     <div class="wvv-notice-wrapper"></div>
 

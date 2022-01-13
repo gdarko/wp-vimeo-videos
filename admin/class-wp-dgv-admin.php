@@ -71,8 +71,8 @@ class WP_DGV_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param string $plugin_name The name of this plugin.
-	 * @param string $version The version of this plugin.
+	 * @param  string  $plugin_name  The name of this plugin.
+	 * @param  string  $version  The version of this plugin.
 	 *
 	 * @since    1.0.0
 	 */
@@ -116,41 +116,35 @@ class WP_DGV_Admin {
 		}
 
 		// Select2
-		if ( ! wp_script_is( 'select2', 'enqueued' ) ) {
-
-			wp_enqueue_script(
-				'dgv-select2',
-				WP_VIMEO_VIDEOS_URL . 'admin/resources/select2/select2.min.js',
-				null,
-				null,
-				true
-			);
-		}
-
-		if ( ! wp_style_is( 'select2', 'enqueued' ) ) {
-			wp_enqueue_style(
-				'dgv-select2',
-				WP_VIMEO_VIDEOS_URL . 'admin/resources/select2/select2.min.css',
-				array(),
-				null,
-				'all'
-			);
-		}
-
+		wp_register_script( 'dgv-select2', WP_VIMEO_VIDEOS_URL . 'admin/resources/select2/select2.min.js', null, null, true );
+		wp_register_style( 'dgv-select2', WP_VIMEO_VIDEOS_URL . 'admin/resources/select2/select2.min.css', array(), null, 'all' );
 		// Sweetalert
-		wp_enqueue_script( 'swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/sweetalert2/sweetalert2.min.js', null, '11.1.4', true );
-
+		wp_register_script( 'dgv-swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/sweetalert2/sweetalert2.min.js', null, '11.1.4', true );
 		// TUS
-		wp_enqueue_script( 'dgv-tus', WP_VIMEO_VIDEOS_URL . 'admin/resources/tus-js-client/tus.min.js', null, '1.8.0' );
-
+		wp_register_script( 'dgv-tus', WP_VIMEO_VIDEOS_URL . 'admin/resources/tus-js-client/tus.min.js', null, '1.8.0' );
 		// Uploader
-		wp_enqueue_script( 'dgv-uploader', WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js', array( 'dgv-tus' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/uploader.js' ) );
-
+		wp_register_script( 'dgv-uploader', WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js', array( 'dgv-tus' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/uploader.js' ) );
+		// Upload Modal
+		wp_register_script( 'dgv-upload-modal', WP_VIMEO_VIDEOS_URL . 'admin/js/upload-modal.js', array( 'jquery', 'dgv-uploader' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/upload-modal.js' ) );
+		wp_enqueue_style( 'dgv-upload-modal', WP_VIMEO_VIDEOS_URL . 'admin/css/upload-modal.css', array(), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/css/upload-modal.css' ) );
 		// Admin
-		wp_enqueue_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array(
-			'jquery',
-			'dgv-uploader'
-		), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
+		wp_register_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array( 'jquery', 'dgv-uploader' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
+
+		// Select2
+		if ( ! wp_script_is( 'select2', 'enqueued' ) ) {
+			wp_enqueue_script( 'dgv-select2' );
+		}
+		if ( ! wp_style_is( 'select2', 'enqueued' ) ) {
+			wp_enqueue_style( 'dgv-select2' );
+		}
+		// Sweetalert
+		wp_enqueue_script( 'dgv-swal' );
+		// TUS
+		wp_enqueue_script( 'dgv-tus' );
+		// Uploader
+		wp_enqueue_script( 'dgv-uploader' );
+		// Admin
+		wp_enqueue_script( $this->plugin_name );
 		wp_localize_script( $this->plugin_name, 'DGV', array(
 			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
@@ -182,7 +176,6 @@ class WP_DGV_Admin {
 				)
 			)
 		) );
-
 
 		if ( $is_gutenberg_active && $is_create_or_edit_screen ) {
 			wp_enqueue_script( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/script.js', array(
@@ -272,7 +265,7 @@ class WP_DGV_Admin {
 	/**
 	 * Add a link to the settings page on the plugins.php page.
 	 *
-	 * @param array $links List of existing plugin action links.
+	 * @param  array  $links  List of existing plugin action links.
 	 *
 	 * @return array         List of modified plugin action links.
 	 *
@@ -350,6 +343,8 @@ class WP_DGV_Admin {
 			return $plugin_array;
 		}
 
+		$this->enqueue_tinymce_assets();
+
 		$plugin_array['dgv_vimeo_button'] = WP_VIMEO_VIDEOS_URL . 'admin/js/tinymce-upload.js';
 
 		return $plugin_array;
@@ -385,61 +380,35 @@ class WP_DGV_Admin {
 			return;
 		}
 
-		$scripts = array();
-		$styles  = array();
+		$this->enqueue_tinymce_assets();
 
-		if ( ! wp_script_is( 'dgv-swal', 'enqueued' ) ) {
-			array_push( $scripts, WP_VIMEO_VIDEOS_URL . 'admin/resources/sweetalert2/sweetalert2.min.js' );
-		}
-		if ( ! wp_script_is( 'dgv-tus', 'enqueued' ) ) {
-			array_push( $scripts, WP_VIMEO_VIDEOS_URL . 'admin/resources/tus-js-client/tus.min.js' );
-		}
-		if ( ! wp_script_is( 'dgv-uploader', 'enqueued' ) ) {
-			array_push( $scripts, WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js' );
-		}
+	}
 
-		$modal_config = array();
-		if ( ! wp_script_is( 'dgv-upload-modal', 'enqueued' ) ) {
-			$modal_config = $this->get_modal_config_params();
-			array_push( $scripts, WP_VIMEO_VIDEOS_URL . 'admin/js/upload-modal.js' );
+	/**
+	 * Enqueues TinyMCE assets
+	 */
+	public function enqueue_tinymce_assets() {
+		foreach ( array( 'dgv-swal', 'dgv-tus', 'dgv-uploader', 'dgv-upload-modal' ) as $script ) {
+			wp_enqueue_script( $script );
 		}
-		if ( count( $scripts ) > 0 ) {
-			foreach ( $scripts as $script ) {
-				echo '<script src="' . $script . '"></script>' . "\n";
-			}
+		foreach ( array( 'dgv-upload-modal' ) as $style ) {
+			wp_enqueue_style( $style );
 		}
-
-		if ( ! wp_style_is( 'dgv-upload-modal', 'enqueued' ) ) {
-			array_push( $styles, WP_VIMEO_VIDEOS_URL . 'admin/css/upload-modal.css' );
-		}
-
 		// Config
 		$mce_icon     = apply_filters( 'dgv_mce_toolbar_icon_enable', true );
 		$mce_icon_url = $mce_icon ? apply_filters( 'dgv_mce_toolbar_icon_url', wvv_get_vimeo_icon_url() ) : null;
 		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos' ) );
 		$mce_text     = $mce_icon && $mce_text ? sprintf( ' %s', $mce_text ) : $mce_text;
 		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) );
-		$mce_config   = array(
+		wp_localize_script( 'wp-tinymce', 'DGV_MCE_Config', array(
 			'phrases'  => array(
 				'tmce_title'   => $mce_text,
 				'tmce_tooltip' => $mce_tooltip,
 			),
 			'icon'     => $mce_icon,
 			'icon_url' => $mce_icon_url,
-		);
-
-		// Print out scripts
-		echo '<script type="text/javascript">';
-		if ( ! empty( $modal_config ) ) {
-			echo sprintf( 'var DGV_Modal_Config = %s', json_encode( $modal_config ) ) . "\n\n";
-		}
-		echo sprintf( 'var DGV_MCE_Config = %s', json_encode( $mce_config ) ) . "\n\n";
-		echo '</script>';
-
-		// Print out styles
-		foreach ( $styles as $style ) {
-			echo "<link rel='stylesheet' href='" . $style . "' type='text/css' media='all'/>";
-		}
+		) );
+		wp_localize_script( 'dgv-upload-modal', 'DGV_Modal_Config', $this->get_modal_config_params() );
 	}
 
 

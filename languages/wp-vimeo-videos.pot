@@ -575,7 +575,7 @@ msgid "WP Vimeo Library"
 msgstr ""
 
 #: admin/class-wp-dgv-admin.php:217 admin/partials/settings.php:10
-msgid "WP Vimeo Settings"
+msgid "Video Uploads for Vimeo Settings"
 msgstr ""
 
 #. Name of the plugin
