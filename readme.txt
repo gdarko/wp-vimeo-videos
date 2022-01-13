@@ -198,7 +198,7 @@ _PRO ONLY:_
 _PRO ONLY:_
 
 * Added WPForms integration
-* Added chunked upload support through WPForms (See "Modern" theme in WP Vimeo Videos field)
+* Added chunked upload support through WPForms (See "Modern" theme in Video Uploads for Vimeo field)
 * Added chunked upload support through GravityForms (See "Modern" field)
 * Added progress bar support on the chunked uploads via WPForms/GravityForms
 * Improved the codebase, rewritten front-end background processing for easier integrations in future

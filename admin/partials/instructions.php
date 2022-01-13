@@ -14,7 +14,7 @@ $dismiss_link = add_query_arg( 'wvv_dismiss_instructions', 1, $dismiss_link );
 		<div class="dgv-instructions-row dgv-instructions-header">
 			<div class="dgv-instructions-colf">
 				<p class="lead"><?Php _e( 'Thanks for installing', 'wp-vimeo-videos' ); ?> <strong
-						class="green"><?php _e( 'WP Vimeo Videos', 'wp-vimeo-videos' ); ?></strong></p>
+						class="green"><?php _e( 'Video Uploads for Vimeo', 'wp-vimeo-videos' ); ?></strong></p>
 				<p class="desc"><?php echo sprintf( __( 'This plugin allows you to easily upload and embed Vimeo videos through your WordPress website.', 'wp-vimeo-videos' ) ); ?></p>
 				<p class="desc"><?php echo sprintf( __( 'To %s please follow the steps below:', 'wp-vimeo-videos' ), '<strong>' . __( 'get started', 'wp-vimeo-videos' ) . '</strong>' ); ?></p>
 			</div>
