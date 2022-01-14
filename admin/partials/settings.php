@@ -46,7 +46,7 @@ $settings = new WP_DGV_Settings_Helper();
                 <div class="form-row with-border">
                     <input type="submit" class="button-primary" name="dgv_settings_save" value="Save Settings">
                     <div class="footer-info" style="float:right; display: inline-block;">
-                        <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>"><?php _e( 'Documentation', 'wp-vimeo-videos' ); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp; <a target="_blank" href="<?php echo wvv_get_purchase_url(); ?>"><?php _e( 'Buy PRO Version', 'wp-vimeo-videos' ); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp; <a target="_blank" href="https://wordpress.org/support/plugin/wp-vimeo-videos/"><?php _e( 'Need help? Contact us!', 'wp-vimeo-videos' ); ?></a>
+                        <a target="_blank" href="<?php echo esc_url( wvv_get_guide_url() ); ?>"><?php _e( 'Documentation', 'wp-vimeo-videos' ); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp; <a target="_blank" href="<?php echo wvv_get_purchase_url(); ?>"><?php _e( 'Buy PRO Version', 'wp-vimeo-videos' ); ?></a> &nbsp;&nbsp;|&nbsp;&nbsp; <a target="_blank" href="https://wordpress.org/support/plugin/wp-vimeo-videos/"><?php _e( 'Need help? Contact us!', 'wp-vimeo-videos' ); ?></a>
                     </div>
                 </div>
 
