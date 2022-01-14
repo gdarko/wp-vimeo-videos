@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.7.4
+Stable Tag: 1.7.6
 Requires PHP: 5.5.0
 Tested up to: 5.9
 License: GPLv2 or later
@@ -124,6 +124,10 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 10. GravityForms Integration (PRO version)
 
 == Changelog ==
+
+= Version 1.7.6 =
+- Various Security improvements
+- Plugin rename to "Video Uploads for Vimeo"
 
 = Version 1.7.3 =
 - Fixed user filter dropdown in Media > Vimeo
