@@ -81,7 +81,7 @@ function wvv_is_gutenberg_active() {
  * @return string
  */
 function wvv_get_guide_url() {
-	return 'https://bit.ly/wvvdocs';
+	return 'https://docs.codeverve.com/video-uploads-for-vimeo';
 }
 
 /**
@@ -89,7 +89,7 @@ function wvv_get_guide_url() {
  * @return string
  */
 function wvv_get_purchase_url() {
-	return 'http://bit.ly/wvvpurchase';
+	return 'https://codeverve.com/video-uploads-for-vimeo';
 }
 
 /**

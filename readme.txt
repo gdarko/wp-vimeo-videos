@@ -26,7 +26,7 @@ Especially useful in the following cases:
 
 In order to be able to connect to Vimeo you will need to sign up on <a target="_blank" href="https://developer.vimeo.com/">Vimeo Developer Portal</a> and request access to the Vimeo API. Please check the Installation tab and also the **Screenshot #5**.
 
-<a href="https://bit.ly/wvvdocs" target="_blank">Detailed Guide</a>
+<a href="https://docs.codeverve.com/video-uploads-for-vimeo" target="_blank">Detailed Guide</a>
 
 === Features  ===
 
@@ -73,7 +73,7 @@ The following is full list of additional features:
 * Automatic PRO version updates if using valid key from our central repository
 * Fast Dedicated Support for premium customers
 
- <a href="http://bit.ly/wvvpurchase" target="_blank">Get Premium Version</a>
+ <a href="https://codeverve.com/video-uploads-for-vimeo" target="_blank">Get Premium Version</a>
 
 == Installation ==
 
