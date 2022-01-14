@@ -396,7 +396,7 @@ class WP_DGV_Admin {
 		}
 		// Config
 		$mce_icon     = apply_filters( 'dgv_mce_toolbar_icon_enable', true );
-		$mce_icon_url = $mce_icon ? apply_filters( 'dgv_mce_toolbar_icon_url', wvv_get_vimeo_icon_url() ) : null;
+		$mce_icon_url = $mce_icon ? apply_filters( 'dgv_mce_toolbar_icon_url', esc_url(wvv_get_vimeo_icon_url()) ) : null;
 		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos' ) );
 		$mce_text     = $mce_icon && $mce_text ? sprintf( ' %s', $mce_text ) : $mce_text;
 		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) );
