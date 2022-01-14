@@ -53,22 +53,25 @@ $settings = new WP_DGV_Settings_Helper();
             </form>
         </div>
         <div class="wvv-col-40 wvv-col">
-			<?php
-			$newsHelper = new WP_DGV_Product_News_Helper();
-			$news       = $newsHelper->get();
-			?>
-			<?php if ( ! empty( $news ) ): ?>
+		    <?php
+		    $newsHelper = new WP_DGV_Product_News_Helper();
+		    $news       = $newsHelper->get();
+		    ?>
+		    <?php if ( ! empty( $news ) ): ?>
                 <div class="wvv-news-panel">
-                    <h3>Product News</h3>
-					<?php foreach ( $news as $news_entry ): ?>
+                    <h3><?php _e( 'Product news', 'wp-vimeo-videos' ); ?></h3>
+				    <?php foreach ( $news as $news_entry ): ?>
                         <div class="wvv-news-entry">
-                            <h3><?php echo $news_entry['title']; ?></h3>
-                            <h4>Posted at <?php echo $news_entry['date']; ?></h4>
-                            <p><?php echo $news_entry['content']; ?></p>
+                            <h3><?php echo esc_html( $news_entry['title'] ); ?></h3>
+                            <h4><?php _e( sprintf( 'Posted at %s', esc_html( $news_entry['date'] ) ) ); ?></h4>
+                            <p><?php echo esc_html( $news_entry['content'] ); ?></p>
+						    <?php if ( ! empty( $news_entry['more'] ) ): ?>
+                                <p><a target="_blank" href="<?php echo esc_url( $news_entry['more'] ); ?>"><?php _e( 'Read more', 'wp-vimeo-videos' ); ?></a></p>
+						    <?php endif; ?>
                         </div>
-					<?php endforeach; ?>
+				    <?php endforeach; ?>
                 </div>
-			<?php endif; ?>
+		    <?php endif; ?>
         </div>
     </div>
 </div>

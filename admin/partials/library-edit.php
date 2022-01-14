@@ -39,10 +39,10 @@ try {
                 </div>
                 <div class="inside">
                     <div class="form-row">
-						<?php echo do_shortcode( '[dgv_vimeo_video id="' . $vimeo_id . '"]' ); ?>
+						<?php echo do_shortcode( '[dgv_vimeo_video id="' . esc_attr($vimeo_id) . '"]' ); ?>
                     </div>
                     <div class="form-row">
-                        <p class="wvv-mb-0"><a href="<?php echo $vimeo_link; ?>" class="button-primary"><?php _e( 'View On Vimeo', 'wp-vimeo-videos' ); ?></a>
+                        <p class="wvv-mb-0"><a href="<?php echo esc_url($vimeo_link); ?>" class="button-primary"><?php _e( 'View On Vimeo', 'wp-vimeo-videos' ); ?></a>
                         </p>
                     </div>
                 </div>
