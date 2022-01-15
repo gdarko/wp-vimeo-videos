@@ -42,7 +42,7 @@ class WP_DGV_Notices_Helper {
 	private $prefix = 'wvv_';
 
 	/**
-     * Dismiss expiry
+	 * Dismiss expiry
 	 * @var int
 	 */
 	private $expiry = 8640000;
@@ -53,7 +53,7 @@ class WP_DGV_Notices_Helper {
 	private static $_instance;
 
 	/**
-     * The queue of notices
+	 * The queue of notices
 	 * @var stdClass
 	 */
 	private $admin_notices;
@@ -84,6 +84,7 @@ class WP_DGV_Notices_Helper {
 		if ( ! ( self::$_instance instanceof self ) ) {
 			self::$_instance = new self();
 		}
+
 		return self::$_instance;
 	}
 
@@ -112,7 +113,7 @@ class WP_DGV_Notices_Helper {
             (function ($) {
                 'use strict';
                 $(function () {
-                    $('.<?php echo $this->prefix; ?>notice').on('click', '.notice-dismiss', function (event, el) {
+                    $('.<?php echo esc_attr( $this->prefix ); ?>notice').on('click', '.notice-dismiss', function (event, el) {
                         var $notice = $(this).parent('.notice.is-dismissible');
                         var dismiss_url = $notice.attr('data-dismiss-url');
                         if (dismiss_url) {
@@ -139,15 +140,15 @@ class WP_DGV_Notices_Helper {
 				$value = get_transient( $this->get_notice_key( $admin_notice->id ) );
 
 				if ( ! $value || $value !== 'd' ) {
-					?>
-                    <div class="notice <?php echo $this->prefix; ?>notice notice-<?php echo $type;
-					if ( $admin_notice->dismiss_option ) {
-						echo ' is-dismissible" data-dismiss-url="' . esc_url( $dismiss_url );
-					} ?>">
-                        <h2><?php echo sprintf("%s %s", esc_html($this->title), $type) ?></h2>
-                        <p><?php echo esc_html($admin_notice->message); ?></p>
-                    </div>
-					<?php
+
+					$dismissible   = (bool) $admin_notice->dismiss_option;
+					$dismiss_url   = $dismissible ? 'data-dismiss-url="' . esc_url( $dismiss_url ) . '"' : '';
+					$dismiss_class = $dismissible ? 'is-dismissible' : '';
+
+					echo sprintf( '<div class="notice notice-%s %s" %s>', esc_attr( $type ), $dismiss_class, $dismiss_url );
+					echo sprintf( "<h2>%s %s</h2>", esc_html( $this->title ), esc_html( $type ) );
+					echo sprintf( '<p>%s</p>', esc_html( $admin_notice->message ) );
+					echo '</div>';
 				}
 			}
 		}
@@ -225,4 +226,5 @@ class WP_DGV_Notices_Helper {
 		return $this->prefix . 'dismissed_' . $id;
 	}
 }
+
 WP_DGV_Notices_Helper::instance();

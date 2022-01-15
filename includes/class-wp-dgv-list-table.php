@@ -284,19 +284,14 @@ class WP_DGV_List_Table extends \WP_List_Table {
 				}
 				?>
                 <div class="alignleft actions">
-                    <label class="screen-reader-text"
-                           for="author"><?php __( 'Filter by author', 'wp-vimeo-videos' ); ?></label>
-                    <select name="author" id="author" class="postform dgv-select2"
-                            data-placeholder="<?php _e( 'Filter by author' ); ?>">
+                    <label class="screen-reader-text" for="author"><?php __( 'Filter by author', 'wp-vimeo-videos' ); ?></label>
+                    <select name="author" id="author" class="postform dgv-select2" data-placeholder="<?php _e( 'Filter by author' ); ?>">
 						<?php if ( ! empty( $filter_author ) ): ?>
-                            <option selected
-                                    value="<?php echo $filter_author->ID; ?>"><?php echo $filter_author->display_name; ?></option>
+                            <option selected value="<?php echo esc_attr($filter_author->ID); ?>"><?php echo esc_html($filter_author->display_name); ?></option>
 						<?php endif; ?>
                     </select>
-                    <input type="submit" name="filter_action" id="post-query-submit" class="button-primary"
-                           value="Filter">
-                    <a href="" class="dgv-clear-selection" data-target=".dgv-select2"
-                       style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear', 'wp-vimeo-videos' ); ?></a>
+                    <input type="submit" name="filter_action" id="post-query-submit" class="button-primary" value="<?php _e('Filter', 'wp-vimeo-videos'); ?>">
+                    <a href="" class="dgv-clear-selection" data-target=".dgv-select2" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear', 'wp-vimeo-videos' ); ?></a>
                 </div>
             </div>
 			<?php

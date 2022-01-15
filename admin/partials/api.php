@@ -109,7 +109,7 @@
 					<?php _e( 'Web Server', 'wp-vimeo-videos' ); ?>
                 </th>
                 <td>
-					<?php echo $_SERVER['SERVER_SOFTWARE']; ?>
+	                <?php echo esc_html( $_SERVER['SERVER_SOFTWARE'] ); ?>
                 </td>
             </tr>
 		<?php endif; ?>
@@ -118,7 +118,7 @@
 				<?php _e( 'Max Upload Size', 'wp-vimeo-videos' ); ?>
             </th>
             <td>
-				<?php echo ini_get( 'upload_max_filesize' ); ?>
+				<?php echo esc_html(ini_get( 'upload_max_filesize' )); ?>
             </td>
         </tr>
         <tr>
@@ -126,7 +126,7 @@
 				<?php _e( 'Max Post Size', 'wp-vimeo-videos' ); ?>
             </th>
             <td>
-				<?php echo ini_get( 'post_max_size' ); ?>
+				<?php echo esc_html(ini_get( 'post_max_size' )); ?>
             </td>
         </tr>
 
@@ -147,11 +147,11 @@
                             <li>
                                 <div class="wvv-problem-wrapper">
                                     <div class="wvv-problem--info">
-                                        <p><?php echo $problem['info']; ?></p>
+                                        <p><?php echo esc_html($problem['info']); ?></p>
                                         <p><a class="wvv-problem-fix-trigger" href="#"><?php _e('Fix prolbem', 'wp-vimeo-videos'); ?></a></p>
                                     </div>
                                     <div class="wvv-problem--fix" style="display: none;">
-									    <?php echo $problem['fix']; ?>
+									    <?php echo esc_html($problem['fix']); ?>
                                     </div>
                                 </div>
                             </li>

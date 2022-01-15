@@ -87,7 +87,6 @@ $dismiss_link = add_query_arg( 'wvv_dismiss_instructions', 1, $dismiss_link );
 				</div>
 			</div>
 		</div>
-		<a href="<?php echo $dismiss_link; ?>" class="notice-dismiss dgv-notice-dismiss"><span
-				class="screen-reader-text"><?php _e( 'Dismiss this notice', 'wp-vimeo-videos' ); ?>.</span></a>
-	</div>
+        <a href="<?php echo esc_url( $dismiss_link ); ?>" class="notice-dismiss dgv-notice-dismiss"><span class="screen-reader-text"><?php _e( 'Dismiss this notice', 'wp-vimeo-videos' ); ?>.</span></a>
+    </div>
 </div>
