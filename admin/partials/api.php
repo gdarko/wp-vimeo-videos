@@ -26,8 +26,7 @@
 						<?php _e( 'User', 'wp-vimeo-videos' ); ?>
                     </th>
                     <td>
-                        <a href="<?php echo $vimeo_helper->user_link; ?>"
-                           target="_blank"><?php echo $vimeo_helper->user_name; ?></a>
+                        <a href="<?php echo esc_url( $vimeo_helper->user_link); ?>" target="_blank"><?php echo esc_html($vimeo_helper->user_name); ?></a>
                     </td>
                 </tr>
 			<?php endif; ?>
@@ -38,7 +37,7 @@
 						<?php _e( 'Plan', 'wp-vimeo-videos' ); ?>
                     </th>
                     <td>
-						<?php echo 'Vimeo ' . ucfirst( $vimeo_helper->user_type ); ?>
+						<?php echo 'Vimeo ' . ucfirst( esc_html($vimeo_helper->user_type) ); ?>
                     </td>
                 </tr>
 			<?php endif; ?>
@@ -48,7 +47,7 @@
 					<?php _e( 'App', 'wp-vimeo-videos' ); ?>
                 </th>
                 <td>
-					<?php echo $vimeo_helper->app_name; ?>
+					<?php echo esc_html($vimeo_helper->app_name); ?>
                 </td>
             </tr>
             <tr>
@@ -58,7 +57,7 @@
                 <td>
 					<?php
 					if ( ! empty( $vimeo_helper->scopes ) ) {
-						echo implode( ', ', $vimeo_helper->scopes );
+						echo esc_html( implode( ', ', $vimeo_helper->scopes ) );
 					} else {
 						echo __( 'No scopes found', 'wp-vimeo-videos' );
 					}
@@ -74,7 +73,7 @@
 						<?php
 						$used  = wvv_format_bytes( (int) $vimeo_helper->upload_quota['periodic']['used'], 2 );
 						$max   = wvv_format_bytes( (int) $vimeo_helper->upload_quota['periodic']['max'], 2 );
-						$reset = $vimeo_helper->upload_quota['periodic']['reset_date'];
+						$reset = esc_html($vimeo_helper->upload_quota['periodic']['reset_date']);
 						echo sprintf( __( '%s / %s (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
 						?>
                     </td>
@@ -87,10 +86,10 @@
                     </th>
                     <td>
 						<?php
-						$used  = $vimeo_helper->headers['x-ratelimit-limit'] - $vimeo_helper->headers['x-ratelimit-remaining'];
-						$max   = $vimeo_helper->headers['x-ratelimit-limit'];
-						$reset = $vimeo_helper->headers['x-ratelimit-reset'];
-						echo sprintf( __( '%s / %s per minute (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
+						$used  = (int) $vimeo_helper->headers['x-ratelimit-limit'] - (int) $vimeo_helper->headers['x-ratelimit-remaining'];
+						$max   = (int) $vimeo_helper->headers['x-ratelimit-limit'];
+						$reset = esc_html( $vimeo_helper->headers['x-ratelimit-reset'] );
+						echo sprintf( __( '%d / %d per minute (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
 						?>
                     </td>
                 </tr>
@@ -110,7 +109,7 @@
 					<?php _e( 'Web Server', 'wp-vimeo-videos' ); ?>
                 </th>
                 <td>
-					<?php echo $_SERVER['SERVER_SOFTWARE']; ?>
+	                <?php echo esc_html( $_SERVER['SERVER_SOFTWARE'] ); ?>
                 </td>
             </tr>
 		<?php endif; ?>
@@ -119,7 +118,7 @@
 				<?php _e( 'Max Upload Size', 'wp-vimeo-videos' ); ?>
             </th>
             <td>
-				<?php echo ini_get( 'upload_max_filesize' ); ?>
+				<?php echo esc_html(ini_get( 'upload_max_filesize' )); ?>
             </td>
         </tr>
         <tr>
@@ -127,7 +126,7 @@
 				<?php _e( 'Max Post Size', 'wp-vimeo-videos' ); ?>
             </th>
             <td>
-				<?php echo ini_get( 'post_max_size' ); ?>
+				<?php echo esc_html(ini_get( 'post_max_size' )); ?>
             </td>
         </tr>
 
@@ -148,11 +147,11 @@
                             <li>
                                 <div class="wvv-problem-wrapper">
                                     <div class="wvv-problem--info">
-                                        <p><?php echo $problem['info']; ?></p>
+                                        <p><?php echo esc_html($problem['info']); ?></p>
                                         <p><a class="wvv-problem-fix-trigger" href="#"><?php _e('Fix prolbem', 'wp-vimeo-videos'); ?></a></p>
                                     </div>
                                     <div class="wvv-problem--fix" style="display: none;">
-									    <?php echo $problem['fix']; ?>
+									    <?php echo esc_html($problem['fix']); ?>
                                     </div>
                                 </div>
                             </li>

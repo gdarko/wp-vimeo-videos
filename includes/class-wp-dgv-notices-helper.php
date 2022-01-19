@@ -2,20 +2,20 @@
 /********************************************************************
  * Copyright (C) 2020 Darko Gjorgjijoski (https://codeverve.com)
  *
- * This file is part of WP Vimeo Videos
+ * This file is part of Video Uploads for Vimeo
  *
- * WP Vimeo Videos is free software: you can redistribute it and/or modify
+ * Video Uploads for Vimeo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
- * WP Vimeo Videos is distributed in the hope that it will be useful,
+ * Video Uploads for Vimeo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with WP Vimeo Videos. If not, see <https://www.gnu.org/licenses/>.
+ * along with Video Uploads for Vimeo. If not, see <https://www.gnu.org/licenses/>.
  **********************************************************************/
 
 /**
@@ -33,7 +33,7 @@ class WP_DGV_Notices_Helper {
 	 * The plugin name
 	 * @var string
 	 */
-	private $title = 'WP Vimeo Videos';
+	private $title = 'Video Uploads for Vimeo';
 
 	/**
 	 * The notices prefix
@@ -42,7 +42,7 @@ class WP_DGV_Notices_Helper {
 	private $prefix = 'wvv_';
 
 	/**
-     * Dismiss expiry
+	 * Dismiss expiry
 	 * @var int
 	 */
 	private $expiry = 8640000;
@@ -53,7 +53,7 @@ class WP_DGV_Notices_Helper {
 	private static $_instance;
 
 	/**
-     * The queue of notices
+	 * The queue of notices
 	 * @var stdClass
 	 */
 	private $admin_notices;
@@ -84,6 +84,7 @@ class WP_DGV_Notices_Helper {
 		if ( ! ( self::$_instance instanceof self ) ) {
 			self::$_instance = new self();
 		}
+
 		return self::$_instance;
 	}
 
@@ -112,7 +113,7 @@ class WP_DGV_Notices_Helper {
             (function ($) {
                 'use strict';
                 $(function () {
-                    $('.<?php echo $this->prefix; ?>notice').on('click', '.notice-dismiss', function (event, el) {
+                    $('.<?php echo esc_attr( $this->prefix ); ?>notice').on('click', '.notice-dismiss', function (event, el) {
                         var $notice = $(this).parent('.notice.is-dismissible');
                         var dismiss_url = $notice.attr('data-dismiss-url');
                         if (dismiss_url) {
@@ -139,15 +140,15 @@ class WP_DGV_Notices_Helper {
 				$value = get_transient( $this->get_notice_key( $admin_notice->id ) );
 
 				if ( ! $value || $value !== 'd' ) {
-					?>
-                    <div class="notice <?php echo $this->prefix; ?>notice notice-<?php echo $type;
-					if ( $admin_notice->dismiss_option ) {
-						echo ' is-dismissible" data-dismiss-url="' . esc_url( $dismiss_url );
-					} ?>">
-                        <h2><?php echo "$this->title $type"; ?></h2>
-                        <p><?php echo $admin_notice->message; ?></p>
-                    </div>
-					<?php
+
+					$dismissible   = (bool) $admin_notice->dismiss_option;
+					$dismiss_url   = $dismissible ? 'data-dismiss-url="' . esc_url( $dismiss_url ) . '"' : '';
+					$dismiss_class = $dismissible ? 'is-dismissible' : '';
+
+					echo sprintf( '<div class="notice notice-%s %s" %s>', esc_attr( $type ), $dismiss_class, $dismiss_url );
+					echo sprintf( "<h2>%s %s</h2>", esc_html( $this->title ), esc_html( $type ) );
+					echo sprintf( '<p>%s</p>', esc_html( $admin_notice->message ) );
+					echo '</div>';
 				}
 			}
 		}
@@ -225,4 +226,5 @@ class WP_DGV_Notices_Helper {
 		return $this->prefix . 'dismissed_' . $id;
 	}
 }
+
 WP_DGV_Notices_Helper::instance();

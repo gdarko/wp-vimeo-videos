@@ -2,20 +2,20 @@
 /********************************************************************
  * Copyright (C) 2020 Darko Gjorgjijoski (https://codeverve.com)
  *
- * This file is part of WP Vimeo Videos
+ * This file is part of Video Uploads for Vimeo
  *
- * WP Vimeo Videos is free software: you can redistribute it and/or modify
+ * Video Uploads for Vimeo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
- * WP Vimeo Videos is distributed in the hope that it will be useful,
+ * Video Uploads for Vimeo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with WP Vimeo Videos. If not, see <https://www.gnu.org/licenses/>.
+ * along with Video Uploads for Vimeo. If not, see <https://www.gnu.org/licenses/>.
  **********************************************************************/
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
@@ -150,7 +150,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		$url_local  = get_permalink( $item->ID );
 
 		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url, $item->ID, __( 'Manage this video', 'wp-vimeo-videos' ), __( 'Manage', 'wp-vimeo-videos' ) );
-		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', $vimeo_link, $item->ID, __( 'Vimeo video link', 'wp-vimeo-videos' ), __( 'Vimeo Link', 'wp-vimeo-videos' ) );
+		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', esc_url( $vimeo_link ), $item->ID, __( 'Vimeo video link', 'wp-vimeo-videos' ), __( 'Vimeo Link', 'wp-vimeo-videos' ) );
 
 		if ( $this->front_pages ) {
 			$actions['view'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_local, $item->ID, __( 'View the video on the front-end', 'wp-vimeo-videos-pro' ), __( 'View', 'wp-vimeo-videos' ) );
@@ -236,15 +236,16 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		if ( $this->author_uploads_only && ! current_user_can( 'administrator' ) ) {
 			$args['author'] = get_current_user_id();
 		} else {
-			$filter_author_ID = isset( $_REQUEST['author'] ) ? $_REQUEST['author'] : 0;
+
+			$filter_author_ID = isset( $_POST['author'] ) ? intval( $_POST['author'] ) : 0;
 			if ( $filter_author_ID > 0 ) {
 				$args['author'] = $filter_author_ID;
 			}
 		}
 
 		if ( isset( $_REQUEST['orderby'] ) && isset( $_REQUEST['order'] ) ) {
-			$args['orderby'] = $_REQUEST['orderby'];
-			$args['order']   = $_REQUEST['order'];
+			$args['orderby'] = sanitize_text_field( $_REQUEST['orderby'] );
+			$args['order']   = sanitize_text_field( $_REQUEST['order'] );
 		}
 		$wp_query    = $this->db_helper->get_videos( $args, 'query' );
 		$this->items = $wp_query->get_posts();
@@ -300,13 +301,14 @@ class WP_DGV_List_Table extends \WP_List_Table {
 				?>
                 <div class="alignleft actions">
                     <label class="screen-reader-text" for="author"><?php __( 'Filter by author', 'wp-vimeo-videos' ); ?></label>
-                    <select name="author" id="author" class="postform dgv-select2" data-placeholder="<?php _e( 'Filter by author' ); ?>">
+
+                    <select name="author" id="author" class="postform dgv-select2" data-placeholder="<?php _e( 'Filter by author', 'wp-vimeo-videos' ); ?>">
 						<?php if ( ! empty( $filter_author ) ): ?>
-                            <option selected value="<?php echo $filter_author->ID; ?>"><?php echo $filter_author->display_name; ?></option>
+                            <option selected value="<?php echo esc_attr( $filter_author->ID ); ?>"><?php echo esc_html( $filter_author->display_name ); ?></option>
 						<?php endif; ?>
                     </select>
-                    <input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filter">
-                    <a href="" class="dgv-clear-selection" data-target=".dgv-select2" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear' ); ?></a>
+                    <input type="submit" name="filter_action" id="post-query-submit" class="button-primary" value="<?php _e( 'Filter', 'wp-vimeo-videos' ); ?>">
+                    <a href="" class="dgv-clear-selection" data-target=".dgv-select2" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear', 'wp-vimeo-videos' ); ?></a>
                 </div>
             </div>
 			<?php

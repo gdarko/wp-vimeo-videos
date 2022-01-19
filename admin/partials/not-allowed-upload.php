@@ -13,9 +13,9 @@
 	<?php if ( is_array( $vimeo_helper->scopes ) && count( $vimeo_helper->scopes ) > 0 ): ?>
 
         <ul>
-            <li><strong><?php _e('Current scopes', 'wp-vimeo-videos'); ?></strong>: <?php echo implode( ', ', $vimeo_helper->scopes ); ?></li>
+            <li><strong><?php _e('Current scopes', 'wp-vimeo-videos'); ?></strong>: <?php echo esc_html(implode( ', ', $vimeo_helper->scopes )); ?></li>
 			<?php if(!empty($vimeo_helper->scopes_missing)): ?>
-                <li><strong><?php _e('Missing scopes', 'wp-vimeo-videos'); ?></strong>: <?php echo implode( ', ', $vimeo_helper->scopes_missing ); ?></li>
+                <li><strong><?php _e('Missing scopes', 'wp-vimeo-videos'); ?></strong>: <?php echo esc_html(implode( ', ', $vimeo_helper->scopes_missing )); ?></li>
 			<?php endif; ?>
         </ul>
 
@@ -27,6 +27,6 @@
     <hr/>
 
     <p>
-        <a target="_blank" href="<?php echo wvv_get_guide_url(); ?>" class="button-primary"><?php _e('Documentation', 'wp-vimeo-videos'); ?></a>
+        <a target="_blank" href="<?php echo esc_url(wvv_get_guide_url()); ?>" class="button-primary"><?php _e('Documentation', 'wp-vimeo-videos'); ?></a>
     </p>
 </div>

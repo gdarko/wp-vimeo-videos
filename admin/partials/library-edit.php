@@ -9,7 +9,7 @@ $permalink   = get_permalink( $video_id );
 $front_pages = (int) $settings_helper->get( 'dgv_enable_single_pages' );
 $vimeo_link  = $db_helper->get_vimeo_link( $video_id );
 
-$video      = array();
+$video = array();
 try {
 	$video = $vimeo_helper->get_video_by_local_id( $video_id, array(
 		'uri',
@@ -31,7 +31,7 @@ try {
 
 ?>
 
-<h2 class="wvv-mb-0"><?php echo get_the_title( $_GET['id'] ); ?></h2>
+<h2 class="wvv-mb-0"><?php echo get_the_title( sanitize_text_field( $_GET['id'] ) ); ?></h2>
 
 <?php if ( $front_pages ) : ?>
     <div id="edit-slug-box" class="wvv-p-0">
@@ -50,11 +50,10 @@ try {
                 </div>
                 <div class="inside">
                     <div class="form-row">
-						<?php echo do_shortcode( '[dgv_vimeo_video id="' . $vimeo_id . '"]' ); ?>
+						<?php echo do_shortcode( '[dgv_vimeo_video id="' . esc_attr( $vimeo_id ) . '"]' ); ?>
                     </div>
                     <div class="form-row">
-                        <p class="wvv-mb-0"><a href="<?php echo $vimeo_link; ?>" class="button-primary"><?php _e( 'View on Vimeo', 'wp-vimeo-videos' ); ?></a>
-                        </p>
+                        <p class="wvv-mb-0"><a href="<?php echo esc_url( $vimeo_link ); ?>" class="button-primary"><?php _e( 'View On Vimeo', 'wp-vimeo-videos' ); ?></a></p>
                     </div>
                 </div>
             </div>

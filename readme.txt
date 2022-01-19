@@ -1,10 +1,10 @@
-=== WP Vimeo Videos ===
+=== Video Uploads for Vimeo ===
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.7.3
+Stable Tag: 1.7.6
 Requires PHP: 5.5.0
-Tested up to: 5.8
+Tested up to: 5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,7 +26,7 @@ Especially useful in the following cases:
 
 In order to be able to connect to Vimeo you will need to sign up on <a target="_blank" href="https://developer.vimeo.com/">Vimeo Developer Portal</a> and request access to the Vimeo API. Please check the Installation tab and also the **Screenshot #5**.
 
-<a href="https://bit.ly/wvvdocs" target="_blank">Detailed Guide</a>
+<a href="https://docs.codeverve.com/video-uploads-for-vimeo" target="_blank">Detailed Guide</a>
 
 === Features  ===
 
@@ -73,7 +73,7 @@ The following is full list of additional features:
 * Automatic PRO version updates if using valid key from our central repository
 * Fast Dedicated Support for premium customers
 
- <a href="http://bit.ly/wvvpurchase" target="_blank">Get Premium Version</a>
+ <a href="https://codeverve.com/video-uploads-for-vimeo" target="_blank">Get Premium Version</a>
 
 == Installation ==
 
@@ -124,6 +124,10 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 10. GravityForms Integration (PRO version)
 
 == Changelog ==
+
+= Version 1.7.6 =
+- Various Security improvements
+- Plugin rename to "Video Uploads for Vimeo"
 
 = Version 1.7.3 =
 - Fixed user filter dropdown in Media > Vimeo
@@ -198,7 +202,7 @@ _PRO ONLY:_
 _PRO ONLY:_
 
 * Added WPForms integration
-* Added chunked upload support through WPForms (See "Modern" theme in WP Vimeo Videos field)
+* Added chunked upload support through WPForms (See "Modern" theme in Video Uploads for Vimeo field)
 * Added chunked upload support through GravityForms (See "Modern" field)
 * Added progress bar support on the chunked uploads via WPForms/GravityForms
 * Improved the codebase, rewritten front-end background processing for easier integrations in future

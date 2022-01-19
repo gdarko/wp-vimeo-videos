@@ -14,7 +14,7 @@ $dismiss_link = add_query_arg( 'wvv_dismiss_instructions', 1, $dismiss_link );
 		<div class="dgv-instructions-row dgv-instructions-header">
 			<div class="dgv-instructions-colf">
 				<p class="lead"><?Php _e( 'Thanks for installing', 'wp-vimeo-videos' ); ?> <strong
-						class="green"><?php _e( 'WP Vimeo Videos', 'wp-vimeo-videos' ); ?></strong></p>
+						class="green"><?php _e( 'Video Uploads for Vimeo', 'wp-vimeo-videos' ); ?></strong></p>
 				<p class="desc"><?php echo sprintf( __( 'This plugin allows you to easily upload and embed Vimeo videos through your WordPress website.', 'wp-vimeo-videos' ) ); ?></p>
 				<p class="desc"><?php echo sprintf( __( 'To %s please follow the steps below:', 'wp-vimeo-videos' ), '<strong>' . __( 'get started', 'wp-vimeo-videos' ) . '</strong>' ); ?></p>
 			</div>
@@ -68,7 +68,7 @@ $dismiss_link = add_query_arg( 'wvv_dismiss_instructions', 1, $dismiss_link );
 		</div>
 		<div class="dgv-instructions-row">
 			<div class="dgv-instructions-colf wvv-pt-0 wvv-pb-0">
-				<a class="button-small button-primary" target="_blank" href="<?php echo $url_guide; ?>"><?php _e( 'Read guide', 'wp-vimeo-videos' ); ?></a>
+				<a class="button-small button-primary" target="_blank" href="<?php echo esc_url($url_guide); ?>"><?php _e( 'Read guide', 'wp-vimeo-videos' ); ?></a>
 			</div>
 			<div class="dgv-instructions-colf wvv-pb-0">
 				<hr/>
@@ -82,12 +82,11 @@ $dismiss_link = add_query_arg( 'wvv_dismiss_instructions', 1, $dismiss_link );
 						<?php _e( 'We have premium version of this plugin that is improved, has more features, regular updates and dedicated support team ready to help you. If you are interested to find out about the complete list of the features click on the button below.', 'wp-vimeo-videos' ); ?>
 					</p>
 					<p>
-						<a target="_blank" href="<?php echo wvv_get_purchase_url(); ?>" class="button-small button-primary"><?php _e('Read more', 'wp-vimeo-videos'); ?></a>
+						<a target="_blank" href="<?php echo esc_url(wvv_get_purchase_url()); ?>" class="button-small button-primary"><?php _e('Read more', 'wp-vimeo-videos'); ?></a>
 					</p>
 				</div>
 			</div>
 		</div>
-		<a href="<?php echo $dismiss_link; ?>" class="notice-dismiss dgv-notice-dismiss"><span
-				class="screen-reader-text"><?php _e( 'Dismiss this notice', 'wp-vimeo-videos' ); ?>.</span></a>
-	</div>
+        <a href="<?php echo esc_url( $dismiss_link ); ?>" class="notice-dismiss dgv-notice-dismiss"><span class="screen-reader-text"><?php _e( 'Dismiss this notice', 'wp-vimeo-videos' ); ?>.</span></a>
+    </div>
 </div>

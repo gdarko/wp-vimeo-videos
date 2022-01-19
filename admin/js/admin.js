@@ -17,7 +17,7 @@ var notice = function (message, type) {
     $.fn.ajaxSelect = function (url, opts) {
 
         if(!jQuery.fn.select2) {
-            console.log('WP Vimeo Videos: Select2 library is not initialized.');
+            console.log('Video Uploads for Vimeo: Select2 library is not initialized.');
             return false;
         }
 

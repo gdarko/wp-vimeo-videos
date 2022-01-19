@@ -1,7 +1,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Vimeo Videos\n"
+"Project-Id-Version: Video Uploads for Vimeo\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-05 21:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -575,12 +575,12 @@ msgid "WP Vimeo Library"
 msgstr ""
 
 #: admin/class-wp-dgv-admin.php:217 admin/partials/settings.php:10
-msgid "WP Vimeo Settings"
+msgid "Video Uploads for Vimeo Settings"
 msgstr ""
 
 #. Name of the plugin
 #: admin/partials/instructions.php:17
-msgid "WP Vimeo Videos"
+msgid "Video Uploads for Vimeo"
 msgstr ""
 
 #: admin/class-wp-dgv-admin.php:176
