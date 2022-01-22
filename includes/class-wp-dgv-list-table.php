@@ -153,7 +153,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
 		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', esc_url( $vimeo_link ), $item->ID, __( 'Vimeo video link', 'wp-vimeo-videos' ), __( 'Vimeo Link', 'wp-vimeo-videos' ) );
 
 		if ( $this->front_pages ) {
-			$actions['view'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_local, $item->ID, __( 'View the video on the front-end', 'wp-vimeo-videos-pro' ), __( 'View', 'wp-vimeo-videos' ) );
+			$actions['view'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_local, $item->ID, __( 'View the video on the front-end', 'wp-vimeo-videos' ), __( 'View', 'wp-vimeo-videos' ) );
 		}
 
 		return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', $url, $item->post_title, $this->row_actions( $actions ) );

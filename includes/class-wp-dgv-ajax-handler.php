@@ -89,7 +89,7 @@ class WP_DGV_Ajax_Handler {
 			'dgv_client_secret'   => __( 'Client Secret', 'wp-vimeo-videos' ),
 			'dgv_access_token'    => __( 'Access Token', 'wp-vimeo-videos' ),
 			'dgv_author_uploads_only' => __( 'Show Author uploads only', 'wp-vimeo-videos' ),
-			'dgv_enable_single_pages'         => __( 'Single Video Pages', 'wp-vimeo-videos-pro' ),
+			'dgv_enable_single_pages'         => __( 'Single Video Pages', 'wp-vimeo-videos' ),
 		);
 
 		$enable_single_pages = $this->settings_helper->get( 'enable_single_pages' );
