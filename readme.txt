@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.7.6
+Stable Tag: 1.8.0
 Requires PHP: 5.5.0
 Tested up to: 5.9
 License: GPLv2 or later
@@ -52,6 +52,7 @@ The following is full list of additional features:
 * Enhanced Gutenberg Support with additional options (eg. account video search)
 * Enhanced TinyMCE / Classic ("Vimeo" button is available everywhere - not only in admin, supports account video search)
 * TutorLMS / TutorLMS PRO integration with course builder in frontend and backend
+* Advanced Custom Fields (ACF) FREE/PRO Integration. Provides ACF field that allows to lazily search the connected Vimeo account, store video reference in the postmeta and display on the front-end
 * Embed Privacy - Easily configure whitelisted domains that are allowed to embed the uploaded videos
 * Embed Privacy - Easily set/modify the embed privacy in the "Media > Vimeo" tab for each video
 * Veiw Privacy - Easily configure who can view the uploaded videos (separate options for videos uploaded via frontend, admin side or push buttons)
@@ -124,6 +125,29 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 10. GravityForms Integration (PRO version)
 
 == Changelog ==
+
+= Version 1.8.0 (Sweetheart) =
+- Added spinner to the settings area
+- Added responsive styling to all plugin pages, it looks good on mobile now.
+- Added link to the video page on the site in the "Manage" screen
+- Added link to the Vimeo.com page in the "Manage" screen
+- Imrpoved notice display. Prevent displaying third-party notices on the plugin's pages
+- Fixed the admin list table pagination and filters, they now work correctly together
+- Fixed the bug that was hidding the pagination for other roles than administrator in th admin list table
+
+_PRO ONLY:_
+- Added Advanced Custom Fields (ACF) FREE/PRO integration
+- Added spinner to the single video "Manage" page when saving the boxes
+- Added various improvements to the "Embed privacy" section
+- Fixed GravityForms Advanced Post Creation integration
+- Fixed page visibility when single pages are disabled. They were still visible
+- Fixed saving the "Basic Information" in "Manage", bug caused by the "View Privacy" dropdown
+- Fixed saving videos without description. It should be possible as vimeo accept it anyway
+- Increased thumbnail cache time to 10 hours for the experimental thumbnails feature
+- Re-styled the "Embed Presets" form in "Manage" screen and added a button to "Upgrade" page from Vimeo.com
+- Updated the plugin activation library
+- Improved TinyMCE asset enqueuing, use native wp_enqueue_script/style functions.
+- Security improvements (sanitize & escape) throughout the codebase
 
 = Version 1.7.6 =
 - Various Security improvements
