@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Video Uploads for Vimeo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-05 21:35+0000\n"
+"POT-Creation-Date: 2022-01-22 17:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,14 +15,14 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.1; wp-5.3.2"
 
-#: admin/partials/api.php:78
+#: admin/partials/api.php:92
 #, php-format
-msgid "%s / %s (resets on %s)"
+msgid "%d / %d per minute (resets on %s)"
 msgstr ""
 
-#: admin/partials/api.php:93
+#: admin/partials/api.php:77
 #, php-format
-msgid "%s / %s per minute (resets on %s)"
+msgid "%s / %s (resets on %s)"
 msgstr ""
 
 #: admin/partials/instructions.php:40
@@ -50,12 +50,20 @@ msgid "< Back to library"
 msgstr ""
 
 #: includes/class-wp-dgv-ajax-handler.php:90 admin/partials/instructions.php:51
-#: admin/partials/settings.php:36
+#: admin/partials/settings.php:34
 msgid "Access Token"
 msgstr ""
 
 #: includes/class-wp-dgv-api-helper.php:179
 msgid "Access Token is missing"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:58
+msgid "Add New"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:57
+msgid "Add New Item"
 msgstr ""
 
 #: admin/partials/instructions.php:52
@@ -65,11 +73,15 @@ msgid ""
 "and also collect the required credentials such as %s, %s, %s."
 msgstr ""
 
-#: admin/partials/api.php:48
+#: includes/class-wp-dgv-post-types.php:56
+msgid "All Items"
+msgstr ""
+
+#: admin/partials/api.php:47
 msgid "App"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:123
+#: includes/class-wp-dgv-list-table.php:131
 msgid "Author"
 msgstr ""
 
@@ -77,12 +89,16 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:303 admin/partials/settings.php:53
+#: admin/class-wp-dgv-admin.php:309 admin/partials/settings.php:54
 msgid "Buy PRO Version"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:164
+#: admin/class-wp-dgv-admin.php:158
 msgid "Cancel"
+msgstr ""
+
+#: includes/class-wp-dgv-list-table.php:311
+msgid "Clear"
 msgstr ""
 
 #: includes/class-wp-dgv-ajax-handler.php:88 admin/partials/instructions.php:49
@@ -95,7 +111,7 @@ msgid "Client ID is missing"
 msgstr ""
 
 #: includes/class-wp-dgv-ajax-handler.php:89 admin/partials/instructions.php:50
-#: admin/partials/settings.php:31
+#: admin/partials/settings.php:30
 msgid "Client Secret"
 msgstr ""
 
@@ -103,11 +119,11 @@ msgstr ""
 msgid "Client Secret is missing"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:166
+#: admin/class-wp-dgv-admin.php:160
 msgid "Close"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:165
+#: admin/class-wp-dgv-admin.php:159
 msgid "Confirm"
 msgstr ""
 
@@ -131,23 +147,27 @@ msgstr ""
 msgid "Darko Gjorgjijoski"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:460 admin/partials/library-upload.php:15
+#: admin/class-wp-dgv-admin.php:442 admin/partials/library-upload.php:15
 msgid "Description"
 msgstr ""
 
-#: admin/partials/api.php:142
+#: admin/partials/api.php:141
 msgid "Detected Problems"
 msgstr ""
 
-#: admin/partials/instructions.php:91
+#: admin/partials/instructions.php:90
 msgid "Dismiss this notice"
 msgstr ""
 
-#: admin/partials/not-allowed-upload.php:30 admin/partials/settings.php:52
+#: admin/partials/not-allowed-upload.php:30 admin/partials/settings.php:54
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:122
+#: includes/class-wp-dgv-post-types.php:60
+msgid "Edit Item"
+msgstr ""
+
+#: includes/class-wp-dgv-list-table.php:130
 msgid "Embed"
 msgstr ""
 
@@ -155,17 +175,34 @@ msgstr ""
 msgid "Embed and upload videos to Vimeo directly from WordPress"
 msgstr ""
 
-#: includes/class-wp-dgv-ajax-handler.php:99
+#: admin/partials/settings.php:46
+msgid "Enable single video pages for the uploaded videos"
+msgstr ""
+
+#: includes/class-wp-dgv-ajax-handler.php:102
 #, php-format
 msgid "Error: %s is required."
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:466
+#: includes/class-wp-dgv-post-types.php:67
+msgid "Featured Image"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:448
 msgid "File"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:288
+#: includes/class-wp-dgv-list-table.php:310
+msgid "Filter"
+msgstr ""
+
+#: includes/class-wp-dgv-list-table.php:303
+#: includes/class-wp-dgv-list-table.php:305
 msgid "Filter by author"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:75
+msgid "Filter items list"
 msgstr ""
 
 #: admin/partials/instructions.php:63
@@ -175,7 +212,7 @@ msgid ""
 "the step 3, you need to enter those in the plugin %s page"
 msgstr ""
 
-#: admin/partials/api.php:152
+#: admin/partials/api.php:151
 msgid "Fix prolbem"
 msgstr ""
 
@@ -183,7 +220,7 @@ msgstr ""
 msgid "get started"
 msgstr ""
 
-#: admin/partials/settings.php:45
+#: admin/partials/settings.php:42
 msgid "Hide videos uploaded from different authors for non-admin users"
 msgstr ""
 
@@ -201,11 +238,15 @@ msgid ""
 "you need to request Upload Access from Vimeo and wait for approval."
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:461
+#: admin/class-wp-dgv-admin.php:443
 msgid "Insert"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:421 admin/class-wp-dgv-admin.php:470
+#: includes/class-wp-dgv-post-types.php:71
+msgid "Insert into item"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:415 admin/class-wp-dgv-admin.php:452
 msgid "Insert Vimeo Video"
 msgstr ""
 
@@ -213,7 +254,7 @@ msgstr ""
 msgid "Insert Vimeo video from local library"
 msgstr ""
 
-#: admin/partials/library.php:28
+#: admin/partials/library.php:29
 msgid "Invalid action"
 msgstr ""
 
@@ -221,35 +262,51 @@ msgstr ""
 msgid "Invalid API Details"
 msgstr ""
 
-#: includes/class-wp-dgv-ajax-handler.php:266
+#: includes/class-wp-dgv-ajax-handler.php:276
 msgid "Invalid request"
 msgstr ""
 
-#: includes/class-wp-dgv-ajax-handler.php:173
+#: includes/class-wp-dgv-ajax-handler.php:183
 msgid "Invalid request."
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:473
+#: admin/class-wp-dgv-admin.php:455
 msgid "Invalid search phrase. Please enter valid search phrase."
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:175
+#: includes/class-wp-dgv-post-types.php:53
+msgid "Item Archives"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:54
+msgid "Item Attributes"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:73
+msgid "Items list"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:74
+msgid "Items list navigation"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:169
 msgid "Loading more results..."
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:142
+#: includes/class-wp-dgv-list-table.php:152
 msgid "Manage"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:142
+#: includes/class-wp-dgv-list-table.php:152
 msgid "Manage this video"
 msgstr ""
 
-#: admin/partials/api.php:127
+#: admin/partials/api.php:126
 msgid "Max Post Size"
 msgstr ""
 
-#: admin/partials/api.php:119
+#: admin/partials/api.php:118
 msgid "Max Upload Size"
 msgstr ""
 
@@ -261,28 +318,40 @@ msgstr ""
 msgid "Need help? Contact us!"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:475
+#: includes/class-wp-dgv-post-types.php:59
+msgid "New Item"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:457
 msgid "No matching videos found for your search"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:177
+#: admin/class-wp-dgv-admin.php:171
 msgid "No results found"
 msgstr ""
 
-#: admin/partials/api.php:63
+#: admin/partials/api.php:62
 msgid "No scopes found"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:474
+#: admin/class-wp-dgv-admin.php:456
 msgid "No uploaded videos found."
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:82
+#: includes/class-wp-dgv-list-table.php:90
 msgid "No videos found"
 msgstr ""
 
 #: admin/partials/api.php:17
 msgid "Not Connected"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:65
+msgid "Not found"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:66
+msgid "Not found in Trash"
 msgstr ""
 
 #: admin/partials/not-allowed-upload.php:9 admin/partials/not-connected.php:10
@@ -293,23 +362,31 @@ msgstr ""
 msgid "Outdated PHP version"
 msgstr ""
 
-#: admin/partials/api.php:101
+#: includes/class-wp-dgv-post-types.php:55
+msgid "Parent Item:"
+msgstr ""
+
+#: admin/partials/library-edit.php:38
+msgid "Permalink:"
+msgstr ""
+
+#: admin/partials/api.php:100
 msgid "PHP Version"
 msgstr ""
 
-#: admin/partials/api.php:38
+#: admin/partials/api.php:37
 msgid "Plan"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:167
+#: admin/class-wp-dgv-admin.php:161
 msgid "Please correct the following errors"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:173
+#: admin/class-wp-dgv-admin.php:167
 msgid "Please delete {number} character"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:174
+#: admin/class-wp-dgv-admin.php:168
 msgid "Please enter {number} or more characters"
 msgstr ""
 
@@ -320,34 +397,48 @@ msgid ""
 "scopes. If you need help check the link bellow."
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:162 admin/class-wp-dgv-admin.php:472
+#: admin/class-wp-dgv-admin.php:156 admin/class-wp-dgv-admin.php:454
 msgid "Please select valid video file."
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:49
+msgctxt "Post Type General Name"
+msgid "Vimeo Uploads"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:50
+msgctxt "Post Type Singular Name"
+msgid "Vimeo Uploads"
 msgstr ""
 
 #: admin/partials/instructions.php:80
 msgid "Premium Version"
 msgstr ""
 
-#: admin/partials/library-edit.php:53
+#: admin/partials/library-edit.php:63
 msgid "premium Version"
 msgstr ""
 
-#: admin/partials/library-edit.php:38
+#: admin/partials/library-edit.php:49
 msgid "Preview Video"
 msgstr ""
 
-#: admin/partials/library-edit.php:53
+#: admin/partials/library-edit.php:63
 #, php-format
 msgid ""
 "Privacy management, folder management, front-end upload and more options "
 "available in the %s."
 msgstr ""
 
-#: admin/partials/api.php:71
+#: admin/partials/settings.php:67
+msgid "Product news"
+msgstr ""
+
+#: admin/partials/api.php:70
 msgid "Quota"
 msgstr ""
 
-#: admin/partials/api.php:86
+#: admin/partials/api.php:85
 msgid "Rate Limits"
 msgstr ""
 
@@ -355,38 +446,54 @@ msgstr ""
 msgid "Read guide"
 msgstr ""
 
-#: admin/partials/instructions.php:85
+#: admin/partials/instructions.php:85 admin/partials/settings.php:74
 msgid "Read more"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:179
+#: admin/class-wp-dgv-admin.php:173
 msgid "Remove all items"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:180
+#: includes/class-wp-dgv-post-types.php:69
+msgid "Remove featured image"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:174
 msgid "Remove item"
 msgstr ""
 
-#: admin/partials/api.php:56
+#: admin/partials/settings.php:52
+msgid "Save Settings"
+msgstr ""
+
+#: admin/partials/api.php:55
 msgid "Scopes"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:181 admin/class-wp-dgv-admin.php:462
+#: admin/class-wp-dgv-admin.php:175 admin/class-wp-dgv-admin.php:444
 msgid "Search"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:178 admin/class-wp-dgv-admin.php:463
+#: includes/class-wp-dgv-post-types.php:64
+msgid "Search Item"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:172 admin/class-wp-dgv-admin.php:445
 msgid "Searching..."
 msgstr ""
 
 #: includes/class-wp-dgv-ajax-handler.php:76
-#: includes/class-wp-dgv-ajax-handler.php:160
-#: includes/class-wp-dgv-ajax-handler.php:213
-#: includes/class-wp-dgv-ajax-handler.php:252
+#: includes/class-wp-dgv-ajax-handler.php:170
+#: includes/class-wp-dgv-ajax-handler.php:223
+#: includes/class-wp-dgv-ajax-handler.php:262
 msgid "Security Check Failed."
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:283 admin/partials/library-list.php:13
+#: includes/class-wp-dgv-post-types.php:68
+msgid "Set featured image"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:289 admin/partials/library-list.php:13
 #: admin/partials/not-connected.php:25
 msgid "Settings"
 msgstr ""
@@ -395,7 +502,7 @@ msgstr ""
 msgid "settings"
 msgstr ""
 
-#: includes/class-wp-dgv-ajax-handler.php:127
+#: includes/class-wp-dgv-ajax-handler.php:137
 msgid "Settings saved successfully!"
 msgstr ""
 
@@ -403,15 +510,19 @@ msgstr ""
 msgid "Show Author uploads only"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:124
+#: includes/class-wp-dgv-ajax-handler.php:92
+msgid "Single Video Pages"
+msgstr ""
+
+#: includes/class-wp-dgv-list-table.php:132
 msgid "Size"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:161 admin/class-wp-dgv-admin.php:457
+#: admin/class-wp-dgv-admin.php:155 admin/class-wp-dgv-admin.php:439
 msgid "Sorry"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:471
+#: admin/class-wp-dgv-admin.php:453
 msgid ""
 "Sorry there was a HTTP error. Please check the server logs or contact "
 "support."
@@ -425,7 +536,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:163 admin/class-wp-dgv-admin.php:458
+#: admin/class-wp-dgv-admin.php:157 admin/class-wp-dgv-admin.php:440
 msgid "Success"
 msgstr ""
 
@@ -433,7 +544,7 @@ msgstr ""
 msgid "Thanks for installing"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:172
+#: admin/class-wp-dgv-admin.php:166
 msgid "The results could not be loaded."
 msgstr ""
 
@@ -443,7 +554,7 @@ msgid ""
 "WordPress website."
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:459 includes/class-wp-dgv-list-table.php:121
+#: admin/class-wp-dgv-admin.php:441 includes/class-wp-dgv-list-table.php:129
 #: admin/partials/library-upload.php:11
 msgid "Title"
 msgstr ""
@@ -473,20 +584,24 @@ msgid ""
 msgstr ""
 
 #: includes/class-wp-dgv-ajax-handler.php:82
-#: includes/class-wp-dgv-ajax-handler.php:259
+#: includes/class-wp-dgv-ajax-handler.php:269
 msgid "Unauthorized action"
 msgstr ""
 
-#: includes/class-wp-dgv-ajax-handler.php:166
+#: includes/class-wp-dgv-ajax-handler.php:176
 msgid ""
 "Unauthorized action. User must be Author, Editor or Administrator to edit."
 msgstr ""
 
-#: includes/class-wp-dgv-ajax-handler.php:177
+#: includes/class-wp-dgv-ajax-handler.php:187
 msgid "Untitled"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:464 admin/partials/library-upload.php:29
+#: includes/class-wp-dgv-post-types.php:61
+msgid "Update Item"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:446 admin/partials/library-upload.php:29
 msgid "Upload"
 msgstr ""
 
@@ -502,16 +617,24 @@ msgstr ""
 msgid "Upload to Vimeo"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:125
+#: includes/class-wp-dgv-list-table.php:133
 msgid "Uploaded"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:465
+#: includes/class-wp-dgv-post-types.php:72
+msgid "Uploaded to this item"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:447
 msgid "Uploading"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:160
+#: admin/class-wp-dgv-admin.php:154
 msgid "Uploading video. Please wait..."
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:70
+msgid "Use as featured image"
 msgstr ""
 
 #: admin/partials/api.php:26
@@ -522,15 +645,40 @@ msgstr ""
 msgid "Video File"
 msgstr ""
 
-#: includes/class-wp-dgv-ajax-handler.php:199
+#: includes/class-wp-dgv-ajax-handler.php:209
 msgid "Video uploaded successfully."
 msgstr ""
 
-#: admin/partials/library-edit.php:45
+#. Name of the plugin
+#: admin/partials/instructions.php:17
+msgid "Video Uploads for Vimeo"
+msgstr ""
+
+#: admin/partials/settings.php:10
+msgid "Video Uploads for Vimeo Settings"
+msgstr ""
+
+#: includes/class-wp-dgv-list-table.php:156
+msgid "View"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:62
+msgid "View Item"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:63
+msgid "View Items"
+msgstr ""
+
+#: admin/partials/library-edit.php:56
 msgid "View On Vimeo"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:419
+#: includes/class-wp-dgv-list-table.php:156
+msgid "View the video on the front-end"
+msgstr ""
+
+#: admin/class-wp-dgv-admin.php:413
 msgid "Vimeo"
 msgstr ""
 
@@ -538,7 +686,7 @@ msgstr ""
 msgid "Vimeo Developer Portal"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:143
+#: includes/class-wp-dgv-list-table.php:153
 msgid "Vimeo Link"
 msgstr ""
 
@@ -546,7 +694,16 @@ msgstr ""
 msgid "Vimeo not loaded"
 msgstr ""
 
-#: includes/class-wp-dgv-list-table.php:143
+#: includes/class-wp-dgv-post-types.php:52
+msgid "Vimeo Upload"
+msgstr ""
+
+#: includes/class-wp-dgv-post-types.php:51
+#: includes/class-wp-dgv-post-types.php:78
+msgid "Vimeo Uploads"
+msgstr ""
+
+#: includes/class-wp-dgv-list-table.php:153
 msgid "Vimeo video link"
 msgstr ""
 
@@ -562,28 +719,27 @@ msgid ""
 "button below."
 msgstr ""
 
-#: admin/partials/api.php:110
+#: admin/partials/api.php:109
 msgid "Web Server"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:467
+#: admin/class-wp-dgv-admin.php:449
 msgid "Who can view this video?"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:209
+#: admin/class-wp-dgv-admin.php:202
 msgid "WP Vimeo Library"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:217 admin/partials/settings.php:10
-msgid "Video Uploads for Vimeo Settings"
+#: admin/class-wp-dgv-admin.php:210
+msgid "WP Vimeo Settings"
 msgstr ""
 
-#. Name of the plugin
-#: admin/partials/instructions.php:17
-msgid "Video Uploads for Vimeo"
+#: includes/class-wp-dgv-post-types.php:79
+msgid "WP Vimeo Uploads"
 msgstr ""
 
-#: admin/class-wp-dgv-admin.php:176
+#: admin/class-wp-dgv-admin.php:170
 msgid "You can only select {number} item"
 msgstr ""
 
