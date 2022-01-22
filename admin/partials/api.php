@@ -147,11 +147,11 @@
                             <li>
                                 <div class="wvv-problem-wrapper">
                                     <div class="wvv-problem--info">
-                                        <p><?php echo esc_html($problem['info']); ?></p>
-                                        <p><a class="wvv-problem-fix-trigger" href="#"><?php _e('Fix prolbem', 'wp-vimeo-videos'); ?></a></p>
+                                        <p><?php echo $problem['info']; ?></p>
+                                        <p><a class="wvv-problem-fix-trigger" href="#"><?php _e( 'Fix prolbem', 'wp-vimeo-videos' ); ?></a></p>
                                     </div>
                                     <div class="wvv-problem--fix" style="display: none;">
-									    <?php echo esc_html($problem['fix']); ?>
+		                                <?php echo $problem['fix']; ?>
                                     </div>
                                 </div>
                             </li>

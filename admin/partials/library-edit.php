@@ -36,7 +36,7 @@ try {
 <?php if ( $front_pages ) : ?>
     <div id="edit-slug-box" class="wvv-p-0">
         <strong><?php _e( 'Permalink:', 'wp-vimeo-videos-pro' ); ?></strong>
-        <span id="sample-permalink"><a href="<?php echo $permalink; ?>"><?php echo $permalink; ?></a></span>
+        <span id="sample-permalink"><a href="<?php echo esc_url($permalink); ?>"><?php echo esc_url($permalink); ?></a></span>
     </div>
 <?php endif; ?>
 
