@@ -137,6 +137,7 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 
 _PRO ONLY:_
 - Added Advanced Custom Fields (ACF) FREE/PRO integration
+- Added bulk actions in the Media > Vimeo list table
 - Added spinner to the single video "Manage" page when saving the boxes
 - Added various improvements to the "Embed privacy" section
 - Fixed GravityForms Advanced Post Creation integration
