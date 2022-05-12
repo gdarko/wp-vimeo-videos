@@ -82,6 +82,7 @@ class WP_DGV {
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->define_shared_hooks(); // Note: Must be here.
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -159,6 +160,11 @@ class WP_DGV {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'shared/class-wp-dgv-shared.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in the admin area.
+		 */
 		require_once WP_VIMEO_VIDEOS_PATH . 'admin/class-wp-dgv-admin.php';
 
 		/**
@@ -232,6 +238,7 @@ class WP_DGV {
 		// Init Dashboard
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_admin_menu' );
 		$this->loader->add_action( 'in_admin_header', $plugin_admin, 'do_admin_notices', 50 );
 		$this->loader->add_filter( 'plugin_action_links_' . WP_VIMEO_VIDEOS_BASENAME, $plugin_admin, 'plugin_action_links', 100, 1 );
@@ -252,14 +259,26 @@ class WP_DGV {
 		$this->loader->add_action( 'wp_ajax_dgv_user_search', $ajax_handler, 'handle_user_search' );
 		$this->loader->add_action( 'wp_ajax_dgv_get_uploads', $ajax_handler, 'get_uploads' );
 
-		// Register tinymce modal
-		$this->loader->add_action( 'after_setup_theme', $plugin_admin, 'tinymce_styles' );
-		$this->loader->add_action( 'before_wp_tiny_mce', $plugin_admin, 'tinymce_globals' );
-		$this->loader->add_filter( 'mce_buttons', $plugin_admin, 'tinymce_vimeo_button' );
-		$this->loader->add_filter( 'mce_external_plugins', $plugin_admin, 'tinymce_vimeo_plugin' );
-
 		// Hooks
 		$this->loader->add_action( 'dgv_backend_after_upload', $internal_hooks, 'backend_after_upload', 5 );
+	}
+
+
+	/**
+	 * Register all of the hooks related to both admin area and fron area.
+	 * @since 1.8.1
+	 * @return void
+	 */
+	private function define_shared_hooks() {
+		$plugin_shared = new WP_DGV_Shared();
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_shared, 'register_scripts', 0 );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_shared, 'register_scripts', 0 );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_shared, 'enqueue_scripts', 1000 );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_shared, 'enqueue_scripts', 1000 );
+		$this->loader->add_action( 'before_wp_tiny_mce', $plugin_shared, 'tinymce_globals' );
+		$this->loader->add_action( 'after_setup_theme', $plugin_shared, 'tinymce_styles' );
+		$this->loader->add_filter( 'mce_buttons', $plugin_shared, 'tinymce_vimeo_button' );
+		$this->loader->add_filter( 'mce_external_plugins', $plugin_shared, 'tinymce_vimeo_plugin' );
 	}
 
 	/**

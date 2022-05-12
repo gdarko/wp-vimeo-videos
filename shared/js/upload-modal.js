@@ -6,7 +6,6 @@
 // This file is licensed under the GPLv2 License.
 // License text available at https://opensource.org/licenses/gpl-2.0.php
 
-
 (function ($) {
 
     /**
@@ -26,7 +25,12 @@
     window.WPVimeoVideos.UploaderModal.prototype.form = function () {
 
         var opts = [];
-        opts.push('<label><input type="radio" class="dgv-field-row dgv-insert-type" name="insert_type" value="local">' + DGV_Modal_Config.methods.local + '</label>');
+        if (DGV_Modal_Config.enable_local_search) {
+            opts.push('<label><input type="radio" class="dgv-field-row dgv-insert-type" name="insert_type" value="local">' + DGV_Modal_Config.methods.local + '</label>');
+        }
+        if (DGV_Modal_Config.enable_vimeo_search) {
+            opts.push('<label><input type="radio" class="dgv-field-row dgv-insert-type" name="insert_type" value="search">' + DGV_Modal_Config.methods.search + '</label>')
+        }
 
         var opts_str;
         var method_upload_style;
@@ -37,6 +41,27 @@
             opts = ['<label><input type="radio" class="dgv-field-row dgv-insert-type" name="insert_type" value="upload">' + DGV_Modal_Config.methods.upload + '</label>'].concat(opts);
             opts_str = '<div class="dgv-vimeo-form-row">' + opts.join("\n") + '</div>';
             method_upload_style = 'display: none;';
+        }
+
+        var privacy_option = '';
+
+        if (DGV_Modal_Config.upload_form_options.enable_privacy_option && null !== DGV_Modal_Config.upload_form_options.privacy_view) {
+
+            var privacy_view_options = '';
+
+            for (var key in DGV_Modal_Config.upload_form_options.privacy_view) {
+                var name = DGV_Modal_Config.upload_form_options.privacy_view[key].name;
+                var is_available = DGV_Modal_Config.upload_form_options.privacy_view[key].available;
+                var is_default = DGV_Modal_Config.upload_form_options.privacy_view[key].default;
+                var disabled = is_available ? '' : 'disabled';
+                var selected = is_default ? 'selected' : '';
+                privacy_view_options += '<option ' + disabled + ' ' + selected + ' value="' + key + '">' + name + '</option>';
+            }
+
+            privacy_option = '<div class="dgv-vimeo-form-row">\n' +
+                '<label for="vimeo_view_privacy">' + DGV_Modal_Config.words.privacy_view + '</label>' +
+                '<select name="vimeo_view_privacy" class="dgv-field-row wvv-w-100">' + privacy_view_options + '</select>\n' +
+                '</div>\n';
         }
 
         return '<div id="' + this.context + '" class="dgv-vimeo-upload-form dgv-vimeo-plain-form dgv-text-left">\n' +
@@ -53,7 +78,7 @@
             '            <div class="dgv-vimeo-form-row">\n' +
             '                <label for="vimeo_description">' + DGV_Modal_Config.words.desc + '</label>' +
             '                <textarea rows="5" name="vimeo_description" class="dgv-field-row"></textarea>\n' +
-            '            </div>\n' +
+            '            </div>\n' + privacy_option +
             '            <div class="dgv-vimeo-form-row">\n' +
             '                <label for="vimeo_video">' + DGV_Modal_Config.words.file + '</label>' +
             '                <input type="file" name="vimeo_video" class="dgv-field-row">\n' +
@@ -80,6 +105,22 @@
             '        </div>\n' +
             '        <div class="dgv-vimeo-form-row dgv-videos-404" style="display: none;">\n' +
             '            <p>' + DGV_Modal_Config.phrases.videos_not_found + '</p>\n' +
+            '        </div>\n' +
+            '    </div>\n' +
+            '\n' +
+            '    <div class="dgv-insert-wrapper dgv-insert-type-search" style="display: none;">\n' +
+            '        <form id="dgv-vimeo-search" class="dgv-vimeo-form-row">\n' +
+            '            <div class="dgv-vimeo-form-row">\n' +
+            '                <input type="text" name="video_title" placeholder="' + DGV_Modal_Config.words.title + '" class="dgv-field-row">\n' +
+            '                <button type="submit" class="button" data-waiting="' + DGV_Modal_Config.words.searching3d + '" data-finished="' + DGV_Modal_Config.words.upload + '">' + DGV_Modal_Config.words.search + '</button>\n' +
+            '            </div>\n' +
+            '        </form>\n' +
+            '        <div class="dgv-vimeo-form-row dgv-videos-found" style="display: none;">\n' +
+            '            <select class="dgv-vimeo-existing"></select>\n' +
+            '            <button type="button" name="insert_video" class="button-primary insert_video">' + DGV_Modal_Config.words.insert + '</button>\n' +
+            '        </div>\n' +
+            '        <div class="dgv-vimeo-form-row dgv-videos-404" style="display: none;">\n' +
+            '            <p>' + DGV_Modal_Config.phrases.search_not_found + '</p>\n' +
             '        </div>\n' +
             '    </div>\n' +
             '\n' +
@@ -147,6 +188,48 @@
             });
         }
         $wrapper.show();
+    });
+
+
+    // Handle vimeo search
+    $(document).on('submit', '#dgv-vimeo-search', function () {
+
+        var $form = $(this).closest('.dgv-vimeo-upload-form')
+        var context = $form.attr('id');
+
+        var search_phrase = $(this).find('input[name=video_title]').val();
+        var opts = '';
+        if (search_phrase !== '') {
+            var vimeoProfile = new WPVimeoVideos.Profile(DGV_Modal_Config.access_token);
+            var wrapperFound = $(this).closest('.dgv-insert-type-search').find('.dgv-videos-found');
+            var wrapper404 = $(this).closest('.dgv-insert-type-search').find('.dgv-videos-404');
+            vimeoProfile.search({
+                'page': 1,
+                'per_page': 100,
+                'query': search_phrase,
+                'sort': 'date',
+                'direction': 'desc',
+                'onSuccess': function (response) {
+                    if (response.data.length > 0) {
+                        for (var i in response.data) {
+                            opts += '<option value="' + response.data[i].uri + '">' + response.data[i].name + '</option>';
+                        }
+                        wrapper404.hide();
+                        wrapperFound.find('.dgv-vimeo-existing').html(opts);
+                        wrapperFound.show();
+                    } else {
+                        wrapperFound.hide();
+                        wrapper404.show();
+                    }
+                },
+                'onError': function (response) {
+                    swal.fire(DGV_Modal_Config.words.sorry, DGV_Modal_Config.phrases.invalid_search_phrase, 'error');
+                }
+            });
+        } else {
+            swal.fire(DGV_Modal_Config.words.sorry, DGV_Modal_Config.phrases.invalid_search_phrase, 'error');
+        }
+        return false;
     });
 
     // Handle vimeo insert

@@ -1,24 +1,11 @@
-.dgv-vimeo-form-row input[type="submit"] {
-    width: 100%;
-}
+/**
+// Copyright Darko Gjorgjijoski <info@codeverve.com>
+// 2020. All Rights Reserved.
+// This file is licensed under the GPLv2 License.
+// License text available at https://opensource.org/licenses/gpl-2.0.php
+*/
 
-.dgv-vimeo-form-row textarea {
-    width: 100%;
-}
-
-.dgv-vimeo-form-row {
-    margin-bottom: 10px;
-}
-
-.dgv-vimeo-form-row label {
-    display: block !important;
-    width: 100%;
-    margin-right: 5px !important;
-}
-
-.dgv-embed-container iframe {
-    width: 100%;
-    display: block;
-    background: #f0f0f0;
-    padding: 5px;
+.submitSearch {
+    position: relative;
+    min-height: 30px !important;
 }

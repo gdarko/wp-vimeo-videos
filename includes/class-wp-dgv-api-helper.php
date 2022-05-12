@@ -540,6 +540,18 @@ class  WP_DGV_Api_Helper {
 		return $this->prepare_response($response);
 	}
 
+	/**
+	 * Returns formatted array of available view privacy options for upload
+	 *
+	 * @param string $context
+	 *
+	 * @return array
+	 * @since 1.5.0
+	 *
+	 */
+	public function get_view_privacy_options_for_forms( $context = 'admin' ) {
+		return array();
+	}
 
 	/**
 	 * Set additional meta data for the video. If response is not provided or empty, call the api.

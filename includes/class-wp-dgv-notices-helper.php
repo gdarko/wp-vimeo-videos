@@ -92,8 +92,8 @@ class WP_DGV_Notices_Helper {
 	 * Admin init
 	 */
 	public function admin_init() {
-		$notice_id      = filter_input( INPUT_GET, $this->prefix . 'notice_id', FILTER_SANITIZE_STRING );
-		$dismiss_option = filter_input( INPUT_GET, $this->prefix . 'dismiss', FILTER_SANITIZE_STRING );
+		$notice_id      = isset( $_GET['notice_id'] ) ? sanitize_text_field( $_GET['notice_id'] ) : '';
+		$dismiss_option = isset( $_GET['dismiss'] ) ? sanitize_text_field( $_GET['dismiss'] ) : '';
 		if ( ! empty( $notice_id ) && is_string( $dismiss_option ) ) {
 			set_transient( $this->get_notice_key( $notice_id ), 'd', $this->expiry );
 			wp_die();

@@ -48,8 +48,8 @@ class WP_DGV_Db_Helper {
 	/**
 	 * Return all the vimeo videos from the local database.
 	 *
-	 * @param array $args
-	 * @param string $type
+	 * @param  array  $args
+	 * @param  string  $type
 	 *
 	 * @return int[]|WP_Post[]|WP_Query
 	 */
@@ -92,22 +92,24 @@ class WP_DGV_Db_Helper {
 	 * @return mixed
 	 */
 	public function get_vimeo_uri( $post_id ) {
-		$response = get_post_meta( $post_id, 'dgv_response', true );
+		$response = $this->get_vimeo_id( $post_id );
 
-		return $response;
+		return $response ? wvv_id_to_uri( $response ) : $response;
 	}
 
 	/**
 	 * Return the vimeo video id for specific local vimeo video.
 	 *
 	 * @param $post_id
-	 * @param int
+	 * @param  int
 	 *
 	 * @return mixed
 	 */
 	public function get_vimeo_id( $post_id ) {
-		$vimeo_uri = $this->get_vimeo_uri( $post_id );
-		$vimeo_id  = str_replace( '/videos/', '', $vimeo_uri );
+		$vimeo_id = get_post_meta( $post_id, 'dgv_response', true );
+		if ( $vimeo_id ) {
+			$vimeo_id = str_replace( '/videos/', '', $vimeo_id );
+		}
 
 		return $vimeo_id;
 	}
@@ -155,8 +157,8 @@ class WP_DGV_Db_Helper {
 	 *
 	 * @param $title
 	 * @param $description
-	 * @param $vimeo_id - (eg. 18281821)
-	 * @param string $context
+	 * @param $vimeo_id  - (eg. 18281821)
+	 * @param  string  $context
 	 *
 	 * @return int|WP_Error
 	 */
@@ -195,7 +197,7 @@ class WP_DGV_Db_Helper {
 	/**
 	 * Check for uploads
 	 *
-	 * @param bool $current_user_uploads_only
+	 * @param  bool  $current_user_uploads_only
 	 *
 	 * @return array
 	 */

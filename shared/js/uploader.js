@@ -3,7 +3,6 @@
 // This file is licensed under the GPLv2 License.
 // License text available at https://opensource.org/licenses/gpl-2.0.php
 
-
 var WPVimeoVideos = {};
 
 /**
@@ -49,6 +48,7 @@ WPVimeoVideos.Uploader = function (accessToken, file, params) {
      */
     this.endpoints = {
         create_video: 'https://api.vimeo.com/me/videos',
+        me: 'https://api.vimeo.com/me/videos',
     };
 
 
@@ -225,7 +225,75 @@ WPVimeoVideos.Uploader.prototype.notifyWP = function (callback) {
         title: self.params.title,
         description: self.params.description,
         uri: self.currentUpload.uri,
-        size: self.file.size
+        size: self.file.size,
     });
     http.send(data);
+};
+
+
+/**
+ * Uploader
+ * @param accessToken
+ * @constructor
+ */
+WPVimeoVideos.Profile = function (accessToken) {
+
+    /**
+     * The access token.
+     */
+    this.accessToken = accessToken;
+
+    /**
+     * Acceppt header
+     * @type {string}
+     */
+    this.accept = 'application/vnd.vimeo.*+json;version=3.4';
+
+    /**
+     * The vimeo endpoints
+     * @type {{upload: string}}
+     */
+    this.endpoints = {
+        search: 'https://api.vimeo.com/me/videos',
+    };
+};
+
+/**
+ * Search for video
+ * @param params
+ */
+WPVimeoVideos.Profile.prototype.search = function (params) {
+    var self = this;
+    var http = new XMLHttpRequest();
+    var requestParams = {};
+    for(var i in params) {
+        if(i === 'onSuccess' || i === 'onError') {
+            continue;
+        }
+        requestParams[i] = params[i];
+    }
+
+    requestParams = WPVimeoVideos.Uploader.serializeObject(requestParams);
+
+    http.open('GET', self.endpoints.search  + '?' + requestParams, true);
+    http.setRequestHeader('Authorization', 'bearer ' + this.accessToken);
+    http.setRequestHeader('Content-Type', 'application/json');
+    http.setRequestHeader('Accept', this.accept);
+
+    http.onreadystatechange = function () {
+        if (http.readyState === 4) {
+            var responseText = http.responseText;
+            var response = JSON.parse(responseText);
+            if (http.status === 200) { // OK
+                if (params.hasOwnProperty('onSuccess')) {
+                    params.onSuccess(response);
+                }
+            } else {
+                if (params.hasOwnProperty('onError')) {
+                    params.onError(response);
+                }
+            }
+        }
+    };
+    http.send();
 };

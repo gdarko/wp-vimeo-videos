@@ -33,16 +33,16 @@ class WP_DGV_Admin {
 	const PAGE_SETTINGS = 'dgv-settings';
 
 	/**
-	 * The vimeo api helper
-	 * @var WP_DGV_Api_Helper
-	 */
-	public $api_helper = null;
-
-	/**
 	 * The settings helper
 	 * @var WP_DGV_Settings_Helper
 	 */
 	public $settings_helper = null;
+
+	/**
+	 * The vimeo api helper
+	 * @var WP_DGV_Api_Helper
+	 */
+	public $api_helper = null;
 
 	/**
 	 * The database helper
@@ -90,7 +90,7 @@ class WP_DGV_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/admin.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'css/admin.css' ), 'all' );
+		wp_enqueue_style( 'dgv-admin' );
 	}
 
 	/**
@@ -100,6 +100,10 @@ class WP_DGV_Admin {
 	 */
 	public function enqueue_scripts() {
 
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/screen.php' );
+		}
+
 		// Validate the current screen
 		$current_screen           = get_current_screen();
 		$is_edit_screen           = isset( $_GET['post'] ) && is_numeric( $_GET['post'] );
@@ -107,89 +111,136 @@ class WP_DGV_Admin {
 		$is_gutenberg_active      = wvv_is_gutenberg_active();
 		$is_create_or_edit_screen = $is_create_screen || $is_edit_screen;
 
+		// Sweet alert
+		$this->enqueue_sweetalert();
 
-		// Get all uploads
-		$uploads = null;
-		if ( $is_create_or_edit_screen ) {
-			$current_user_uploads = ! current_user_can( 'administrator' ) && (int) $this->settings_helper->get( 'dgv_local_current_user_only' );
-			$uploads              = $this->db_helper->get_uploaded_videos( $current_user_uploads );
-		}
-
-		// Select2
-		wp_register_script( 'dgv-select2', WP_VIMEO_VIDEOS_URL . 'admin/resources/select2/select2.min.js', null, null, true );
-		wp_register_style( 'dgv-select2', WP_VIMEO_VIDEOS_URL . 'admin/resources/select2/select2.min.css', array(), null, 'all' );
-		// Sweetalert
-		wp_register_script( 'dgv-swal', WP_VIMEO_VIDEOS_URL . 'admin/resources/sweetalert2/sweetalert2.min.js', null, '11.1.4', true );
-		// TUS
-		wp_register_script( 'dgv-tus', WP_VIMEO_VIDEOS_URL . 'admin/resources/tus-js-client/tus.min.js', null, '1.8.0' );
 		// Uploader
-		wp_register_script( 'dgv-uploader', WP_VIMEO_VIDEOS_URL . 'admin/js/uploader.js', array( 'dgv-tus' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/uploader.js' ) );
-		// Upload Modal
-		wp_register_script( 'dgv-upload-modal', WP_VIMEO_VIDEOS_URL . 'admin/js/upload-modal.js', array( 'jquery', 'dgv-uploader' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/upload-modal.js' ) );
-		wp_enqueue_style( 'dgv-upload-modal', WP_VIMEO_VIDEOS_URL . 'admin/css/upload-modal.css', array(), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/css/upload-modal.css' ) );
-		// Admin
-		wp_register_script( $this->plugin_name, WP_VIMEO_VIDEOS_URL . 'admin/js/admin.js', array( 'jquery', 'dgv-uploader' ), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/js/admin.js' ), true );
+		$this->enqueue_vimeo_uploader();
+		$this->enqueue_vimeo_upload_modal();
 
-		// Select2
+		// Admin
+		$this->enqueue_admin_scripts();
+
+		// Gutenbrg block
+		if ( $is_gutenberg_active && $is_create_or_edit_screen ) {
+			$this->enqueue_gutenberg_block();
+			//wp_enqueue_style( 'dgv-dropzone' );
+		}
+	}
+
+	/**
+	 * Enqueue Sweet alert
+	 */
+	public function enqueue_sweetalert() {
+		wp_enqueue_script( 'dgv-swal' );
+	}
+
+	/**
+	 * Enqueue Vimeo Uploader
+	 */
+	public function enqueue_vimeo_uploader() {
+		wp_enqueue_script( 'dgv-tus' );
+		wp_enqueue_script( 'dgv-uploader' );
+	}
+
+	/**
+	 * Enqueue the Upload modal
+	 */
+	public function enqueue_vimeo_upload_modal() {
+		wp_enqueue_script( 'dgv-upload-modal' );
+		wp_enqueue_style( 'dgv-upload-modal' );
+	}
+
+	/**
+	 * Enqueue gutenberg block
+	 */
+	public function enqueue_gutenberg_block() {
+
+		$current_user_uploads = ! current_user_can( 'administrator' ) && (int) $this->settings_helper->get( 'dgv_local_current_user_only' );
+
+		$uploads = $this->db_helper->get_uploaded_videos( $current_user_uploads );
+
+		wp_enqueue_script( 'wvv-vimeo-upload-block' );
+		wp_localize_script( 'wvv-vimeo-upload-block', 'DGVGTB', array(
+			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
+			'access_token'        => $this->settings_helper->get( 'dgv_access_token' ),
+			'enable_vimeo_search' => false,
+			'default_privacy'     => 'anybody',
+			'ajax_url'            => admin_url( 'admin-ajax.php' ),
+			'uploads'             => $uploads,
+			'methods'             => wvv_get_editor_insert_methods(),
+			'words'               => array(
+				'title'        => __( 'Title', 'wp-vimeo-videos' ),
+				'desc'         => __( 'Description', 'wp-vimeo-videos' ),
+				'file'         => __( 'File', 'wp-vimeo-videos' ),
+				'uploading3d'  => __( 'Uploading...', 'wp-vimeo-videos' ),
+				'upload'       => __( 'Upload', 'wp-vimeo-videos' ),
+				'search'       => __( 'Search', 'wp-vimeo-videos' ),
+				'sorry'        => __( 'Sorry', 'wp-vimeo-videos' ),
+				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos' ),
+			),
+			'phrases'             => array(
+				'upload_invalid_file'               => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
+				'invalid_search_phrase'             => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
+				'enter_phrase'                      => __( 'Enter phrase', 'wp-vimeo-videos' ),
+				'select_video'                      => __( 'Select video', 'wp-vimeo-videos' ),
+				'upload_success'                    => __( 'Video uploaded successfully!', 'wp-vimeo-videos' ),
+				'block_title'                       => __( 'Insert Vimeo Video', 'wp-vimeo-videos' ),
+				'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'wp-vimeo-videos' )
+			),
+			'upload_form_options' => array(
+				'enable_privacy_option' => false,
+				'privacy_view'          => $this->api_helper->get_view_privacy_options_for_forms( 'admin' ),
+			)
+		) );
+		wp_enqueue_style( 'wvv-vimeo-upload-block' );
+	}
+
+	/**
+	 * Enqueue admin scripts
+	 */
+	public function enqueue_admin_scripts() {
+
 		if ( ! wp_script_is( 'select2', 'enqueued' ) ) {
 			wp_enqueue_script( 'dgv-select2' );
 		}
 		if ( ! wp_style_is( 'select2', 'enqueued' ) ) {
 			wp_enqueue_style( 'dgv-select2' );
 		}
-		// Sweetalert
-		wp_enqueue_script( 'dgv-swal' );
-		// TUS
-		wp_enqueue_script( 'dgv-tus' );
-		// Uploader
-		wp_enqueue_script( 'dgv-uploader' );
-		// Admin
-		wp_enqueue_script( $this->plugin_name );
-		wp_localize_script( $this->plugin_name, 'DGV', array(
-			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
-			'ajax_url'            => admin_url( 'admin-ajax.php' ),
-			'access_token'        => $this->settings_helper->get( 'dgv_access_token' ),
-			'api_scopes'          => $this->api_helper->scopes,
-			'default_privacy'     => apply_filters( 'dgv_default_privacy', 'anybody' ),
-			'uploading'           => sprintf( '%s %s', '<img src="' . admin_url( 'images/spinner.gif' ) . '">', __( 'Uploading video. Please wait...', 'wp-vimeo-videos' ) ),
-			'sorry'               => __( 'Sorry', 'wp-vimeo-videos' ),
-			'upload_invalid_file' => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
-			'success'             => __( 'Success', 'wp-vimeo-videos' ),
-			'cancel'              => __( 'Cancel', 'wp-vimeo-videos' ),
-			'confirm'             => __( 'Confirm', 'wp-vimeo-videos' ),
-			'close'               => __( 'Close', 'wp-vimeo-videos' ),
-			'correct_errors'      => __( 'Please correct the following errors', 'wp-vimeo-videos' ),
-			'problem_solution'    => __( 'Problem solution' ),
-			'uploads'             => $uploads,
-			'phrases'             => array(
-				'select2' => array(
-					'errorLoading'    => __( 'The results could not be loaded.', 'wp-vimeo-videos' ),
-					'inputTooLong'    => __( 'Please delete {number} character', 'wp-vimeo-videos' ),
-					'inputTooShort'   => __( 'Please enter {number} or more characters', 'wp-vimeo-videos' ),
-					'loadingMore'     => __( 'Loading more results...', 'wp-vimeo-videos' ),
-					'maximumSelected' => __( 'You can only select {number} item', 'wp-vimeo-videos' ),
-					'noResults'       => __( 'No results found', 'wp-vimeo-videos' ),
-					'searching'       => __( 'Searching...', 'wp-vimeo-videos' ),
-					'removeAllItems'  => __( 'Remove all items', 'wp-vimeo-videos' ),
-					'removeItem'      => __( 'Remove item', 'wp-vimeo-videos' ),
-					'search'          => __( 'Search', 'wp-vimeo-videos' ),
-				)
+
+
+		wp_enqueue_script( 'dgv-admin' );
+
+		wp_localize_script( 'dgv-admin', 'DGV', array(
+			'nonce'                         => wp_create_nonce( 'dgvsecurity' ),
+			'ajax_url'                      => admin_url( 'admin-ajax.php' ),
+			'access_token'                  => $this->settings_helper->get( 'dgv_access_token' ),
+			'default_privacy'               => $this->settings_helper->get_default_admin_view_privacy(),
+			'sorry'                         => __( 'Sorry', 'wp-vimeo-videos' ),
+			'upload_invalid_file'           => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
+			'delete_not_allowed'            => __( 'Delete is not allowed because your account doesn\'t have the correct delete scope required by Vimeo.' ),
+			'delete_confirm_title'          => __( 'Are you sure?', 'wp-vimeo-videos' ),
+			'delete_confirm_desc'           => __( 'Are you sure you want to delete this video? This action deletes the video from the Vimeo and can not be reversed.', 'wp-vimeo-videos' ),
+			'delete_whitelist_domain_error' => __( 'Sorry, the domain could not be deleted.', 'wp-vimeo-videos' ),
+			'http_error'                    => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos' ),
+			'success'                       => __( 'Success', 'wp-vimeo-videos' ),
+			'cancel'                        => __( 'Cancel', 'wp-vimeo-videos' ),
+			'confirm'                       => __( 'Confirm', 'wp-vimeo-videos' ),
+			'close'                         => __( 'Close', 'wp-vimeo-videos' ),
+			'delete_confirmation'           => __( 'Are you sure you want to delete this video?', 'wp-vimeo-videos' ),
+			'delete_confirmation_yes'       => __( 'Yes, please', 'wp-vimeo-videos' ),
+			'title'                         => __( 'Title', 'wp-vimeo-videos' ),
+			'description'                   => __( 'Description', 'wp-vimeo-videos' ),
+			'upload'                        => __( 'Upload', 'wp-vimeo-videos' ),
+			'upload_to_vimeo'               => __( 'Upload to vimeo', 'wp-vimeo-videos' ),
+			'correct_errors'                => __( 'Please correct the following errors', 'wp-vimeo-videos' ),
+			'privacy_view'                  => __( 'Who can view this video?', 'wp-vimeo-videos' ),
+			'problem_solution'              => __( 'Problem solution' ),
+			'upload_form_options'           => array(
+				'enable_privacy_option' => (int) $this->settings_helper->get( 'dgv_enable_privacy_option_media', 0 ),
+				'privacy_view'          => $this->api_helper->get_view_privacy_options_for_forms( 'admin' ),
 			)
 		) );
-
-		if ( $is_gutenberg_active && $is_create_or_edit_screen ) {
-			wp_enqueue_script( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/script.js', array(
-				'wp-blocks',
-				'wp-editor',
-				'jquery',
-				'dgv-uploader'
-			), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/script.js' ) );
-			wp_enqueue_style( 'wvv-vimeo-upload-block', WP_VIMEO_VIDEOS_URL . 'admin/blocks/upload/style.css', array(), filemtime( WP_VIMEO_VIDEOS_PATH . 'admin/blocks/upload/style.css' ), 'all' );
-
-			wp_localize_script( 'wvv-vimeo-upload-block', 'DGVUB', array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-			) );
-		}
 	}
 
 	/**
@@ -311,165 +362,6 @@ class WP_DGV_Admin {
 		}
 
 		return $plugin_meta;
-	}
-
-
-	/**
-	 * Register Vimeo Button
-	 *
-	 * @param $buttons
-	 *
-	 * @return mixed
-	 */
-	public function tinymce_vimeo_button( $buttons ) {
-		$is_gutenberg = is_admin() && wvv_is_gutenberg_active();
-
-		if ( $is_gutenberg ) {
-			return $buttons;
-		}
-
-		if ( ! apply_filters( 'dgv_enable_tinymce_upload_plugin', true ) ) {
-			return $buttons;
-		}
-
-		array_push( $buttons, 'dgv_vimeo_button' );
-
-		return $buttons;
-	}
-
-	/**
-	 * Register Vimeo Plugin
-	 *
-	 * @param $plugin_array
-	 *
-	 * @return mixed
-	 */
-	public function tinymce_vimeo_plugin( $plugin_array ) {
-
-		$is_gutenberg = is_admin() && wvv_is_gutenberg_active();
-
-		if ( $is_gutenberg ) {
-			return $plugin_array;
-		}
-
-		if ( ! apply_filters( 'dgv_enable_tinymce_upload_plugin', true ) ) {
-			return $plugin_array;
-		}
-
-		$this->enqueue_tinymce_assets();
-
-		$plugin_array['dgv_vimeo_button'] = WP_VIMEO_VIDEOS_URL . 'admin/js/tinymce-upload.js';
-
-		return $plugin_array;
-	}
-
-	/**
-	 * Add editor styles
-	 */
-	public function tinymce_styles() {
-		add_editor_style( WP_VIMEO_VIDEOS_URL . 'admin/css/upload-modal.css' );
-	}
-
-	/**
-	 * Tinymce globals
-	 *
-	 * @param $settings
-	 */
-	public function tinymce_globals( $settings ) {
-
-		$is_loaded = false;
-
-		if ( is_array( $settings ) ) {
-			foreach ( $settings as $editor_id => $editor ) {
-				if ( isset( $editor['external_plugins'] ) ) {
-					if ( strpos( $editor['external_plugins'], 'dgv_vimeo_button' ) !== false ) {
-						$is_loaded = true;
-					}
-				}
-			}
-		}
-
-		if ( ! $is_loaded ) {
-			return;
-		}
-
-		$this->enqueue_tinymce_assets();
-
-	}
-
-	/**
-	 * Enqueues TinyMCE assets
-	 */
-	public function enqueue_tinymce_assets() {
-		foreach ( array( 'dgv-swal', 'dgv-tus', 'dgv-uploader', 'dgv-upload-modal' ) as $script ) {
-			wp_enqueue_script( $script );
-		}
-		foreach ( array( 'dgv-upload-modal' ) as $style ) {
-			wp_enqueue_style( $style );
-		}
-		// Config
-		$mce_icon     = apply_filters( 'dgv_mce_toolbar_icon_enable', true );
-		$mce_icon_url = $mce_icon ? apply_filters( 'dgv_mce_toolbar_icon_url', esc_url(wvv_get_vimeo_icon_url()) ) : null;
-		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos' ) );
-		$mce_text     = $mce_icon && $mce_text ? sprintf( ' %s', $mce_text ) : $mce_text;
-		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) );
-		wp_localize_script( 'wp-tinymce', 'DGV_MCE_Config', array(
-			'phrases'  => array(
-				'tmce_title'   => $mce_text,
-				'tmce_tooltip' => $mce_tooltip,
-			),
-			'icon'     => $mce_icon,
-			'icon_url' => $mce_icon_url,
-		) );
-		wp_localize_script( 'dgv-upload-modal', 'DGV_Modal_Config', $this->get_modal_config_params() );
-	}
-
-
-	/**
-	 * The modal config params
-	 * @return array
-	 */
-	private function get_modal_config_params() {
-		return array(
-			'nonce'           => $this->get_nonce(),
-			'ajax_url'        => admin_url( 'admin-ajax.php' ),
-			'access_token'    => $this->settings_helper->get( 'dgv_access_token' ),
-			'default_privacy' => 'anybody',
-			'words'           => array(
-				'sorry'        => __( 'Sorry', 'wp-vimeo-videos' ),
-				'success'      => __( 'Success', 'wp-vimeo-videos' ),
-				'title'        => __( 'Title', 'wp-vimeo-videos' ),
-				'desc'         => __( 'Description', 'wp-vimeo-videos' ),
-				'insert'       => __( 'Insert', 'wp-vimeo-videos' ),
-				'search'       => __( 'Search', 'wp-vimeo-videos' ),
-				'searching3d'  => __( 'Searching...', 'wp-vimeo-videos' ),
-				'upload'       => __( 'Upload', 'wp-vimeo-videos' ),
-				'uploading3d'  => __( 'Uploading', 'wp-vimeo-videos' ),
-				'file'         => __( 'File', 'wp-vimeo-videos' ),
-				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos' ),
-			),
-			'phrases'         => array(
-				'title'                 => apply_filters( 'dgv_upload_modal_title', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) ),
-				'http_error'            => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos' ),
-				'upload_invalid_file'   => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
-				'invalid_search_phrase' => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
-				'videos_not_found'      => __( 'No uploaded videos found.', 'wp-vimeo-videos' ),
-				'search_not_found'      => __( 'No matching videos found for your search', 'wp-vimeo-videos' ),
-			),
-			'methods'         => wvv_get_editor_insert_methods(),
-		);
-	}
-
-	/**
-	 * Create nonce
-	 */
-	public function get_nonce() {
-		static $dgv_nonce;
-		if ( empty( $dgv_nonce ) ) {
-			$dgv_nonce = wp_create_nonce( 'dgvsecurity' );
-		}
-
-		return $dgv_nonce;
 	}
 
 	/**

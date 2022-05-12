@@ -238,6 +238,7 @@ function wvv_get_editor_insert_methods() {
 	return array(
 		'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos' ),
 		'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
+		'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos' ),
 	);
 }
 
@@ -251,7 +252,7 @@ function wvv_get_editor_insert_methods() {
  * @since 1.7.0
  */
 function wvv_get_vimeo_icon_url( $size = null ) {
-	return sprintf( '%s/%s', WP_VIMEO_VIDEOS_URL, 'admin/img/icon-64.png' );
+	return sprintf( '%s/%s', WP_VIMEO_VIDEOS_URL, 'shared/img/icon-64.png' );
 }
 
 /**
