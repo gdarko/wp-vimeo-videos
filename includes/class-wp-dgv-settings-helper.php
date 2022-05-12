@@ -178,4 +178,12 @@ class WP_DGV_Settings_Helper
     public function updates_count() {
         return $this->updates_count;
     }
+
+	/**
+	 * Returns the default admin embed privacy
+	 * @return  string
+	 */
+	public function get_default_admin_view_privacy() {
+		return apply_filters( 'dgv_default_privacy', 'anybody' );
+	}
 }
