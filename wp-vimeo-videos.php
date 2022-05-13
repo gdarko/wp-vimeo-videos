@@ -25,7 +25,7 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 
 if ( ! is_plugin_active( 'wp-vimeo-videos-pro/wp-vimeo-videos-pro.php' ) ) {
 
-    define('WP_VIMEO_VIDEOS_VERSION', '1.8.0');
+    define('WP_VIMEO_VIDEOS_VERSION', '1.8.2');
     define('WP_VIMEO_VIDEOS_PATH', plugin_dir_path(__FILE__));
     define('WP_VIMEO_VIDEOS_URL', plugin_dir_url(__FILE__));
     define('WP_VIMEO_VIDEOS_BASENAME', plugin_basename(__FILE__));
@@ -65,7 +65,6 @@ if ( ! is_plugin_active( 'wp-vimeo-videos-pro/wp-vimeo-videos-pro.php' ) ) {
 
 	register_activation_hook( __FILE__, 'activate_wp_vimeo_videos' );
 	register_deactivation_hook( __FILE__, 'deactivate_wp_vimeo_videos' );
-
 
 	/**
 	 * Bootstrap the plugin

@@ -2,9 +2,9 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.8.0
+Stable Tag: 1.8.2
 Requires PHP: 5.5.0
-Tested up to: 5.9
+Tested up to: 6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,20 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 10. GravityForms Integration (PRO version)
 
 == Changelog ==
+
+= Version 1.8.2 =
+- Support for WordPress 6.0
+- Fixed TinyMCE integration javascript queuing problems and conflicts (eg. Ultimate member), etc
+- Fixed PHP Deprecation warnings in PHP8.1
+- Added missing translation texts ("remove" and "Filter") in POT file
+- Added filter dgv_mce_output_markup that allow developers to change behavior of TinyMCE integration output
+- Added dependency check for php-curl, if curl is not installed the plugin will not run instead of triggering fatal error
+
+_PRO ONLY:_
+- Fixed issue with file size limit being ignored in WPForms
+- Fixed issue that hide the "Smart Logic" tab because of conflict with WPForms
+- Fixed GravityForms validation problem with Modern field. If validation failed, the page refreshes and video was lost. The video will now be preserved
+- Updated the Digital License Manager update checker library to the latest version that fixes issues related to deactivting license form Settings
 
 = Version 1.8.0 (Sweetheart) =
 - Added spinner to the settings area
