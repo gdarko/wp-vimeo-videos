@@ -307,7 +307,7 @@ class WP_DGV_List_Table extends \WP_List_Table {
                             <option selected value="<?php echo esc_attr( $filter_author->ID ); ?>"><?php echo esc_html( $filter_author->display_name ); ?></option>
 						<?php endif; ?>
                     </select>
-                    <input type="submit" name="filter_action" id="post-query-submit" class="button-primary" value="<?php _e( 'Filter', 'wp-vimeo-videos' ); ?>">
+                    <button type="submit" name="filter_action" id="post-query-submit" value="Filter" class="button"><?php _e('Filter', 'wp-vimeo-videos'); ?></button>
                     <a href="" class="dgv-clear-selection" data-target=".dgv-select2" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear', 'wp-vimeo-videos' ); ?></a>
                 </div>
             </div>
