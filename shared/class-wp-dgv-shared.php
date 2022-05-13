@@ -299,6 +299,7 @@ class WP_DGV_Shared {
 			),
 			'icon'     => $mce_icon,
 			'icon_url' => $mce_icon_url,
+			'markup'   => apply_filters( 'dgv_mce_output_markup', '[dgv_vimeo_video id="{id}"]' )
 		) );
 		wp_localize_script( 'dgv-upload-modal', 'DGV_Modal_Config', $this->get_modal_config_params() );
 	}

@@ -7,22 +7,27 @@
 
     /**
      * Create shortcode
-     * @param uri
+     * @param data
      * @returns {string}
      */
-    var create_shortcode = function (uri) {
-        return '[dgv_vimeo_video id="' + uri + '"]';
+    var create_shortcode = function (data) {
+
+        var output = DGV_MCE_Config.markup;
+        output = output.replace('{id}', data.uri);
+        output = output.replace('{url}', 'https://vimeo.com/' + data.uri);
+
+        return output;
     };
 
     /**
      * Insert in the current editor
-     * @param uri
+     * @param data
      */
-    var insert_in_editor = function (uri) {
+    var insert_in_editor = function (data) {
         if (!window.hasOwnProperty('currentEditor')) {
             return;
         }
-        window.currentEditor.insertContent(create_shortcode(uri));
+        window.currentEditor.insertContent(create_shortcode(data));
     }
 
     tinymce.PluginManager.add('dgv_vimeo_button', function (editor, url) {
@@ -36,8 +41,8 @@
                 var uploadModal = new WPVimeoVideos.UploaderModal('tinymce');
                 uploadModal.open();
             }
-        }
-        if(DGV_MCE_Config.icon) {
+        };
+        if (DGV_MCE_Config.icon) {
             params.image = DGV_MCE_Config.icon_url;
         }
         editor.addButton('dgv_vimeo_button', params);
@@ -45,12 +50,12 @@
 
     $(window).on('wpdgv.events.insert', function (e, data) {
         if (data.context === 'tinymce') {
-            insert_in_editor(data.uri);
+            insert_in_editor(data);
         }
     })
     $(window).on('wpdgv.events.upload', function (e, data) {
         if (data.context === 'tinymce') {
-            insert_in_editor(data.uri);
+            insert_in_editor(data);
         }
     })
 
