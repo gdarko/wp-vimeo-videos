@@ -143,11 +143,22 @@ function wvv_response_to_uri( $response ) {
  * @since 1.0.0
  *
  */
+/**
+ * Convert Vimeo URI to ID
+ *
+ * @param $uri
+ *
+ * @return mixed
+ * @since 1.0.0
+ *
+ */
 function wvv_uri_to_id( $uri ) {
 
 	if ( is_array( $uri ) ) {
 		if ( isset( $uri['body']['uri'] ) ) {
 			$uri = $uri['body']['uri'];
+		} else if ( isset( $uri['response']['body']['uri'] ) ) {
+			$uri = $uri['response']['body']['uri'];
 		}
 	}
 

@@ -157,7 +157,7 @@ class WP_DGV_Shared {
 			'dgv-select2',
 			WP_VIMEO_VIDEOS_URL . 'shared/resources/select2/select2.min.js',
 			null,
-			null,
+			'4.0.12',
 			true
 		);
 
@@ -165,7 +165,7 @@ class WP_DGV_Shared {
 			'dgv-select2',
 			WP_VIMEO_VIDEOS_URL . 'shared/resources/select2/select2.min.css',
 			array(),
-			null,
+			'4.0.12',
 			'all'
 		);
 
