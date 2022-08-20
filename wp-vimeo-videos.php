@@ -3,7 +3,7 @@
  * Plugin Name:       Video Uploads for Vimeo
  * Plugin URI:        https://codeverve.com
  * Description:       Embed and upload videos to Vimeo directly from WordPress
- * Version:           1.8.2
+ * Version:           1.8.3
  * Author:            Darko Gjorgjijoski
  * Author URI:        https://darkog.com
  * License:           GPL-2.0+
