@@ -23,11 +23,11 @@ var notice = function (message, type) {
 
         var translated = {
             errorLoading: function () {
-                return DGV.phrases.select2.errorLoading;
+                return DGVAdmin.phrases.select2.errorLoading;
             },
             inputTooLong: function (args) {
                 var overChars = args.input.length - args.maximum;
-                var message = DGV.phrases.select2.inputTooShort;
+                var message = DGVAdmin.phrases.select2.inputTooShort;
                 message = message.replace('{number}', overChars);
                 if (overChars != 1) {
                     message += 's';
@@ -36,15 +36,15 @@ var notice = function (message, type) {
             },
             inputTooShort: function (args) {
                 var remainingChars = args.minimum - args.input.length;
-                var message = DGV.phrases.select2.inputTooShort;
+                var message = DGVAdmin.phrases.select2.inputTooShort;
                 message = message.replace('{number}', remainingChars);
                 return message;
             },
             loadingMore: function () {
-                return DGV.phrases.select2.loadingMore;
+                return DGVAdmin.phrases.select2.loadingMore;
             },
             maximumSelected: function (args) {
-                var message = DGV.phrases.select2.maximumSelected;
+                var message = DGVAdmin.phrases.select2.maximumSelected;
                 message = message.replace('{number}', args.maximum);
                 if (args.maximum != 1) {
                     message += 's';
@@ -52,19 +52,19 @@ var notice = function (message, type) {
                 return message;
             },
             noResults: function () {
-                return DGV.phrases.select2.noResults;
+                return DGVAdmin.phrases.select2.noResults;
             },
             searching: function () {
-                return DGV.phrases.select2.searching;
+                return DGVAdmin.phrases.select2.searching;
             },
             removeAllItems: function () {
-                return DGV.phrases.select2.removeAllItems;
+                return DGVAdmin.phrases.select2.removeAllItems;
             },
             removeItem: function () {
-                return DGV.phrases.select2.removeItem;
+                return DGVAdmin.phrases.select2.removeItem;
             },
             search: function () {
-                return DGV.phrases.select2.search;
+                return DGVAdmin.phrases.select2.search;
             }
         }
 
