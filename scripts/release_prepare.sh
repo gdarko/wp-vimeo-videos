@@ -12,7 +12,7 @@ fi
 
 if [ -f "$PLUGINS_ROOT_DIR/$PLUGIN_SLUG.zip" ]; then
   rm "$PLUGINS_ROOT_DIR/$PLUGIN_SLUG.zip"
-endif
+fi
 
 cd $PLUGINS_ROOT_DIR
 
