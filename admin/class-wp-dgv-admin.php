@@ -164,7 +164,7 @@ class WP_DGV_Admin {
 		wp_localize_script( 'wvv-vimeo-upload-block', 'DGVGTB', array(
 			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
 			'access_token'        => $this->settings_helper->get( 'dgv_access_token' ),
-			'enable_vimeo_search' => false,
+			'enable_vimeo_search' => true,
 			'default_privacy'     => 'anybody',
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
 			'uploads'             => $uploads,
