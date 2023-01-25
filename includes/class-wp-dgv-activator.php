@@ -33,7 +33,5 @@ class WP_DGV_Activator {
 		if ( ! class_exists( 'WP_DGV_Db_Helper' ) ) {
 			require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-vimeo-videos-db-helper.php';
 		}
-		$db_helper = new WP_DGV_Db_Helper();
-		$db_helper->set_defaults();
 	}
 }

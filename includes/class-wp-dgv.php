@@ -106,8 +106,14 @@ class WP_DGV {
 		require_once WP_VIMEO_VIDEOS_PATH . 'vendor/autoload.php';
 
 		/**
+		 * The vimeo class
+		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-vimeo.php';
+
+		/**
 		 * The class responsible for settings management
 		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-settings-base.php';
 		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-settings-helper.php';
 
 		/**
@@ -123,11 +129,17 @@ class WP_DGV {
 		/**
 		 * The class responsible for communicating with the vimeo API
 		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-api-base.php';
+
+		/**
+		 * The class responsible for communicating with the vimeo API
+		 */
 		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-api-helper.php';
 
 		/**
 		 * The class responsible for communicating with the database and querying data
 		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-db-base.php';
 		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-db-helper.php';
 
 		/**
@@ -176,7 +188,7 @@ class WP_DGV {
 		/**
 		 * The class responsible for handling all ajax requests
 		 */
-		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-cron-system.php';
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-cron.php';
 
 		/**
 		 * The class responsible defining the internal hooks
@@ -192,6 +204,11 @@ class WP_DGV {
 		 * The class responsible for logging
 		 */
 		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-migrator.php';
+
+		/**
+		 * The class responsible for syncing videos locally
+		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-sync.php';
 
 
 		$this->loader = new WP_DGV_Loader();
@@ -227,7 +244,7 @@ class WP_DGV {
 		// Init Classes
 		$plugin_admin   = new WP_DGV_Admin( $this->get_plugin_name(), $this->get_version() );
 		$ajax_handler   = new WP_DGV_Ajax_Handler( $this->get_plugin_name(), $this->get_version() );
-		$cron_system    = new WP_DGV_Cron_System();
+		$cron_system    = new WP_DGV_Cron();
 		$migrator       = new WP_DGV_Migrator();
 		$internal_hooks = new WP_DGV_Internal_Hooks();
 		$post_types     = new WP_DGV_Post_Types();
@@ -248,9 +265,7 @@ class WP_DGV {
 		$this->loader->add_action( 'init', $post_types, 'init' );
 
 		// Int Cron tasks
-		$this->loader->add_filter( 'cron_schedules', $cron_system, 'cron_schedules', 15, 1 );
-		$this->loader->add_action( 'init', $cron_system, 'register_events' );
-		$this->loader->add_action( 'wvv_event_clean_local_files', $cron_system, 'cleanup' );
+		$cron_system->init( $this );
 
 		// Init Ajax endpoints
 		$this->loader->add_action( 'wp_ajax_dgv_handle_upload', $ajax_handler, 'handle_upload' );
