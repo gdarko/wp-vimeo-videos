@@ -48,8 +48,15 @@ WPVimeoVideos.Uploader = function (accessToken, file, params) {
      */
     this.endpoints = {
         create_video: 'https://api.vimeo.com/me/videos',
+        delete_video: 'https://api.vimeo.com/',
         me: 'https://api.vimeo.com/me/videos',
     };
+
+    /**
+     * The tus uploader instance
+     * @type {null}
+     */
+    this.currentTusUploader = null;
 
 
     /**
@@ -64,7 +71,7 @@ WPVimeoVideos.Uploader = function (accessToken, file, params) {
  * @param obj
  * @returns {string|string}
  */
-WPVimeoVideos.Uploader.serializeObject = function (obj) {
+/*WPVimeoVideos.Uploader.serializeObject = function (obj) {
     var str = "";
     for (var key in obj) {
         if (str != "") {
@@ -73,7 +80,17 @@ WPVimeoVideos.Uploader.serializeObject = function (obj) {
         str += key + "=" + encodeURIComponent(obj[key]);
     }
     return str;
-};
+};*/
+WPVimeoVideos.Uploader.serializeObject = function (obj, key, list) {
+    list = list || [];
+    if (typeof (obj) == 'object') {
+        for (var idx in obj)
+            WPVimeoVideos.Uploader.serializeObject(obj[idx], key ? key + '[' + idx + ']' : idx, list);
+    } else {
+        list.push(key + '=' + encodeURIComponent(obj));
+    }
+    return list.join('&');
+}
 
 /**
  * Check if the file is valid video file.
@@ -149,6 +166,37 @@ WPVimeoVideos.Uploader.prototype.start = function () {
 };
 
 /**
+ * Abort video upload process
+ */
+WPVimeoVideos.Uploader.prototype.abort = function (onSuccess, onError) {
+    if (this.currentTusUploader) {
+        var self = this;
+        this.currentTusUploader.abort(true, function (e) {
+            var http = new XMLHttpRequest();
+            var endpoint = self.endpoints.delete_video + self.currentUpload.uri;
+            http.open('DELETE', endpoint, true);
+            http.setRequestHeader('Authorization', 'bearer ' + self.accessToken);
+            http.setRequestHeader('Content-Type', 'application/json');
+            http.setRequestHeader('Accept', self.accept);
+            http.onreadystatechange = function () {
+                if (http.readyState === XMLHttpRequest.DONE) {
+                    if (http.status > 200 && http.status < 210) { // OK
+                        if (onSuccess) {
+                            onSuccess(http.status, http.responseText);
+                        }
+                    } else if (http.status > 400 && http.status < 500) {
+                        if (onError) {
+                            onError(http.status, http.responseText);
+                        }
+                    }
+                }
+            };
+            http.send();
+        })
+    }
+};
+
+/**
  * Upload video to vimeo
  * @param uploadUrl
  */
@@ -187,8 +235,8 @@ WPVimeoVideos.Uploader.prototype.uploadToVimeo = function (uploadUrl) {
             }
         });
     };
-    upload = new tus.Upload(self.file, options);
-    upload.start();
+    this.currentTusUploader = new tus.Upload(self.file, options);
+    this.currentTusUploader.start();
 };
 /**
  * Used to notify WordPress abount completed upload.
@@ -198,8 +246,12 @@ WPVimeoVideos.Uploader.prototype.notifyWP = function (callback) {
 
     var self = this;
     // Skip the notify call if no valid data provided.
-    if (!self.params.hasOwnProperty('wp') || (self.params.hasOwnProperty('wp') && !self.params.wp.hasOwnProperty('notify_endpoint'))) {
-        console.log('Not valid notify_endpoint specified.');
+    if (!self.params.hasOwnProperty('wp') || (self.params.hasOwnProperty('wp') && !self.params.wp.hasOwnProperty('notify_endpoint')) || false === self.params.wp.notify_endpoint) {
+        if (false === self.params.wp.notify_endpoint) {
+            console.log('Notify endpoint disabled.');
+        } else {
+            console.log('Not valid notify_endpoint specified.');
+        }
         callback(null);
         return;
     }
@@ -226,6 +278,7 @@ WPVimeoVideos.Uploader.prototype.notifyWP = function (callback) {
         description: self.params.description,
         uri: self.currentUpload.uri,
         size: self.file.size,
+        meta: self.params.wp.hasOwnProperty('notify_meta') ? self.params.wp.notify_meta : null,
     });
     http.send(data);
 };
@@ -266,8 +319,8 @@ WPVimeoVideos.Profile.prototype.search = function (params) {
     var self = this;
     var http = new XMLHttpRequest();
     var requestParams = {};
-    for(var i in params) {
-        if(i === 'onSuccess' || i === 'onError') {
+    for (var i in params) {
+        if (i === 'onSuccess' || i === 'onError') {
             continue;
         }
         requestParams[i] = params[i];
@@ -275,7 +328,7 @@ WPVimeoVideos.Profile.prototype.search = function (params) {
 
     requestParams = WPVimeoVideos.Uploader.serializeObject(requestParams);
 
-    http.open('GET', self.endpoints.search  + '?' + requestParams, true);
+    http.open('GET', self.endpoints.search + '?' + requestParams, true);
     http.setRequestHeader('Authorization', 'bearer ' + this.accessToken);
     http.setRequestHeader('Content-Type', 'application/json');
     http.setRequestHeader('Accept', this.accept);

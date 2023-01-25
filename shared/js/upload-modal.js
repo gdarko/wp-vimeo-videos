@@ -12,10 +12,12 @@
      * Uploader modal
      *
      * @param context
+     * @param config
      * @constructor
      */
-    window.WPVimeoVideos.UploaderModal = function (context) {
+    window.WPVimeoVideos.UploaderModal = function (context, config) {
         this.context = context;
+        this.config = config ? config : {};
     };
 
     /**
@@ -25,10 +27,10 @@
     window.WPVimeoVideos.UploaderModal.prototype.form = function () {
 
         var opts = [];
-        if (DGV_Modal_Config.enable_local_search) {
+        if (DGV_Modal_Config.enable_local_search && (!this.config.hasOwnProperty('local') || this.config.local)) {
             opts.push('<label><input type="radio" class="dgv-field-row dgv-insert-type" name="insert_type" value="local">' + DGV_Modal_Config.methods.local + '</label>');
         }
-        if (DGV_Modal_Config.enable_vimeo_search) {
+        if (DGV_Modal_Config.enable_vimeo_search && (!this.config.hasOwnProperty('search') || this.config.search)) {
             opts.push('<label><input type="radio" class="dgv-field-row dgv-insert-type" name="insert_type" value="search">' + DGV_Modal_Config.methods.search + '</label>')
         }
 
@@ -64,13 +66,20 @@
                 '</div>\n';
         }
 
+        var modal_title = (this.config.hasOwnProperty('title') && this.config.title) ? this.config.title : DGV_Modal_Config.phrases.title;
+
+        var data_attr = '';
+        if (this.config.hasOwnProperty('meta') && this.config.meta) {
+            data_attr = "data-meta='" + JSON.stringify(this.config.meta) + "'";
+        }
+
         return '<div id="' + this.context + '" class="dgv-vimeo-upload-form dgv-vimeo-plain-form dgv-text-left">\n' +
             '\n' +
             '    <span class="dgv-close-modal">&#215;</span>\n' +
-            '    <h4 class="wvv-mt-0">' + DGV_Modal_Config.phrases.title + '</h4>\n' +
+            '    <h4 class="wvv-mt-0">' + modal_title + '</h4>\n' +
             '\n' + opts_str + '\n' +
             '    <div class="dgv-insert-wrapper dgv-insert-type-upload" style="' + method_upload_style + '">\n' +
-            '        <form id="dgv-vimeo-upload-modal">\n' +
+            '        <form id="dgv-vimeo-upload-modal" ' + data_attr + '>\n' +
             '            <div class="dgv-vimeo-form-row">\n' +
             '                <label for="vimeo_title">' + DGV_Modal_Config.words.title + '</label>' +
             '                <input type="text" name="vimeo_title" class="dgv-field-row">\n' +
@@ -135,7 +144,7 @@
             showCancelButton: false,
             showConfirmButton: false,
             allowOutsideClick: false,
-            allowEscapeKey : false,
+            allowEscapeKey: false,
             html: form,
         });
     }
@@ -144,6 +153,17 @@
 
 
 (function ($) {
+
+    window.VimeoUploaderModal = {working: false, uploader: null}
+
+    var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    function niceBytes(x){
+        var l = 0, n = parseInt(x, 10) || 0;
+        while(n >= 1024 && ++l){
+            n = n/1024;
+        }
+        return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
+    }
 
     // Handle insert dropdown
     $(document).on('change', '.dgv-insert-type', function (e) {
@@ -261,6 +281,8 @@
 
         var formData = new FormData(this);
         var videoFile = formData.get('vimeo_video');
+        var notify_meta = $(this).data('meta');
+        var notify_endpoint_enabled = true;
 
         if (!WPVimeoVideos.Uploader.validateVideo(videoFile)) {
             swal.fire(DGV_Modal_Config.words.sorry, DGV_Modal_Config.phrases.upload_invalid_file, 'error');
@@ -286,16 +308,18 @@
             $pbar.find('.dgv-progress-bar-inner').css({width: value + '%'})
             $pbar.find('.dgv-progress-bar-value').text(value + '%');
         };
-        var uploader = new WPVimeoVideos.Uploader(DGV_Modal_Config.access_token, videoFile, {
+        window.VimeoUploaderModal.uploader = new WPVimeoVideos.Uploader(DGV_Modal_Config.access_token, videoFile, {
             'title': title,
             'description': description,
             'privacy': privacy,
             'wp': {
-                'notify_endpoint': DGV_Modal_Config.ajax_url + '?action=dgv_store_upload&_wpnonce=' + DGV_Modal_Config.nonce,
+                'notify_endpoint': notify_endpoint_enabled ? (DGV_Modal_Config.ajax_url + '?action=dgv_store_upload&_wpnonce=' + DGV_Modal_Config.nonce) : false,
+                'notify_meta': notify_meta ? notify_meta : null,
             },
             'beforeStart': function () {
                 $loader.css({'display': 'inline-block'});
                 $submit.prop('disabled', true);
+                window.VimeoUploaderModal.working = true;
             },
             'onProgress': function (bytesUploaded, bytesTotal) {
                 var percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
@@ -314,29 +338,49 @@
                 }, 1000);
 
                 swal.fire(DGV_Modal_Config.words.success, message, type);
-
                 var uri = currentUpload.uri;
                 uri = uri.replace('/videos/', '');
-                $(window).trigger('wpdgv.events.upload', [{uri: uri, context: context}])
+                var data = {
+                    name: currentUpload.hasOwnProperty('name') ? currentUpload.name : '',
+                    description: currentUpload.hasOwnProperty('description') ? currentUpload.description : '',
+                    context: context,
+                    uri: uri,
+                    full_uri: currentUpload.uri,
+                    size_formatted: niceBytes(currentUpload.upload.size),
+                    root: currentUpload
+                }
+                window.VimeoUploaderModal.working = false;
+                $(window).trigger('wpdgv.events.upload', [data])
             },
             'onError': function (error) {
+                window.VimeoUploaderModal.working = false;
                 errorHandler($self, error);
             },
             'onVideoCreateError': function (error) {
+                window.VimeoUploaderModal.working = false;
                 errorHandler($self, error);
             },
             'onWPNotifyError': function (error) {
+                window.VimeoUploaderModal.working = false;
                 errorHandler($self, error);
             }
         });
-        uploader.start();
+        window.VimeoUploaderModal.uploader.start();
         return false;
     });
 
     // Close the modal
     $(document).on('click', '.dgv-close-modal', function (e) {
         e.preventDefault();
-        swal.close();
+        if (window.VimeoUploaderModal.working) {
+            if (confirm(DGV_Modal_Config.phrases.cancel_upload_confirm)) {
+                window.VimeoUploaderModal.uploader.abort();
+                window.VimeoUploaderModal.working = false;
+                swal.close();
+            }
+        } else {
+            swal.close();
+        }
     });
 
 })(jQuery);

@@ -315,7 +315,7 @@ class WP_DGV_Shared {
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
 			'access_token'        => $this->settings_helper->get( 'dgv_access_token' ),
 			'default_privacy'     => $this->settings_helper->get_default_admin_view_privacy(),
-			'enable_vimeo_search' => false,
+			'enable_vimeo_search' => true,
 			'enable_local_search' => true,
 			'words'               => array(
 				'sorry'        => __( 'Sorry', 'wp-vimeo-videos' ),
@@ -337,6 +337,7 @@ class WP_DGV_Shared {
 				'invalid_search_phrase' => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
 				'videos_not_found'      => __( 'No uploaded videos found.', 'wp-vimeo-videos' ),
 				'search_not_found'      => __( 'No matching videos found for your search', 'wp-vimeo-videos' ),
+				'cancel_upload_confirm' => esc_html__('Are you sure you want to cancel the upload?', 'wp-vimeo-videos')
 			),
 			'methods'             => wvv_get_editor_insert_methods(),
 			'upload_form_options' => array(
