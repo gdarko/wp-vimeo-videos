@@ -274,7 +274,6 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
             var uploads_options = [];
             uploads_options.push(React.createElement("option", {
                 value: -1,
-                disabled: true,
                 key: 'standard',
             }, message));
 
