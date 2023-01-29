@@ -177,6 +177,7 @@ class WP_DGV {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
+		require_once WP_VIMEO_VIDEOS_PATH . 'admin/class-wp-dgv-admin-screen-options.php';
 		require_once WP_VIMEO_VIDEOS_PATH . 'admin/class-wp-dgv-admin.php';
 
 		/**

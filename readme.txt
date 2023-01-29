@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable tag: 1.8.3
+Stable tag: 1.9.2
 Requires PHP: 5.5.0
 Tested up to: 6.0
 License: GPLv2 or later
@@ -40,6 +40,7 @@ In order to be able to connect to Vimeo you will need to sign up on <a target="_
 * Shortcode available [dgv_vimeo_video id="the_vimeo_id"]
 * Useful API information and tips in the "Settings > Vimeo"
 * Potentional problem detection tool in "Settings > Vimeo" page
+* Syncs videos metadata & removes deleted videos periodically
 
 === Premium Version ===
 
@@ -125,6 +126,19 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 10. GravityForms Integration (PRO version)
 
 == Changelog ==
+
+= Version 1.9.2 =
+- Added ability to cleanly close / stop the upload operation when closing the upload modal
+- Added video status sync, removes videos that were deleted from Vimeo.com
+- Added metadata sync process that runs on every 30 minutes and sync the videos chunk by chunk to keep the server resource usage low
+- Fixed issue related to the disabled video name in the Gutenberg editor
+
+_PRO ONLY:_
+- Added {dgv_vimeo_id} for the GravityForms integration
+- Fixed styling issue related to the Media Library video file upload modal form the list table
+- Fixed issue related to the disabled video name in the Gutenberg editor
+- Removed validation check for the description field (not optional) when uploading file from Media Library list table
+- Improved folders loading in the search
 
 = Version 1.8.3 =
 - Fix issues related to the select2 element

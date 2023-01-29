@@ -126,6 +126,8 @@ class WP_DGV_Admin {
 			$this->enqueue_gutenberg_block();
 			//wp_enqueue_style( 'dgv-dropzone' );
 		}
+
+		new WP_DGV_Admin_Screen_Options();
 	}
 
 	/**
@@ -249,7 +251,7 @@ class WP_DGV_Admin {
 	 * @since 1.0.0
 	 */
 	public function register_admin_menu() {
-		add_media_page(
+		$hook = add_media_page(
 			__( 'WP Vimeo Library', 'wp-vimeo-videos' ),
 			'Vimeo',
 			'upload_files',
