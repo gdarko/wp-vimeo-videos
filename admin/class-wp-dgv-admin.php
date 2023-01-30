@@ -126,8 +126,6 @@ class WP_DGV_Admin {
 			$this->enqueue_gutenberg_block();
 			//wp_enqueue_style( 'dgv-dropzone' );
 		}
-
-		new WP_DGV_Admin_Screen_Options();
 	}
 
 	/**
