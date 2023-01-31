@@ -4,7 +4,7 @@ Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
 Stable tag: 1.9.2
 Requires PHP: 5.5.0
-Tested up to: 6.0
+Tested up to: 6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,7 +40,7 @@ In order to be able to connect to Vimeo you will need to sign up on <a target="_
 * Shortcode available [dgv_vimeo_video id="the_vimeo_id"]
 * Useful API information and tips in the "Settings > Vimeo"
 * Potentional problem detection tool in "Settings > Vimeo" page
-* Syncs videos metadata & removes deleted videos periodically
+* Syncs videos metadata & removes deleted videos periodically using cron
 
 === Premium Version ===
 
