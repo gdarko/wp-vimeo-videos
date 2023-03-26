@@ -1,10 +1,10 @@
-=== Video Uploads for Vimeo ===
+=== Vimeify ===
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable tag: 1.9.2
+Stable Tag: 1.9.3
 Requires PHP: 5.5.0
-Tested up to: 6.1
+Tested up to: 6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,13 +20,13 @@ Especially useful in the following cases:
 
 * If you want to speed up the entire process. No need to login to Vimeo, you can now upload videos to Vimeo directly from WordPress.
 * If you don't want to share your Vimeo login credentials with other people especially when running multi-author blog.
-* If you want to accept videos in the front-end forms (WPForms or GravityForms) uploaded directly to your Vimeo account (feature available in PRO version)
+* If you want to accept videos in the front-end forms (WPForms or GravityForms) uploaded directly to your Vimeo account
 
 === How it works ===
 
 In order to be able to connect to Vimeo you will need to sign up on <a target="_blank" href="https://developer.vimeo.com/">Vimeo Developer Portal</a> and request access to the Vimeo API. Please check the Installation tab and also the **Screenshot #5**.
 
-<a href="https://docs.codeverve.com/video-uploads-for-vimeo" target="_blank">Detailed Guide</a>
+<a href="https://docs.codeverve.com/video-uploads-for-vimeo/" target="_blank">Detailed Guide</a>
 
 === Features  ===
 
@@ -40,11 +40,10 @@ In order to be able to connect to Vimeo you will need to sign up on <a target="_
 * Shortcode available [dgv_vimeo_video id="the_vimeo_id"]
 * Useful API information and tips in the "Settings > Vimeo"
 * Potentional problem detection tool in "Settings > Vimeo" page
-* Syncs videos metadata & removes deleted videos periodically using cron
 
 === Premium Version ===
 
-Core premium features are: **Front-end upload via GravityForms and WPForms**, **Embed Privacy**, **View Privacy**, **Folders** and **Embed Presets management** and a lot more.
+Core premium features are **Front-end upload via GravityForms and WPForms**, **Embed Privacy**, **View Privacy**, **Folders** and **Embed Presets management** and a lot more.
 
 The following is full list of additional features:
 
@@ -127,53 +126,84 @@ The files are streamed directly from your browser to Vimeo using the TUS protoco
 
 == Changelog ==
 
-= Version 1.9.2 =
-- Added ability to cleanly close / stop the upload operation when closing the upload modal
-- Added video status sync, removes videos that were deleted from Vimeo.com
-- Added metadata sync process that runs on every 30 minutes and sync the videos chunk by chunk to keep the server resource usage low
-- Fixed issue related to the disabled video name in the Gutenberg editor
+= Version 1.9.3 =
+* Added option to translate the Gutenberg block name
+* Added option to hide folders, embed privacy, embed presets panels in vimeo edit page
+* Added statistic button on the Vimeo List Table (Media > Vimeo) near settings, if the option to show the users upload only is selected then the statistics will be for the user only
+* Replaced the Settings text with icon in the Vimeo List Table (Media > Vimeo)
+* Added "Screen Options" in the Vimeo List Table (Media > Vimeo)
+* Added option to swap the embed shortcode with link in Media > Vimeo > "Screen Options"
+* Added option to show video description in Media > Vimeo > "Screen Options"
+* Added search bar to the Vimeo List Table (Media > Vimeo)
+* Added explanation modal in settings for longer labels
+* Improved to the Videos table column widths, they will flex based on content size
+* Fixed few other untranslated strings
+* Resynced the i18n .pot template
 
-_PRO ONLY:_
-- Added {dgv_vimeo_id} for the GravityForms integration
-- Fixed styling issue related to the Media Library video file upload modal form the list table
-- Fixed issue related to the disabled video name in the Gutenberg editor
-- Removed validation check for the description field (not optional) when uploading file from Media Library list table
-- Improved folders loading in the search
+= Version 1.9.2 =
+* Added {dgv_vimeo_id} for the GravityForms integration
+* Added ability to cleanly close / stop the upload operation when closing the upload modal
+* Added metadata sync process that runs on every 30 minutes and sync the videos chunk by chunk to keep the server resource usage low
+* Added video status sync, removes videos that were deleted from Vimeo.com
+* Added clickable "Copy to clipboard" icon next to embed link
+* Added filters dgv_gf_title_value, dgv_gf_description_value that allow devs to hook into and modify the GravityForm vimeo subfields (title and description)
+* Added filters dgv_wpforms_title_value, dgv_wpforms_description_value that allow devs to hook into and modify the WPForms vimeo subfields (title and description)
+* Fixed styling issue related to the Media Library video file upload modal form the list table
+* Fixed issue related to the disabled video name in the Gutenberg editor
+* Removed validation check for the description field (not optional) when uploading file from Media Library list table
+* Improved folders loading in the search
+* Resync .pot template
+
+= Version 1.9.1 =
+* Added ajax based folder select in settings and video edit
+* Added experimental javascript upload to the WPForms integration
+* Fix tinymce editor error thrown in some instances
+
+= Version 1.9.0 =
+* Added ACF Vimeo Upload field
+* Improved existing ACF Vimeo Selection field
+* Added support for Vimeo Pull uploads on GravityForms
+* Added support for Vimeo Pull uploads on WPForms
+* Added cron task that removes video files that are already uploaded via Vimeo pull
+* Improved the WPForms integration
 
 = Version 1.8.3 =
-- Fix issues related to the select2 element
+- Fix GravityForms Modern Upload field warning in the editor
+- Added full Support for <a target="_blank" href="https://codeverve.com/product/submissions-to-posts-for-wpforms/">Submissions To Posts for WPForms</a>, more details <a target="_blank" href="https://docs.codeverve.com/video-uploads-for-vimeo/handbook/frontend-uploads/post-creation/">here</a>.
+- Improve select2 script queuing, add version string
 
 = Version 1.8.2 =
 - Support for WordPress 6.0
+- Fixed issue with file size limit being ignored in WPForms
+- Fixed conflict with "Smart Logic" tab that was hidden because of bug caused by our plugin in WPForms
+- Fixed GravityForms validation problem with Modern field. If validation failed, the page refreshes and video was lost. The video will now be preserved
 - Fixed TinyMCE integration javascript queuing problems and conflicts (eg. Ultimate member), etc
 - Fixed PHP Deprecation warnings in PHP8.1
 - Added missing translation texts ("remove" and "Filter") in POT file
 - Added filter dgv_mce_output_markup that allow developers to change behavior of TinyMCE integration output
 - Added dependency check for php-curl, if curl is not installed the plugin will not run instead of triggering fatal error
-
-_PRO ONLY:_
-- Fixed issue with file size limit being ignored in WPForms
-- Fixed issue that hide the "Smart Logic" tab because of conflict with WPForms
-- Fixed GravityForms validation problem with Modern field. If validation failed, the page refreshes and video was lost. The video will now be preserved
 - Updated the Digital License Manager update checker library to the latest version that fixes issues related to deactivting license form Settings
 
+= Version 1.8.1 =
+- Added vimeo/vimeo.php build with Guzzle7 for servers that use PHP7.2+ and Guzzle6 is not present
+- Fixed problem related to GravityForms merge tags that affected notifications and some other integrations
+- Fixed problem with bulk delete
+
 = Version 1.8.0 (Sweetheart) =
+- Added Advanced Custom Fields (ACF) FREE/PRO integration
+- Added bulk actions in the Media > Vimeo list table
 - Added spinner to the settings area
+- Added spinner to the single video "Manage" page when saving the boxes
+- Added various improvements to the "Embed privacy" section
 - Added responsive styling to all plugin pages, it looks good on mobile now.
 - Added link to the video page on the site in the "Manage" screen
 - Added link to the Vimeo.com page in the "Manage" screen
 - Imrpoved notice display. Prevent displaying third-party notices on the plugin's pages
-- Fixed the admin list table pagination and filters, they now work correctly together
-- Fixed the bug that was hidding the pagination for other roles than administrator in th admin list table
-
-_PRO ONLY:_
-- Added Advanced Custom Fields (ACF) FREE/PRO integration
-- Added bulk actions in the Media > Vimeo list table
-- Added spinner to the single video "Manage" page when saving the boxes
-- Added various improvements to the "Embed privacy" section
 - Fixed GravityForms Advanced Post Creation integration
 - Fixed page visibility when single pages are disabled. They were still visible
 - Fixed saving the "Basic Information" in "Manage", bug caused by the "View Privacy" dropdown
+- Fixed the admin list table pagination and filters, they now work correctly together
+- Fixed the bug that was hidding the pagination for other roles than administrator in th admin list table
 - Fixed saving videos without description. It should be possible as vimeo accept it anyway
 - Increased thumbnail cache time to 10 hours for the experimental thumbnails feature
 - Re-styled the "Embed Presets" form in "Manage" screen and added a button to "Upgrade" page from Vimeo.com
@@ -181,126 +211,109 @@ _PRO ONLY:_
 - Improved TinyMCE asset enqueuing, use native wp_enqueue_script/style functions.
 - Security improvements (sanitize & escape) throughout the codebase
 
-= Version 1.7.6 =
-- Various Security improvements
-- Plugin rename to "Video Uploads for Vimeo"
-
 = Version 1.7.3 =
+- Added enhanced LeardDash integration. Besides the Gutenberg & Classic editor integrations, it now integrates in "Video Progression" field in Topic/Lesson settings.
+- Added merge tags support for the GravityForms integration
+- Added support for Live Pro, Live Business, Live Premium, Producer plans
 - Fixed user filter dropdown in Media > Vimeo
+- Fixed Vimeo deletion. It failed to delete remote (vimeo.com) video when user deletes Video form the admin screens
 - Fixed user admin url when clicking on the author in Media > Vimeo
+- Fixed fatal error triggered when activating the plugin
 - Improved the TinyMCE upload modal styling
 - Updated sweetalert2 from version 8.17.1 to version 11.1.4 (latest)
 - Updated and resynced the .pot i18n template to add the new strings
 
-_PRO ONLY:_
-- Added enhanced LeardDash integration. Besides the Gutenberg & Classic editor integrations, it now integrates in "Video Progression" field in Topic/Lesson settings.
-- Added merge tags support for the GravityForms integration
-- Added support for Live Pro, Live Business, Live Premium, Producer plans
-- Fixed Vimeo deletion. It failed to delete remote (vimeo.com) video when user deletes Video form the admin screens
-- Fixed fatal error triggered when activating the plugin
 
 = Version 1.7.2 =
-* Fixed a lot of problems related to lowercase HTTPv2 headers for users that use HTTPv2
-* Improved 'Hide videos uploaded from different authors for non-admin use" option in the Gutenberg and TinyMCE blocks
-* Removed xdebug ini_set/get calls in the logger. The directive to overload var_dump was removed in xdebug.
-* Updated the underlying PHP libraries to their latest versions
-
-_PRO ONLY:_
-* Improved GravityForms front-end processing
-* Improved logging in the front-end implementations
+- Added support for GravityForms 2.5
+- Added support for Live Premium plan
+- Fixed a problem related to the lowercase HTTPv2 headers for users that use HTTPv2 when using the legacy library
+- Fixed 'Hide videos uploaded from different authors for non-admin use" option in the Gutenberg and TinyMCE blocks
+- Removed xdebug ini_set/get calls in the logger. The directive to overload var_dump was removed in xdebug.
+- Updated the underlying PHP libraries to their latest versions
+- Improved logging in the front-end implementations
 
 = Version 1.7.1 =
-* Added additional check if local video is already created, if so, skip creation process in db->create_local_video().
-* Added dgv_before_create_api_video_params filter for filtering the API parameters before remote Video is created. <a target="_blank" href="https://github.com/gdarko/wp-vimeo-videos/issues/26#issuecomment-852452619">More info here</a>
-* Added dgv_before_create_local_video_params filter for filtering the parameters before local Video is created. <a target="_blank" href="https://github.com/gdarko/wp-vimeo-videos/issues/26#issuecomment-852452619">More info here</a>
-* Fixed author filter in tinymce / gutenberg upload modal when show videos of current author option is enabled.
-* Fixed a bug when editing a video title, it was not editing the local video title
-
-_PRO ONLY:_
-
-* Fixed GravityForms integration problem caused by third party plugins making the uploads to fail.
+- Added additional check if local video is already created, if so, skip creation process in db->create_local_video()
+- Added dgv_before_create_api_video_params filter for filtering the API parameters before remote Video is created. <a target="_blank" href="https://github.com/gdarko/wp-vimeo-videos/issues/26#issuecomment-852452619">More info here</a>
+- Added dgv_before_create_local_video_params filter for filtering the parameters before local Video is created. <a target="_blank" href="https://github.com/gdarko/wp-vimeo-videos/issues/26#issuecomment-852452619">More info here</a>
+- Fixed a bug when editing a video title, it was not editing the local video title
+- Fixed GravityForms integration problem caused by third party GravityForms plugins making the uploads to fail.
 
 = Version 1.7.0 =
 
-* Added size column in Vimeo videos admin table
-* Added metadata caching functionality. The plugin now caches the duration, size, dimensions of a video. Useful for future development.
-* Added a lot of improvements to the logging feature. Logs can be found in uploads/wp-vimeo-videos/debug.log
-* Added dgv_upload_modal_title filter for filtering the Upload modal title
-* Added dgv_mce_toolbar_icon_enable filter for enabling or disabling TinyMCE vimeo icon
-* Added dgv_mce_toolbar_tooltip filter for filtering the TinyMCE toolbar tooltip
-* Added dgv_mce_toolbar_icon_url filter for filtering the default Vimeo logo icon
-* Fixed a bug when the view privacy is 'Only those with link'. Video links were pointing to wrong link, instead of private video link
-* Renamed dgv_toolbar_title to dgv_mce_toolbar_title. The filter can be used to change the TinyMCE toolbar title (default: Vimeo). Return empty string to remove it
-* Refactored post upload hooks
-* Link author to its WordPress user profile page in Vimeo videos admin table
+- Added size column in Vimeo videos admin table
+- Added metadata caching functionality. The plugin now caches the duration, size, dimensions of a video. Useful for future development.
+- Added a lot of improvements to the logging feature. Logs can be found in uploads/wp-vimeo-videos/debug.log
+- Added dgv_upload_modal_title filter for filtering the Upload modal title
+- Added dgv_mce_toolbar_icon_enable filter for enabling or disabling TinyMCE vimeo icon
+- Added dgv_mce_toolbar_tooltip filter for filtering the TinyMCE toolbar tooltip
+- Added dgv_mce_toolbar_icon_url filter for filtering the default Vimeo logo icon
+- Fixed a bug when the view privacy is 'Only those with link'. Video links were pointing to wrong link, instead of private video link
+- Renamed dgv_toolbar_title to dgv_mce_toolbar_title. The filter can be used to change the TinyMCE toolbar title (default: Vimeo). Return empty string to remove it.
+- Refactored post upload hooks
+- Link author to its WordPress user profile page in Vimeo videos admin table
+- Added APIs that can be used to integrate chunked progress bar uploads in custom forms (PRO)
+- Switch input field to textarea for description in front-end upload integrations (PRO)
+- Added diagnostics and error messages if access token doesn't support Interact scope. Interact is required for the for the folders functionality. (PRO)
+- Added dgv_frontend_after_upload_gravityforms action triggered after front-end upload using GravityFroms (PRO)
+- Added dgv_frontend_after_upload_wpforms action triggered after front-end upload using WPForms (PRO)
+- Fixed problem with the chunked upload in GravityForms.(PRO)
+- Fixed problem with the styling of the chunked upload progress bar (PRO)
+- Revamped product activation system (PRO)
 
-_PRO ONLY:_
+= Version 1.6.1 =
 
-* Added APIs that can be used to integrate chunked progress bar uploads in custom forms
-* Added [dgv_user_uploads user=current allow_delete=1 allow_edit=1] shortcode that lists the current user uploads and allows the logged in user to manage those if the user is owner of the videos
-* Added diagnostics and error messages if access token doesn't support Interact scope. Interact is required for the for the folders functionality.
-* Switch input field to textarea for description in front-end upload integrations
-* Added dgv_frontend_after_upload_gravityforms action triggered after front-end upload using GravityFroms
-* Added dgv_frontend_after_upload_wpforms action triggered after front-end upload using WPForms
-* Fixed problem with the chunked progress-bar front-end upload in GravityForms.
-* Revamped product activation system
+* Fix chunked uploads problem in WPForms/GravityForms implementations.
 
 = Version 1.6.0 =
 
-* Added TinyMCE / Classic editor support
-* General code improvements
+* Added WPForms integration
+* Added chunked upload support through WPForms (See "Modern" theme in Video Uploads for Vimeo field)
+* Added chunked upload support through GravityForms (See "Modern" field)
+* Added progress bar support on the chunked uploads via WPForms/GravityForms
+* Improved the codebase, rewrote most of the front-end processing for easier integrations in future
 * Fixed various PHP warnings
 * Improved upload form style
 * Improved public video embed (added black color as background)
 * Disabled ESC key close action on Classic Editor / TinyMCE upload form modal
 * Re-synced pot files
 
-_PRO ONLY:_
-
-* Added WPForms integration
-* Added chunked upload support through WPForms (See "Modern" theme in Video Uploads for Vimeo field)
-* Added chunked upload support through GravityForms (See "Modern" field)
-* Added progress bar support on the chunked uploads via WPForms/GravityForms
-* Improved the codebase, rewritten front-end background processing for easier integrations in future
-* Fixed various PHP warnings
-* Added missing text domain on some strings
-
 = Version 1.5.7 =
-
-_PRO ONLY:_
 
 * Add Vimeo Upload support in TutorLMS lesson builder
 * Downgrade Guzzle HTTP client to 6.5.5 to avoid conflicts with other plugins that mostly use version 6.5.5
 
 = Version 1.5.6 =
 
+* Added TutorLMS compatibility for the front-end course builder
 * Added missing .map file for the tus-js-client library
 * Updated the version of the-js-client tus and moved into separate folder
-* Added translations/i18n compatibility for the "Filter" dropdown in Vimeo screen
-* Added missing textdomain to some of the strings
-* Re-synced the .pot file
+* Added/Enabled support for the .mts video format in the front-end upload
+* Updated Vimeo library to the latest version
+* Fixed wp_script_is warning
+* Added missing text domain on some strings
 
-_PRO ONLY:_
+= Version 1.5.5 =
 
 * Added TutorLMS compatibility
 * Added missing asterisk for required file field in GravityForms Front-end upload
+* Added translations/i18n compatibility for the "Filter" dropdown in Vimeo screen
 * Added option to re-use the upload modal used for TinyMCE for integrations with other plugins. Upload modal is now standalone
 * Added default settings import on plugin activation
+* Added missing textdomain to some of the strings
 * Fixed a bug when "Embed domains" is empty, it was making the Video embed privacy as "whitelist", but no whitelisted domains were added
+* Re-synced the .pot file
 
 = Version 1.5.4 =
-
-* Added support for WordPress 5.6
-* Added dgv_settings_get filter to allow filtering options
-* Added dgv_shortcode_output filter to allow filtering the shortcodes
-* Improved compatibility with PHP 8
-
-_PRO ONLY:_
 
 * Added option to disable View Privacy in Gutenberg upload form
 * Added option to disable View Privacy in TinyMCE upload form
 * Added option to disable View Privacy in other media upload forms
+* Added dgv_shortcode_output filter to allow filtering the shortcode
+* Added dgv_settings_get filter to allow filtering the settings
 * Improved TinyMCE sweetalert compatibility with Tutor LMS
+* Improved compatibility with PHP 8
 
 = Version 1.5.3 =
 
@@ -308,11 +321,13 @@ _PRO ONLY:_
 
 = Version 1.5.2 =
 
-_PRO ONLY:_
-
 * Fixed incorrect quota calculaton causing the front-end upload to fail
 * Fixed Date formatting in the Settings API screen
 * Fixed front-end upload validation allowing to continue if failed
+
+= Version 1.5.1 =
+
+* Added support for "Vimeo PRO Unlimited" plan
 
 = Version 1.5.0 =
 
@@ -322,9 +337,6 @@ _PRO ONLY:_
 * Fixed bug in the Gutenberg block that broke the selection of the current block video after upload
 * Fixed bug in the Video edit screen not showing the loader animation
 * Improved style of the Video edit page
-
-_PRO ONLY:_
-
 * Added Embed Preset options in Settings. It's now possible to select default embed preset for both admin/front-end uploads
 * Added Embed Preset options in the Video edit screen. It's now possible to change the embed preset of Video
 * Added Folders options in Settings. It's now possible to select default folder for both admin/front-end uploads
@@ -338,50 +350,56 @@ _PRO ONLY:_
 * Fixed bug in the Gutenberg block that broke the creation of local entries after upload
 
 = Version 1.4.1 =
-
-_PRO ONLY:_
-
 * Added dgv_gravityforms_after_vimeo_upload_tasks_dispatched action that is triggered after vimeo upload background tasks are dispatched.
 
 = Version 1.4.0 =
-* Refactored the settings backend to improve performance during read/write operations
-* Added dgv_uploaded_videos_query_args filter to allow devs to filter the Local Video Library dropdown list in upload modals.
-* Improved code quality
-* Improved the user dropdown in the Library Screen, added lazy loading.
-* Improved translations
-
-_PRO ONLY:_
-
 * Added experimential thumbnails support for the admin list table screen
 * Added option to show only the videos uploaded by the current user in the Local Library dropdown in upload forms
 * Added option to enable/disable video insert methods in Gutenberg and TinyMCE upload forms
 * Added TinyMCE upload form compatibility for the front-end TinyMCE editors utilizing wp_editor() (eg. found in BuddyPress, LearnDash, etc)
+* Added dgv_uploaded_videos_query_args filter to allow devs to filter the Local Video Library dropdown list in upload modals.
 * Added dgv_enable_tinymce_upload_plugin filter to allow devs to enable or disable the TinyMCE plugin completely
+* Refactored the settings backend to improve performance during read/write operations
 * Deprecate wvv_get_whitelisted_domains(),wvv_get_default_admin_view_privacy(),wvv_get_default_frontend_view_privacy() in favor of the new WP_DGV_Settings_Helper class.
-* Improved video deletion process.
+* Improved video deletion process
+* Improved translations
+* Improved code quality
+* Improved the user dropdown in the Library Screen, added lazy loading.
+* Improved 'Not allowed upload' and 'Not connected' preventive screens with more details
+
+= Version 1.3.2 =
+* Fixed support for 'Vimeo Business' plan
+
+= Version 1.3.1 =
+* Added quota validation for the GravityForms front-end upload. If the account quota is less than file report and stop the submission.
+* Added title validation for the GravityFroms front-end upload. Vimeo requires title, if no title is provided report and stop the submission.
+* Added option to change labels position on the GravityFroms front-end upload sub fields (file,title,description)
+* Improved error reporting on the admin upload form
 
 = Version 1.3.0 =
-
-* Fix fatal error in the table screen
-* Improved Gutenberg Upload block, added error reporting
-* Improved Admin Upload form, added error reporting
-
-_PRO ONLY:_
-
-* Improved front-end upload
-* Added option to make videos post type publically accessible
+* Added option to make the videos post type public
+* Added option to manage admin uploads view privacy from the admin UI
+* Added option to manage frontend uploads view privacy from the admin UI
+* Added improved and most recent version of the vimeo-php library. Users that use older than PHP 7.1.0 version will fallback to the old version of the library that we used so far and it was buggy.
+* Added option to manage the 'Media > Vimeo' entries status
+* Improved error logging for better diagnostics
+* Improved gravityforms background upload to Vimeo
+* Fix front-end upload bugs that made the upload not save after finish
+* Added error reporting in the Gutenberg editor. Previously nothing happened if there was error.
+* Improved Settings UI, regroupping and information if specific feature is not available on User's account
 
 = Version 1.2.1 =
-
+* Improved gravityforms front-end upload. Merge tags are now supported: {field:id}, {field:id:title}, {field:id:description}
 * Imrpoved documentation
 * Plugin is now translatable
 
-_PRO ONLY:_
-
-* Improved front-end upload. Merge tags are now supported: {field:id}, {field:id:title}, {field:id:description}
-
 = Version 1.2.0 =
-
+* Added tinyMCE/Classic Editor support
+* Added front-End upload support for GravityForms via field
+* Added Vimeo Video Delete Option
+* Added Vimeo Video Privacy Management
+* Added option to upload existing media library videos to Vimeo
+* Added option to search your Vimeo account when embedding video
 * Added direct link in the admin Vimeo list table
 * Added instructions/welcome screen
 * Added option to enable/disable view access in the list table if the user didn't uploaded the video
@@ -391,15 +409,6 @@ _PRO ONLY:_
 * Added UI improvements in dashboard screens
 * Added useful information in the Settings screen
 * Updated examples
-
-_PRO ONLY:_
-
-* Added tinyMCE/Classic Editor support
-* Added front-End upload support for GravityForms via field
-* Added Vimeo Video Delete Option
-* Added Vimeo Video Privacy Management
-* Added option to upload existing media library videos to Vimeo
-* Added option to search your Vimeo account when embedding video
 
 = Version 1.1.2 =
 * Fix Fatal Error in the Settings page (news section)

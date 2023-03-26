@@ -1,0 +1,6 @@
+{
+    "require": {
+        "vimeo/vimeo-api": "^3.0",
+        "guzzlehttp/guzzle": "6.5.5"
+    }
+}

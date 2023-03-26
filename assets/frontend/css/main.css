@@ -1,0 +1,28 @@
+/**
+// Copyright Darko Gjorgjijoski <info@codeverve.com>
+// 2020. All Rights Reserved.
+// This file is licensed under the GPLv2 License.
+// License text available at https://opensource.org/licenses/gpl-2.0.php
+ */
+
+.dgv-preview-wrap {
+    max-width: 400px;
+}
+.dgv-embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+.dgv-embed-container iframe, .dgv-embed-container object, .dgv-embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.dgv-embed-container iframe {
+    padding: 2px;
+    background: #000000;
+}

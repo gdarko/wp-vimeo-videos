@@ -1,0 +1,22 @@
+{
+  "name": "gdarko/vimeify-pro",
+  "autoload": {
+    "files": [
+      "libraries/autoload.php",
+      "legacy/autoload.php"
+    ],
+    "psr-4": {
+      "Vimeify\\Core\\": "includes/"
+    }
+  },
+  "require": {
+    "ext-openssl": "*",
+    "ext-json": "*"
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "require-dev": {
+    "yoast/phpunit-polyfills": "^1.0"
+  }
+}
