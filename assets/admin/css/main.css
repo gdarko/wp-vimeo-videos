@@ -707,3 +707,9 @@ table.dgv-status-wrapper {
 .dgv-status-wrapper .wvv-status-yellow {
     color: #cfbf08;
 }
+
+
+/* Menu */
+.toplevel_page_vimeify img {
+    width: 18px;
+}
