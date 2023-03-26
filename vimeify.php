@@ -23,14 +23,6 @@ if ( ! file_exists( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' ) ) {
 }
 require_once 'vendor/autoload.php';
 
-
-/*define( 'WP_VIMEO_VIDEOS_VERSION', '1.9.3' );
-define( 'WP_VIMEO_VIDEOS_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WP_VIMEO_VIDEOS_URL', plugin_dir_url( __FILE__ ) );
-define( 'WP_VIMEO_VIDEOS_MIN_PHP_VERSION', '5.5.0' );
-*/
-
-
 if ( ! function_exists( 'vimeify' ) ) {
 
 	/**
