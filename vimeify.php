@@ -3,7 +3,7 @@
  * Plugin Name:       Vimeify
  * Plugin URI:        https://vimeify.com
  * Description:       Embed and upload videos to Vimeo directly from WordPress
- * Version:           1.0.0
+ * Version:           2.0.0
  * Author:            Darko Gjorgjijoski
  * Author URI:        https://vimeify.com
  * License:           GPL-2.0+
