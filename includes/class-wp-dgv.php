@@ -96,14 +96,14 @@ class WP_DGV {
 	private function load_dependencies() {
 
 		/**
+		 * Load vimeo library
+		 */
+		$this->load_vimeo_api_lib();
+
+		/**
 		 * Load the composer packages that are required to run this plugin
 		 */
 		require_once WP_VIMEO_VIDEOS_PATH . 'includes/helpers.php';
-
-		/**
-		 * Load vimeo library
-		 */
-		require_once WP_VIMEO_VIDEOS_PATH . 'vendor/autoload.php';
 
 		/**
 		 * The vimeo class
@@ -213,6 +213,43 @@ class WP_DGV {
 
 		$this->loader = new WP_DGV_Loader();
 
+	}
+
+	/**
+	 * Load the vimeo API library
+	 * @return void
+	 * @since 1.8.1
+	 */
+	private function load_vimeo_api_lib() {
+
+		$use_latest = apply_filters( 'dgv_use_latest_vimeo_client', true );
+		$lib_dir    = WP_VIMEO_VIDEOS_PATH . 'libraries' . DIRECTORY_SEPARATOR;
+		$lib_path   = null;
+
+		/**
+		 * If latest verison is allowed, attempt to determine it.
+		 */
+		if ( $use_latest && version_compare( PHP_VERSION, '7.2.5' ) >= 0 ) {
+			if ( ! class_exists( "\GuzzleHttp\Client" ) ) {
+				$lib_path = 'vimeo-php-guzzle7/vendor/autoload.php';
+			} else {
+				if ( defined( '\GuzzleHttp\Client::MAJOR_VERSION' ) ) {
+					$lib_path = 'vimeo-php-guzzle7/vendor/autoload.php';
+				} else {
+					$lib_path = 'vimeo-php-guzzle6/vendor/autoload.php';
+				}
+			}
+		}
+
+		/**
+		 * Fallback to the legacy version.
+		 */
+		if ( is_null( $lib_path ) ) {
+			$lib_path = 'vimeo-php-legacy/autoload.php';
+		}
+
+		require_once $lib_dir . $lib_path;
+		require_once WP_VIMEO_VIDEOS_PATH . 'includes/class-wp-dgv-vimeo.php';
 	}
 
 	/**
