@@ -139,7 +139,10 @@ class Ajax extends BaseProvider {
 			);
 
 			if ( isset( $_POST['post_id'] ) && is_numeric( $_POST['post_id'] ) ) {
-				$deleted = wp_delete_post( $_POST['post_id'], 1 );
+
+				$post_id = intval($_POST['post_id']);
+
+				$deleted = wp_delete_post( $post_id, 1 );
 				if ( $deleted ) {
 					$args['title']        = __( 'Success' );
 					$args['message']      = __( 'Video deleted successfully.' );
@@ -343,9 +346,9 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$uri = isset( $_POST['uri'] ) ? $_POST['uri'] : '';
+		$uri = isset( $_POST['uri'] ) ? sanitize_text_field( $_POST['uri'] ) : '';
 
-		$privacy_embed = isset( $_POST['privacy_embed'] ) ? $_POST['privacy_embed'] : '';
+		$privacy_embed = isset( $_POST['privacy_embed'] ) ? sanitize_text_field( $_POST['privacy_embed'] ) : '';
 
 		if ( empty( $privacy_embed ) || ! in_array( $privacy_embed, array( 'public', 'whitelist' ) ) ) {
 			wp_send_json_error( array(
@@ -354,7 +357,7 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$whitelist_domain = isset( $_POST['privacy_embed_domain'] ) ? $_POST['privacy_embed_domain'] : '';
+		$whitelist_domain = isset( $_POST['privacy_embed_domain'] ) ? sanitize_text_field( $_POST['privacy_embed_domain'] ) : '';
 
 		try {
 			$network_validator = new NetworkValidator();
@@ -435,7 +438,7 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$uri = isset( $_POST['uri'] ) ? $_POST['uri'] : '';
+		$uri = isset( $_POST['uri'] ) ? sanitize_text_field( $_POST['uri'] ) : '';
 
 		if ( empty( $uri ) ) {
 			wp_send_json_error( array(
@@ -444,7 +447,7 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$whitelist_domain = isset( $_POST['domain'] ) ? $_POST['domain'] : '';
+		$whitelist_domain = isset( $_POST['domain'] ) ? sanitize_text_field( $_POST['domain'] ) : '';
 
 		try {
 			$whitelist_response = $this->plugin->system()->vimeo()->whitelist_domain_remove( $uri, $whitelist_domain );
@@ -489,8 +492,8 @@ class Ajax extends BaseProvider {
 			exit;
 		} else {
 
-			$video_uri       = isset( $_POST['video_uri'] ) ? $_POST['video_uri'] : null;
-			$folder_uri      = isset( $_POST['folder_uri'] ) ? $_POST['folder_uri'] : null;
+			$video_uri       = isset( $_POST['video_uri'] ) ? sanitize_text_field( $_POST['video_uri'] ) : null;
+			$folder_uri      = isset( $_POST['folder_uri'] ) ? sanitize_text_field( $_POST['folder_uri'] ) : null;
 			$vimeo_formatter = new VimeoFormatter();
 			$video_id        = $vimeo_formatter->uri_to_id( $video_uri );
 
@@ -601,8 +604,8 @@ class Ajax extends BaseProvider {
 			exit;
 		} else {
 
-			$video_uri       = isset( $_POST['video_uri'] ) ? $_POST['video_uri'] : null;
-			$preset_uri      = isset( $_POST['embed_preset_uri'] ) ? $_POST['embed_preset_uri'] : null;
+			$video_uri       = isset( $_POST['video_uri'] ) ? sanitize_text_field( $_POST['video_uri'] ) : null;
+			$preset_uri      = isset( $_POST['embed_preset_uri'] ) ? sanitize_text_field( $_POST['embed_preset_uri'] ) : null;
 			$vimeo_formatter = new VimeoFormatter();
 			$video_id        = $vimeo_formatter->uri_to_id( $video_uri );
 
@@ -716,10 +719,10 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$ID        = isset( $_POST['attachment_id'] ) ? sanitize_text_field( $_POST['attachment_id'] ) : null;
-		$title     = isset( $_POST['vimeo_title'] ) && strlen( $_POST['vimeo_title'] ) > 0 ? $_POST['vimeo_title'] : null;
-		$desc      = isset( $_POST['vimeo_description'] ) && strlen( $_POST['vimeo_description'] ) > 0 ? $_POST['vimeo_description'] : null;
-		$view_priv = isset( $_POST['vimeo_view_privacy'] ) && ! empty( $_POST['vimeo_view_privacy'] ) ? $_POST['vimeo_view_privacy'] : null;
+		$ID        = isset( $_POST['attachment_id'] ) ? intval( $_POST['attachment_id'] ) : null;
+		$title     = isset( $_POST['vimeo_title'] ) && strlen( $_POST['vimeo_title'] ) > 0 ? sanitize_text_field( $_POST['vimeo_title'] ) : null;
+		$desc      = isset( $_POST['vimeo_description'] ) && strlen( $_POST['vimeo_description'] ) > 0 ? sanitize_text_field( $_POST['vimeo_description'] ) : null;
+		$view_priv = isset( $_POST['vimeo_view_privacy'] ) && ! empty( $_POST['vimeo_view_privacy'] ) ? sanitize_text_field( $_POST['vimeo_view_privacy'] ) : null;
 
 		if ( is_null( $ID ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos-pro' ) ) );
@@ -804,7 +807,7 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$ID = isset( $_POST['attachment_id'] ) ? sanitize_text_field( $_POST['attachment_id'] ) : null;
+		$ID = isset( $_POST['attachment_id'] ) ? intval( $_POST['attachment_id'] ) : null;
 
 		if ( is_null( $ID ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos-pro' ) ) );

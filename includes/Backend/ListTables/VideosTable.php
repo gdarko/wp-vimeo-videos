@@ -374,7 +374,7 @@ class VideosTable extends \WP_List_Table {
 					wp_redirect( $this->flash->get_current_url( $signature ) );
 					exit;
 				}
-				$records = isset( $_REQUEST['record_id'] ) ? (array) $_REQUEST['record_id'] : array();
+				$records = isset( $_REQUEST['record_id'] ) ? array_map( 'intval', (array) $_REQUEST['record_id'] ) : array();
 				foreach ( $records as $record ) {
 					$vimeo_uri = $this->plugin->system()->database()->get_vimeo_uri( $record );
 					if ( ! empty( $vimeo_uri ) ) {

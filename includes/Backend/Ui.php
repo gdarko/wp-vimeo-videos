@@ -171,7 +171,7 @@ class Ui extends BaseProvider {
 		// Verify dismiss
 		$dismiss_key = 'dgv_instructions_dismissed';
 		if ( isset( $_GET['wvv_dismiss_instructions'] ) && isset( $_GET['wvv_nonce'] ) ) {
-			if ( wp_verify_nonce( $_GET['wvv_nonce'], 'wvv_instructions_dismiss' ) ) {
+			if ( wp_verify_nonce( sanitize_text_field( $_GET['wvv_nonce'] ), 'wvv_instructions_dismiss' ) ) {
 				update_option( $dismiss_key, 1 );
 			}
 		}
@@ -179,7 +179,7 @@ class Ui extends BaseProvider {
 		$instructions_hidden = get_option( $dismiss_key );
 		if ( ! $instructions_hidden || empty( $instructions_hidden ) || intval( $instructions_hidden ) !== 1 ) {
 			$disallowed = array();
-			$page       = isset( $_GET['page'] ) ? $_GET['page'] : null;
+			$page       = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : null;
 			if ( ! in_array( $page, $disallowed ) ) {
 				$this->plugin->system()->views()->get_view( 'admin/partials/instructions' );
 			}
