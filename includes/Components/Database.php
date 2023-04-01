@@ -285,7 +285,8 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	 * Return the upload profile data
 	 *
 	 * @param $id
-	 * @param $key
+	 * @param  null  $key
+	 * @param  null  $default
 	 *
 	 * @return void
 	 */
