@@ -26,6 +26,6 @@
     <hr/>
     
     <p>
-        <a target="_blank" href="<?php echo $plugin->documentation_url(); ?>" class="button-primary"><?php _e('Documentation', 'wp-vimeo-videos-pro'); ?></a>
+        <a target="_blank" href="<?php echo esc_url($plugin->documentation_url()); ?>" class="button-primary"><?php _e('Documentation', 'wp-vimeo-videos-pro'); ?></a>
     </p>
 </div>

@@ -221,7 +221,7 @@ $vimeo_formatter = new \Vimeify\Core\Utilities\Formatters\VimeoFormatter();
                                         <select id="folder_uri" name="folder_uri" class="dgv-select2" data-action="dgv_folder_search" data-placeholder="<?php _e( 'Select folder...', 'wp-vimeo-videos-pro' ); ?>">
                                             <option value="default" <?php selected( 'default', $current_folder_uri ); ?>><?php _e( 'Default (no folder)', 'wp-vimeo-videos-pro' ); ?></option>
 											<?php if ( ! empty( $current_folder_uri ) ): ?>
-                                                <option selected value="<?php echo $current_folder_uri; ?>"><?php echo $current_folder_name; ?></option>
+                                                <option selected value="<?php echo esc_attr($current_folder_uri); ?>"><?php echo esc_html($current_folder_name); ?></option>
 											<?php endif; ?>
                                         </select>
                                     </div>
