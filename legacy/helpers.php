@@ -298,7 +298,7 @@ function wvv_get_purchase_url() {
  * @return string|void
  */
 function wvv_get_settings_url() {
-	return admin_url( 'options-general.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_SETTINGS );
+	return admin_url( 'admin.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_SETTINGS );
 }
 
 /**

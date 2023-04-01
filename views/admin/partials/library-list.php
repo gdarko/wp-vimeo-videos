@@ -4,7 +4,7 @@
 
 <h2 class="dgv-skip-margins"><?php _e( 'Vimeo Videos', 'wp-vimeo-videos-pro' ); ?>
 
-    <a href="<?php echo esc_url( admin_url( 'upload.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_VIMEO . '&action=new' ) ); ?>" class="page-title-action"><?php _e( 'Upload new', 'wp-vimeo-videos-pro' ); ?></a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_VIMEO . '&action=new' ) ); ?>" class="page-title-action"><?php _e( 'Upload new', 'wp-vimeo-videos-pro' ); ?></a>
 
 	<?php if ( current_user_can( 'manage_options' ) ): ?>
         <a href="<?php echo esc_url( $plugin->settings_url() ); ?>" class="page-title-action" title="<?php _e( 'Settings', 'wp-vimeo-videos-pro' ); ?>">
@@ -25,7 +25,7 @@
 
 	<?php
 
-	$list_table = new \Vimeify\Core\Backend\VideosTable( $plugin );
+	$list_table = new \Vimeify\Core\Backend\ListTables\VideosTable( $plugin );
 
 	$list_table->prepare_items();
 

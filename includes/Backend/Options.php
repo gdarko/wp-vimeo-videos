@@ -106,117 +106,29 @@ class Options extends BaseProvider {
 
 		];
 
+		$other_sections = [];
+		$other_settings = [];
 
 		if ( $this->plugin->system()->vimeo()->is_connected ) {
 
 			require_once( ABSPATH . 'wp-includes/pluggable.php' );
 
+			$other_sections = [
+				[
+					'id'    => 'admin',
+					'title' => __( 'Admin Settings', 'wp-vimeo-videos-pro' ),
+				],
+				[
+					'id'    => 'frontend',
+					'title' => __( 'Frontend Settings', 'wp-vimeo-videos-pro' ),
+				],
+				[
+					'id'    => 'upload_profiles',
+					'title' => __( 'Upload Profiles', 'wp-vimeo-videos-pro' ),
+				],
+			];
+
 			$other_settings = [
-
-				/**
-				 * Privacy Settings
-				 */
-				[
-					'id'           => 'view_privacy_admin',
-					'label'        => __( 'Who can view the videos uploaded from the Admin Dashboard on vimeo.com?', 'wp-vimeo-videos-pro' ),
-					'desc'         => '',
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'privacy',
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_view_privacy_options(),
-				],
-				[
-					'id'           => 'view_privacy_frontend',
-					'label'        => __( 'Who can view the videos uploaded from the Front-end on vimeo.com?', 'wp-vimeo-videos-pro' ),
-					'desc'         => '',
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'privacy',
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_view_privacy_options(),
-				],
-				[
-					'id'           => 'embed_domains',
-					'label'        => __( 'Where the uploaded videos can be embedded? (comma separated list of domains)', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Only enable this if you want to prevent embedding your videos on other domains than those specified in this setting.', 'wp-vimeo-videos-pro' ),
-					'std'          => '',
-					'type'         => 'text',
-					'section'      => 'privacy',
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'group'        => true,
-					'operator'     => 'and',
-				],
-
-				/**
-				 * Folders Settings
-				 */
-				[
-					'id'           => 'folder_admin',
-					'label'        => __( 'Admin default uploads folder', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Select a folder for the Vimeo uploads performed in the WordPress admin. Choose "Default" to omit the folders.' ),
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'folders',
-					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_folder_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-					'placeholder'  => __( 'Select folder...', 'wp-vimeo-videos-pro' ),
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_lazyloaded_folder_options( 'admin' ),
-				],
-				[
-					'id'           => 'folder_frontend',
-					'label'        => __( 'Front-end default uploads folder', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Select a folder for the Vimeo uploads performed in the WordPress admin. Choose "Default" to omit the folders.' ),
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'folders',
-					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_folder_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-					'placeholder'  => __( 'Select folder...', 'wp-vimeo-videos-pro' ),
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_lazyloaded_folder_options( 'frontend' ),
-				],
-
-				/**
-				 * Embed Preset Settings
-				 */
-				$this->create_embed_presets_settings( 'admin' ),
-				$this->create_embed_presets_settings( 'frontend' ),
-
-				// Front-end Settngs
-
 				[
 					'id'           => 'behavior',
 					'label'        => __( 'Front-end Behavior', 'theme-text-domain' ),
@@ -233,22 +145,11 @@ class Options extends BaseProvider {
 					'operator'     => 'and',
 					'group'        => true,
 					'choices'      => array(
-						'store_in_library'    => array(
-							'value' => 1,
-							'label' => __( 'Enable saving videos locally (Media > Vimeo) that are uploded from the frontend', 'theme-text-domain' ),
-							'src'   => '',
-						),
 						'enable_single_pages' => array(
 							'value' => 1,
 							'label' => __( 'Enable single video pages for the uploaded videos', 'theme-text-domain' ),
 							'src'   => '',
 						),
-						'use_pull_method'     => array(
-							'value' => 1,
-							'label' => __( 'Enable "pull" uploads for front-end forms', 'theme-text-domain' ),
-							'desc'  => __( 'Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable', 'wp-vimeo-videos-pro' ),
-							'src'   => '',
-						)
 					),
 				],
 
@@ -438,32 +339,88 @@ class Options extends BaseProvider {
 					),
 				],
 
+				[
+					'id'           => 'default',
+					'label'        => __( 'Default', 'wp-vimeo-videos-pro' ),
+					'desc'         => __( 'Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc.', 'wp-vimeo-videos-pro' ),
+					'std'          => '',
+					'type'         => 'select',
+					'section'      => 'upload_profiles',
+					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
+					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
+					'rows'         => '',
+					'post_type'    => '',
+					'taxonomy'     => '',
+					'min_max_step' => '',
+					'class'        => '',
+					'condition'    => '',
+					'operator'     => 'and',
+					'group'        => true,
+					'choices'      => $this->get_lazyloaded_options( 'default', 'upload_profiles' ),
+				],
+
+				[
+					'id'           => 'admin_gutenberg',
+					'label'        => __( 'Gutenberg Block Editor', 'wp-vimeo-videos-pro' ),
+					'desc'         => __( 'Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' ),
+					'std'          => '',
+					'type'         => 'select',
+					'section'      => 'upload_profiles',
+					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
+					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
+					'rows'         => '',
+					'post_type'    => '',
+					'taxonomy'     => '',
+					'min_max_step' => '',
+					'class'        => '',
+					'condition'    => '',
+					'operator'     => 'and',
+					'group'        => true,
+					'choices'      => $this->get_lazyloaded_options( 'admin_gutenberg', 'upload_profiles' ),
+				],
+
+				[
+					'id'           => 'admin_classic',
+					'label'        => __( 'Classic Editor', 'wp-vimeo-videos-pro' ),
+					'desc'         => __( 'Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' ),
+					'std'          => '',
+					'type'         => 'select',
+					'section'      => 'upload_profiles',
+					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
+					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
+					'rows'         => '',
+					'post_type'    => '',
+					'taxonomy'     => '',
+					'min_max_step' => '',
+					'class'        => '',
+					'condition'    => '',
+					'operator'     => 'and',
+					'group'        => true,
+					'choices'      => $this->get_lazyloaded_options( 'admin_classic', 'upload_profiles' ),
+				],
+
+				[
+					'id'           => 'admin_other',
+					'label'        => __( 'Other Backend Forms', 'wp-vimeo-videos-pro' ),
+					'desc'         => __( 'Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below.', 'wp-vimeo-videos-pro' ),
+					'std'          => '',
+					'type'         => 'select',
+					'section'      => 'upload_profiles',
+					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
+					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
+					'rows'         => '',
+					'post_type'    => '',
+					'taxonomy'     => '',
+					'min_max_step' => '',
+					'class'        => '',
+					'condition'    => '',
+					'operator'     => 'and',
+					'group'        => true,
+					'choices'      => $this->get_lazyloaded_options( 'admin_other', 'upload_profiles' ),
+				],
+
 			];
-			$other_sections = [
-				[
-					'id'    => 'admin',
-					'title' => __( 'Admin Interface', 'wp-vimeo-videos-pro' ),
-				],
-				[
-					'id'    => 'frontend',
-					'title' => __( 'Frontend Interface', 'wp-vimeo-videos-pro' ),
-				],
-				[
-					'id'    => 'folders',
-					'title' => __( 'Video Folders', 'wp-vimeo-videos-pro' ),
-				],
-				[
-					'id'    => 'embed_presets',
-					'title' => __( 'Embed Presets', 'wp-vimeo-videos-pro' ),
-				],
-				[
-					'id'    => 'privacy',
-					'title' => __( 'Privacy Settings', 'wp-vimeo-videos-pro' ),
-				]
-			];
-		} else {
-			$other_settings = [];
-			$other_sections = [];
+
 		}
 
 		$sections = array_merge( $required_sections, $other_sections );
@@ -505,60 +462,6 @@ class Options extends BaseProvider {
 		}, 10, 2 );
 	}
 
-
-	/**
-	 * Create embed preset settings
-	 * @return array
-	 */
-	protected function create_embed_presets_settings( $type = 'admin' ) {
-
-		switch ( $type ) {
-			case 'admin':
-				$key   = 'preset_admin';
-				$label = __( 'Default Admin Embed preset', 'wp-vimeo-videos-pro' );
-				$desc  = __( 'Select embed preset for the Vimeo uploads performed in the WordPress admin. Choose "Default" to omit the embed presets.', 'wp-vimeo-videos-pro' );
-				break;
-			case 'frontend':
-				$key   = 'preset_frontend';
-				$label = __( 'Default Frontend Embed preset', 'wp-vimeo-videos-pro' );
-				$desc  = __( 'Select embed preset for the Vimeo uploads performed in the Front-End. Choose "Default" to omit the embed presets.', 'wp-vimeo-videos-pro' );
-				break;
-			default:
-				return [];
-		}
-
-		if ( $this->plugin->system()->vimeo()->supports_embed_presets() ) {
-			return [
-				'id'           => $key,
-				'label'        => $label,
-				'desc'         => $desc,
-				'std'          => '',
-				'type'         => 'select',
-				'section'      => 'embed_presets',
-				'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_embed_preset_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-				'placeholder'  => __( 'Select preset...', 'wp-vimeo-videos-pro' ),
-				'rows'         => '',
-				'post_type'    => '',
-				'taxonomy'     => '',
-				'min_max_step' => '',
-				'class'        => '',
-				'condition'    => '',
-				'operator'     => 'and',
-				'group'        => true,
-				'choices'      => $this->get_lazyloaded_embed_preset_options( $type ), // TODO: Add currently selected choices.
-			];
-		} else {
-			return [
-				'id'      => $key,
-				'label'   => $label,
-				'type'    => 'html',
-				'section' => 'embed_presets',
-				'markup'  => sprintf( '<p><strong>%s</strong>: %s</p>', __( 'Note', 'wp-vimeo-videos-pro' ), __( 'Embed presets are supported on Vimeo PRO or higher plans.', 'wp-vimeo-videos-pro' ) ),
-			];
-		}
-	}
-
-
 	/**
 	 * Create the overview
 	 * @return false|string
@@ -593,77 +496,6 @@ class Options extends BaseProvider {
 	}
 
 	/**
-	 * Transfor the option array
-	 * @return array
-	 */
-	protected function get_view_privacy_options() {
-
-		$option = [];
-
-		$view_privacy_options = $this->plugin->system()->vimeo()->get_view_privacy_options();
-
-		foreach ( $view_privacy_options as $view_privacy_option_key => $view_privacy_option ) {
-
-			$option[] = [
-				'value'    => $view_privacy_option_key,
-				'label'    => $view_privacy_option['name'],
-				'disabled' => isset( $view_privacy_option['available'] ) ? ! (bool) $view_privacy_option['available'] : false,
-				'src'      => '',
-			];
-		}
-
-		return $option;
-	}
-
-	/**
-	 * Return the lazyloaded folder options
-	 *
-	 * @param $type
-	 *
-	 * @return array
-	 */
-	protected function get_lazyloaded_folder_options( $type ) {
-
-		$current_value = $this->plugin->system()->settings()->get( 'folders.folder_' . $type, '' );
-
-		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? $this->plugin->system()->vimeo()->get_folder_name( $current_value ) : __( 'Default (no folder)', 'wp-vimeo-videos-pro' );
-
-		$choices = [
-			[
-				'value' => $current_value,
-				'label' => $current_name,
-			]
-		];
-
-		return $choices;
-
-	}
-
-	/**
-	 * Return the lazyloaded folder options
-	 *
-	 * @param $type
-	 *
-	 * @return array
-	 */
-	protected function get_lazyloaded_embed_preset_options( $type ) {
-
-		$current_value = $this->plugin->system()->settings()->get( 'embed_presets.preset_' . $type, '' );
-
-		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? $this->plugin->system()->vimeo()->get_embed_preset_name( $current_value ) : __( 'Default (no preset)', 'wp-vimeo-videos-pro' );
-
-		$choices = [
-			[
-				'value' => $current_value,
-				'label' => $current_name,
-			]
-		];
-
-		return $choices;
-
-	}
-
-	/**
 	 * Registers the options
 	 *
 	 * @param $sections
@@ -677,11 +509,11 @@ class Options extends BaseProvider {
 			'pages' => [
 				[
 					'id'              => $this->plugin->settings_key(),
-					'parent_slug'     => 'options-general.php',
-					'page_title'      => __( 'Vimeo v2', 'wp-vimeo-videos-pro' ),
-					'menu_title'      => __( 'Vimeo v2', 'wp-vimeo-videos-pro' ),
+					'parent_slug'     => 'vimeify',
+					'page_title'      => __( 'Settings', 'wp-vimeo-videos-pro' ),
+					'menu_title'      => __( 'Settings', 'wp-vimeo-videos-pro' ),
 					'capability'      => 'manage_options',
-					'menu_slug'       => $this->plugin->settings_key(),
+					'menu_slug'       => 'dgv-settings',
 					'icon_url'        => null,
 					'position'        => null,
 					'updated_message' => __( 'Options updated!', 'wp-vimeo-videos-pro' ),
@@ -700,6 +532,30 @@ class Options extends BaseProvider {
 
 		$framework = new \IgniteKit\WP\OptionBuilder\Framework();
 		$framework->register_settings( $this->args );
+	}
+
+	/**
+	 * The default lazyloaded options
+	 * @param $option
+	 * @param $section
+	 *
+	 * @return array[]
+	 */
+	public function get_lazyloaded_options($option, $section) {
+
+		$current_value = $this->plugin->system()->settings()->get( sprintf('%s.%s', $section, $option), '' );
+
+		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? get_the_title($current_value) : __( 'Default', 'wp-vimeo-videos-pro' );
+
+		$choices = [
+			[
+				'value' => $current_value,
+				'label' => $current_name,
+			]
+		];
+
+		return $choices;
+
 	}
 
 

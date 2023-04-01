@@ -48,5 +48,5 @@ $view_privacy = (int) $plugin->system()->settings()->get('admin.media_attachment
     </form>
 </div>
 <p>
-    <a href="<?php echo admin_url( 'upload.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_VIMEO ); ?>"><?php _e( '< Back to library', 'wp-vimeo-videos-pro' ); ?></a>
+    <a href="<?php echo admin_url( 'admin.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_VIMEO ); ?>"><?php _e( '< Back to library', 'wp-vimeo-videos-pro' ); ?></a>
 </p>

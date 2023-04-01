@@ -214,7 +214,7 @@ var notice = function (message, type) {
             'description': description,
             'privacy': privacy,
             'wp': {
-                'notify_endpoint': DGV.ajax_url + '?action=dgv_store_upload&_wpnonce=' + DGV.nonce,
+                'notify_endpoint': DGV.ajax_url + '?action=dgv_store_upload&source=Backend.Form.Upload&_wpnonce=' + DGV.nonce,
             },
             'beforeStart': function () {
                 $loader.css({'display': 'inline-block'});

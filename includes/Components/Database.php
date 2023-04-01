@@ -5,6 +5,7 @@ namespace Vimeify\Core\Components;
 use Vimeify\Core\Abstracts\Interfaces\DatabaseInterface;
 use Vimeify\Core\Abstracts\Interfaces\SystemComponentInterface;
 use Vimeify\Core\Abstracts\Interfaces\SystemInterface;
+use Vimeify\Core\Utilities\Arrays\DotNotation;
 use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 
 /********************************************************************
@@ -39,6 +40,7 @@ use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 class Database implements DatabaseInterface, SystemComponentInterface {
 
 	const POST_TYPE_UPLOADS = 'dgv-upload';
+	const POST_TYPE_UPLOAD_PROFILES = 'dgv-uprofile';
 
 	/**
 	 * The WPDB Instance
@@ -277,5 +279,55 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 		}
 
 		return (int) $wpdb->get_var( $query );
+	}
+
+	/**
+	 * Return the upload profile data
+	 *
+	 * @param $id
+	 * @param $key
+	 *
+	 * @return void
+	 */
+	public function get_upload_profile_option( $id, $key = null, $default = null ) {
+
+		static $cache = [];
+
+		if ( ! isset( $cache[ $id ] ) ) {
+			$cache[ $id ] = get_post_meta( $id, 'profile_settings', true );
+		}
+
+		if ( ! empty( $cache[ $id ] ) ) {
+			if ( is_null( $key ) ) {
+				return $cache[ $id ];
+			} else {
+				$arrayDot = new DotNotation( $cache[ $id ] );
+
+				return $arrayDot->get( $id, $default );
+			}
+		} else {
+			return $default;
+		}
+
+	}
+
+	/**
+	 * Returns list of whitelisted domains
+	 * @return array
+	 */
+	public function get_upload_profile_whitelisted_domains( $id ) {
+		$domains   = array();
+		$whitelist = $this->get_upload_profile_option( $id, 'privacy.embed_domains' );
+		if ( ! empty( $whitelist ) ) {
+			$parts = explode( ',', $whitelist );
+			foreach ( $parts as $domain ) {
+				if ( empty( $domain ) || false === filter_var( $domain, FILTER_VALIDATE_DOMAIN ) ) {
+					continue;
+				}
+				array_push( $domains, $domain );
+			}
+		}
+
+		return $domains;
 	}
 }

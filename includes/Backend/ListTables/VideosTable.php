@@ -1,12 +1,13 @@
 <?php
 
-namespace Vimeify\Core\Backend;
+namespace Vimeify\Core\Backend\ListTables;
 
 use Vimeify\Core\Plugin;
 use Vimeify\Core\Utilities\Formatters\ByteFormatter;
 use Vimeify\Core\Utilities\Formatters\WPFormatter;
 use Vimeify\Core\Utilities\ScreenOptions;
 use Vimeify\Core\Utilities\TableFlash;
+use Vimeify\Core\Backend\Ui;
 
 class VideosTable extends \WP_List_Table {
 
@@ -165,7 +166,7 @@ class VideosTable extends \WP_List_Table {
 		$vimeo_uri  = $this->plugin->system()->database()->get_vimeo_uri( $item->ID );
 		$vimeo_id   = $this->plugin->system()->database()->get_vimeo_id( $item->ID );
 		$url_vimeo  = $this->plugin->system()->database()->get_vimeo_link( $item->ID );
-		$url_edit   = admin_url( 'upload.php?page=' . Ui::PAGE_VIMEO . '&action=edit&id=' . $item->ID );
+		$url_edit   = admin_url( 'admin.php?page=' . Ui::PAGE_VIMEO . '&action=edit&id=' . $item->ID );
 		$url_local  = get_permalink( $item->ID );
 
 		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_edit, $item->ID, __( 'Manage this video', 'wp-vimeo-videos-pro' ), __( 'Manage', 'wp-vimeo-videos-pro' ) );
@@ -249,7 +250,7 @@ class VideosTable extends \WP_List_Table {
 	 */
 	protected function get_views() {
 		return [
-			'local' => sprintf( '<a class="current" aria-current="page" href="%s">%s</a>', add_query_arg( [ 'type' => 'local' ], admin_url( 'upload.php?page=' . Ui::PAGE_VIMEO ) ), __( 'Local', 'wp-vimeo-videos-pro' ) ),
+			'local' => sprintf( '<a class="current" aria-current="page" href="%s">%s</a>', add_query_arg( [ 'type' => 'local' ], admin_url( 'admin.php?page=' . Ui::PAGE_VIMEO ) ), __( 'Local', 'wp-vimeo-videos-pro' ) ),
 			'vimeo' => sprintf( '<a class="disabled" title="%s" href="#">%s</a>', __( 'Feature coming soon!', 'wp-vimeo-videos-pro' ), __( 'Vimeo', 'wp-vimeo-videos-pro' ) ),
 		];
 	}

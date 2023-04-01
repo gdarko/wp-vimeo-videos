@@ -38,7 +38,9 @@
             tooltip: DGV_MCE_Config.phrases.tmce_tooltip,
             onclick: function () {
                 window.currentEditor = tmpEditor;
-                var uploadModal = new WPVimeoVideos.UploaderModal('tinymce');
+                var uploadModal = new WPVimeoVideos.UploaderModal('tinymce', {
+                    source: $('body').hasClass('wp-admin') ? 'Backend.Editor.Classic' : 'Frontend.Editor.Classic'
+                });
                 uploadModal.open();
             }
         };

@@ -118,7 +118,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                 'description': props.attributes.description,
                 'privacy': privacy,
                 'wp': {
-                    'notify_endpoint': DGVGTB.ajax_url + '?action=dgv_store_upload&_wpnonce=' + DGVGTB.nonce,
+                    'notify_endpoint': DGVGTB.ajax_url + '?action=dgv_store_upload&source=Backend.Editor.Gutenberg&_wpnonce=' + DGVGTB.nonce,
                 },
                 'beforeStart': function () {
                     submitButton.disabled = true;

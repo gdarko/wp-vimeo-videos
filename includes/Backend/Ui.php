@@ -6,8 +6,8 @@ use Vimeify\Core\Abstracts\BaseProvider;
 
 class Ui extends BaseProvider {
 
-	const PAGE_VIMEO = 'dgv-library';
-	const PAGE_SETTINGS = 'dgv-settings';
+	const PAGE_VIMEO = 'vimeify';
+	const PAGE_SETTINGS = 'vimeify';
 
 
 	public $screen_options;
@@ -19,11 +19,12 @@ class Ui extends BaseProvider {
 	public function register() {
 
 		add_action( 'in_admin_header', [ $this, 'do_admin_notices' ], 50 );
-		add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
+		add_action( 'admin_menu', [ $this, 'register_admin_menu' ], 5 );
 		add_action( 'add_meta_boxes', [ $this, 'register_media_library_upload_metabox' ] );
 		add_filter( 'manage_media_columns', [ $this, 'manage_media_columns' ], 15, 1 );
 		add_action( 'manage_media_custom_column', [ $this, 'manage_media_custom_column' ], 15, 2 );
 		add_filter( 'plugin_action_links_' . $this->plugin->basename(), [ $this, 'plugin_action_links' ], 100, 1 );
+
 
 		$this->screen_options = new \Vimeify\Core\Utilities\ScreenOptions(
 			[
@@ -42,13 +43,32 @@ class Ui extends BaseProvider {
 	 * @since 1.0.0
 	 */
 	public function register_admin_menu() {
-		add_media_page(
-			__( 'Vimeo Library', 'wp-vimeo-videos-pro' ),
-			'Vimeo',
+
+		add_menu_page(
+			__('Vimeify - Vimeo Uploads', 'vimeify'),
+			__('Vimeify', 'vimeify'),
 			'upload_files',
-			self::PAGE_VIMEO,
-			array( $this, 'render_vimeo_page' )
+			'vimeify',
+			array( $this, 'render_vimeo_page' ),
+			$this->plugin->icon('20'),
+			5
 		);
+
+		add_submenu_page('vimeify',
+			__('Vimeify - All Videos', 'vimeify'),
+			__('All Videos', 'vimeify'),
+			'upload_files',
+			'vimeify'
+		);
+
+		add_submenu_page(
+			'vimeify',
+			__('Vimeify - Upload Profiles', 'vimeify'),
+			__('Upload Profiles'),
+			'upload_files',
+			'edit.php?post_type=dgv-uprofile'
+		);
+
 	}
 
 	/**

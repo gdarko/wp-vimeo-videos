@@ -721,7 +721,7 @@ class WP_DGV_Api_Helper {
 				'vimeo_id'          => wvv_uri_to_id( $response ),
 				'vimeo_size'        => $file_size,
 				'source'            => array(
-					'software' => 'API::upload',
+					'software' => 'API.Upload',
 				),
 			) );
 		}
@@ -762,7 +762,7 @@ class WP_DGV_Api_Helper {
 				'vimeo_id'          => wvv_uri_to_id( $response ),
 				'vimeo_size'        => false,
 				'source'            => array(
-					'software' => 'API::upload_pull',
+					'software' => 'API.UploadPull',
 				),
 			) );
 		}

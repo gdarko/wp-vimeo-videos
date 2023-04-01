@@ -45,6 +45,8 @@
             method_upload_style = 'display: none;';
         }
 
+        var source = this.config.hasOwnProperty('source') ? this.config.source : 'Default';
+
         var privacy_option = '';
 
         if (DGV_Modal_Config.upload_form_options.enable_privacy_option && null !== DGV_Modal_Config.upload_form_options.privacy_view) {
@@ -80,6 +82,7 @@
             '\n' + opts_str + '\n' +
             '    <div class="dgv-insert-wrapper dgv-insert-type-upload" style="' + method_upload_style + '">\n' +
             '        <form id="dgv-vimeo-upload-modal" ' + data_attr + '>\n' +
+            '            <input type="hidden" name="vimeo_source" value="'+source+'"'+
             '            <div class="dgv-vimeo-form-row">\n' +
             '                <label for="vimeo_title">' + DGV_Modal_Config.words.title + '</label>' +
             '                <input type="text" name="vimeo_title" class="dgv-field-row">\n' +
@@ -292,6 +295,7 @@
         var title = formData.get('vimeo_title');
         var description = formData.get('vimeo_description');
         var privacy = formData.get('vimeo_view_privacy');
+        var source = formData.get('vimeo_source') ? formData.get('vimeo_source') : 'UploadModal';
         if (!privacy) {
             privacy = DGV_Modal_Config.default_privacy;
         }
@@ -313,7 +317,7 @@
             'description': description,
             'privacy': privacy,
             'wp': {
-                'notify_endpoint': notify_endpoint_enabled ? (DGV_Modal_Config.ajax_url + '?action=dgv_store_upload&_wpnonce=' + DGV_Modal_Config.nonce) : false,
+                'notify_endpoint': notify_endpoint_enabled ? (DGV_Modal_Config.ajax_url + '?action=dgv_store_upload&source='+source+'&_wpnonce=' + DGV_Modal_Config.nonce) : false,
                 'notify_meta': notify_meta ? notify_meta : null,
             },
             'beforeStart': function () {

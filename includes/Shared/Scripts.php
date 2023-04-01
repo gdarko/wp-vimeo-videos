@@ -285,7 +285,7 @@ class Scripts extends BaseProvider {
 			'nonce'               => $this->get_nonce(),
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
 			'access_token'        => $this->plugin->system()->settings()->get( 'api_credentials.access_token' ),
-			'default_privacy'     => $this->plugin->system()->settings()->get_default_admin_view_privacy(),
+			'default_privacy'     => $this->plugin->system()->settings()->get_default_view_privacy('admin_classic'),
 			'enable_vimeo_search' => $this->plugin->system()->settings()->get( 'admin.tinymce.enable_account_search' ),
 			'enable_local_search' => $this->plugin->system()->settings()->get( 'admin.tinymce.enable_local_search' ),
 			'words'               => array(

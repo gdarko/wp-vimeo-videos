@@ -182,54 +182,54 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 
 	/**
 	 * Returns the default admin embed privacy
+	 *
+	 * @param $profile  (gutenberg, classic)
+	 *
 	 * @return  string
 	 */
-	public function get_default_admin_view_privacy() {
-		$privacy = $this->get( 'privacy.view_privacy_admin' );
+	public function get_default_view_privacy( $profile = 'default' ) {
+
+		$profile_id = $this->system->settings()->get( 'upload_profiles.' . $profile );
+		$privacy    = $this->system->database()->get_upload_profile_option( $profile_id, 'view_privacy' );
+
 		if ( ! in_array( $privacy, array( 'anybody', 'contact', 'disable', 'nobody', 'unlisted' ) ) ) {
 			$privacy = 'anybody';
 		}
 
-		return apply_filters( 'dgv_default_privacy', $privacy );
+		return apply_filters( 'dgv_default_privacy', $privacy, $profile );
 	}
 
 	/**
-	 * Returns the default front-end view privacy
-	 * @return string
+	 * Return upload profile by context
+	 *
+	 * @param $context
+	 *
+	 * @return int|null
 	 */
-	public function get_default_frontend_view_privacy() {
-		$privacy = $this->get( 'privacy.view_privacy_frontend' );
-		if ( ! in_array( $privacy, array( 'anybody', 'contact', 'disable', 'nobody', 'unlisted' ) ) ) {
-			$privacy = 'anybody';
-		}
-		if ( $privacy === 'unlisted' ) { // Only available in paid versions.
-			if ( $this->system->vimeo()->is_free() ) {
-				$privacy = 'anybody';
-				$this->set( 'privacy.view_privacy_frontend', $privacy );
-			}
-		}
+	public function get_upload_profile_by_context( $context ) {
 
-		return apply_filters( 'dgv_default_privacy_frontend', $privacy );
-	}
-
-	/**
-	 * Returns list of whitelisted domains
-	 * @return array
-	 */
-	public function get_whitelisted_domains() {
-		$domains   = array();
-		$whitelist = $this->get( 'privacy.embed_domains' );
-		if ( ! empty( $whitelist ) ) {
-			$parts = explode( ',', $whitelist );
-			foreach ( $parts as $domain ) {
-				if ( empty( $domain ) || false === filter_var( $domain, FILTER_VALIDATE_DOMAIN ) ) {
-					continue;
-				}
-				array_push( $domains, $domain );
-			}
+		switch ( $context ) {
+			case 'Backend.Editor.Classic':
+				$profile = $this->get( 'upload_profiles.admin_tinymce', null );
+				break;
+			case 'Backend.Editor.Gutenberg':
+				$profile = $this->get( 'upload_profiles.admin_gutenberg', null );
+				break;
+			case 'Backend.Form.Attachment':
+			case 'Backend.Form.Upload':
+				$profile = $this->get( 'upload_profiles.admin_other', null );
+				break;
+			default:
+				$profile = $this->get( 'upload_profiles.default' );
+				break;
 		}
 
-		return $domains;
+		if ( is_numeric( $profile ) ) {
+			$profile = (int) $profile;
+		}
+
+		return apply_filters( 'dgv_upload_profile_by_context', $profile, $context, $this );
+
 	}
 
 	/**
@@ -336,10 +336,6 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 	 */
 	public function get_defaults() {
 		return array(
-			'privacy.view_privacy_admin'                  => 'anybody',
-			'privacy.view_privacy_frontend'               => 'anybody',
-			'folders.folder_admin'                        => 'default',
-			'folders.folder_frontend'                     => 'default',
 			'admin.tinymce.enable_account_search'         => '1',
 			'admin.tinymce.enable_local_search'           => '1',
 			'admin.tinymce.show_author_uploads_only'      => '0',
@@ -349,7 +345,6 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 			'admin.video_management.enable_embed_presets' => '1',
 			'admin.video_management.enable_embed_privacy' => '1',
 			'admin.video_management.enable_folders'       => '1',
-			'frontend.behavior.store_in_library'          => '1',
 		);
 	}
 

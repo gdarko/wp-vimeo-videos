@@ -17,10 +17,10 @@
     <hr/>
 
     <p>
-        <a href="<?php echo admin_url( 'upload.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_VIMEO ); ?>"
+        <a href="<?php echo admin_url( 'admin.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_VIMEO ); ?>"
            class="button"><?php _e( 'Back', 'wp-vimeo-videos-pro' ); ?></a>
 
-        <a href="<?php echo admin_url( 'options-general.php?page=' .  \Vimeify\Core\Backend\Ui::PAGE_SETTINGS . '&action=settings' ); ?>"
+        <a href="<?php echo admin_url( 'admin.php?page=' .  \Vimeify\Core\Backend\Ui::PAGE_SETTINGS ); ?>"
            class="button-primary"><?php _e( 'Settings', 'wp-vimeo-videos-pro' ); ?></a>
     </p>
 

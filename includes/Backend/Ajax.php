@@ -3,6 +3,7 @@
 namespace Vimeify\Core\Backend;
 
 use Vimeify\Core\Abstracts\BaseProvider;
+use Vimeify\Core\Components\Database;
 use Vimeify\Core\Utilities\Formatters\ByteFormatter;
 use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 use Vimeify\Core\Utilities\Validators\NetworkValidator;
@@ -28,6 +29,7 @@ class Ajax extends BaseProvider {
 		add_action( 'wp_ajax_dgv_attachment2vimeo_delete', [ $this, 'handle_attachment2vimeo_delete' ] );
 		add_action( 'wp_ajax_dgv_user_search', [ $this, 'handle_user_search' ] );
 		add_action( 'wp_ajax_dgv_folder_search', [ $this, 'handle_folder_search' ] );
+		add_action( 'wp_ajax_dgv_upload_profile_search', [ $this, 'handle_upload_profile_search' ] );
 		add_action( 'wp_ajax_dgv_embed_preset_search', [ $this, 'handle_embed_preset_search' ] );
 		add_action( 'wp_ajax_dgv_generate_stats', [ $this, 'handle_generate_stats' ] );
 
@@ -62,8 +64,9 @@ class Ajax extends BaseProvider {
 		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Untitled', 'wp-vimeo-videos-pro' );
 		$description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
 		$size        = isset( $_POST['size'] ) ? intval( $_POST['size'] ) : false;
-		$meta        = isset( $_POST['meta'] ) ? $_POST['meta'] : null;
+		$meta        = isset( $_POST['meta'] ) && is_array( $_POST['meta'] ) ? array_map( 'sanitize_text_field', $_POST['meta'] ) : [];
 		$uri         = sanitize_text_field( $_POST['uri'] );
+		$source      = isset( $_REQUEST['source'] ) ? sanitize_text_field( $_REQUEST['source'] ) : null;
 
 
 		$vimeo_formatter = new VimeoFormatter();
@@ -83,7 +86,7 @@ class Ajax extends BaseProvider {
 			'vimeo_size'        => $size,
 			'vimeo_meta'        => $meta,
 			'source'            => array(
-				'software' => 'Editor',
+				'software' => $source,
 			),
 		) );
 
@@ -234,10 +237,10 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$uri          = isset( $_POST['uri'] ) ? $_POST['uri'] : '';
-		$name         = isset( $_POST['name'] ) ? $_POST['name'] : '';
-		$description  = isset( $_POST['description'] ) ? $_POST['description'] : '';
-		$view_privacy = isset( $_POST['view_privacy'] ) ? $_POST['view_privacy'] : '';
+		$uri          = isset( $_POST['uri'] ) ? sanitize_text_field( $_POST['uri'] ) : '';
+		$name         = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+		$description  = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
+		$view_privacy = isset( $_POST['view_privacy'] ) ? sanitize_text_field( $_POST['view_privacy'] ) : '';
 
 		if ( empty( $name ) ) {
 			wp_send_json_error( array(
@@ -761,7 +764,7 @@ class Ajax extends BaseProvider {
 					'view_privacy' => $view_priv,
 				),
 				'source'            => array(
-					'software' => 'Media Table',
+					'software' => 'Backend.Form.Attachment',
 					'media_id' => $ID,
 				)
 			) );
@@ -829,7 +832,7 @@ class Ajax extends BaseProvider {
 						'id'     => $ID,
 						'plugin' => $this->plugin,
 					] ),
-					'data' => json_encode( $response )
+					'data'              => json_encode( $response )
 				) );
 
 			} catch ( \Exception $e ) {
@@ -929,8 +932,6 @@ class Ajax extends BaseProvider {
 	 * Handles folder search
 	 * @return void
 	 */
-
-
 	public function handle_folder_search() {
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
@@ -974,6 +975,50 @@ class Ajax extends BaseProvider {
 				'more' => isset( $folders_response['paging']['has_more'] ) ? $folders_response['paging']['has_more'] : false,
 			]
 		] );
+	}
+
+	/**
+	 * Handles the profile search
+	 * @return void
+	 */
+	public function handle_upload_profile_search() {
+
+		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
+			wp_send_json_error( array(
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+			) );
+			exit;
+		}
+
+		$phrase   = isset( $_REQUEST['search_str'] ) ? sanitize_text_field( $_REQUEST['search_str'] ) : '';
+		$page_num = isset( $_REQUEST['page_number'] ) ? intval( $_REQUEST['page_number'] ) : 1;
+		$per_page = 25;
+
+		$params = [
+			'post_type'      => Database::POST_TYPE_UPLOAD_PROFILES,
+			'post_status'    => 'publish',
+			'posts_per_page' => $per_page,
+			'paged'          => $page_num,
+			's'              => $phrase,
+		];
+
+		$items = [];
+		$query = new \WP_Query( $params );
+
+		foreach ( $query->posts as $entry ) {
+			$items[] = [
+				'id'   => $entry->ID,
+				'text' => $entry->post_title,
+			];
+		}
+
+		wp_send_json_success( [
+			'results'    => $items,
+			'pagination' => [
+				'more' => $page_num < $query->max_num_pages,
+			]
+		] );
+
 	}
 
 	/**
@@ -1070,8 +1115,10 @@ class Ajax extends BaseProvider {
 	 */
 	private function get_view_privacy( $input ) {
 
-		$default = $this->plugin->system()->settings()->get( 'privacy.view_privacy_admin' );
-		$privacy = $input === 'default' || empty( $input ) ? $default : $input;
+		$profile_id = $this->plugin->system()->settings()->get( 'upload_profiles.admin_other' );
+		$default    = $this->plugin->system()->database()->get_upload_profile_option( $profile_id, 'view_privacy' );
+
+		$privacy = $input === 'default' || ( empty( $input ) ? $default : $input );
 		if ( $this->plugin->system()->vimeo()->supports_view_privacy_option( $privacy ) ) {
 			return $privacy;
 		} else {

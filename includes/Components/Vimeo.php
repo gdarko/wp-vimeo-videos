@@ -728,7 +728,7 @@ class Vimeo implements VimeoInterface {
 				'vimeo_id'          => $this->formatter->uri_to_id( $response ),
 				'vimeo_size'        => $file_size,
 				'source'            => array(
-					'software' => 'API::upload',
+					'software' => 'API.upload',
 				),
 			) );
 		}
@@ -769,7 +769,7 @@ class Vimeo implements VimeoInterface {
 				'vimeo_id'          => $this->formatter->uri_to_id( $response ),
 				'vimeo_size'        => false,
 				'source'            => array(
-					'software' => 'API::upload_pull',
+					'software' => 'API.UploadPull',
 				),
 			) );
 		}
@@ -903,12 +903,12 @@ class Vimeo implements VimeoInterface {
 	 * @since 1.5.0
 	 *
 	 */
-	public function get_view_privacy_options_for_forms( $context = 'admin' ) {
-		$default_privacy_key = $context === 'admin' ? 'privacy.view_privacy_admin' : 'privacy.view_privacy_frontend';
-		$default_privacy     = $this->system->settings()->get( $default_privacy_key );
-		$default_privacy     = $this->supports_view_privacy_option( $default_privacy ) ? $default_privacy : 'anybody';
-		$all_options         = $this->get_view_privacy_options();
-		$options             = array();
+	public function get_view_privacy_options_for_forms() {
+
+		$profile_id      = $this->system->settings()->get( 'upload_profiles.admin_other' );
+		$default_privacy = $this->system->database()->get_upload_profile_option( $profile_id, 'view_privacy' );
+		$all_options     = $this->get_view_privacy_options();
+		$options         = array();
 		foreach ( $all_options as $key => $option ) {
 			$is_default      = $key === $default_privacy;
 			$name            = $is_default ? $option['name'] . ' ' . '(' . __( 'Default' ) . ')' : $option['name'];

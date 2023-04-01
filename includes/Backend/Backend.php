@@ -44,6 +44,7 @@ class Backend extends BaseProvider {
 		$this->boot( Ajax::class );
 		$this->boot( Hooks::class );
 		$this->boot( Options::class );
+		$this->boot( Metaboxes::class );
 		$this->boot( Ui::class );
 
 	}

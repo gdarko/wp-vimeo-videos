@@ -3,7 +3,7 @@
 namespace Vimeify\Core\Frontend;
 
 use Vimeify\Core\Abstracts\BaseProvider;
-use Vimeify\Core\Database;
+use Vimeify\Core\Components\Database;
 
 class Hooks extends BaseProvider {
 
