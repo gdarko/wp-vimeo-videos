@@ -2,7 +2,7 @@
 Contributors: DarkoG
 Tags: vimeo, video, upload vimeo, embed video, upload
 Requires at least: 4.2
-Stable Tag: 1.9.3
+Stable Tag: 2.0.0
 Requires PHP: 5.5.0
 Tested up to: 6.2
 License: GPLv2 or later
