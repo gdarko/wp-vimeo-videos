@@ -13,14 +13,14 @@ class Metaboxes extends BaseProvider {
 	 * @return void
 	 */
 	public function register() {
-		$this->register_upload_profiles();
+		add_action('init', [$this, 'register_upload_profiles']);
 	}
 
 	/**
 	 * Register the upload profiles metaboxes
 	 * @return void
 	 */
-	private function register_upload_profiles() {
+	public function register_upload_profiles() {
 
 		$metabox = array(
 			'id'        => 'profile_settings',
