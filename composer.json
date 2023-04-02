@@ -18,5 +18,11 @@
   },
   "require-dev": {
     "yoast/phpunit-polyfills": "^1.0"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "composer install --working-dir=./libraries/vimeo-php-guzzle7",
+      "composer install --working-dir=./libraries/vimeo-php-guzzle6"
+    ]
   }
 }
