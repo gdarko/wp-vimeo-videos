@@ -94,7 +94,11 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 		}
 
 		$this->data = get_option( $this->settings_key );
-		$this->dot  = new DotNotation( $this->data );
+        if( empty($this->data) ) {
+            $this->dot = new DotNotation([]);
+        } else {
+            $this->dot = new DotNotation($this->data);
+        }
 	}
 
 	/**
