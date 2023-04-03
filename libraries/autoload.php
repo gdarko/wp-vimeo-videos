@@ -16,7 +16,6 @@ class VimeifyLoadNonComposerDependencies {
 
 		$this->load_vimeo_php();
 		$this->load_background_processing();
-		$this->load_option_builder();
 
 	}
 
@@ -60,14 +59,6 @@ class VimeifyLoadNonComposerDependencies {
 	public function load_background_processing() {
 		require_once $this->dir . 'wp-background-processing/class-wp-async-request.php';
 		require_once $this->dir . 'wp-background-processing/class-wp-background-process.php';
-	}
-
-	/**
-	 * Load the option builder
-	 * @return void
-	 */
-	public function load_option_builder() {
-		require_once $this->dir . 'wp-option-builder/autoload.php';
 	}
 }
 

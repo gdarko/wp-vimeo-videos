@@ -11,7 +11,8 @@
   },
   "require": {
     "ext-openssl": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ignitekit/wp-option-builder": "dev-master"
   },
   "config": {
     "optimize-autoloader": true
