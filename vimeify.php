@@ -58,7 +58,7 @@ if ( ! function_exists( 'vimeify' ) ) {
 				'views_path'        => $plugin_path . 'views',
 				'commercial_url'    => 'https://vimeify.com/',
 				'documentation_url' => 'https://vimeify.com/documentation',
-				'settings_url'      => admin_url( 'options-general.php?page=dgv_settings' ),
+				'settings_url'      => admin_url( 'admin.php?page=dgv-settings' ),
 				'components'        => [
 					'database' => \Vimeify\Core\Components\Database::class,
 					'settings' => \Vimeify\Core\Components\Settings::class,
