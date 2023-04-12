@@ -3,7 +3,6 @@
 namespace Vimeify\Core\Traits;
 
 use Vimeify\Core\Plugin;
-use Vimeo\Exceptions\VimeoRequestException;
 
 /**
  * After upload trait
@@ -78,7 +77,6 @@ trait AfterUpload {
 	 * @param $preset_uri
 	 * @param $logtag
 	 *
-	 * @throws VimeoRequestException
 	 * @since 1.7.0
 	 */
 	protected function set_embed_preset( $uri, $preset_uri, $logtag ) {
@@ -88,7 +86,7 @@ trait AfterUpload {
 		try {
 			$this->plugin->system()->vimeo()->set_video_embed_preset( $uri, $preset_uri );
 			$this->plugin->system()->logger()->log( sprintf('-- Embed preset %s set', $preset_uri), $logtag );
-		} catch ( VimeoRequestException $e ) {
+		} catch ( \Exception $e ) {
 			$this->plugin->system()->logger()->log( sprintf( '-- Failed to set embed preset (%s)', $e->getMessage() ), $logtag );
 		}
 	}
@@ -111,7 +109,7 @@ trait AfterUpload {
 		try {
 			$this->plugin->system()->vimeo()->set_video_folder( $uri, $folder_uri );
 			$this->plugin->system()->logger()->log( sprintf('-- Folder %s set', $folder_uri), $logtag );
-		} catch ( VimeoRequestException $e ) {
+		} catch ( \Exception $e ) {
 			$this->plugin->system()->logger()->log( sprintf( '-- Failed to set folder (%s)', $e->getMessage() ), $logtag );
 		}
 	}
@@ -156,7 +154,7 @@ trait AfterUpload {
 				try {
 					$this->plugin->system()->vimeo()->edit( $uri, $params );
 					$this->plugin->system()->logger()->log( sprintf( '-- View privacy set to %s for %s', $privacy, $uri ), $logtag );
-				} catch ( VimeoRequestException $e ) {
+				} catch ( \Exception $e ) {
 					$this->plugin->system()->logger()->log( sprintf( '-- Failed to set view privacy %s for %s. Error: (%s)', $privacy, $uri, $e->getMessage() ), $logtag );
 				}
 			} else {
