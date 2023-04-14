@@ -194,46 +194,13 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 	public function get_default_view_privacy( $profile = 'default' ) {
 
 		$profile_id = $this->system->settings()->get( 'upload_profiles.' . $profile );
-		$privacy    = $this->system->database()->get_upload_profile_option( $profile_id, 'view_privacy' );
+		$privacy    = $this->system->settings()->get_upload_profile_option( $profile_id, 'view_privacy' );
 
 		if ( ! in_array( $privacy, array( 'anybody', 'contact', 'disable', 'nobody', 'unlisted' ) ) ) {
 			$privacy = 'anybody';
 		}
 
 		return apply_filters( 'dgv_default_privacy', $privacy, $profile );
-	}
-
-	/**
-	 * Return upload profile by context
-	 *
-	 * @param $context
-	 *
-	 * @return int|null
-	 */
-	public function get_upload_profile_by_context( $context ) {
-
-		switch ( $context ) {
-			case 'Backend.Editor.Classic':
-				$profile = $this->get( 'upload_profiles.admin_tinymce', null );
-				break;
-			case 'Backend.Editor.Gutenberg':
-				$profile = $this->get( 'upload_profiles.admin_gutenberg', null );
-				break;
-			case 'Backend.Form.Attachment':
-			case 'Backend.Form.Upload':
-				$profile = $this->get( 'upload_profiles.admin_other', null );
-				break;
-			default:
-				$profile = $this->get( 'upload_profiles.default' );
-				break;
-		}
-
-		if ( is_numeric( $profile ) ) {
-			$profile = (int) $profile;
-		}
-
-		return apply_filters( 'dgv_upload_profile_by_context', $profile, $context, $this );
-
 	}
 
 	/**
@@ -332,6 +299,105 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 		}
 
 		$this->save();
+	}
+
+	/**
+	 * Return upload profile by context
+	 *
+	 * @param $context
+	 *
+	 * @return int|null
+	 */
+	public function get_upload_profile_by_context( $context ) {
+
+		$profile = apply_filters( 'dgv_pre_get_upload_profile_by_context', null, $context, $this );
+		if ( ! empty( $profile ) ) {
+			return $profile;
+		}
+
+		switch ( $context ) {
+			case 'Backend.Editor.Classic':
+				$profile = $this->get( 'upload_profiles.admin_tinymce', null );
+				break;
+			case 'Backend.Editor.Gutenberg':
+				$profile = $this->get( 'upload_profiles.admin_gutenberg', null );
+				break;
+			case 'Backend.Form.Attachment':
+			case 'Backend.Form.Upload':
+				$profile = $this->get( 'upload_profiles.admin_other', null );
+				break;
+			default:
+				$profile = $this->get( 'upload_profiles.default' );
+				break;
+		}
+
+		if ( is_numeric( $profile ) ) {
+			$profile = (int) $profile;
+		}
+
+		return apply_filters( 'dgv_get_upload_profile_by_context', $profile, $context, $this );
+
+	}
+
+	/**
+	 * Return the upload profile data
+	 *
+	 * @param $id
+	 * @param  null  $key
+	 * @param  null  $default
+	 *
+	 * @return void
+	 */
+	public function get_upload_profile_option( $id, $key = null, $default = null ) {
+
+		static $cache = [];
+
+		if ( ! isset( $cache[ $id ] ) ) {
+			$cache[ $id ] = get_post_meta( $id, 'profile_settings', true );
+		}
+
+		if ( ! empty( $cache[ $id ] ) ) {
+			if ( is_null( $key ) ) {
+				return $cache[ $id ];
+			} else {
+				$arrayDot = new DotNotation( $cache[ $id ] );
+
+				return $arrayDot->get( $id, $default );
+			}
+		} else {
+			return $default;
+		}
+
+	}
+
+	/**
+	 * Get upload profile option by context
+	 * @return mixed
+	 */
+	public function get_upload_profile_option_by_context( $context, $key, $default = null ) {
+		$profile_id = $this->get_upload_profile_by_context( $context );
+
+		return $this->get_upload_profile_option( $profile_id, $key, $default );
+	}
+
+	/**
+	 * Returns list of whitelisted domains
+	 * @return array
+	 */
+	public function get_upload_profile_whitelisted_domains( $id ) {
+		$domains   = array();
+		$whitelist = $this->get_upload_profile_option( $id, 'privacy.embed_domains' );
+		if ( ! empty( $whitelist ) ) {
+			$parts = explode( ',', $whitelist );
+			foreach ( $parts as $domain ) {
+				if ( empty( $domain ) || false === filter_var( $domain, FILTER_VALIDATE_DOMAIN ) ) {
+					continue;
+				}
+				array_push( $domains, $domain );
+			}
+		}
+
+		return $domains;
 	}
 
 	/**

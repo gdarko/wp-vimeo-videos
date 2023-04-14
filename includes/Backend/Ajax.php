@@ -67,6 +67,7 @@ class Ajax extends BaseProvider {
 		$meta        = isset( $_POST['meta'] ) && is_array( $_POST['meta'] ) ? array_map( 'sanitize_text_field', $_POST['meta'] ) : [];
 		$uri         = sanitize_text_field( $_POST['uri'] );
 		$source      = isset( $_REQUEST['source'] ) ? sanitize_text_field( $_REQUEST['source'] ) : null;
+		$hook_type   = isset( $_REQUEST['hook_type'] ) ? intval( $_REQUEST['hook_type'] ) : null;
 
 
 		$vimeo_formatter = new VimeoFormatter();
@@ -79,7 +80,7 @@ class Ajax extends BaseProvider {
 		/**
 		 * Upload success hook
 		 */
-		do_action( 'dgv_backend_after_upload', array(
+		$hook_data = array(
 			'vimeo_title'       => $title,
 			'vimeo_description' => $description,
 			'vimeo_id'          => $video_id,
@@ -88,7 +89,17 @@ class Ajax extends BaseProvider {
 			'source'            => array(
 				'software' => $source,
 			),
-		) );
+		);
+		switch ( $hook_type ) {
+			case 1:
+				$this->plugin->system()->logger()->log( 'Trigerred dgv_backend_after_upload.', $logtag );
+				do_action( 'dgv_backend_after_upload', $hook_data );
+				break;
+			case 2:
+				$this->plugin->system()->logger()->log( 'Trigerred dgv_frontend_after_upload.', $logtag );
+				do_action( 'dgv_frontend_after_upload', $hook_data );
+				break;
+		}
 
 		$this->plugin->system()->logger()->log( sprintf( 'Video %s stored.', $uri ), $logtag );
 
@@ -1119,7 +1130,7 @@ class Ajax extends BaseProvider {
 	private function get_view_privacy( $input ) {
 
 		$profile_id = $this->plugin->system()->settings()->get( 'upload_profiles.admin_other' );
-		$default    = $this->plugin->system()->database()->get_upload_profile_option( $profile_id, 'view_privacy' );
+		$default    = $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'view_privacy' );
 
 		$privacy = $input === 'default' || ( empty( $input ) ? $default : $input );
 		if ( $this->plugin->system()->vimeo()->supports_view_privacy_option( $privacy ) ) {

@@ -906,7 +906,7 @@ class Vimeo implements VimeoInterface {
 	public function get_view_privacy_options_for_forms() {
 
 		$profile_id      = $this->system->settings()->get( 'upload_profiles.admin_other' );
-		$default_privacy = $this->system->database()->get_upload_profile_option( $profile_id, 'view_privacy' );
+		$default_privacy = $this->system->settings()->get_upload_profile_option( $profile_id, 'view_privacy' );
 		$all_options     = $this->get_view_privacy_options();
 		$options         = array();
 		foreach ( $all_options as $key => $option ) {

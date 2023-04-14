@@ -73,12 +73,16 @@ class Hooks extends BaseProvider {
 		$this->plugin->system()->logger()->log( sprintf( 'Processing hooks for %s', $uri ), $logtag );
 
 		/**
-		 * Hooks profile
+		 * Retrieve the source
 		 */
-		$source = isset( $args['software']['source'] ) ? $args['software']['source'] : null;
+		$source = isset( $args['source']['software'] ) ? $args['source']['software'] : null;
 		if ( empty( $source ) ) {
-			$this->plugin->system()->logger()->log( '-- Source not found.', $logtag );
+			$this->plugin->system()->logger()->log( sprintf('-- Source (%s) not found.', ($source ? $source : 'NULL')), $logtag );
 		}
+
+		/**
+		 * Retrieve the profile
+		 */
 		$profile_id = $this->plugin->system()->settings()->get_upload_profile_by_context( $source );
 		if ( empty( $profile_id ) ) {
 			$this->plugin->system()->logger()->log( '-- No upload profile found.', $logtag );
@@ -91,28 +95,28 @@ class Hooks extends BaseProvider {
 		 * Set embed privacy
 		 */
 		if ( $this->plugin->system()->vimeo()->supports_embed_privacy() ) {
-			$whitelisted_domains = $this->plugin->system()->database()->get_upload_profile_whitelisted_domains( $profile_id );
+			$whitelisted_domains = $this->plugin->system()->settings()->get_upload_profile_whitelisted_domains( $profile_id );
 			$this->set_embed_privacy( $uri, $whitelisted_domains, $logtag );
 		}
 
 		/**
 		 * Set Folder
 		 */
-		$folder_uri = $this->plugin->system()->database()->get_upload_profile_option( $profile_id, 'folder', 'default' );
+		$folder_uri = $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'folder', 'default' );
 		$this->set_folder( $uri, $folder_uri, $logtag );
 
 		/**
 		 * Set Presets
 		 */
 		if ( $this->plugin->system()->vimeo()->supports_embed_presets() ) {
-			$preset_uri = $this->plugin->system()->database()->get_upload_profile_option( $profile_id, 'embed_preset' );
+			$preset_uri = $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'embed_preset' );
 			$this->set_embed_preset( $uri, $preset_uri, $logtag );
 		}
 
 		/**
 		 * Set View privacy
 		 */
-		$view_privacy = isset( $args['overrides']['view_privacy'] ) ? $args['overrides']['view_privacy'] : $this->plugin->system()->database()->get_upload_profile_option( $profile_id, 'view_privacy' );
+		$view_privacy = isset( $args['overrides']['view_privacy'] ) ? $args['overrides']['view_privacy'] : $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'view_privacy' );
 		if ( $this->plugin->system()->vimeo()->supports_view_privacy_option( $view_privacy ) ) {
 			$this->set_view_privacy( $uri, $view_privacy, $logtag );
 		}

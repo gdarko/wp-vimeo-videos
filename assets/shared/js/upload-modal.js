@@ -8,6 +8,9 @@
 
 (function ($) {
 
+    window.WPVimeoVideos.Hook_Type_Backend  = 1;
+    window.WPVimeoVideos.Hook_Type_Frontend = 2;
+
     /**
      * Uploader modal
      *
@@ -46,6 +49,7 @@
         }
 
         var source = this.config.hasOwnProperty('source') ? this.config.source : 'Default';
+        var hooks = this.config.hasOwnProperty('hook_type') ? this.config.hook_type :  window.WPVimeoVideos.Hook_Type_Backend;
 
         var privacy_option = '';
 
@@ -82,7 +86,8 @@
             '\n' + opts_str + '\n' +
             '    <div class="dgv-insert-wrapper dgv-insert-type-upload" style="' + method_upload_style + '">\n' +
             '        <form id="dgv-vimeo-upload-modal" ' + data_attr + '>\n' +
-            '            <input type="hidden" name="vimeo_source" value="'+source+'"'+
+            '            <input type="hidden" name="vimeo_source" value="'+source+'">'+
+            '            <input type="hidden" name="vimeo_hook_type" value="'+hooks+'">'+
             '            <div class="dgv-vimeo-form-row">\n' +
             '                <label for="vimeo_title">' + DGV_Modal_Config.words.title + '</label>' +
             '                <input type="text" name="vimeo_title" class="dgv-field-row">\n' +
@@ -296,6 +301,7 @@
         var description = formData.get('vimeo_description');
         var privacy = formData.get('vimeo_view_privacy');
         var source = formData.get('vimeo_source') ? formData.get('vimeo_source') : 'UploadModal';
+        var hook_type = formData.get('vimeo_hook_type') ? formData.get('vimeo_hook_type') : 1;
         if (!privacy) {
             privacy = DGV_Modal_Config.default_privacy;
         }
@@ -312,12 +318,24 @@
             $pbar.find('.dgv-progress-bar-inner').css({width: value + '%'})
             $pbar.find('.dgv-progress-bar-value').text(value + '%');
         };
+
+        const params = {
+            action: 'dgv_store_upload',
+            source: source,
+            hook_type: hook_type,
+            _wpnonce: DGV_Modal_Config.nonce
+        }
+        const esc = encodeURIComponent;
+        const query = Object.keys(params)
+            .map(k => esc(k) + '=' + esc(params[k]))
+            .join('&');
+
         window.VimeoUploaderModal.uploader = new WPVimeoVideos.Uploader(DGV_Modal_Config.access_token, videoFile, {
             'title': title,
             'description': description,
             'privacy': privacy,
             'wp': {
-                'notify_endpoint': notify_endpoint_enabled ? (DGV_Modal_Config.ajax_url + '?action=dgv_store_upload&source='+source+'&_wpnonce=' + DGV_Modal_Config.nonce) : false,
+                'notify_endpoint': notify_endpoint_enabled ? (DGV_Modal_Config.ajax_url + '?' + query) : false,
                 'notify_meta': notify_meta ? notify_meta : null,
             },
             'beforeStart': function () {
