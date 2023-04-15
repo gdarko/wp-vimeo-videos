@@ -339,94 +339,28 @@ class Options extends BaseProvider {
 					),
 				],
 
-				[
-					'id'           => 'default',
-					'label'        => __( 'Default', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc.', 'wp-vimeo-videos-pro' ),
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'upload_profiles',
-					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_lazyloaded_options( 'default', 'upload_profiles' ),
-				],
-
-				[
-					'id'           => 'admin_gutenberg',
-					'label'        => __( 'Gutenberg Block Editor', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' ),
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'upload_profiles',
-					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_lazyloaded_options( 'admin_gutenberg', 'upload_profiles' ),
-				],
-
-				[
-					'id'           => 'admin_classic',
-					'label'        => __( 'Classic Editor', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' ),
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'upload_profiles',
-					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_lazyloaded_options( 'admin_classic', 'upload_profiles' ),
-				],
-
-				[
-					'id'           => 'admin_other',
-					'label'        => __( 'Other Backend Forms', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below.', 'wp-vimeo-videos-pro' ),
-					'std'          => '',
-					'type'         => 'select',
-					'section'      => 'upload_profiles',
-					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_upload_profile_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-					'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => $this->get_lazyloaded_options( 'admin_other', 'upload_profiles' ),
-				],
-
 			];
 
+			/**
+			 * Add upload profiles
+			 */
+			foreach ( $this->get_upload_profiles() as $profile ) {
+				if ( ! isset( $profile['key'] ) || ! isset( $profile['title'] ) || ! isset( $profile['desc'] ) ) {
+					continue;
+				}
+				array_push( $other_settings, $this->create_upload_profile_option(
+					$profile['key'],
+					$profile['title'],
+					$profile['desc'],
+				) );
+			}
 		}
 
+		/**
+		 * Allow filter to modify them
+		 */
 		$sections = array_merge( $required_sections, $other_sections );
 		$settings = array_merge( $required_settings, $other_settings );
-
-
 		$sections = apply_filters( 'dgv_settings_sections', $sections );
 		$settings = apply_filters( 'dgv_settings_fields', $settings );
 
@@ -447,14 +381,14 @@ class Options extends BaseProvider {
 			return $text;
 		}, 10, 2 );
 		add_filter( 'opb_header_version_text', function ( $text, $page_id ) {
-			if ( $this->plugin->settings_key()  === $page_id ) {
+			if ( $this->plugin->settings_key() === $page_id ) {
 				$text = __( 'Vimeo Settings', 'wp-vimeo-videos-pro' );
 			}
 
 			return $text;
 		}, 10, 2 );
 		add_filter( 'opb_header_logo_icon', function ( $icon, $page_id ) {
-			if ( $this->plugin->settings_key()  === $page_id ) {
+			if ( $this->plugin->settings_key() === $page_id ) {
 				$icon = 'dashicons dashicons-video-alt2';
 			}
 
@@ -479,7 +413,7 @@ class Options extends BaseProvider {
 	 */
 	public function create_overview_environment() {
 
-		return '<table class="dgv-status-wrapper">' .  $this->plugin->system()->views()->get_view( 'admin/partials/status-env', array(
+		return '<table class="dgv-status-wrapper">' . $this->plugin->system()->views()->get_view( 'admin/partials/status-env', array(
 				'plugin' => $this->plugin
 			) ) . '</table>';
 	}
@@ -490,7 +424,7 @@ class Options extends BaseProvider {
 	 */
 	public function create_overview_issues() {
 
-		return '<table class="dgv-status-wrapper">' .  $this->plugin->system()->views()->get_view( 'admin/partials/status-issues', array(
+		return '<table class="dgv-status-wrapper">' . $this->plugin->system()->views()->get_view( 'admin/partials/status-issues', array(
 				'plugin' => $this->plugin
 			) ) . '</table><style>.dgv-status-wrapper {text-align:left;}</style>';
 	}
@@ -536,26 +470,78 @@ class Options extends BaseProvider {
 
 	/**
 	 * The default lazyloaded options
+	 *
 	 * @param $option
 	 * @param $section
 	 *
 	 * @return array[]
 	 */
-	public function get_lazyloaded_options($option, $section) {
-
-		$current_value = $this->plugin->system()->settings()->get( sprintf('%s.%s', $section, $option), '' );
-
-		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? get_the_title($current_value) : __( 'Default', 'wp-vimeo-videos-pro' );
-
-		$choices = [
+	public function get_lazyloaded_options( $option, $section ) {
+		$current_value = $this->plugin->system()->settings()->get( sprintf( '%s.%s', $section, $option ), '' );
+		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? get_the_title( $current_value ) : __( 'Default', 'wp-vimeo-videos-pro' );
+		return [
 			[
 				'value' => $current_value,
 				'label' => $current_name,
 			]
 		];
 
-		return $choices;
+	}
 
+
+	public function create_upload_profile_option( $id, $title, $description ) {
+		return [
+			'id'           => $id,
+			'label'        => $title,
+			'desc'         => $description,
+			'std'          => '',
+			'type'         => 'select',
+			'section'      => 'upload_profiles',
+			'ajax'         => [
+				'endpoint' => admin_url( 'admin-ajax.php' ),
+				'action'   => 'dgv_upload_profile_search',
+				'nonce'    => \wp_create_nonce( 'dgvsecurity' )
+			],
+			'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
+			'rows'         => '',
+			'post_type'    => '',
+			'taxonomy'     => '',
+			'min_max_step' => '',
+			'class'        => '',
+			'condition'    => '',
+			'operator'     => 'and',
+			'group'        => true,
+			'choices'      => $this->get_lazyloaded_options( $id, 'upload_profiles' ),
+		];
+	}
+
+	/**
+	 * Return upload profiles
+	 * @return mixed|null
+	 */
+	public function get_upload_profiles() {
+		return apply_filters( 'dgv_upload_profiles', [
+			[
+				'key'   => 'default',
+				'title' => __( 'Default Profile', 'wp-vimeo-videos-pro' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc.', 'wp-vimeo-videos-pro' )
+			],
+			[
+				'key'   => 'admin_gutenberg',
+				'title' => __( 'Gutenberg Block Editor', 'wp-vimeo-videos-pro' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' )
+			],
+			[
+				'key'   => 'admin_classic',
+				'title' => __( 'Classic Editor', 'wp-vimeo-videos-pro' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' )
+			],
+			[
+				'key'   => 'admin_other',
+				'title' => __( 'Other Backend Forms', 'wp-vimeo-videos-pro' ),
+				'desc'  => __( 'Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below.', 'wp-vimeo-videos-pro' )
+			]
+		] );
 	}
 
 
