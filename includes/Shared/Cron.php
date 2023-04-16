@@ -91,7 +91,7 @@ class Cron extends BaseProvider {
 
 		$logtag = 'TMP FILE CLEAN UP';
 
-		$this->plugin->system()->logger()->log( 'Starting the temporary files clean up process.', $logtag );
+		$this->plugin->system()->logger()->log( 'Starting the temporary files clean up process.', $logtag, 'cron.log' );
 
 		/**
 		 * How many minutes needs to pass in order the temporary uploads used for Vimeo Pull uploading method to be removed.
@@ -111,17 +111,17 @@ class Cron extends BaseProvider {
 				if ( $diff_minutes >= $removal_delay_minutes && $file_exists ) {
 					if ( unlink( $path ) ) {
 						$this->plugin->system()->settings()->remove_from_temporary_files( $path );
-						$this->plugin->system()->logger()->log( sprintf( 'Deleted temporary video file %s after %s minutes', $path, $diff_minutes ), $logtag );
+						$this->plugin->system()->logger()->log( sprintf( 'Deleted temporary video file %s after %s minutes', $path, $diff_minutes ), $logtag, 'cron.log' );
 					} else {
-						$this->plugin->system()->logger()->log( sprintf( 'Unable to remove temporary video file %s.', $path ), $logtag );
+						$this->plugin->system()->logger()->log( sprintf( 'Unable to remove temporary video file %s.', $path ), $logtag, 'cron.log' );
 					}
 				} elseif ( ! $file_exists ) {
 					$this->plugin->system()->settings()->remove_from_temporary_files( $path );
-					$this->plugin->system()->logger()->log( sprintf( 'Temporary video file %s not found in the file system', $path ), $logtag );
+					$this->plugin->system()->logger()->log( sprintf( 'Temporary video file %s not found in the file system', $path ), $logtag, 'cron.log' );
 				}
 			}
 		} else {
-			$this->plugin->system()->logger()->log( 'No temporary files found for clean up.', $logtag );
+			$this->plugin->system()->logger()->log( 'No temporary files found for clean up.', $logtag, 'cron.log' );
 		}
 	}
 
@@ -131,9 +131,9 @@ class Cron extends BaseProvider {
 	 */
 	public function do_metadata_sync() {
 		$logtag = 'DGV-METADATA-SYNC';
-		$this->plugin->system()->logger()->log( 'Starting metadata sync via cron.', $logtag );
+		$this->plugin->system()->logger()->log( 'Starting metadata sync via cron.', $logtag, 'cron.log' );
 		$this->sync->sync_metadata();
-		$this->plugin->system()->logger()->log( 'Finished metadata sync via cron.', $logtag );
+		$this->plugin->system()->logger()->log( 'Finished metadata sync via cron.', $logtag, 'cron.log' );
 	}
 
 	/**
@@ -142,8 +142,8 @@ class Cron extends BaseProvider {
 	 */
 	public function do_status_sync() {
 		$logtag = 'DGV-STATUS-SYNC';
-		$this->plugin->system()->logger()->log( 'Starting status sync via cron.', $logtag );
+		$this->plugin->system()->logger()->log( 'Starting status sync via cron.', $logtag, 'cron.log' );
 		$this->sync->sync_status();
-		$this->plugin->system()->logger()->log( 'Finished status sync via cron.', $logtag );
+		$this->plugin->system()->logger()->log( 'Finished status sync via cron.', $logtag, 'cron.log' );
 	}
 }
