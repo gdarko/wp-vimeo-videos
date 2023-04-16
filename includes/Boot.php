@@ -6,6 +6,7 @@ use Vimeify\Core\Abstracts\BaseProvider;
 use Vimeify\Core\Backend\Backend;
 use Vimeify\Core\Frontend\Frontend;
 use Vimeify\Core\Shared\Shared;
+use Vimeify\Core\Utilities\ProcessManager;
 
 class Boot extends BaseProvider {
 
@@ -32,6 +33,8 @@ class Boot extends BaseProvider {
 	 * @return void
 	 */
 	public function register() {
+
+		ProcessManager::create( $this->plugin() );
 
 		do_action( 'vimeify_booting', $this );
 
