@@ -32,16 +32,16 @@ abstract class FileChunkHandler {
 	protected $max_file_size;
 
 	/**
-	 * The logging utility
-	 * @var WP_DGV_Logger
-	 */
-	protected $logger;
-
-	/**
 	 * Possible file upload errors
 	 * @var array
 	 */
 	protected $file_upload_errors;
+
+	/**
+	 * The plugin version
+	 * @var mixed|string
+	 */
+	protected $version;
 
 	/**
 	 * FileChunkHandler constructor.
@@ -50,7 +50,10 @@ abstract class FileChunkHandler {
 	 * @param  array  $params
 	 */
 	public function __construct( $prefix, $params = array() ) {
+
 		$this->prefix = $prefix;
+
+		$this->version = isset($params['version']) ? $params['version'] : '1.0.0';
 
 		$this->file_upload_errors = array(
 			false,
@@ -68,24 +71,24 @@ abstract class FileChunkHandler {
 		if ( isset( $params['tmp_dir'] ) ) {
 			$this->tmp_dir = $params['tmp_dir'];
 			if ( ! file_exists( $this->tmp_dir ) ) {
-				_doing_it_wrong( __METHOD__, 'Tmp dir path does not exist.', WP_VIMEO_VIDEOS_VERSION );
+				_doing_it_wrong( __METHOD__, 'Tmp dir path does not exist.', $this->version );
 			}
 		} else {
-			_doing_it_wrong( __METHOD__, 'No tmp dir path specified.', WP_VIMEO_VIDEOS_VERSION );
+			_doing_it_wrong( __METHOD__, 'No tmp dir path specified.', $this->version );
 		}
 
 		// Set input name
 		if ( isset( $params['input_name'] ) ) {
 			$this->input_name = $params['input_name'];
 		} else {
-			_doing_it_wrong( __METHOD__, 'No input name specified.', WP_VIMEO_VIDEOS_VERSION );
+			_doing_it_wrong( __METHOD__, 'No input name specified.', $this->version );
 		}
 
 		// Max filesize
 		if ( isset( $params['max_file_size'] ) ) {
 			$this->max_file_size = $params['max_file_size'];
 		} else {
-			_doing_it_wrong( __METHOD__, 'No max file size specified.', WP_VIMEO_VIDEOS_VERSION );
+			_doing_it_wrong( __METHOD__, 'No max file size specified.', $this->version );
 		}
 	}
 
