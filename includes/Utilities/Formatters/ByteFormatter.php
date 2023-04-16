@@ -20,4 +20,8 @@ class ByteFormatter {
 		return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 	}
 
+	public function format_max_upload_size() {
+		return size_format( wp_max_upload_size() );
+	}
+
 }
