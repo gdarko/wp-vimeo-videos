@@ -4,6 +4,19 @@ namespace Vimeify\Core\Utilities\Validators;
 
 class RequestValidator {
 
+	/**
+	 * Is localhost?
+	 * @param $whitelist
+	 *
+	 * @return bool
+	 */
+	public function validate_localhost( $whitelist = [ '127.0.0.1', '::1' ] ) {
+		if(!isset($_SERVER['REMOTE_ADDR'])) {
+			return true;
+		}
+		return in_array( $_SERVER['REMOTE_ADDR'], $whitelist );
+	}
+
 	/***
 	 * Validates request max size.
 	 *
@@ -61,5 +74,67 @@ class RequestValidator {
 		}
 
 		return size_format( $max );
+	}
+
+
+	/**
+	 * Basic file upload validation.
+	 *
+	 * @param  int  $error  Error ID provided by PHP.
+	 *
+	 * @return false|string False if no errors found, error text otherwise.
+	 *
+	 * @since 1.6.0
+	 *
+	 */
+	public static function get_file_upload_error( $error ) {
+
+		if ( 0 === $error || 4 === $error ) {
+			return false;
+		}
+
+		$errors = array(
+			false,
+			esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'wp-vimeo-videos-pro' ),
+			esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'wp-vimeo-videos-pro' ),
+			esc_html__( 'The uploaded file was only partially uploaded.', 'wp-vimeo-videos-pro' ),
+			esc_html__( 'No file was uploaded.', 'wp-vimeo-videos-pro' ),
+			'',
+			esc_html__( 'Missing a temporary folder.', 'wp-vimeo-videos-pro' ),
+			esc_html__( 'Failed to write file to disk.', 'wp-vimeo-videos-pro' ),
+			esc_html__( 'File upload stopped by extension.', 'wp-vimeo-videos-pro' ),
+		);
+
+		if ( array_key_exists( $error, $errors ) ) {
+			return sprintf( esc_html__( 'File upload error. %s', 'wp-vimeo-videos-pro' ), $errors[ $error ] );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Set up the error messages
+	 *
+	 * @param $key
+	 *
+	 * @return mixed|string|void
+	 *
+	 * @since 1.6.0
+	 */
+	public static function get_upload_error( $key ) {
+		$messages = array(
+			'invalid_vimeo_video' => __( 'Invalid video vimeo provided', 'wp-vimeo-videos-pro' ),
+			'invalid_file'        => __( 'Video file is required. Please pick a valid video file.', 'wp-vimeo-videos-pro' ),
+			'invalid_title'       => __( 'Title is required. Please specify valid video title.', 'wp-vimeo-videos-pro' ),
+			'not_connected'       => __( 'Unable to connect to Vimeo for the file upload.', 'wp-vimeo-videos-pro' ),
+			'not_authenticated'   => __( 'Connection to Vimeo is successful. However we detected that the connection is made with unauthenticated access token. To connect to Vimeo successfully "Authenticated" Access Token is required with the proper Scopes selected.', 'wp-vimeo-videos-pro' ),
+			'cant_upload'         => __( 'Connection to Vimeo is successful. However we detected that the current Access Token is missing the Upload scope. To be able to upload Videos successfully "Authenticated" Access Token is required with all the Scopes selected.', 'wp-vimeo-videos-pro' ),
+			'quota_limit'         => __( 'Sorry, the current remaining quota in the Vimeo account is %s and this file is %s. Therefore the video can not be uploaded because the Vimeo account doesn\'t have enough free space.', 'wp-vimeo-videos-pro' ),
+		);
+		if ( ! isset( $messages[ $key ] ) ) {
+			return __( 'Something went wrong. Please try again later.', 'wp-vimeo-videos-pro' );
+		} else {
+			return $messages[ $key ];
+		}
 	}
 }
