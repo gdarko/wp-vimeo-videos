@@ -283,7 +283,7 @@ _PRO ONLY:_
 * Added missing .map file for the tus-js-client library
 * Updated the version of the-js-client tus and moved into separate folder
 * Added translations/i18n compatibility for the "Filter" dropdown in Vimeo screen
-* Added missing textdomain to some of the strings
+* Added missing textdomain to some strings
 * Re-synced the .pot file
 
 _PRO ONLY:_
