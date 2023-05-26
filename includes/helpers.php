@@ -67,7 +67,7 @@ function wvv_is_gutenberg_active() {
 	require_once(ABSPATH . 'wp-admin/includes/screen.php');
 
 	$current_screen = get_current_screen();
-	if ( method_exists( $current_screen, 'is_block_editor' ) &&
+	if ( ! is_null( $current_screen ) && method_exists( $current_screen, 'is_block_editor' ) &&
 	     $current_screen->is_block_editor()
 	) {
 		// Gutenberg page on 5+.
