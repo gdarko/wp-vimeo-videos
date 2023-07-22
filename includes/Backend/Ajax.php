@@ -112,6 +112,7 @@ class Ajax extends BaseProvider {
 				'software' => $source,
 			),
 		);
+
 		switch ( $hook_type ) {
 			case 1:
 				$this->plugin->system()->logger()->log( 'Trigerred dgv_backend_after_upload.', $logtag );
@@ -122,8 +123,6 @@ class Ajax extends BaseProvider {
 				do_action( 'dgv_frontend_after_upload', $hook_data );
 				break;
 		}
-
-		$this->plugin->system()->logger()->log( sprintf( 'Video %s stored.', $uri ), $logtag );
 
 		wp_send_json_success( array(
 			'message' => __( 'Video uploaded successfully.', 'wp-vimeo-videos' ),

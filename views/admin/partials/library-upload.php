@@ -24,8 +24,17 @@
 
 /* @var \Vimeify\Core\Plugin $plugin */
 
-$view_privacy_opts = $plugin->system()->vimeo()->get_view_privacy_options_for_forms('admin');
-$view_privacy = (int) $plugin->system()->settings()->get('admin.media_attachments.enable_privacy_option', 0);
+
+$default_folder_uri = $plugin->system()->settings()->get_upload_profile_option_by_context( 'Backend.Form.Upload', 'folder' );
+if ( $default_folder_uri ) {
+	$default_folder_name = sprintf('%s (Default)', $plugin->system()->vimeo()->get_folder_name( $default_folder_uri ));
+}
+
+
+$enable_view_privacy = (int) $plugin->system()->settings()->get( 'admin.upload_forms.enable_view_privacy', 0 );
+$enable_folders      = (int) $plugin->system()->settings()->get( 'admin.upload_forms.enable_folders', 0 );
+
+
 ?>
 
 <h2><?php _e( 'Upload to Vimeo', 'wp-vimeo-videos' ); ?></h2>
@@ -40,20 +49,35 @@ $view_privacy = (int) $plugin->system()->settings()->get('admin.media_attachment
             <label for="vimeo_description"><?php _e( 'Description', 'wp-vimeo-videos' ); ?></label>
             <textarea name="vimeo_description" id="vimeo_description"></textarea>
         </div>
-        <?php if($view_privacy): ?>
-        <div class="form-row">
-            <label for="vimeo_view_privacy"><?php _e( 'View Privacy', 'wp-vimeo-videos' ); ?></label>
-            <select name="vimeo_view_privacy" id="vimeo_view_privacy">
-                <?php foreach($view_privacy_opts as $key => $option): ?>
-                    <?php
-                    $option_state = $option['default'] && $option['available'] ? 'selected' : '';
-                    $option_state .= $option['available'] ? '' : ' disabled';
-                    ?>
-                <option <?php echo esc_attr($option_state); ?> value="<?php echo esc_attr($key); ?>"><?php echo esc_html( $option['name'] ); ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <?php endif; ?>
+		<?php if ( $enable_view_privacy ): ?>
+			<?php
+			$view_privacy_opts = $plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' );
+			?>
+            <div class="form-row">
+                <label for="vimeo_view_privacy"><?php _e( 'View Privacy', 'wp-vimeo-videos' ); ?></label>
+                <select name="vimeo_view_privacy" id="vimeo_view_privacy">
+					<?php foreach ( $view_privacy_opts as $key => $option ): ?>
+						<?php
+						$option_state = $option['default'] && $option['available'] ? 'selected' : '';
+						$option_state .= $option['available'] ? '' : ' disabled';
+						?>
+                        <option <?php echo esc_attr( $option_state ); ?>
+                                value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $option['name'] ); ?></option>
+					<?php endforeach; ?>
+                </select>
+            </div>
+		<?php endif; ?>
+		<?php if ( $enable_folders ): ?>
+            <div class="form-row">
+                <label for="folder_uri"><?php _e( 'Folder', 'wp-vimeo-videos' ); ?></label>
+                <select id="folder_uri" name="folder_uri" class="dgv-select2" data-action="dgv_folder_search" data-placeholder="<?php _e( 'Select folder...', 'wp-vimeo-videos' ); ?>">
+                    <option value="default" <?php selected( 'default', $default_folder_uri ); ?>><?php _e( 'Default (no folder)', 'wp-vimeo-videos' ); ?></option>
+					<?php if ( ! empty( $default_folder_uri ) ): ?>
+                        <option selected value="<?php echo esc_attr( $default_folder_uri ); ?>"><?php echo esc_html( $default_folder_name ); ?></option>
+					<?php endif; ?>
+                </select>
+            </div>
+		<?php endif; ?>
         <div class="form-row">
             <label for="vimeo_video"><?php _e( 'Video File', 'wp-vimeo-videos' ); ?></label>
             <p class="wvv-mt-0"><input type="file" name="vimeo_video" id="vimeo_video"></p>

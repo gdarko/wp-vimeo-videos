@@ -352,8 +352,7 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 				return $cache[ $id ];
 			} else {
 				$arrayDot = new DotNotation( $cache[ $id ] );
-
-				return $arrayDot->get( $id, $default );
+				return $arrayDot->get( $key, $default );
 			}
 		} else {
 			return $default;

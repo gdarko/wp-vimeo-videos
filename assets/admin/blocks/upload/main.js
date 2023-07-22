@@ -112,7 +112,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                 return false;
             }
             // Init upload
-            var privacy = DGVGTB.upload_form_options.enable_privacy_option && props.attributes.privacy ? props.attributes.privacy : DGVGTB.default_privacy;
+            var privacy = DGVGTB.upload_form_options.enable_view_privacy && props.attributes.privacy ? props.attributes.privacy : DGVGTB.default_privacy;
             var uploader = new WPVimeoVideos.Uploader(DGVGTB.access_token, videoFile, {
                 'title': props.attributes.title,
                 'description': props.attributes.description,
@@ -399,7 +399,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
                 })
             ));
 
-            if(DGVGTB.upload_form_options.enable_privacy_option) {
+            if(DGVGTB.upload_form_options.enable_view_privacy) {
                 var privacy_options = [];
                 var privacy_default = 'anybody';
                 for (var key in DGVGTB.upload_form_options.privacy_view) {

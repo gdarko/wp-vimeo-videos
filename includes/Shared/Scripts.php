@@ -338,7 +338,7 @@ class Scripts extends BaseProvider {
 				'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos' ),
 			),
 			'upload_form_options' => array(
-				'enable_privacy_option' => (int) $this->plugin->system()->settings()->get( 'admin.tinymce.enable_privacy_option', 0 ),
+				'enable_view_privacy' => (int) $this->plugin->system()->settings()->get( 'admin.tinymce.enable_view_privacy', 0 ),
 				'privacy_view'          => is_admin() ? $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ) : null,
 			)
 		);

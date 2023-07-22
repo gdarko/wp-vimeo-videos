@@ -53,7 +53,7 @@
 
         var privacy_option = '';
 
-        if (DGV_Modal_Config.upload_form_options.enable_privacy_option && null !== DGV_Modal_Config.upload_form_options.privacy_view) {
+        if (DGV_Modal_Config.upload_form_options.enable_view_privacy && null !== DGV_Modal_Config.upload_form_options.privacy_view) {
 
             var privacy_view_options = '';
 

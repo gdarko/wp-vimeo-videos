@@ -181,6 +181,34 @@ class Options extends BaseProvider {
 				//
 				// Admin Settngs
 				[
+					'id'           => 'upload_forms',
+					'label'        => __( 'Upload Form', 'theme-text-domain' ),
+					'desc'         => '',
+					'std'          => '',
+					'type'         => 'checkbox',
+					'section'      => 'admin',
+					'rows'         => '',
+					'post_type'    => '',
+					'taxonomy'     => '',
+					'min_max_step' => '',
+					'class'        => '',
+					'condition'    => '',
+					'operator'     => 'and',
+					'group'        => true,
+					'choices'      => array(
+						'enable_view_privacy'    => array(
+							'value' => 1,
+							'label' => __( 'Enable Vimeo View Privacy option in the WP-Admin Video upload form', 'theme-text-domain' ),
+							'src'   => '',
+						),
+						'enable_folders'    => array(
+							'value' => 1,
+							'label' => __( 'Enable Vimeo Folders option in the WP-Admin Video upload form', 'theme-text-domain' ),
+							'src'   => '',
+						),
+					),
+				],
+				[
 					'id'           => 'gutenberg',
 					'label'        => __( 'Gutenberg Block', 'theme-text-domain' ),
 					'desc'         => '',
@@ -196,9 +224,14 @@ class Options extends BaseProvider {
 					'operator'     => 'and',
 					'group'        => true,
 					'choices'      => array(
-						'enable_privacy_option'    => array(
+						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo privacy option in Gutenberg upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo View Privacy option in Gutenberg upload modal', 'theme-text-domain' ),
+							'src'   => '',
+						),
+						'enable_folders'    => array(
+							'value' => 1,
+							'label' => __( 'Enable Vimeo Folders option in Gutenberg upload modal', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
@@ -208,12 +241,12 @@ class Options extends BaseProvider {
 						),
 						'enable_local_search'      => array(
 							'value' => 1,
-							'label' => __( 'Enable local library search option in upload form', 'theme-text-domain' ),
+							'label' => __( 'Enable Local Library search option in upload form', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'theme-text-domain' ),
+							'label' => __( 'Restrict to current user\'s uploads in Local Library search option', 'theme-text-domain' ),
 							'src'   => '',
 						)
 					),
@@ -235,9 +268,14 @@ class Options extends BaseProvider {
 					'operator'     => 'and',
 					'group'        => true,
 					'choices'      => array(
-						'enable_privacy_option'    => array(
+						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo privacy option in upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo View Privacy option in upload modal', 'theme-text-domain' ),
+							'src'   => '',
+						),
+						'enable_folders'    => array(
+							'value' => 1,
+							'label' => __( 'Enable Vimeo Folders option in upload modal', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
@@ -253,30 +291,6 @@ class Options extends BaseProvider {
 						'show_author_uploads_only' => array(
 							'value' => 1,
 							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'theme-text-domain' ),
-							'src'   => '',
-						)
-					),
-				],
-
-				[
-					'id'           => 'media_attachments',
-					'label'        => __( 'Media Upload Modal', 'theme-text-domain' ),
-					'desc'         => '',
-					'std'          => '',
-					'type'         => 'checkbox',
-					'section'      => 'admin',
-					'rows'         => '',
-					'post_type'    => '',
-					'taxonomy'     => '',
-					'min_max_step' => '',
-					'class'        => '',
-					'condition'    => '',
-					'operator'     => 'and',
-					'group'        => true,
-					'choices'      => array(
-						'enable_privacy_option' => array(
-							'value' => 1,
-							'label' => __( 'Enable video privacy option in other Media upload modals', 'theme-text-domain' ),
 							'src'   => '',
 						)
 					),

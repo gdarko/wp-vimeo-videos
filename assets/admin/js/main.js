@@ -15,11 +15,16 @@ var notice = function (message, type) {
 (function ($) {
     /**
      * Ajax select plugin
-     * @param url
+     * @param ajaxUrl
      * @param opts
      * @returns {*|jQuery|HTMLElement}
      */
-    $.fn.ajaxSelect = function (url, opts) {
+    $.fn.ajaxSelect = function (ajaxUrl, opts) {
+
+        if (!ajaxUrl || !opts) {
+            console.log('Video Uploads for Vimeo: Ajax Select2 not intialized correctly.');
+            return false;
+        }
 
         if (!jQuery.fn.select2) {
             console.log('Video Uploads for Vimeo: Select2 library is not initialized.');
@@ -75,7 +80,7 @@ var notice = function (message, type) {
 
         var args = {
             ajax: {
-                url: url,
+                url: ajaxUrl,
                 dataType: 'json',
                 delay: 250,
                 type: 'POST',
@@ -121,7 +126,7 @@ var notice = function (message, type) {
         var params = {};
         var placehodler = $(this).data('placeholder');
         var action = $(this).data('action');
-        var url = DGV.ajax_url + '?action=' + action + '&_wpnonce=' + DGV.nonce;
+        var endpoint = DGV.ajax_url + '?action=' + action + '&_wpnonce=' + DGV.nonce;
         var min_input_len = $(this).data('minInputLength');
         if (placehodler) {
             params.placeholder = placehodler;
@@ -129,7 +134,9 @@ var notice = function (message, type) {
         if (min_input_len) {
             params.minimumInputLength = min_input_len;
         }
-        $(this).ajaxSelect(url, params);
+        if (action && endpoint) {
+            $(this).ajaxSelect(endpoint, params);
+        }
     });
     $(document).on('change', '.dgv-select2-clearable', function () {
         var value = $(this).val();
@@ -153,6 +160,11 @@ var notice = function (message, type) {
 
 // Handle vimeo upload
 (function ($) {
+
+    let $folder_uri = $('#folder_uri');
+    if ($folder_uri.length) {
+        $folder_uri.ajaxSelect()
+    }
 
     jQuery('.wvv-video-upload').submit(function (e) {
 
@@ -214,7 +226,7 @@ var notice = function (message, type) {
             'description': description,
             'privacy': privacy,
             'wp': {
-                'notify_endpoint': DGV.ajax_url + '?action=dgv_store_upload&source=Backend.Form.Upload&_wpnonce=' + DGV.nonce,
+                'notify_endpoint': DGV.ajax_url + '?action=dgv_store_upload&hook_type=1&source=Backend.Form.Upload&_wpnonce=' + DGV.nonce,
             },
             'beforeStart': function () {
                 $loader.css({'display': 'inline-block'});
@@ -254,50 +266,6 @@ var notice = function (message, type) {
         return false;
     });
 
-})(jQuery);
-
-// Handle vimeo settings
-(function ($) {
-    $('#dg-vimeo-settings').submit(function (e) {
-        var $self = $(this);
-        var $btn = $self.find('button[type=submit]');
-        var data = $self.serialize();
-        $.ajax({
-            url: DGV.ajax_url + '?action=dgv_handle_settings&_wpnonce=' + DGV.nonce,
-            type: 'POST',
-            data: data,
-            beforeSend: function () {
-                $btn.prepend('<span class="dashicons dashicons-update dgv-dashicon dgv-spin"></span>');
-            },
-            success: function (response) {
-                var message;
-                var type;
-                if (response.success) {
-                    message = response.data.message;
-                    type = 'success';
-                    if (response.data.hasOwnProperty('api_info')) {
-                        $self.find('.vimeo-info-wrapper').html(response.data.api_info);
-                    }
-                } else {
-                    message = response.data.message;
-                    type = 'error';
-                }
-                var $_nwrapper = $self.closest('.wrap').find('.wvv-notice-wrapper');
-                if ($_nwrapper.length > 0) {
-                    $_nwrapper.html('');
-                }
-                $_nwrapper.prepend(notice(message, type));
-            },
-            complete: function () {
-                var $icon = $btn.find('.dgv-dashicon');
-                $icon.removeClass('dashicons-update dgv-spin').addClass('dashicons-yes')
-                setTimeout(function () {
-                    $icon.detach().remove();
-                }, 1000);
-            }
-        });
-        return false;
-    });
 })(jQuery);
 
 // Delete Videos
@@ -572,7 +540,7 @@ var notice = function (message, type) {
 
         var privacy_option = '';
 
-        if (DGV.upload_form_options.enable_privacy_option) {
+        if (DGV.upload_form_options.enable_view_privacy) {
             var view_privacy_opts = '';
             for (var key in DGV.upload_form_options.privacy_view) {
                 var name = DGV.upload_form_options.privacy_view[key].name;
@@ -801,7 +769,7 @@ var notice = function (message, type) {
 window.addEventListener('DOMContentLoaded', (event) => {
     window.DGV.AdminStats = function () {
 
-        this.init = function() {
+        this.init = function () {
             // Trigger Action
             var stats_action = document.getElementById('dgv-vimeo-stats');
             if (stats_action) {
@@ -813,15 +781,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
                             action: 'dgv_generate_stats',
                             _wpnonce: DGV.nonce
                         },
-                        beforeStart: function() {
+                        beforeStart: function () {
                             swal.fire({
-                                html: '<h4>'+DGV.loading+'</h4>',
-                                onRender: function() {
+                                html: '<h4>' + DGV.loading + '</h4>',
+                                onRender: function () {
                                     document.querySelector('.swal2-content').prepend(window.DGV.Loader);
                                 }
                             })
                         },
-                        success: function(response) {
+                        success: function (response) {
                             swal.fire({
                                 html: response.data.html,
                                 showCloseButton: true,
@@ -829,7 +797,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                                 showConfirmButton: false
                             })
                         },
-                        complete: function() {
+                        complete: function () {
 
                         }
                     })
@@ -841,12 +809,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     };
 
-    window.DGV.AdminSettings = function() {
-        this.init = function() {
+    window.DGV.AdminSettings = function () {
+        this.init = function () {
             var infoFields = document.querySelectorAll('.dgv-settings-info');
             console.log(infoFields);
-            for(var i = 0; i < infoFields.length; i++) {
-                infoFields[i].addEventListener('click', function(e){
+            for (var i = 0; i < infoFields.length; i++) {
+                infoFields[i].addEventListener('click', function (e) {
                     swal.fire({
                         showCloseButton: true,
                         showCancelButton: false,

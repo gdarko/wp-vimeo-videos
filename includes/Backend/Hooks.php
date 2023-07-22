@@ -71,7 +71,11 @@ class Hooks extends BaseProvider {
 	 */
 	public function backend_after_upload( $args ) {
 
-		$logtag  = 'DGV-BACKEND-HOOKS';
+		$logtag = 'DGV-BACKEND-HOOKS';
+		$this->plugin->system()->logger()->log( sprintf( 'Running after upload Shared/Frontend hook.' ), $logtag );
+		$this->plugin->system()->logger()->log( 'Data: ', json_encode( [
+			'args'    => $args
+		] ) );
 
 		/**
 		 * Make sure we are on the right track.
@@ -99,7 +103,7 @@ class Hooks extends BaseProvider {
 		 */
 		$source = isset( $args['source']['software'] ) ? $args['source']['software'] : null;
 		if ( empty( $source ) ) {
-			$this->plugin->system()->logger()->log( sprintf('-- Source (%s) not found.', ($source ? $source : 'NULL')), $logtag );
+			$this->plugin->system()->logger()->log( sprintf( '-- Source (%s) not found.', ( $source ? $source : 'NULL' ) ), $logtag );
 		}
 
 		/**
@@ -147,6 +151,11 @@ class Hooks extends BaseProvider {
 		 * Create local video
 		 */
 		$this->create_local_video( $args, $logtag );
+
+		/**
+		 * Signal finish
+		 */
+		$this->plugin->system()->logger()->log( 'Finished after upload Backend hook.', $logtag );
 
 		/**
 		 * Old deprecated hook

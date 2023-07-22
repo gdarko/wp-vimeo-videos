@@ -241,7 +241,7 @@ class Scripts implements ProviderInterface {
 				'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'wp-vimeo-videos' )
 			),
 			'upload_form_options' => array(
-				'enable_privacy_option' => (int) $this->plugin->system()->settings()->get( 'admin.gutenberg.enable_privacy_option', 0 ),
+				'enable_view_privacy' => (int) $this->plugin->system()->settings()->get( 'admin.gutenberg.enable_view_privacy', 0 ),
 				'privacy_view'          => $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ),
 			)
 		) );
@@ -293,7 +293,7 @@ class Scripts implements ProviderInterface {
 			'stats'                         => __( 'Statistics', 'wp-vimeo-videos' ),
 			'explanation'                   => __( 'Explanation', 'wp-vimeo-videos' ),
 			'upload_form_options'           => array(
-				'enable_privacy_option' => (int) $this->plugin->system()->settings()->get( 'admin.media_attachments.enable_privacy_option', 0 ),
+				'enable_view_privacy' => (int) $this->plugin->system()->settings()->get( 'admin.upload_forms.enable_view_privacy', 0 ),
 				'privacy_view'          => $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ),
 			)
 		) );
