@@ -1,5 +1,5 @@
 {
-  "name": "gdarko/vimeify-pro",
+  "name": "gdarko/wp-vimeo-videos",
   "autoload": {
     "files": [
       "libraries/autoload.php",

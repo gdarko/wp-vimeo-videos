@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Backend;
@@ -68,24 +66,24 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 		}
 
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Unauthorized action. User must be Author, Editor or Administrator to edit.', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Unauthorized action. User must be Author, Editor or Administrator to edit.', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
 
 		if ( ! $this->plugin->system()->requests()->is_http_post() ) {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid request.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Invalid request.', 'wp-vimeo-videos' ),
 			) );
 		}
 
-		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Untitled', 'wp-vimeo-videos-pro' );
+		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Untitled', 'wp-vimeo-videos' );
 		$description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
 		$size        = isset( $_POST['size'] ) ? intval( $_POST['size'] ) : false;
 		$meta        = isset( $_POST['meta'] ) && is_array( $_POST['meta'] ) ? array_map( 'sanitize_text_field', $_POST['meta'] ) : [];
@@ -128,7 +126,7 @@ class Ajax extends BaseProvider {
 		$this->plugin->system()->logger()->log( sprintf( 'Video %s stored.', $uri ), $logtag );
 
 		wp_send_json_success( array(
-			'message' => __( 'Video uploaded successfully.', 'wp-vimeo-videos-pro' ),
+			'message' => __( 'Video uploaded successfully.', 'wp-vimeo-videos' ),
 		) );
 
 		exit;
@@ -144,7 +142,7 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'title'   => __( 'Permission denied', 'wp-vimeo-videos-pro' ),
+				'title'   => __( 'Permission denied', 'wp-vimeo-videos' ),
 				'message' => __( 'Security check failed. Please contact administrator.' )
 			) );
 		}
@@ -153,14 +151,14 @@ class Ajax extends BaseProvider {
 
 		if ( ! current_user_can( $required_cap ) ) {
 			wp_send_json_error( array(
-				'title'   => __( 'Permission denied', 'wp-vimeo-videos-pro' ),
+				'title'   => __( 'Permission denied', 'wp-vimeo-videos' ),
 				'message' => __( 'Your WordPress account doesn\'t have the required permissions do delete video.' )
 			) );
 			exit;
 		}
 		if ( ! $this->plugin->system()->vimeo()->can_delete() ) {
 			wp_send_json_error( array(
-				'title'   => __( 'Permission denied', 'wp-vimeo-videos-pro' ),
+				'title'   => __( 'Permission denied', 'wp-vimeo-videos' ),
 				'message' => __( 'Your vimeo account doesn\'t have the delete scope to perform this action.' )
 			) );
 			exit;
@@ -169,7 +167,7 @@ class Ajax extends BaseProvider {
 		if ( ! isset( $_POST['vimeo_uri'] ) || empty( $_POST['vimeo_uri'] ) ) {
 
 			$args = array(
-				'title'   => __( 'Missing video', 'wp-vimeo-videos-pro' ),
+				'title'   => __( 'Missing video', 'wp-vimeo-videos' ),
 				'message' => __( 'Select valid vimeo video to delete.' )
 			);
 
@@ -210,7 +208,7 @@ class Ajax extends BaseProvider {
 				}
 				$this->plugin->system()->logger()->log( sprintf( 'Unable to delete remote video %s', $vimeo_uri ), $logtag );
 				wp_send_json_error( array(
-					'title'        => __( 'Sorry!', 'wp-vimeo-videos-pro' ),
+					'title'        => __( 'Sorry!', 'wp-vimeo-videos' ),
 					'message'      => $response['body']['error'],
 					'local_delete' => $local_delete,
 				) );
@@ -223,15 +221,15 @@ class Ajax extends BaseProvider {
 				}
 				$this->plugin->system()->logger()->log( sprintf( 'Remote video %s deleted', $vimeo_uri ), $logtag );
 				wp_send_json_success( array(
-					'title'        => __( 'Success', 'wp-vimeo-videos-pro' ),
-					'message'      => __( 'Video deleted successfully!', 'wp-vimeo-videos-pro' ),
+					'title'        => __( 'Success', 'wp-vimeo-videos' ),
+					'message'      => __( 'Video deleted successfully!', 'wp-vimeo-videos' ),
 					'local_delete' => $local_delete
 				) );
 			} else {
 				$this->plugin->system()->logger()->log( sprintf( 'Unable to delete remote video %s', $vimeo_uri ), $logtag );
 				wp_send_json_error( array(
-					'title'   => __( 'Sorry!', 'wp-vimeo-videos-pro' ),
-					'message' => __( 'The video was not deleted.', 'wp-vimeo-videos-pro' )
+					'title'   => __( 'Sorry!', 'wp-vimeo-videos' ),
+					'message' => __( 'The video was not deleted.', 'wp-vimeo-videos' )
 				) );
 			}
 
@@ -239,8 +237,8 @@ class Ajax extends BaseProvider {
 			$this->plugin->system()->logger()->log( sprintf( 'Unable to delete remote video %s. Local %s video deleted. Error: %s', $vimeo_uri, $vimeo_post_id, $e->getMessage() ), $logtag );
 			wp_delete_post( $vimeo_post_id, true );
 			wp_send_json_success( array(
-				'title'        => __( 'Success', 'wp-vimeo-videos-pro' ),
-				'message'      => __( 'Video deleted successfully. However we had a trouble deleting the vimeo from vimeo.com. It may be deleted or belongs to different account.', 'wp-vimeo-videos-pro' ),
+				'title'        => __( 'Success', 'wp-vimeo-videos' ),
+				'message'      => __( 'Video deleted successfully. However we had a trouble deleting the vimeo from vimeo.com. It may be deleted or belongs to different account.', 'wp-vimeo-videos' ),
 				'local_delete' => true,
 			) );
 			exit;
@@ -256,21 +254,21 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
 
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Unauthorized action', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Unauthorized action', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
 
 		if ( ! $this->plugin->system()->requests()->is_http_post() ) {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid request', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Invalid request', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
@@ -282,7 +280,7 @@ class Ajax extends BaseProvider {
 
 		if ( empty( $name ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Please enter valid name', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Please enter valid name', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
@@ -324,18 +322,18 @@ class Ajax extends BaseProvider {
 					) );
 					$this->plugin->system()->logger()->log( sprintf( 'Video "%s" saved', $uri ), $logtag );
 					wp_send_json_success( array(
-						'message' => __( 'Video saved successfully', 'wp-vimeo-videos-pro' )
+						'message' => __( 'Video saved successfully', 'wp-vimeo-videos' )
 					) );
 				} else {
 					$this->plugin->system()->logger()->log( sprintf( 'Unable to save video %s', $uri ), $logtag );
 					wp_send_json_error( array(
-						'message' => __( 'Error saving the video', 'wp-vimeo-videos-pro' )
+						'message' => __( 'Error saving the video', 'wp-vimeo-videos' )
 					) );
 				}
 			} else {
 				$this->plugin->system()->logger()->log( sprintf( 'Unable to save video %s', $uri ), $logtag );
 				wp_send_json_error( array(
-					'message' => __( 'Unknown error.', 'wp-vimeo-videos-pro' ),
+					'message' => __( 'Unknown error.', 'wp-vimeo-videos' ),
 				) );
 			}
 
@@ -362,21 +360,21 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
 
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Unauthorized action', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Unauthorized action', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
 
 		if ( ! $this->plugin->system()->requests()->is_http_post() ) {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid request', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Invalid request', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
@@ -387,7 +385,7 @@ class Ajax extends BaseProvider {
 
 		if ( empty( $privacy_embed ) || ! in_array( $privacy_embed, array( 'public', 'whitelist' ) ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid embed privacy mehtod.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Invalid embed privacy mehtod.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
@@ -401,7 +399,7 @@ class Ajax extends BaseProvider {
 				if ( ! $network_validator->validate_domain_name( $whitelist_domain ) ) {
 					$this->plugin->system()->logger()->log( sprintf( 'Unable to whitelist domain %s for %s. Error: Invalid format', $whitelist_domain, $uri ), $logtag );
 					wp_send_json_error( array(
-						'message' => __( 'Invalid domain. Please enter valid domain name.', 'wp-vimeo-videos-pro' ),
+						'message' => __( 'Invalid domain. Please enter valid domain name.', 'wp-vimeo-videos' ),
 					) );
 					exit;
 				} else {
@@ -410,27 +408,27 @@ class Ajax extends BaseProvider {
 					if ( isset( $whitelist_response['status'] ) ) {
 						if ( $whitelist_response['status'] >= 200 && $whitelist_response['status'] < 300 ) {
 							wp_send_json_success( array(
-								'message'      => __( 'Domain added to embed whitelist.', 'wp-vimeo-videos-pro' ),
+								'message'      => __( 'Domain added to embed whitelist.', 'wp-vimeo-videos' ),
 								'domain_added' => $whitelist_domain,
 								'uri'          => $uri,
 							) );
 							exit;
 						} else {
 							wp_send_json_error( array(
-								'message' => __( 'Failed to add domain to the embed whitelist.', 'wp-vimeo-videos-pro' ),
+								'message' => __( 'Failed to add domain to the embed whitelist.', 'wp-vimeo-videos' ),
 							) );
 							exit;
 						}
 					} else {
 						wp_send_json_error( array(
-							'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos-pro' )
+							'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos' )
 						) );
 						exit;
 					}
 				}
 			} else {
 				wp_send_json_success( array(
-					'message' => __( 'Embed privacy changed successfully.', 'wp-vimeo-videos-pro' ),
+					'message' => __( 'Embed privacy changed successfully.', 'wp-vimeo-videos' ),
 				) );
 				exit;
 			}
@@ -454,21 +452,21 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
 
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Unauthorized action', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Unauthorized action', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
 
 		if ( ! $this->plugin->system()->requests()->is_http_post() ) {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid request', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Invalid request', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
@@ -477,7 +475,7 @@ class Ajax extends BaseProvider {
 
 		if ( empty( $uri ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid video URI specified', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Invalid video URI specified', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
@@ -490,24 +488,24 @@ class Ajax extends BaseProvider {
 		} catch ( VimeoRequestException $e ) {
 			$this->plugin->system()->logger()->log( sprintf( 'Error removing domain from whitelist (%s)', $e->getMessage() ), $logtag );
 			wp_send_json_success( array(
-				'message' => __( 'Error removing domain from whitelist.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Error removing domain from whitelist.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
 		if ( isset( $whitelist_response['status'] ) ) {
 			if ( $whitelist_response['status'] === 204 ) {
 				wp_send_json_success( array(
-					'message' => __( 'Domain removed successfully', 'wp-vimeo-videos-pro' ),
+					'message' => __( 'Domain removed successfully', 'wp-vimeo-videos' ),
 				) );
 			} else {
 				wp_send_json_error( array(
-					'message' => isset( $whitelist_response['body']['error'] ) ? $whitelist_response['body']['error'] : __( 'Failed to remove domain from embed privacy whitelist.', 'wp-vimeo-videos-pro' )
+					'message' => isset( $whitelist_response['body']['error'] ) ? $whitelist_response['body']['error'] : __( 'Failed to remove domain from embed privacy whitelist.', 'wp-vimeo-videos' )
 				) );
 				exit;
 			}
 		} else {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
@@ -522,7 +520,7 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		} else {
@@ -534,13 +532,13 @@ class Ajax extends BaseProvider {
 
 			if ( empty( $video_uri ) ) {
 				wp_send_json_error( array(
-					'message' => __( 'Video missing.', 'wp-vimeo-videos-pro' ),
+					'message' => __( 'Video missing.', 'wp-vimeo-videos' ),
 				) );
 				exit;
 			}
 			if ( empty( $folder_uri ) ) {
 				wp_send_json_error( array(
-					'message' => __( 'Folder missing.', 'wp-vimeo-videos-pro' ),
+					'message' => __( 'Folder missing.', 'wp-vimeo-videos' ),
 				) );
 				exit;
 			}
@@ -557,7 +555,7 @@ class Ajax extends BaseProvider {
 							if ( in_array( $response['status'], array( 200, 204 ) ) ) {
 								$this->plugin->system()->logger()->log( sprintf( 'Folder changed to %s for %s', 'default', $video_uri ), $logtag );
 								wp_send_json_success( array(
-									'message' => __( 'Video removed from folder successfully.', 'wp-vimeo-videos-pro' ),
+									'message' => __( 'Video removed from folder successfully.', 'wp-vimeo-videos' ),
 								) );
 							} else {
 								$error = '';
@@ -566,13 +564,13 @@ class Ajax extends BaseProvider {
 								}
 								$this->plugin->system()->logger()->log( sprintf( 'Unable to change folder to %s for %s. %s', 'default', $video_uri, $error ), $logtag );
 								wp_send_json_success( array(
-									'message' => sprintf( __( 'Unable to change folder. %s', 'wp-vimeo-videos-pro' ), $error ),
+									'message' => sprintf( __( 'Unable to change folder. %s', 'wp-vimeo-videos' ), $error ),
 								) );
 							}
 						} else {
 							$this->plugin->system()->logger()->log( sprintf( 'Unable to set folder %s for %s. Error: Unreadable response', 'default', $video_uri ), $logtag );
 							wp_send_json_error( array(
-								'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos-pro' ),
+								'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos' ),
 							) );
 						}
 					} catch ( VimeoRequestException $e ) {
@@ -584,7 +582,7 @@ class Ajax extends BaseProvider {
 				} else {
 					$this->plugin->system()->logger()->log( sprintf( 'Unable to set folder %s for %s. Error: Invalid folder', $folder_uri, $video_uri ), $logtag );
 					wp_send_json_error( array(
-						'message' => __( 'Unexpected error! Sorry.', 'wp-vimeo-videos-pro' ),
+						'message' => __( 'Unexpected error! Sorry.', 'wp-vimeo-videos' ),
 					) );
 				}
 			} else { // Handle folder
@@ -595,7 +593,7 @@ class Ajax extends BaseProvider {
 						if ( in_array( $response['status'], array( 200, 204 ) ) ) {
 							$this->plugin->system()->logger()->log( sprintf( 'Folder changed to %s for %s', $folder_uri, $video_uri ), $logtag );
 							wp_send_json_success( array(
-								'message' => __( 'Video moved to folder successfully.', 'wp-vimeo-videos-pro' ),
+								'message' => __( 'Video moved to folder successfully.', 'wp-vimeo-videos' ),
 							) );
 						} else {
 							$error = '';
@@ -604,13 +602,13 @@ class Ajax extends BaseProvider {
 							}
 							$this->plugin->system()->logger()->log( sprintf( 'Unable to change folder to %s for %s. %s', $folder_uri, $video_uri, $error ), $logtag );
 							wp_send_json_success( array(
-								'message' => sprintf( __( 'Unable to change folder. %s', 'wp-vimeo-videos-pro' ), $error ),
+								'message' => sprintf( __( 'Unable to change folder. %s', 'wp-vimeo-videos' ), $error ),
 							) );
 						}
 					} else {
 						$this->plugin->system()->logger()->log( sprintf( 'Unable to set folder %s for %s. Error: Unreadable response', $folder_uri, $video_uri ), $logtag );
 						wp_send_json_error( array(
-							'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos-pro' ),
+							'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos' ),
 						) );
 					}
 
@@ -634,7 +632,7 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		} else {
@@ -646,13 +644,13 @@ class Ajax extends BaseProvider {
 
 			if ( empty( $video_uri ) ) {
 				wp_send_json_error( array(
-					'message' => __( 'Video missing.', 'wp-vimeo-videos-pro' ),
+					'message' => __( 'Video missing.', 'wp-vimeo-videos' ),
 				) );
 				exit;
 			}
 			if ( empty( $preset_uri ) ) {
 				wp_send_json_error( array(
-					'message' => __( 'Preset missing.', 'wp-vimeo-videos-pro' ),
+					'message' => __( 'Preset missing.', 'wp-vimeo-videos' ),
 				) );
 				exit;
 			}
@@ -668,7 +666,7 @@ class Ajax extends BaseProvider {
 							if ( in_array( $response['status'], array( 200, 204 ) ) ) {
 								$this->plugin->system()->logger()->log( sprintf( 'Embed preset changed to %s for %s', 'default', $video_uri ), $logtag );
 								wp_send_json_success( array(
-									'message' => __( 'Embed preset removed from video successfully', 'wp-vimeo-videos-pro' ),
+									'message' => __( 'Embed preset removed from video successfully', 'wp-vimeo-videos' ),
 								) );
 							} else {
 								$error = '';
@@ -677,13 +675,13 @@ class Ajax extends BaseProvider {
 								}
 								$this->plugin->system()->logger()->log( sprintf( 'Unable to change embed preset to %s for %s. %s', 'default', $video_uri, $error ), $logtag );
 								wp_send_json_success( array(
-									'message' => sprintf( __( 'Unable to change embed preset. %s', 'wp-vimeo-videos-pro' ), $error ),
+									'message' => sprintf( __( 'Unable to change embed preset. %s', 'wp-vimeo-videos' ), $error ),
 								) );
 							}
 						} else {
 							$this->plugin->system()->logger()->log( sprintf( 'Unable to set embed preset %s for %s. Error: Unreadable response.', 'default', $video_uri ), $logtag );
 							wp_send_json_error( array(
-								'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos-pro' ),
+								'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos' ),
 							) );
 						}
 					} catch ( VimeoRequestException $e ) {
@@ -695,7 +693,7 @@ class Ajax extends BaseProvider {
 				} else {
 					$this->plugin->system()->logger()->log( sprintf( 'Unable to set embed preset %s for %s. Error: Invalid preset.', $preset_uri, $video_uri ), $logtag );
 					wp_send_json_error( array(
-						'message' => __( 'Unexpected error! Sorry.', 'wp-vimeo-videos-pro' ),
+						'message' => __( 'Unexpected error! Sorry.', 'wp-vimeo-videos' ),
 					) );
 				}
 			} else { // Handle Preset
@@ -706,7 +704,7 @@ class Ajax extends BaseProvider {
 						if ( in_array( $response['status'], array( 200, 204 ) ) ) {
 							$this->plugin->system()->logger()->log( sprintf( 'Embed preset changed to %s for %s', $preset_uri, $video_uri ), $logtag );
 							wp_send_json_success( array(
-								'message' => __( 'Embed preset added to Video successfully.', 'wp-vimeo-videos-pro' ),
+								'message' => __( 'Embed preset added to Video successfully.', 'wp-vimeo-videos' ),
 							) );
 						} else {
 							$error = '';
@@ -715,13 +713,13 @@ class Ajax extends BaseProvider {
 							}
 							$this->plugin->system()->logger()->log( sprintf( 'Unable to change embed preset to %s for %s. %s', $preset_uri, $video_uri, $error ), $logtag );
 							wp_send_json_success( array(
-								'message' => sprintf( __( 'Unable to change embed preset. %s', 'wp-vimeo-videos-pro' ), $error ),
+								'message' => sprintf( __( 'Unable to change embed preset. %s', 'wp-vimeo-videos' ), $error ),
 							) );
 						}
 					} else {
 						$this->plugin->system()->logger()->log( sprintf( 'Unable to set embed preset %s for %s. Error: Unraedable response', $preset_uri, $video_uri ), $logtag );
 						wp_send_json_error( array(
-							'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos-pro' ),
+							'message' => __( 'Invalid response received from vimeo', 'wp-vimeo-videos' ),
 						) );
 					}
 
@@ -745,12 +743,12 @@ class Ajax extends BaseProvider {
 		$logtag = 'DGV-ADMIN-A2V';
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ) ) );
 			exit;
 		}
 
 		if ( ! $this->plugin->system()->requests()->is_http_post() ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid request', 'wp-vimeo-videos' ) ) );
 			exit;
 		}
 
@@ -760,12 +758,12 @@ class Ajax extends BaseProvider {
 		$view_priv = isset( $_POST['vimeo_view_privacy'] ) && ! empty( $_POST['vimeo_view_privacy'] ) ? sanitize_text_field( $_POST['vimeo_view_privacy'] ) : null;
 
 		if ( is_null( $ID ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos' ) ) );
 			exit;
 		}
 
 		if ( is_null( $title ) ) {
-			wp_send_json_error( array( 'message' => __( 'Please enter valid video title.', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Please enter valid video title.', 'wp-vimeo-videos' ) ) );
 			exit;
 		}
 
@@ -820,7 +818,7 @@ class Ajax extends BaseProvider {
 
 		} catch ( \Exception $e ) {
 			$this->plugin->system()->logger()->log( sprintf( 'Failed to uplaod from media library screen (%s)', $e->getMessage() ), $logtag );
-			wp_send_json_error( __( 'Upload failed: ' . $e->getMessage(), 'wp-vimeo-videos-pro' ) );
+			wp_send_json_error( __( 'Upload failed: ' . $e->getMessage(), 'wp-vimeo-videos' ) );
 		}
 		exit;
 	}
@@ -833,26 +831,26 @@ class Ajax extends BaseProvider {
 		$logtag = 'DGV-ADMIN-A2V';
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ) ) );
 			exit;
 		}
 
 		if ( ! $this->plugin->system()->requests()->is_http_post() ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid request', 'wp-vimeo-videos' ) ) );
 			exit;
 		}
 
 		$ID = isset( $_POST['attachment_id'] ) ? intval( $_POST['attachment_id'] ) : null;
 
 		if ( is_null( $ID ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos' ) ) );
 			exit;
 		}
 
 		$meta = get_post_meta( $ID, 'dgv', true );
 
 		if ( ! isset( $meta['vimeo_id'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos' ) ) );
 			exit;
 		} else {
 			try {
@@ -875,7 +873,7 @@ class Ajax extends BaseProvider {
 
 			} catch ( \Exception $e ) {
 				$this->plugin->system()->logger()->log( sprintf( 'Unable to delete from media library screen (%s)', $e->getMessage() ), $logtag );
-				wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos-pro' ) ) );
+				wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos' ) ) );
 				exit;
 			}
 		}
@@ -889,21 +887,21 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
 
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Unauthorized action', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Unauthorized action', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
 
 		if ( ! $this->plugin->system()->requests()->is_http_get() ) {
 			wp_send_json_error( array(
-				'message' => __( 'Invalid request', 'wp-vimeo-videos-pro' )
+				'message' => __( 'Invalid request', 'wp-vimeo-videos' )
 			) );
 			exit;
 		}
@@ -926,7 +924,7 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
@@ -973,7 +971,7 @@ class Ajax extends BaseProvider {
 	public function handle_folder_search() {
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
@@ -997,7 +995,7 @@ class Ajax extends BaseProvider {
 		$items = [
 			[
 				'id'   => 'default',
-				'text' => __( 'Default (no folder)', 'wp-vimeo-videos-pro' )
+				'text' => __( 'Default (no folder)', 'wp-vimeo-videos' )
 			]
 		];
 		foreach ( $data as $entry ) {
@@ -1023,7 +1021,7 @@ class Ajax extends BaseProvider {
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
@@ -1067,7 +1065,7 @@ class Ajax extends BaseProvider {
 	public function handle_embed_preset_search() {
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}
@@ -1091,7 +1089,7 @@ class Ajax extends BaseProvider {
 		$items = [
 			[
 				'id'   => 'default',
-				'text' => __( 'Default (no preset)', 'wp-vimeo-videos-pro' )
+				'text' => __( 'Default (no preset)', 'wp-vimeo-videos' )
 			]
 		];
 		foreach ( $data as $entry ) {
@@ -1116,7 +1114,7 @@ class Ajax extends BaseProvider {
 	public function handle_generate_stats() {
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
-				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos-pro' ),
+				'message' => __( 'Security Check Failed.', 'wp-vimeo-videos' ),
 			) );
 			exit;
 		}

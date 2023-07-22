@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Backend;
@@ -85,16 +83,16 @@ class Scripts implements ProviderInterface {
 		wp_localize_script( 'dgv-admin', 'DGVAdmin', array(
 			'phrases' => array(
 				'select2' => array(
-					'errorLoading'    => __( 'The results could not be loaded.', 'wp-vimeo-videos-pro' ),
-					'inputTooLong'    => __( 'Please delete {number} character', 'wp-vimeo-videos-pro' ),
-					'inputTooShort'   => __( 'Please enter {number} or more characters', 'wp-vimeo-videos-pro' ),
-					'loadingMore'     => __( 'Loading more results...', 'wp-vimeo-videos-pro' ),
-					'maximumSelected' => __( 'You can only select {number} item', 'wp-vimeo-videos-pro' ),
-					'noResults'       => __( 'No results found', 'wp-vimeo-videos-pro' ),
-					'searching'       => __( 'Searching...', 'wp-vimeo-videos-pro' ),
-					'removeAllItems'  => __( 'Remove all items', 'wp-vimeo-videos-pro' ),
-					'removeItem'      => __( 'Remove item', 'wp-vimeo-videos-pro' ),
-					'search'          => __( 'Search', 'wp-vimeo-videos-pro' ),
+					'errorLoading'    => __( 'The results could not be loaded.', 'wp-vimeo-videos' ),
+					'inputTooLong'    => __( 'Please delete {number} character', 'wp-vimeo-videos' ),
+					'inputTooShort'   => __( 'Please enter {number} or more characters', 'wp-vimeo-videos' ),
+					'loadingMore'     => __( 'Loading more results...', 'wp-vimeo-videos' ),
+					'maximumSelected' => __( 'You can only select {number} item', 'wp-vimeo-videos' ),
+					'noResults'       => __( 'No results found', 'wp-vimeo-videos' ),
+					'searching'       => __( 'Searching...', 'wp-vimeo-videos' ),
+					'removeAllItems'  => __( 'Remove all items', 'wp-vimeo-videos' ),
+					'removeItem'      => __( 'Remove item', 'wp-vimeo-videos' ),
+					'search'          => __( 'Search', 'wp-vimeo-videos' ),
 				)
 			)
 		) );
@@ -200,9 +198,9 @@ class Scripts implements ProviderInterface {
 		$current_user_uploads      = ! current_user_can( 'administrator' ) && (int) $this->plugin->system()->settings()->get( 'admin.gutenberg.show_author_uploads_only', 0 );
 		$uploads                   = $this->plugin->system()->database()->get_uploaded_videos( $current_user_uploads );
 		$methods                   = array(
-			'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos-pro' ),
-			'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos-pro' ),
-			'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos-pro' ),
+			'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos' ),
+			'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
+			'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos' ),
 		);
 		$is_account_search_enabled = $this->plugin->system()->settings()->get( 'admin.gutenberg.enable_account_search', 1 );
 		if ( ! $is_account_search_enabled ) {
@@ -223,24 +221,24 @@ class Scripts implements ProviderInterface {
 			'uploads'             => $uploads,
 			'methods'             => $methods,
 			'words'               => array(
-				'block_name'   => __( 'WP Vimeo Upload', 'wp-vimeo-videos-pro' ),
-				'title'        => __( 'Title', 'wp-vimeo-videos-pro' ),
-				'desc'         => __( 'Description', 'wp-vimeo-videos-pro' ),
-				'file'         => __( 'File', 'wp-vimeo-videos-pro' ),
-				'uploading3d'  => __( 'Uploading...', 'wp-vimeo-videos-pro' ),
-				'upload'       => __( 'Upload', 'wp-vimeo-videos-pro' ),
-				'search'       => __( 'Search', 'wp-vimeo-videos-pro' ),
-				'sorry'        => __( 'Sorry', 'wp-vimeo-videos-pro' ),
-				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos-pro' ),
+				'block_name'   => __( 'WP Vimeo Upload', 'wp-vimeo-videos' ),
+				'title'        => __( 'Title', 'wp-vimeo-videos' ),
+				'desc'         => __( 'Description', 'wp-vimeo-videos' ),
+				'file'         => __( 'File', 'wp-vimeo-videos' ),
+				'uploading3d'  => __( 'Uploading...', 'wp-vimeo-videos' ),
+				'upload'       => __( 'Upload', 'wp-vimeo-videos' ),
+				'search'       => __( 'Search', 'wp-vimeo-videos' ),
+				'sorry'        => __( 'Sorry', 'wp-vimeo-videos' ),
+				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos' ),
 			),
 			'phrases'             => array(
-				'upload_invalid_file'               => __( 'Please select valid video file.', 'wp-vimeo-videos-pro' ),
-				'invalid_search_phrase'             => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos-pro' ),
-				'enter_phrase'                      => __( 'Enter phrase', 'wp-vimeo-videos-pro' ),
-				'select_video'                      => __( 'Select video', 'wp-vimeo-videos-pro' ),
-				'upload_success'                    => __( 'Video uploaded successfully!', 'wp-vimeo-videos-pro' ),
-				'block_title'                       => __( 'Insert Vimeo Video', 'wp-vimeo-videos-pro' ),
-				'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'wp-vimeo-videos-pro' )
+				'upload_invalid_file'               => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
+				'invalid_search_phrase'             => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
+				'enter_phrase'                      => __( 'Enter phrase', 'wp-vimeo-videos' ),
+				'select_video'                      => __( 'Select video', 'wp-vimeo-videos' ),
+				'upload_success'                    => __( 'Video uploaded successfully!', 'wp-vimeo-videos' ),
+				'block_title'                       => __( 'Insert Vimeo Video', 'wp-vimeo-videos' ),
+				'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'wp-vimeo-videos' )
 			),
 			'upload_form_options' => array(
 				'enable_privacy_option' => (int) $this->plugin->system()->settings()->get( 'admin.gutenberg.enable_privacy_option', 0 ),
@@ -270,30 +268,30 @@ class Scripts implements ProviderInterface {
 			'ajax_url'                      => admin_url( 'admin-ajax.php' ),
 			'access_token'                  => $this->plugin->system()->settings()->get( 'api_credentials.access_token' ),
 			'default_privacy'               => $this->plugin->system()->settings()->get_default_view_privacy('admin_classic'),
-			'sorry'                         => __( 'Sorry', 'wp-vimeo-videos-pro' ),
-			'upload_invalid_file'           => __( 'Please select valid video file.', 'wp-vimeo-videos-pro' ),
+			'sorry'                         => __( 'Sorry', 'wp-vimeo-videos' ),
+			'upload_invalid_file'           => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
 			'delete_not_allowed'            => __( 'Delete is not allowed because your account doesn\'t have the correct delete scope required by Vimeo.' ),
-			'delete_confirm_title'          => __( 'Are you sure?', 'wp-vimeo-videos-pro' ),
-			'delete_confirm_desc'           => __( 'Are you sure you want to delete this video? This action deletes the video from the Vimeo and can not be reversed.', 'wp-vimeo-videos-pro' ),
-			'delete_whitelist_domain_error' => __( 'Sorry, the domain could not be deleted.', 'wp-vimeo-videos-pro' ),
-			'http_error'                    => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos-pro' ),
-			'success'                       => __( 'Success', 'wp-vimeo-videos-pro' ),
-			'cancel'                        => __( 'Cancel', 'wp-vimeo-videos-pro' ),
-			'confirm'                       => __( 'Confirm', 'wp-vimeo-videos-pro' ),
-			'close'                         => __( 'Close', 'wp-vimeo-videos-pro' ),
-			'remove_lower'                  => __( 'remove', 'wp-vimeo-videos-pro' ),
-			'delete_confirmation'           => __( 'Are you sure you want to delete this video?', 'wp-vimeo-videos-pro' ),
-			'delete_confirmation_yes'       => __( 'Yes, please', 'wp-vimeo-videos-pro' ),
-			'title'                         => __( 'Title', 'wp-vimeo-videos-pro' ),
-			'description'                   => __( 'Description', 'wp-vimeo-videos-pro' ),
-			'upload'                        => __( 'Upload', 'wp-vimeo-videos-pro' ),
-			'upload_to_vimeo'               => __( 'Upload to vimeo', 'wp-vimeo-videos-pro' ),
-			'correct_errors'                => __( 'Please correct the following errors', 'wp-vimeo-videos-pro' ),
-			'privacy_view'                  => __( 'Who can view this video?', 'wp-vimeo-videos-pro' ),
-			'problem_solution'              => __( 'Problem solution', 'wp-vimeo-videos-pro' ),
-			'loading'                       => __( 'Loading...', 'wp-vimeo-videos-pro' ),
-			'stats'                         => __( 'Statistics', 'wp-vimeo-videos-pro' ),
-			'explanation'                   => __( 'Explanation', 'wp-vimeo-videos-pro' ),
+			'delete_confirm_title'          => __( 'Are you sure?', 'wp-vimeo-videos' ),
+			'delete_confirm_desc'           => __( 'Are you sure you want to delete this video? This action deletes the video from the Vimeo and can not be reversed.', 'wp-vimeo-videos' ),
+			'delete_whitelist_domain_error' => __( 'Sorry, the domain could not be deleted.', 'wp-vimeo-videos' ),
+			'http_error'                    => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos' ),
+			'success'                       => __( 'Success', 'wp-vimeo-videos' ),
+			'cancel'                        => __( 'Cancel', 'wp-vimeo-videos' ),
+			'confirm'                       => __( 'Confirm', 'wp-vimeo-videos' ),
+			'close'                         => __( 'Close', 'wp-vimeo-videos' ),
+			'remove_lower'                  => __( 'remove', 'wp-vimeo-videos' ),
+			'delete_confirmation'           => __( 'Are you sure you want to delete this video?', 'wp-vimeo-videos' ),
+			'delete_confirmation_yes'       => __( 'Yes, please', 'wp-vimeo-videos' ),
+			'title'                         => __( 'Title', 'wp-vimeo-videos' ),
+			'description'                   => __( 'Description', 'wp-vimeo-videos' ),
+			'upload'                        => __( 'Upload', 'wp-vimeo-videos' ),
+			'upload_to_vimeo'               => __( 'Upload to vimeo', 'wp-vimeo-videos' ),
+			'correct_errors'                => __( 'Please correct the following errors', 'wp-vimeo-videos' ),
+			'privacy_view'                  => __( 'Who can view this video?', 'wp-vimeo-videos' ),
+			'problem_solution'              => __( 'Problem solution', 'wp-vimeo-videos' ),
+			'loading'                       => __( 'Loading...', 'wp-vimeo-videos' ),
+			'stats'                         => __( 'Statistics', 'wp-vimeo-videos' ),
+			'explanation'                   => __( 'Explanation', 'wp-vimeo-videos' ),
 			'upload_form_options'           => array(
 				'enable_privacy_option' => (int) $this->plugin->system()->settings()->get( 'admin.media_attachments.enable_privacy_option', 0 ),
 				'privacy_view'          => $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ),

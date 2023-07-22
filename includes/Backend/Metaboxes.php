@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Backend;
@@ -84,7 +82,7 @@ class Metaboxes extends BaseProvider {
 						'use_pull_method'     => array(
 							'value' => 1,
 							'label' => __( 'Prefer "pull" uploads where that is possible', 'theme-text-domain' ),
-							'desc'  => __( 'Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable', 'wp-vimeo-videos-pro' ),
+							'desc'  => __( 'Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable', 'wp-vimeo-videos' ),
 							'src'   => '',
 						)
 					),
@@ -96,8 +94,8 @@ class Metaboxes extends BaseProvider {
 				),
 				[
 					'id'           => 'view_privacy',
-					'label'        => __( 'Who can view the videos on vimeo.com', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Enable this if you want to prevent certain audiences from viewing your videos.', 'wp-vimeo-videos-pro' ),
+					'label'        => __( 'Who can view the videos on vimeo.com', 'wp-vimeo-videos' ),
+					'desc'         => __( 'Enable this if you want to prevent certain audiences from viewing your videos.', 'wp-vimeo-videos' ),
 					'std'          => '',
 					'type'         => 'select',
 					'section'      => 'privacy',
@@ -112,8 +110,8 @@ class Metaboxes extends BaseProvider {
 				],
 				[
 					'id'           => 'embed_domains',
-					'label'        => __( 'Where the uploaded videos can be embedded (comma separated list of domains)', 'wp-vimeo-videos-pro' ),
-					'desc'         => __( 'Enable this if you want to prevent embedding your videos on other domains than those specified here.', 'wp-vimeo-videos-pro' ),
+					'label'        => __( 'Where the uploaded videos can be embedded (comma separated list of domains)', 'wp-vimeo-videos' ),
+					'desc'         => __( 'Enable this if you want to prevent embedding your videos on other domains than those specified here.', 'wp-vimeo-videos' ),
 					'std'          => '',
 					'type'         => 'text',
 					'section'      => 'privacy',
@@ -133,13 +131,13 @@ class Metaboxes extends BaseProvider {
 				),
 				[
 					'id'           => 'folder',
-					'label'        => __( 'Which Folder will be used for the uploaded videos', 'wp-vimeo-videos-pro' ),
+					'label'        => __( 'Which Folder will be used for the uploaded videos', 'wp-vimeo-videos' ),
 					'desc'         => __( 'Select a folder where the videos uploaded through different areas on your website that use this profile will be stored. Choose "Default" to omit the folders.' ),
 					'std'          => '',
 					'type'         => 'select',
 					'section'      => 'folders',
 					'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_folder_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-					'placeholder'  => __( 'Select folder...', 'wp-vimeo-videos-pro' ),
+					'placeholder'  => __( 'Select folder...', 'wp-vimeo-videos' ),
 					'rows'         => '',
 					'post_type'    => '',
 					'taxonomy'     => '',
@@ -187,7 +185,7 @@ class Metaboxes extends BaseProvider {
 		}
 		$current_value = isset( $settings[ $key ] ) ? $settings[ $key ] : null;
 
-		$current_name = __( 'Default / None', 'wp-vimeo-videos-pro' );
+		$current_name = __( 'Default / None', 'wp-vimeo-videos' );
 		if ( ! empty( $current_value ) && ( 'default' != $current_value ) ) {
 			switch($type) {
 				case 'folders':
@@ -238,8 +236,8 @@ class Metaboxes extends BaseProvider {
 	 */
 	protected function create_embed_presets_settings() {
 
-		$label = __( 'Which Embed Preset the uploaded video will use', 'wp-vimeo-videos-pro' );
-		$desc  = __( 'Select embed preset for the Vimeo uploads performed in the Front-End. Choose "Default" to omit the embed presets.', 'wp-vimeo-videos-pro' );
+		$label = __( 'Which Embed Preset the uploaded video will use', 'wp-vimeo-videos' );
+		$desc  = __( 'Select embed preset for the Vimeo uploads performed in the Front-End. Choose "Default" to omit the embed presets.', 'wp-vimeo-videos' );
 
 
 		if ( $this->plugin->system()->vimeo()->supports_embed_presets() ) {
@@ -251,7 +249,7 @@ class Metaboxes extends BaseProvider {
 				'type'         => 'select',
 				'section'      => 'embed_presets',
 				'ajax'         => [ 'endpoint' => admin_url( 'admin-ajax.php' ), 'action' => 'dgv_embed_preset_search', 'nonce' => \wp_create_nonce( 'dgvsecurity' ) ],
-				'placeholder'  => __( 'Select preset...', 'wp-vimeo-videos-pro' ),
+				'placeholder'  => __( 'Select preset...', 'wp-vimeo-videos' ),
 				'rows'         => '',
 				'post_type'    => '',
 				'taxonomy'     => '',
@@ -268,7 +266,7 @@ class Metaboxes extends BaseProvider {
 				'label'   => $label,
 				'type'    => 'html',
 				'section' => 'embed_presets',
-				'markup'  => sprintf( '<p><strong>%s</strong>: %s</p>', __( 'Note', 'wp-vimeo-videos-pro' ), __( 'Embed presets are supported on Vimeo Plus or higher plans.', 'wp-vimeo-videos-pro' ) ),
+				'markup'  => sprintf( '<p><strong>%s</strong>: %s</p>', __( 'Note', 'wp-vimeo-videos' ), __( 'Embed presets are supported on Vimeo Plus or higher plans.', 'wp-vimeo-videos' ) ),
 			];
 		}
 	}

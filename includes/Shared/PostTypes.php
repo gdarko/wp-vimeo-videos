@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Shared;
@@ -46,37 +44,37 @@ class PostTypes extends BaseProvider {
 	public function register_vimeo_uplaods() {
 
 		$labels = array(
-			'name'                  => _x( 'Vimeo Uploads', 'Post Type General Name', 'wp-vimeo-videos-pro' ),
-			'singular_name'         => _x( 'Vimeo Uploads', 'Post Type Singular Name', 'wp-vimeo-videos-pro' ),
-			'menu_name'             => __( 'Vimeo Uploads', 'wp-vimeo-videos-pro' ),
-			'name_admin_bar'        => __( 'Vimeo Upload', 'wp-vimeo-videos-pro' ),
-			'archives'              => __( 'Item Archives', 'wp-vimeo-videos-pro' ),
-			'attributes'            => __( 'Item Attributes', 'wp-vimeo-videos-pro' ),
-			'parent_item_colon'     => __( 'Parent Item:', 'wp-vimeo-videos-pro' ),
-			'all_items'             => __( 'All Items', 'wp-vimeo-videos-pro' ),
-			'add_new_item'          => __( 'Add New Item', 'wp-vimeo-videos-pro' ),
-			'add_new'               => __( 'Add New', 'wp-vimeo-videos-pro' ),
-			'new_item'              => __( 'New Item', 'wp-vimeo-videos-pro' ),
-			'edit_item'             => __( 'Edit Item', 'wp-vimeo-videos-pro' ),
-			'update_item'           => __( 'Update Item', 'wp-vimeo-videos-pro' ),
-			'view_item'             => __( 'View Item', 'wp-vimeo-videos-pro' ),
-			'view_items'            => __( 'View Items', 'wp-vimeo-videos-pro' ),
-			'search_items'          => __( 'Search Item', 'wp-vimeo-videos-pro' ),
-			'not_found'             => __( 'Not found', 'wp-vimeo-videos-pro' ),
-			'not_found_in_trash'    => __( 'Not found in Trash', 'wp-vimeo-videos-pro' ),
-			'featured_image'        => __( 'Featured Image', 'wp-vimeo-videos-pro' ),
-			'set_featured_image'    => __( 'Set featured image', 'wp-vimeo-videos-pro' ),
-			'remove_featured_image' => __( 'Remove featured image', 'wp-vimeo-videos-pro' ),
-			'use_featured_image'    => __( 'Use as featured image', 'wp-vimeo-videos-pro' ),
-			'insert_into_item'      => __( 'Insert into item', 'wp-vimeo-videos-pro' ),
-			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wp-vimeo-videos-pro' ),
-			'items_list'            => __( 'Items list', 'wp-vimeo-videos-pro' ),
-			'items_list_navigation' => __( 'Items list navigation', 'wp-vimeo-videos-pro' ),
-			'filter_items_list'     => __( 'Filter items list', 'wp-vimeo-videos-pro' ),
+			'name'                  => _x( 'Vimeo Uploads', 'Post Type General Name', 'wp-vimeo-videos' ),
+			'singular_name'         => _x( 'Vimeo Uploads', 'Post Type Singular Name', 'wp-vimeo-videos' ),
+			'menu_name'             => __( 'Vimeo Uploads', 'wp-vimeo-videos' ),
+			'name_admin_bar'        => __( 'Vimeo Upload', 'wp-vimeo-videos' ),
+			'archives'              => __( 'Item Archives', 'wp-vimeo-videos' ),
+			'attributes'            => __( 'Item Attributes', 'wp-vimeo-videos' ),
+			'parent_item_colon'     => __( 'Parent Item:', 'wp-vimeo-videos' ),
+			'all_items'             => __( 'All Items', 'wp-vimeo-videos' ),
+			'add_new_item'          => __( 'Add New Item', 'wp-vimeo-videos' ),
+			'add_new'               => __( 'Add New', 'wp-vimeo-videos' ),
+			'new_item'              => __( 'New Item', 'wp-vimeo-videos' ),
+			'edit_item'             => __( 'Edit Item', 'wp-vimeo-videos' ),
+			'update_item'           => __( 'Update Item', 'wp-vimeo-videos' ),
+			'view_item'             => __( 'View Item', 'wp-vimeo-videos' ),
+			'view_items'            => __( 'View Items', 'wp-vimeo-videos' ),
+			'search_items'          => __( 'Search Item', 'wp-vimeo-videos' ),
+			'not_found'             => __( 'Not found', 'wp-vimeo-videos' ),
+			'not_found_in_trash'    => __( 'Not found in Trash', 'wp-vimeo-videos' ),
+			'featured_image'        => __( 'Featured Image', 'wp-vimeo-videos' ),
+			'set_featured_image'    => __( 'Set featured image', 'wp-vimeo-videos' ),
+			'remove_featured_image' => __( 'Remove featured image', 'wp-vimeo-videos' ),
+			'use_featured_image'    => __( 'Use as featured image', 'wp-vimeo-videos' ),
+			'insert_into_item'      => __( 'Insert into item', 'wp-vimeo-videos' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wp-vimeo-videos' ),
+			'items_list'            => __( 'Items list', 'wp-vimeo-videos' ),
+			'items_list_navigation' => __( 'Items list navigation', 'wp-vimeo-videos' ),
+			'filter_items_list'     => __( 'Filter items list', 'wp-vimeo-videos' ),
 		);
 		$args   = array(
-			'label'               => __( 'Vimeo Uploads', 'wp-vimeo-videos-pro' ),
-			'description'         => __( 'Local Vimeo Library', 'wp-vimeo-videos-pro' ),
+			'label'               => __( 'Vimeo Uploads', 'wp-vimeo-videos' ),
+			'description'         => __( 'Local Vimeo Library', 'wp-vimeo-videos' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor' ),
 			'hierarchical'        => false,
@@ -117,37 +115,37 @@ class PostTypes extends BaseProvider {
 	public function register_upload_profiles() {
 
 		$labels = array(
-			'name'                  => _x( 'Upload Profiles', 'Post Type General Name', 'wp-vimeo-videos-pro' ),
-			'singular_name'         => _x( 'Upload Profile', 'Post Type Singular Name', 'wp-vimeo-videos-pro' ),
-			'menu_name'             => __( 'Upload Profiles', 'wp-vimeo-videos-pro' ),
-			'name_admin_bar'        => __( 'Upload Profile', 'wp-vimeo-videos-pro' ),
-			'archives'              => __( 'Item Archives', 'wp-vimeo-videos-pro' ),
-			'attributes'            => __( 'Item Attributes', 'wp-vimeo-videos-pro' ),
-			'parent_item_colon'     => __( 'Parent Profile:', 'wp-vimeo-videos-pro' ),
-			'all_items'             => __( 'All Profiles', 'wp-vimeo-videos-pro' ),
-			'add_new_item'          => __( 'Add New Profile', 'wp-vimeo-videos-pro' ),
-			'add_new'               => __( 'Add New', 'wp-vimeo-videos-pro' ),
-			'new_item'              => __( 'New Profile', 'wp-vimeo-videos-pro' ),
-			'edit_item'             => __( 'Edit Profile', 'wp-vimeo-videos-pro' ),
-			'update_item'           => __( 'Update Item', 'wp-vimeo-videos-pro' ),
-			'view_item'             => __( 'View Profil', 'wp-vimeo-videos-pro' ),
-			'view_items'            => __( 'View Profiles', 'wp-vimeo-videos-pro' ),
-			'search_items'          => __( 'Search Profile', 'wp-vimeo-videos-pro' ),
-			'not_found'             => __( 'Not found', 'wp-vimeo-videos-pro' ),
-			'not_found_in_trash'    => __( 'Not found in Trash', 'wp-vimeo-videos-pro' ),
-			'featured_image'        => __( 'Featured Image', 'wp-vimeo-videos-pro' ),
-			'set_featured_image'    => __( 'Set featured image', 'wp-vimeo-videos-pro' ),
-			'remove_featured_image' => __( 'Remove featured image', 'wp-vimeo-videos-pro' ),
-			'use_featured_image'    => __( 'Use as featured image', 'wp-vimeo-videos-pro' ),
-			'insert_into_item'      => __( 'Insert into item', 'wp-vimeo-videos-pro' ),
-			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wp-vimeo-videos-pro' ),
-			'items_list'            => __( 'Profiles list', 'wp-vimeo-videos-pro' ),
-			'items_list_navigation' => __( 'Profiles list navigation', 'wp-vimeo-videos-pro' ),
-			'filter_items_list'     => __( 'Filter profiles list', 'wp-vimeo-videos-pro' ),
+			'name'                  => _x( 'Upload Profiles', 'Post Type General Name', 'wp-vimeo-videos' ),
+			'singular_name'         => _x( 'Upload Profile', 'Post Type Singular Name', 'wp-vimeo-videos' ),
+			'menu_name'             => __( 'Upload Profiles', 'wp-vimeo-videos' ),
+			'name_admin_bar'        => __( 'Upload Profile', 'wp-vimeo-videos' ),
+			'archives'              => __( 'Item Archives', 'wp-vimeo-videos' ),
+			'attributes'            => __( 'Item Attributes', 'wp-vimeo-videos' ),
+			'parent_item_colon'     => __( 'Parent Profile:', 'wp-vimeo-videos' ),
+			'all_items'             => __( 'All Profiles', 'wp-vimeo-videos' ),
+			'add_new_item'          => __( 'Add New Profile', 'wp-vimeo-videos' ),
+			'add_new'               => __( 'Add New', 'wp-vimeo-videos' ),
+			'new_item'              => __( 'New Profile', 'wp-vimeo-videos' ),
+			'edit_item'             => __( 'Edit Profile', 'wp-vimeo-videos' ),
+			'update_item'           => __( 'Update Item', 'wp-vimeo-videos' ),
+			'view_item'             => __( 'View Profil', 'wp-vimeo-videos' ),
+			'view_items'            => __( 'View Profiles', 'wp-vimeo-videos' ),
+			'search_items'          => __( 'Search Profile', 'wp-vimeo-videos' ),
+			'not_found'             => __( 'Not found', 'wp-vimeo-videos' ),
+			'not_found_in_trash'    => __( 'Not found in Trash', 'wp-vimeo-videos' ),
+			'featured_image'        => __( 'Featured Image', 'wp-vimeo-videos' ),
+			'set_featured_image'    => __( 'Set featured image', 'wp-vimeo-videos' ),
+			'remove_featured_image' => __( 'Remove featured image', 'wp-vimeo-videos' ),
+			'use_featured_image'    => __( 'Use as featured image', 'wp-vimeo-videos' ),
+			'insert_into_item'      => __( 'Insert into item', 'wp-vimeo-videos' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wp-vimeo-videos' ),
+			'items_list'            => __( 'Profiles list', 'wp-vimeo-videos' ),
+			'items_list_navigation' => __( 'Profiles list navigation', 'wp-vimeo-videos' ),
+			'filter_items_list'     => __( 'Filter profiles list', 'wp-vimeo-videos' ),
 		);
 		$args   = array(
-			'label'               => __( 'Upload Profiles', 'wp-vimeo-videos-pro' ),
-			'description'         => __( 'Upload Profiles', 'wp-vimeo-videos-pro' ),
+			'label'               => __( 'Upload Profiles', 'wp-vimeo-videos' ),
+			'description'         => __( 'Upload Profiles', 'wp-vimeo-videos' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title' ),
 			'hierarchical'        => false,

@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Shared;
@@ -192,16 +190,16 @@ class Scripts extends BaseProvider {
 		wp_localize_script( 'dgv-chunked-upload', 'DGV_CHUNKED_UPLOAD', array(
 			'url'             => admin_url( 'admin-ajax.php' ),
 			'errors'          => array(
-				'file_not_uploaded' => esc_html__( 'This file was not uploaded.', 'wp-vimeo-videos-pro' ),
-				'file_limit'        => esc_html__( 'File limit has been reached ({fileLimit}).', 'wp-vimeo-videos-pro' ),
-				'file_extension'    => esc_html__( 'File type is not allowed.', 'wp-vimeo-videos-pro' ),
-				'file_size'         => esc_html__( 'File exceeds the max size allowed.', 'wp-vimeo-videos-pro' ),
+				'file_not_uploaded' => esc_html__( 'This file was not uploaded.', 'wp-vimeo-videos' ),
+				'file_limit'        => esc_html__( 'File limit has been reached ({fileLimit}).', 'wp-vimeo-videos' ),
+				'file_extension'    => esc_html__( 'File type is not allowed.', 'wp-vimeo-videos' ),
+				'file_size'         => esc_html__( 'File exceeds the max size allowed.', 'wp-vimeo-videos' ),
 				'post_max_size'     => sprintf( /* translators: %s - max allowed file size by a server. */
-					esc_html__( 'File exceeds the upload limit allowed (%s).', 'wp-vimeo-videos-pro' ),
+					esc_html__( 'File exceeds the upload limit allowed (%s).', 'wp-vimeo-videos' ),
 					$request_validator->max_upload_size()
 				),
 			),
-			'loading_message' => esc_html__( 'File upload is in progress. Please submit the form once uploading is completed.', 'wp-vimeo-videos-pro' ),
+			'loading_message' => esc_html__( 'File upload is in progress. Please submit the form once uploading is completed.', 'wp-vimeo-videos' ),
 		) );
 
 		wp_register_script(
@@ -283,14 +281,14 @@ class Scripts extends BaseProvider {
 		// Config
 		$mce_icon     = apply_filters( 'dgv_mce_toolbar_icon_enable', true );
 		$mce_icon_url = $mce_icon ? apply_filters( 'dgv_mce_toolbar_icon_url', $this->plugin->icon() ) : null;
-		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos-pro' ) );
+		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos' ) );
 		$mce_text     = $mce_icon && $mce_text ? sprintf( ' %s', $mce_text ) : $mce_text;
-		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'wp-vimeo-videos-pro' ) );
+		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) );
 		wp_localize_script( 'wp-tinymce', 'DGV_MCE_Config', array(
 			'phrases'  => array(
 				'tmce_title'            => $mce_text,
 				'tmce_tooltip'          => $mce_tooltip,
-				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'wp-vimeo-videos-pro' ),
+				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'wp-vimeo-videos' ),
 			),
 			'icon'     => $mce_icon,
 			'icon_url' => $mce_icon_url,
@@ -313,31 +311,31 @@ class Scripts extends BaseProvider {
 			'enable_vimeo_search' => $this->plugin->system()->settings()->get( 'admin.tinymce.enable_account_search' ),
 			'enable_local_search' => $this->plugin->system()->settings()->get( 'admin.tinymce.enable_local_search' ),
 			'words'               => array(
-				'sorry'        => __( 'Sorry', 'wp-vimeo-videos-pro' ),
-				'success'      => __( 'Success', 'wp-vimeo-videos-pro' ),
-				'title'        => __( 'Title', 'wp-vimeo-videos-pro' ),
-				'desc'         => __( 'Description', 'wp-vimeo-videos-pro' ),
-				'insert'       => __( 'Insert', 'wp-vimeo-videos-pro' ),
-				'search'       => __( 'Search', 'wp-vimeo-videos-pro' ),
-				'searching3d'  => __( 'Searching...', 'wp-vimeo-videos-pro' ),
-				'upload'       => __( 'Upload', 'wp-vimeo-videos-pro' ),
-				'uploading3d'  => __( 'Uploading', 'wp-vimeo-videos-pro' ),
-				'file'         => __( 'File', 'wp-vimeo-videos-pro' ),
-				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos-pro' ),
+				'sorry'        => __( 'Sorry', 'wp-vimeo-videos' ),
+				'success'      => __( 'Success', 'wp-vimeo-videos' ),
+				'title'        => __( 'Title', 'wp-vimeo-videos' ),
+				'desc'         => __( 'Description', 'wp-vimeo-videos' ),
+				'insert'       => __( 'Insert', 'wp-vimeo-videos' ),
+				'search'       => __( 'Search', 'wp-vimeo-videos' ),
+				'searching3d'  => __( 'Searching...', 'wp-vimeo-videos' ),
+				'upload'       => __( 'Upload', 'wp-vimeo-videos' ),
+				'uploading3d'  => __( 'Uploading', 'wp-vimeo-videos' ),
+				'file'         => __( 'File', 'wp-vimeo-videos' ),
+				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos' ),
 			),
 			'phrases'             => array(
-				'title'                 => apply_filters( 'dgv_upload_modal_title', __( 'Insert Vimeo Video', 'wp-vimeo-videos-pro' ) ),
-				'http_error'            => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos-pro' ),
-				'upload_invalid_file'   => __( 'Please select valid video file.', 'wp-vimeo-videos-pro' ),
-				'invalid_search_phrase' => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos-pro' ),
-				'videos_not_found'      => __( 'No uploaded videos found.', 'wp-vimeo-videos-pro' ),
-				'search_not_found'      => __( 'No matching videos found for your search', 'wp-vimeo-videos-pro' ),
-				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'wp-vimeo-videos-pro' )
+				'title'                 => apply_filters( 'dgv_upload_modal_title', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) ),
+				'http_error'            => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos' ),
+				'upload_invalid_file'   => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
+				'invalid_search_phrase' => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
+				'videos_not_found'      => __( 'No uploaded videos found.', 'wp-vimeo-videos' ),
+				'search_not_found'      => __( 'No matching videos found for your search', 'wp-vimeo-videos' ),
+				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'wp-vimeo-videos' )
 			),
 			'methods'             => array(
-				'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos-pro' ),
-				'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos-pro' ),
-				'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos-pro' ),
+				'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos' ),
+				'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
+				'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos' ),
 			),
 			'upload_form_options' => array(
 				'enable_privacy_option' => (int) $this->plugin->system()->settings()->get( 'admin.tinymce.enable_privacy_option', 0 ),

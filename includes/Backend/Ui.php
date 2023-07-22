@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Backend;
@@ -53,8 +51,8 @@ class Ui extends BaseProvider {
 		$this->screen_options = new \Vimeify\Core\Utilities\ScreenOptions(
 			[
 				self::PAGE_VIMEO => [
-					'description'              => __( 'Show Description', 'wp-vimeo-videos-pro' ),
-					'link_insteadof_shortcode' => __( 'Show Link instead of shortcode', 'wp-vimeo-videos-pro' ),
+					'description'              => __( 'Show Description', 'wp-vimeo-videos' ),
+					'link_insteadof_shortcode' => __( 'Show Link instead of shortcode', 'wp-vimeo-videos' ),
 				]
 			]
 		);
@@ -122,7 +120,7 @@ class Ui extends BaseProvider {
 		if ( isset( $_GET['post'] ) && 'attachment' === get_post_type( $_GET['post'] ) ) {
 			add_meta_box(
 				'wvv_info_metabox_' . intval( $_GET['post'] ),
-				__( 'WP Vimeo', 'wp-vimeo-videos-pro' ),
+				__( 'WP Vimeo', 'wp-vimeo-videos' ),
 				array( $this, 'render_media_library_upload_metabox' ),
 				null,
 				'side'
@@ -157,7 +155,7 @@ class Ui extends BaseProvider {
 	 */
 	public function manage_media_columns( $columns ) {
 		if ( $this->plugin->system()->vimeo()->is_connected ) {
-			$columns['dgv_info'] = __( 'WP Vimeo', 'wp-vimeo-videos-pro' );
+			$columns['dgv_info'] = __( 'WP Vimeo', 'wp-vimeo-videos' );
 		}
 
 		return $columns;
@@ -221,7 +219,7 @@ class Ui extends BaseProvider {
 	public function plugin_action_links( $links ) {
 		$links = array_merge( array(
 			'<a href="' . esc_url( admin_url( '/options-general.php?page=dgv-settings' ) ) . '">' . __( 'Settings',
-				'wp-vimeo-videos-pro' ) . '</a>'
+				'wp-vimeo-videos' ) . '</a>'
 		), $links );
 
 		return $links;

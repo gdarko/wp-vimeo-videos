@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 /* @var \Vimeify\Core\Plugin $plugin */
@@ -36,7 +34,7 @@ $is_video = strpos( $mimetype, 'video/' ) !== false;
 
 	<?php if ( ! $is_video ): ?>
 
-		<p><?php _e( 'Not a video', 'wp-vimeo-videos-pro' ); ?></p>
+		<p><?php _e( 'Not a video', 'wp-vimeo-videos' ); ?></p>
 
 	<?php else: ?>
 
@@ -48,15 +46,15 @@ $is_video = strpos( $mimetype, 'video/' ) !== false;
 
 			<?php if ( ! $plugin->system()->vimeo()->can_upload() ): ?>
 
-                <p><?php _e( "Sorry! You are missing the 'upload' scope. Please check your Vimeo account and request 'upload' access to be able to upload videos from your WordPress site.", 'wp-vimeo-videos-pro' ); ?></p>
+                <p><?php _e( "Sorry! You are missing the 'upload' scope. Please check your Vimeo account and request 'upload' access to be able to upload videos from your WordPress site.", 'wp-vimeo-videos' ); ?></p>
 
 			<?php elseif ( ! current_user_can( 'upload_files' ) ): ?>
 
-                <p><?php _e( "Sorry! You don't have the required access to upload files.", 'wp-vimeo-videos-pro' ); ?></p>
+                <p><?php _e( "Sorry! You don't have the required access to upload files.", 'wp-vimeo-videos' ); ?></p>
 
 			<?php else: ?>
 
-				<p><a target="_blank" class="button-primary dgv-upload-attachment" data-id="<?php echo esc_attr($id); ?>"><?php _e( 'Upload to Vimeo', 'wp-vimeo-videos-pro' ); ?></a></p>
+				<p><a target="_blank" class="button-primary dgv-upload-attachment" data-id="<?php echo esc_attr($id); ?>"><?php _e( 'Upload to Vimeo', 'wp-vimeo-videos' ); ?></a></p>
 
 			<?php endif; ?>
 
@@ -66,13 +64,13 @@ $is_video = strpos( $mimetype, 'video/' ) !== false;
 			$link   = $plugin->system()->database()->get_vimeo_link( $data['local_id'] );
 			?>
 
-			<p><?php _e( 'Video uploaded to Vimeo.', 'wp-vimeo-videos-pro' ); ?></p>
+			<p><?php _e( 'Video uploaded to Vimeo.', 'wp-vimeo-videos' ); ?></p>
             <p>
 				<?php if(current_user_can( 'delete_posts' ) && $plugin->system()->vimeo()->can_delete()): ?>
-					<a href="#" class="button-primary dgv-delete-attachment" data-id="<?php echo esc_attr($id); ?>"><?php  _e( 'Delete from Vimeo', 'wp-vimeo-videos-pro' ); ?></a>
+					<a href="#" class="button-primary dgv-delete-attachment" data-id="<?php echo esc_attr($id); ?>"><?php  _e( 'Delete from Vimeo', 'wp-vimeo-videos' ); ?></a>
 				<?php endif; ?>
                 
-				<a target="_blank" class="button" href="<?php echo esc_url($link); ?>"><?php echo  __( 'Vimeo Link', 'wp-vimeo-videos-pro' ); ?></a>
+				<a target="_blank" class="button" href="<?php echo esc_url($link); ?>"><?php echo  __( 'Vimeo Link', 'wp-vimeo-videos' ); ?></a>
 			</p>
 
 		<?php endif; ?>

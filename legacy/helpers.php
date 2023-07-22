@@ -104,7 +104,7 @@ function wvv_render_media_library_upload_buttons( $id ) {
 
 	$output = '<div class="wvv-button-wrap">';
 	if ( ! $is_video ) {
-		$output .= "<p>" . __( 'Not a video', 'wp-vimeo-videos-pro' ) . "</p>";
+		$output .= "<p>" . __( 'Not a video', 'wp-vimeo-videos' ) . "</p>";
 	} else {
 		$api  = new WP_DGV_Api_Helper();
 		$db   = new WP_DGV_Db_Helper();
@@ -115,16 +115,16 @@ function wvv_render_media_library_upload_buttons( $id ) {
 			} elseif ( ! current_user_can( 'upload_files' ) ) {
 				$output .= '<p>' . __( "Sorry! You don't have the required access to upload files.", "wp-vimeo-videos" ) . '</p>';
 			} else {
-				$output .= '<p><a target="_blank" class="button-primary dgv-upload-attachment" data-id="' . $id . '">' . __( 'Upload to Vimeo', 'wp-vimeo-videos-pro' ) . '</a></p>';
+				$output .= '<p><a target="_blank" class="button-primary dgv-upload-attachment" data-id="' . $id . '">' . __( 'Upload to Vimeo', 'wp-vimeo-videos' ) . '</a></p>';
 			}
 		} else {
 			$link   = $db->get_vimeo_link( $data['local_id'] );
 			$delete = '';
 			if ( current_user_can( 'delete_posts' ) && $api->can_delete() ) {
-				$delete = '<a href="#" class="button-primary dgv-delete-attachment" data-id="' . $id . '">' . __( 'Delete from Vimeo', 'wp-vimeo-videos-pro' ) . '</a>';
+				$delete = '<a href="#" class="button-primary dgv-delete-attachment" data-id="' . $id . '">' . __( 'Delete from Vimeo', 'wp-vimeo-videos' ) . '</a>';
 			}
-			$link   = '<a target="_blank" class="button" href="' . $link . '">' . __( 'Vimeo Link', 'wp-vimeo-videos-pro' ) . '</a>';
-			$output .= '<p>' . __( 'Video uploaded to Vimeo.', 'wp-vimeo-videos-pro' ) . '</p>';
+			$link   = '<a target="_blank" class="button" href="' . $link . '">' . __( 'Vimeo Link', 'wp-vimeo-videos' ) . '</a>';
+			$output .= '<p>' . __( 'Video uploaded to Vimeo.', 'wp-vimeo-videos' ) . '</p>';
 			$output .= '<p>' . $delete . ' ' . $link . '</p>';
 		}
 	}
@@ -307,9 +307,9 @@ function wvv_get_settings_url() {
  */
 function wvv_get_editor_insert_methods() {
 	return array(
-		'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos-pro' ),
-		'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos-pro' ),
-		'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos-pro' ),
+		'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos' ),
+		'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
+		'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos' ),
 	);
 }
 
@@ -501,18 +501,18 @@ function wvv_validate_file_upload_error( $error ) {
 
 	$errors = array(
 		false,
-		esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'wp-vimeo-videos-pro' ),
-		esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'wp-vimeo-videos-pro' ),
-		esc_html__( 'The uploaded file was only partially uploaded.', 'wp-vimeo-videos-pro' ),
-		esc_html__( 'No file was uploaded.', 'wp-vimeo-videos-pro' ),
+		esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'wp-vimeo-videos' ),
+		esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'wp-vimeo-videos' ),
+		esc_html__( 'The uploaded file was only partially uploaded.', 'wp-vimeo-videos' ),
+		esc_html__( 'No file was uploaded.', 'wp-vimeo-videos' ),
 		'',
-		esc_html__( 'Missing a temporary folder.', 'wp-vimeo-videos-pro' ),
-		esc_html__( 'Failed to write file to disk.', 'wp-vimeo-videos-pro' ),
-		esc_html__( 'File upload stopped by extension.', 'wp-vimeo-videos-pro' ),
+		esc_html__( 'Missing a temporary folder.', 'wp-vimeo-videos' ),
+		esc_html__( 'Failed to write file to disk.', 'wp-vimeo-videos' ),
+		esc_html__( 'File upload stopped by extension.', 'wp-vimeo-videos' ),
 	);
 
 	if ( array_key_exists( $error, $errors ) ) {
-		return sprintf( esc_html__( 'File upload error. %s', 'wp-vimeo-videos-pro' ), $errors[ $error ] );
+		return sprintf( esc_html__( 'File upload error. %s', 'wp-vimeo-videos' ), $errors[ $error ] );
 	}
 
 	return false;
@@ -538,7 +538,7 @@ function wvv_validate_wp_filetype_and_ext( $path, $name ) {
 	$proper_filename = empty( $wp_filetype['proper_filename'] ) ? '' : $wp_filetype['proper_filename'];
 
 	if ( $proper_filename || ! $ext || ! $type ) {
-		return esc_html__( 'File type is not allowed.', 'wp-vimeo-videos-pro' );
+		return esc_html__( 'File type is not allowed.', 'wp-vimeo-videos' );
 	}
 
 	return false;
@@ -573,7 +573,7 @@ function wvv_validate_request_upload_max_filesize( $max_size, $sizes = null ) {
 	foreach ( $sizes as $size ) {
 		if ( $size > $max_size ) {
 			return sprintf( /* translators: $s - allowed file size in Mb. */
-				esc_html__( 'File exceeds max size allowed (%s).', 'wp-vimeo-videos-pro' ),
+				esc_html__( 'File exceeds max size allowed (%s).', 'wp-vimeo-videos' ),
 				size_format( $max_size )
 			);
 		}
@@ -595,12 +595,12 @@ function wvv_validate_file_extension( $ext ) {
 
 	// Make sure file has an extension first.
 	if ( empty( $ext ) ) {
-		return esc_html__( 'File must have an extension.', 'wp-vimeo-videos-pro' );
+		return esc_html__( 'File must have an extension.', 'wp-vimeo-videos' );
 	}
 
 	// Validate extension against all allowed values.
 	if ( ! in_array( $ext, wvv_get_allowed_extensions(), true ) ) {
-		return esc_html__( 'File type is not allowed.', 'wp-vimeo-videos-pro' );
+		return esc_html__( 'File type is not allowed.', 'wp-vimeo-videos' );
 	}
 
 	return false;
@@ -639,16 +639,16 @@ function wvv_max_upload_size( $bytes = false ) {
  */
 function wvv_get_error_message( $key ) {
 	$messages = array(
-		'invalid_vimeo_video' => __( 'Invalid video vimeo provided', 'wp-vimeo-videos-pro' ),
-		'invalid_file'        => __( 'Video file is required. Please pick a valid video file.', 'wp-vimeo-videos-pro' ),
-		'invalid_title'       => __( 'Title is required. Please specify valid video title.', 'wp-vimeo-videos-pro' ),
-		'not_connected'       => __( 'Unable to connect to Vimeo for the file upload.', 'wp-vimeo-videos-pro' ),
-		'not_authenticated'   => __( 'Connection to Vimeo is successful. However we detected that the connection is made with unauthenticated access token. To connect to Vimeo successfully "Authenticated" Access Token is required with the proper Scopes selected.', 'wp-vimeo-videos-pro' ),
-		'cant_upload'         => __( 'Connection to Vimeo is successful. However we detected that the current Access Token is missing the Upload scope. To be able to upload Videos successfully "Authenticated" Access Token is required with all the Scopes selected.', 'wp-vimeo-videos-pro' ),
-		'quota_limit'         => __( 'Sorry, the current remaining quota in the Vimeo account is %s and this file is %s. Therefore the video can not be uploaded because the Vimeo account doesn\'t have enough free space.', 'wp-vimeo-videos-pro' ),
+		'invalid_vimeo_video' => __( 'Invalid video vimeo provided', 'wp-vimeo-videos' ),
+		'invalid_file'        => __( 'Video file is required. Please pick a valid video file.', 'wp-vimeo-videos' ),
+		'invalid_title'       => __( 'Title is required. Please specify valid video title.', 'wp-vimeo-videos' ),
+		'not_connected'       => __( 'Unable to connect to Vimeo for the file upload.', 'wp-vimeo-videos' ),
+		'not_authenticated'   => __( 'Connection to Vimeo is successful. However we detected that the connection is made with unauthenticated access token. To connect to Vimeo successfully "Authenticated" Access Token is required with the proper Scopes selected.', 'wp-vimeo-videos' ),
+		'cant_upload'         => __( 'Connection to Vimeo is successful. However we detected that the current Access Token is missing the Upload scope. To be able to upload Videos successfully "Authenticated" Access Token is required with all the Scopes selected.', 'wp-vimeo-videos' ),
+		'quota_limit'         => __( 'Sorry, the current remaining quota in the Vimeo account is %s and this file is %s. Therefore the video can not be uploaded because the Vimeo account doesn\'t have enough free space.', 'wp-vimeo-videos' ),
 	);
 	if ( ! isset( $messages[ $key ] ) ) {
-		return __( 'Something went wrong. Please try again later.', 'wp-vimeo-videos-pro' );
+		return __( 'Something went wrong. Please try again later.', 'wp-vimeo-videos' );
 	} else {
 		return $messages[ $key ];
 	}

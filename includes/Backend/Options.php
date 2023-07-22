@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Backend;
@@ -46,11 +44,11 @@ class Options extends BaseProvider {
 		$required_sections = [
 			[
 				'id'    => 'overview',
-				'title' => __( 'Overview', 'wp-vimeo-videos-pro' ),
+				'title' => __( 'Overview', 'wp-vimeo-videos' ),
 			],
 			[
 				'id'    => 'api_credentials',
-				'title' => __( 'API Credentials', 'wp-vimeo-videos-pro' ),
+				'title' => __( 'API Credentials', 'wp-vimeo-videos' ),
 			],
 		];
 
@@ -60,28 +58,28 @@ class Options extends BaseProvider {
 			 */
 			[
 				'id'      => 'connection',
-				'label'   => __( 'Connection', 'wp-vimeo-videos-pro' ),
+				'label'   => __( 'Connection', 'wp-vimeo-videos' ),
 				'type'    => 'html',
 				'section' => 'overview',
 				'markup'  => [ $this, 'create_overview_connection' ],
 			],
 			[
 				'id'      => 'environment',
-				'label'   => __( 'Environment', 'wp-vimeo-videos-pro' ),
+				'label'   => __( 'Environment', 'wp-vimeo-videos' ),
 				'type'    => 'html',
 				'section' => 'overview',
 				'markup'  => [ $this, 'create_overview_environment' ],
 			],
 			[
 				'id'      => 'issues',
-				'label'   => __( 'Troubleshooting', 'wp-vimeo-videos-pro' ),
+				'label'   => __( 'Troubleshooting', 'wp-vimeo-videos' ),
 				'type'    => 'html',
 				'section' => 'overview',
 				'markup'  => [ $this, 'create_overview_issues' ],
 			],
 			[
 				'id'           => 'client_id',
-				'label'        => __( 'Client ID', 'wp-vimeo-videos-pro' ),
+				'label'        => __( 'Client ID', 'wp-vimeo-videos' ),
 				'desc'         => '',
 				'std'          => '',
 				'type'         => 'text',
@@ -97,7 +95,7 @@ class Options extends BaseProvider {
 			],
 			[
 				'id'           => 'client_secret',
-				'label'        => __( 'Client Secret', 'wp-vimeo-videos-pro' ),
+				'label'        => __( 'Client Secret', 'wp-vimeo-videos' ),
 				'desc'         => '',
 				'std'          => '',
 				'type'         => 'text',
@@ -113,7 +111,7 @@ class Options extends BaseProvider {
 			],
 			[
 				'id'           => 'access_token',
-				'label'        => __( 'Access Token', 'wp-vimeo-videos-pro' ),
+				'label'        => __( 'Access Token', 'wp-vimeo-videos' ),
 				'desc'         => '',
 				'std'          => '',
 				'type'         => 'text',
@@ -140,15 +138,15 @@ class Options extends BaseProvider {
 			$other_sections = [
 				[
 					'id'    => 'admin',
-					'title' => __( 'Admin Settings', 'wp-vimeo-videos-pro' ),
+					'title' => __( 'Admin Settings', 'wp-vimeo-videos' ),
 				],
 				[
 					'id'    => 'frontend',
-					'title' => __( 'Frontend Settings', 'wp-vimeo-videos-pro' ),
+					'title' => __( 'Frontend Settings', 'wp-vimeo-videos' ),
 				],
 				[
 					'id'    => 'upload_profiles',
-					'title' => __( 'Upload Profiles', 'wp-vimeo-videos-pro' ),
+					'title' => __( 'Upload Profiles', 'wp-vimeo-videos' ),
 				],
 			];
 
@@ -284,7 +282,7 @@ class Options extends BaseProvider {
 				[
 					'id'           => 'video_management',
 					'label'        => __( 'Video Management Page', 'theme-text-domain' ),
-					'desc'         => __( 'Select which video elements to be enabled for editing videos.', 'wp-vimeo-videos-pro' ),
+					'desc'         => __( 'Select which video elements to be enabled for editing videos.', 'wp-vimeo-videos' ),
 					'std'          => '',
 					'type'         => 'checkbox',
 					'section'      => 'admin',
@@ -406,7 +404,7 @@ class Options extends BaseProvider {
 		}, 10, 2 );
 		add_filter( 'opb_header_version_text', function ( $text, $page_id ) {
 			if ( $this->plugin->settings_key() === $page_id ) {
-				$text = __( 'Vimeo Settings', 'wp-vimeo-videos-pro' );
+				$text = __( 'Vimeo Settings', 'wp-vimeo-videos' );
 			}
 
 			return $text;
@@ -468,15 +466,15 @@ class Options extends BaseProvider {
 				[
 					'id'              => $this->plugin->settings_key(),
 					'parent_slug'     => 'vimeify',
-					'page_title'      => __( 'Settings', 'wp-vimeo-videos-pro' ),
-					'menu_title'      => __( 'Settings', 'wp-vimeo-videos-pro' ),
+					'page_title'      => __( 'Settings', 'wp-vimeo-videos' ),
+					'menu_title'      => __( 'Settings', 'wp-vimeo-videos' ),
 					'capability'      => 'manage_options',
 					'menu_slug'       => 'dgv-settings',
 					'icon_url'        => null,
 					'position'        => null,
-					'updated_message' => __( 'Options updated!', 'wp-vimeo-videos-pro' ),
-					'reset_message'   => __( 'Options reset!', 'wp-vimeo-videos-pro' ),
-					'button_text'     => __( 'Save changes', 'wp-vimeo-videos-pro' ),
+					'updated_message' => __( 'Options updated!', 'wp-vimeo-videos' ),
+					'reset_message'   => __( 'Options reset!', 'wp-vimeo-videos' ),
+					'button_text'     => __( 'Save changes', 'wp-vimeo-videos' ),
 					'show_buttons'    => true,
 					'show_subheader'  => false,
 					'screen_icon'     => 'options-general',
@@ -502,7 +500,7 @@ class Options extends BaseProvider {
 	 */
 	public function get_lazyloaded_options( $option, $section ) {
 		$current_value = $this->plugin->system()->settings()->get( sprintf( '%s.%s', $section, $option ), '' );
-		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? get_the_title( $current_value ) : __( 'Default', 'wp-vimeo-videos-pro' );
+		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? get_the_title( $current_value ) : __( 'Default', 'wp-vimeo-videos' );
 		return [
 			[
 				'value' => $current_value,
@@ -526,7 +524,7 @@ class Options extends BaseProvider {
 				'action'   => 'dgv_upload_profile_search',
 				'nonce'    => \wp_create_nonce( 'dgvsecurity' )
 			],
-			'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos-pro' ),
+			'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos' ),
 			'rows'         => '',
 			'post_type'    => '',
 			'taxonomy'     => '',
@@ -547,23 +545,23 @@ class Options extends BaseProvider {
 		return apply_filters( 'dgv_upload_profiles', [
 			[
 				'key'   => 'default',
-				'title' => __( 'Default Profile', 'wp-vimeo-videos-pro' ),
-				'desc'  => __( 'Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc.', 'wp-vimeo-videos-pro' )
+				'title' => __( 'Default Profile', 'wp-vimeo-videos' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc.', 'wp-vimeo-videos' )
 			],
 			[
 				'key'   => 'admin_gutenberg',
-				'title' => __( 'Gutenberg Block Editor', 'wp-vimeo-videos-pro' ),
-				'desc'  => __( 'Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' )
+				'title' => __( 'Gutenberg Block Editor', 'wp-vimeo-videos' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend.', 'wp-vimeo-videos' )
 			],
 			[
 				'key'   => 'admin_classic',
-				'title' => __( 'Classic Editor', 'wp-vimeo-videos-pro' ),
-				'desc'  => __( 'Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend.', 'wp-vimeo-videos-pro' )
+				'title' => __( 'Classic Editor', 'wp-vimeo-videos' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend.', 'wp-vimeo-videos' )
 			],
 			[
 				'key'   => 'admin_other',
-				'title' => __( 'Other Backend Forms', 'wp-vimeo-videos-pro' ),
-				'desc'  => __( 'Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below.', 'wp-vimeo-videos-pro' )
+				'title' => __( 'Other Backend Forms', 'wp-vimeo-videos' ),
+				'desc'  => __( 'Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below.', 'wp-vimeo-videos' )
 			]
 		] );
 	}

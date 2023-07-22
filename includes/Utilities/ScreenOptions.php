@@ -1,27 +1,25 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
- * This file is part of "Vimeify - Video Uploads for Vimeo"
+ * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
  *
- * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
+ * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the License,
  * or (at your option) any later version.
  *
- * Vimeify - Video Uploads for Vimeo is distributed in the hope that
- * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * Vimeify - Formerly "WP Vimeo Videos" is distributed in the hope that it
+ * will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along
+ * with this plugin. If not, see <https://www.gnu.org/licenses/>.
  *
- * ---
- *
- * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
- * If you have any questions find the contact details in the root plugin file.
- *
+ * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
 namespace Vimeify\Core\Utilities;
@@ -108,7 +106,7 @@ class ScreenOptions {
 	public function before() {
 		?>
         <fieldset><input type="hidden" name="wp_screen_options_nonce" value="<?php echo esc_textarea( wp_create_nonce( 'wp_screen_options_nonce' ) ); ?>">
-        <legend><?php esc_html_e( 'Screen Options', 'wp-vimeo-videos-pro' ); ?></legend>        <div class="metabox-prefs">
+        <legend><?php esc_html_e( 'Screen Options', 'wp-vimeo-videos' ); ?></legend>        <div class="metabox-prefs">
         <div><input type="hidden" name="wp_screen_options[option]" value="dgv_screen_options_page"/></div>
         <div><input type="hidden" name="wp_screen_options[value]" value="yes"/></div>        <div class="dgv_screen_options_custom_fields">
 		<?php
@@ -118,7 +116,7 @@ class ScreenOptions {
 	 * The HTML markup to close the options.
 	 */
 	public function after() {
-		$button = get_submit_button( __( 'Apply', 'wp-vimeo-videos-pro' ), 'button', 'screen-options-apply', false );
+		$button = get_submit_button( __( 'Apply', 'wp-vimeo-videos' ), 'button', 'screen-options-apply', false );
 		?>
         </div><!-- dgv_screen_options_custom_fields -->        </div><!-- metabox-prefs -->        </fieldset>        <br class="clear">
 		<?php
