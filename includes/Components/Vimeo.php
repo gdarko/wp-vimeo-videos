@@ -303,11 +303,11 @@ class Vimeo implements VimeoInterface {
 
 		// Check connection, if wrong bail immediately.
 		if ( ! $this->is_authenticated_connection ) {
-			array_push( $problems, array(
-				'code' => 'unauthenticated',
-				'info' => __( 'Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
-			) );
+			$problems[] = array(
+                'code' => 'unauthenticated',
+                'info' => __('Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos'),
+                "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
+            );
 
 			return $problems;
 		}
@@ -315,52 +315,52 @@ class Vimeo implements VimeoInterface {
 		// Continue with scopes.
 		if ( $this->is_connected ) {
 			if ( ! $this->can_upload() ) {
-				array_push( $problems, array(
-					'code' => 'cant_upload',
-					'info' => __( 'Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos' ),
-					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
-				) );
+				$problems[] = array(
+                    'code' => 'cant_upload',
+                    'info' => __('Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos'),
+                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
+                );
 			}
 			if ( ! $this->can_edit() ) {
-				array_push( $problems, array(
-					'code' => 'cant_edit',
-					'info' => __( 'Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos' ),
-					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
-				) );
+				$problems[] = array(
+                    'code' => 'cant_edit',
+                    'info' => __('Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos'),
+                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
+                );
 			}
 			if ( ! $this->can_delete() ) {
-				array_push( $problems, array(
-					'code' => 'cant_delete',
-					'info' => __( 'Your Access Token is missing "Delete" scope. This will prevent deleting Videos from the admin dashboard.' ),
-					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
-				) );
+				$problems[] = array(
+                    'code' => 'cant_delete',
+                    'info' => __('Your Access Token is missing "Delete" scope. This will prevent deleting Videos from the admin dashboard.'),
+                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
+                );
 			}
-		}
 
-		if ( ! $this->supports_folders() ) {
-			array_push( $problems, array(
-				'code' => 'cant_use_folders',
-				'info' => __( 'Your Access Token is missing "Interact" scope. This will prevent using the Folders feature in the Video edit screen.' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
-			) );
+            if ( ! $this->supports_folders() ) {
+                $problems[] = array(
+                    'code' => 'cant_use_folders',
+                    'info' => __('Your Access Token is missing "Interact" scope. This will prevent using the Folders feature in the Video edit screen.'),
+                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
+                );
+            }
 		}
 
 		$max_exec_time = ini_get( 'max_execution_time' );
 		if ( $max_exec_time > 0 && $max_exec_time < 240 ) {
-			array_push( $problems, array(
-				'code' => 'exec_time_low',
-				'info' => sprintf( __( 'Your <strong>max_exuction_time</strong> configuration is %s seconds which is very low. Larger uploads that exceed %s seconds for uploading will be dropped by the system and you may see "Uploading..." forever in Vimeo.' ), $max_exec_time, $max_exec_time ),
-				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_exuction_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
-			) );
+			$problems[] = array(
+                'code' => 'exec_time_low',
+                'info' => sprintf(__('Your <strong>max_exuction_time</strong> configuration is %s seconds which is very low. Larger uploads that exceed %s seconds for uploading will be dropped by the system and you may see "Uploading..." forever in Vimeo.'), $max_exec_time, $max_exec_time),
+                "fix" => sprintf(__('To fix the issue find your php.ini and increase max_exuction_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos'))
+            );
 		}
 
 		$max_input_time = ini_get( 'max_input_time' );
 		if ( $max_input_time > 0 && $max_input_time < 240 ) {
-			array_push( $problems, array(
-				'code' => 'input_time_low',
-				'info' => sprintf( __( 'Your <strong>max_input_time</strong> configuration is %s seconds which is very low. The client connection will be dropped after %s seconds from initating the upload. This is especially required for people with slow connection as it takes more seconds to upload a file.' ), $max_input_time, $max_input_time ),
-				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_input_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
-			) );
+			$problems[] = array(
+                'code' => 'input_time_low',
+                'info' => sprintf(__('Your <strong>max_input_time</strong> configuration is %s seconds which is very low. The client connection will be dropped after %s seconds from initating the upload. This is especially required for people with slow connection as it takes more seconds to upload a file.'), $max_input_time, $max_input_time),
+                "fix" => sprintf(__('To fix the issue find your php.ini and increase max_input_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos'))
+            );
 		}
 
 		return $problems;

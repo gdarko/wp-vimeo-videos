@@ -195,22 +195,22 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_privacy_option'    => array(
 							'value' => 1,
-							'label' => __( 'Enable video privacy option in Gutenberg upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo privacy option in Gutenberg upload modal', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo account search option in TinyMCE upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo account search option in upload form', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'enable_local_search'      => array(
 							'value' => 1,
-							'label' => __( 'Enable local library search option in the Gutenberg upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable local library search option in upload form', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Only show videos uploaded by the current user in the Video search option', 'theme-text-domain' ),
+							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'theme-text-domain' ),
 							'src'   => '',
 						)
 					),
@@ -234,22 +234,22 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_privacy_option'    => array(
 							'value' => 1,
-							'label' => __( 'Enable video privacy option in TinyMCE upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo privacy option in upload modal', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo account search option in TinyMCE upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo account search option in upload modal', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'enable_local_search'      => array(
 							'value' => 1,
-							'label' => __( 'Enable local library search option in TinyMCE upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable local library search option in upload modal', 'theme-text-domain' ),
 							'src'   => '',
 						),
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Only show videos uploaded by the current user in the Video search option', 'theme-text-domain' ),
+							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'theme-text-domain' ),
 							'src'   => '',
 						)
 					),
@@ -477,6 +477,7 @@ class Options extends BaseProvider {
 					'button_text'     => __( 'Save changes', 'wp-vimeo-videos' ),
 					'show_buttons'    => true,
 					'show_subheader'  => false,
+                    'hide_reset'      => true,
 					'screen_icon'     => 'options-general',
 					'sections'        => $sections,
 					'settings'        => $settings
