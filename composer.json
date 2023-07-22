@@ -24,6 +24,10 @@
     "post-install-cmd": [
       "composer install --working-dir=./libraries/vimeo-php-guzzle7",
       "composer install --working-dir=./libraries/vimeo-php-guzzle6"
+    ],
+    "post-update-cmd":  [
+      "composer update --working-dir=./libraries/vimeo-php-guzzle7",
+      "composer update --working-dir=./libraries/vimeo-php-guzzle6"
     ]
   }
 }

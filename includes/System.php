@@ -1,11 +1,33 @@
 <?php
+/********************************************************************
+ * Copyright (C) 2023 Darko Gjorgjijoski (https://ideologix.com)
+ *
+ * This file is part of "Vimeify - Video Uploads for Vimeo"
+ *
+ * Vimeify - Video Uploads for Vimeo is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 2 of the License,
+ * or (at your option) any later version.
+ *
+ * Vimeify - Video Uploads for Vimeo is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with "Vimeify - Video Uploads for Vimeo". If not, see <https://www.gnu.org/licenses/>.
+ *
+ * ---
+ *
+ * Author Note: This code was written by Darko Gjorgjijoski <dg@darkog.com>
+ * If you have any questions find the contact details in the root plugin file.
+ *
+ **********************************************************************/
 
 namespace Vimeify\Core;
 
 use Vimeify\Core\Abstracts\Interfaces\SystemInterface;
-use Vimeify\Core\Abstracts\Interfaces\ViewInterface;
 use Vimeify\Core\Components\Database;
-use Vimeify\Core\Components\Integrations;
 use Vimeify\Core\Components\Logger;
 use Vimeify\Core\Components\Requests;
 use Vimeify\Core\Components\Settings;
@@ -13,37 +35,6 @@ use Vimeify\Core\Components\Views;
 use Vimeify\Core\Components\Vimeo;
 use Vimeify\Core\Utilities\TemporaryDirectory;
 
-/********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://codeverve.com)
- *
- * This file is part of Video Uploads for Vimeo PRO
- *
- * Video Uploads for Vimeo PRO is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * Video Uploads for Vimeo PRO is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Video Uploads for Vimeo PRO. If not, see <https://www.gnu.org/licenses/>.
- **********************************************************************/
-
-/**
- * Class System
- *
- * Responsible for communicating with the Vimeo API, shared methods, used in both free and pro version.
- *
- * @note The only difference is the textdomain, otherwise the code is shared in both versions.
- *
- * @license GPLv2
- * @copyright Darko Gjorgjijoski <info@codeverve.com>
- * @package Vimeify\Core
- * @since 2.0.0
- */
 class System implements SystemInterface {
 
 	/**
