@@ -72,7 +72,7 @@ class Metaboxes extends BaseProvider {
 					'class'        => '',
 					'condition'    => '',
 					'operator'     => 'and',
-					'group'        => true,
+					'group'        => false,
 					'choices'      => array(
 						'store_in_library'    => array(
 							'value' => 1,

@@ -58,7 +58,6 @@ WPVimeoVideos.Uploader = function (accessToken, file, params) {
      */
     this.currentTusUploader = null;
 
-
     /**
      * The current resource
      */
@@ -135,7 +134,7 @@ WPVimeoVideos.Uploader.prototype.start = function () {
         requestData.privacy = {view: self.params.privacy};
     }
 
-    if(self.params.hasOwnProperty('folder') && (self.params.folder && self.params.folder !== 'default')) {
+    if (self.params.hasOwnProperty('folder') && (self.params.folder && self.params.folder !== 'default')) {
         requestData.folder_uri = self.params.folder;
     }
 
@@ -283,15 +282,14 @@ WPVimeoVideos.Uploader.prototype.notifyWP = function (callback) {
         size: self.file.size,
         meta: self.params.wp.hasOwnProperty('notify_meta') ? self.params.wp.notify_meta : null,
     }
-    if(self.params.hasOwnProperty('folder_uri') && self.params.folder_uri && self.params.folder_uri !== 'default') {
-        entry.folder_uri = self.params.folder_uri;
+    if (self.params.hasOwnProperty('folder') && self.params.folder && self.params.folder !== 'default') {
+        entry.folder_uri = self.params.folder;
     }
-    if(self.params.hasOwnProperty('privacy') && self.params.privacy && self.params.privacy !== 'default') {
+    if (self.params.hasOwnProperty('privacy') && self.params.privacy && self.params.privacy !== 'default') {
         entry.view_privacy = self.params.privacy;
     }
 
-    var data = WPVimeoVideos.Uploader.serializeObject(entry);
-    http.send(data);
+    http.send(WPVimeoVideos.Uploader.serializeObject(entry));
 };
 
 

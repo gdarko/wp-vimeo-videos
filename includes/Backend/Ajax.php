@@ -119,7 +119,7 @@ class Ajax extends BaseProvider {
 			),
 		);
 
-		$this->plugin->system()->logger()->log( 'Triggered dgv_upload_complete.', $logtag );
+		$this->plugin->system()->logger()->log( sprintf( 'Triggered dgv_upload_complete (%s)', wp_json_encode( $hook_data ) ), $logtag );
 		do_action( 'dgv_upload_complete', $hook_data );
 
 		wp_send_json_success( array(
@@ -786,11 +786,7 @@ class Ajax extends BaseProvider {
 			$vimeo_uri       = $result['response'];
 			$vimeo_formatter = new VimeoFormatter();
 			$vimeo_id        = $vimeo_formatter->uri_to_id( $vimeo_uri );
-
-			/**
-			 * Upload success hook
-			 */
-			do_action( 'dgv_upload_complete', array(
+			$hook_data       = array(
 				'vimeo_title'       => $title,
 				'vimeo_description' => $desc,
 				'vimeo_id'          => $vimeo_id,
@@ -803,7 +799,14 @@ class Ajax extends BaseProvider {
 					'software' => 'Backend.Form.Attachment',
 					'media_id' => $ID,
 				)
-			) );
+			);
+
+			$this->plugin->system()->logger()->log( sprintf( 'Triggered dgv_upload_complete (%s)', wp_json_encode( $hook_data ) ), $logtag );
+
+			/**
+			 * Upload success hook
+			 */
+			do_action( 'dgv_upload_complete', $hook_data );
 
 			$this->plugin->system()->logger()->log( sprintf( 'Media library video #%s uploaded to Vimeo', $ID ), $logtag );
 

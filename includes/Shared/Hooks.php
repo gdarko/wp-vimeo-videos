@@ -211,7 +211,7 @@ class Hooks extends BaseProvider {
 		/**
 		 * Create local video
 		 */
-		if ( (int) $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'store_in_library', 0 ) ) {
+		if ( (int) $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'behavior.store_in_library', 1 ) ) {
 			$this->create_local_video( $args, $logtag );
 		}
 
