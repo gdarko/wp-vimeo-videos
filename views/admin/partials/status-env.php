@@ -74,3 +74,19 @@
 		<?php echo ini_get( 'max_input_time' ); ?>
 	</td>
 </tr>
+<tr>
+    <th>
+		<?php _e( 'Memory Limit', 'wp-vimeo-videos' ); ?>
+    </th>
+    <td>
+		<?php echo sprintf('WP %s / PHP %s', WP_MEMORY_LIMIT, ini_get('memory_limit')); ?>
+    </td>
+</tr>
+<tr>
+    <th>
+		<?php _e( 'Operating System', 'wp-vimeo-videos' ); ?>
+    </th>
+    <td>
+		<?php echo PHP_OS; ?>
+    </td>
+</tr>
