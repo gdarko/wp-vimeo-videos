@@ -36,7 +36,7 @@ class Cron extends BaseProvider {
 	protected $sync;
 
 	/**
-	 * Registers sepcific piece of functionality
+	 * Registers specific piece of functionality
 	 * @return void
 	 */
 	public function register() {

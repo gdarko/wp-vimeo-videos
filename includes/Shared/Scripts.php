@@ -235,7 +235,7 @@ class Scripts extends BaseProvider {
 		wp_register_script(
 			'dgv-uploader',
 			$this->plugin->url() . 'assets/shared/js/uploader.js',
-			array( 'jquery', 'dgv-tus' ),
+			array( 'dgv-tus' ),
 			filemtime( $this->plugin->path() . 'assets/shared/js/uploader.js' )
 		);
 

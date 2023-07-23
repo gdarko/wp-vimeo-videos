@@ -120,7 +120,6 @@ WPVimeoVideos.Uploader.validateVideo = function (file) {
 WPVimeoVideos.Uploader.prototype.start = function () {
 
     var self = this;
-
     var http = new XMLHttpRequest();
 
     var requestData = {
@@ -132,8 +131,12 @@ WPVimeoVideos.Uploader.prototype.start = function () {
         },
     };
 
-    if (self.params.hasOwnProperty('privacy')) {
+    if (self.params.hasOwnProperty('privacy') && self.params !== 'default') {
         requestData.privacy = {view: self.params.privacy};
+    }
+
+    if(self.params.hasOwnProperty('folder') && (self.params.folder && self.params.folder !== 'default')) {
+        requestData.folder_uri = self.params.folder;
     }
 
     var requestBody = JSON.stringify(requestData);
@@ -273,13 +276,21 @@ WPVimeoVideos.Uploader.prototype.notifyWP = function (callback) {
         }
     };
     // Collect data
-    var data = WPVimeoVideos.Uploader.serializeObject({
+    let entry = {
         title: self.params.title,
         description: self.params.description,
         uri: self.currentUpload.uri,
         size: self.file.size,
         meta: self.params.wp.hasOwnProperty('notify_meta') ? self.params.wp.notify_meta : null,
-    });
+    }
+    if(self.params.hasOwnProperty('folder_uri') && self.params.folder_uri && self.params.folder_uri !== 'default') {
+        entry.folder_uri = self.params.folder_uri;
+    }
+    if(self.params.hasOwnProperty('privacy') && self.params.privacy && self.params.privacy !== 'default') {
+        entry.view_privacy = self.params.privacy;
+    }
+
+    var data = WPVimeoVideos.Uploader.serializeObject(entry);
     http.send(data);
 };
 

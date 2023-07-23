@@ -65,6 +65,12 @@ interface SystemInterface {
 	public function requests();
 
 	/**
+	 * The Cache API
+	 * @return CacheInterface
+	 */
+	public function cache();
+
+	/**
 	 * The config data
 	 * @return array
 	 */

@@ -1,4 +1,3 @@
-<?php
 /********************************************************************
  * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
  * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
@@ -22,17 +21,22 @@
  * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
-/* @var string $vimeo_id */
+import { registerBlockType } from '@wordpress/blocks';
+import json from './block.json';
+import Edit from './edit';
+import Save from "./save";
 
-if(isset($vimeo_id)) {
-	$embed_url = sprintf( 'https://player.vimeo.com/video/%s', $vimeo_id );
-} else if(isset($vimeo_uri)) {
-	$embed_url = sprintf( 'https://player.vimeo.com/%s', str_replace('/videos/', 'video/', $vimeo_uri) );
-} else {
-    $embed_url = '';
-}
+// Destructure the json file to get the name of the block
+// For more information on how this works, see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+const { name } = json;
 
-?>
-<div class='dgv-embed-container'>
-	<?php echo sprintf( "<iframe src='%s' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>", esc_url($embed_url) ); ?>
-</div>
+// Register the block
+registerBlockType( name, {
+	attributes: {
+		currentValue: {
+			type: 'string',
+		},
+	},
+	edit: Edit,
+	save: Save
+} );

@@ -156,7 +156,7 @@ class Options extends BaseProvider {
 			$other_settings = [
 				[
 					'id'           => 'behavior',
-					'label'        => __( 'Front-end Behavior', 'theme-text-domain' ),
+					'label'        => __( 'Front-end Behavior', 'wp-vimeo-videos' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -172,7 +172,7 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_single_pages' => array(
 							'value' => 1,
-							'label' => __( 'Enable single video pages for the uploaded videos', 'theme-text-domain' ),
+							'label' => __( 'Enable single video pages for the uploaded videos', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 					),
@@ -182,7 +182,7 @@ class Options extends BaseProvider {
 				// Admin Settngs
 				[
 					'id'           => 'upload_forms',
-					'label'        => __( 'Upload Form', 'theme-text-domain' ),
+					'label'        => __( 'Upload Form', 'wp-vimeo-videos' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -198,19 +198,19 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo View Privacy option in the WP-Admin Video upload form', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo View Privacy option in the WP-Admin Video upload form', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_folders'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo Folders option in the WP-Admin Video upload form', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo Folders option in the WP-Admin Video upload form', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 					),
 				],
 				[
 					'id'           => 'gutenberg',
-					'label'        => __( 'Gutenberg Block', 'theme-text-domain' ),
+					'label'        => __( 'Gutenberg Block', 'wp-vimeo-videos' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -226,27 +226,27 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo View Privacy option in Gutenberg upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo View Privacy option in Gutenberg upload modal', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_folders'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo Folders option in Gutenberg upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo Folders option in Gutenberg upload modal', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo account search option in upload form', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo account search option in upload form', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_local_search'      => array(
 							'value' => 1,
-							'label' => __( 'Enable Local Library search option in upload form', 'theme-text-domain' ),
+							'label' => __( 'Enable Local Library search option in upload form', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Restrict to current user\'s uploads in Local Library search option', 'theme-text-domain' ),
+							'label' => __( 'Restrict to current user\'s uploads in Local Library search option', 'wp-vimeo-videos' ),
 							'src'   => '',
 						)
 					),
@@ -254,7 +254,7 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'tinymce',
-					'label'        => __( 'TinyMCE Modal', 'theme-text-domain' ),
+					'label'        => __( 'TinyMCE Modal', 'wp-vimeo-videos' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -270,27 +270,27 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo View Privacy option in upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo View Privacy option in upload modal', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_folders'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo Folders option in upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo Folders option in upload modal', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo account search option in upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable Vimeo account search option in upload modal', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_local_search'      => array(
 							'value' => 1,
-							'label' => __( 'Enable local library search option in upload modal', 'theme-text-domain' ),
+							'label' => __( 'Enable local library search option in upload modal', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'theme-text-domain' ),
+							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'wp-vimeo-videos' ),
 							'src'   => '',
 						)
 					),
@@ -298,7 +298,7 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'video_management',
-					'label'        => __( 'Video Management Page', 'theme-text-domain' ),
+					'label'        => __( 'Video Management Page', 'wp-vimeo-videos' ),
 					'desc'         => __( 'Select which video elements to be enabled for editing videos.', 'wp-vimeo-videos' ),
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -314,17 +314,17 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_embed_presets' => array(
 							'value' => 1,
-							'label' => __( 'Enable Embed Presets panel in the single video management page', 'theme-text-domain' ),
+							'label' => __( 'Enable Embed Presets panel in the single video management page', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_embed_privacy' => array(
 							'value' => 1,
-							'label' => __( 'Enable Embed Privacy panel in the single video management page', 'theme-text-domain' ),
+							'label' => __( 'Enable Embed Privacy panel in the single video management page', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'enable_folders'       => array(
 							'value' => 1,
-							'label' => __( 'Enable Folders panel in the single video management page', 'theme-text-domain' ),
+							'label' => __( 'Enable Folders panel in the single video management page', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 					),
@@ -332,7 +332,7 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'videos_list_table',
-					'label'        => __( 'Videos list table', 'theme-text-domain' ),
+					'label'        => __( 'Videos list table', 'wp-vimeo-videos' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -348,7 +348,7 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Only show the Videos uploaded by the current user on the Vimeo list table', 'theme-text-domain' ),
+							'label' => __( 'Only show the Videos uploaded by the current user on the Vimeo list table', 'wp-vimeo-videos' ),
 							'src'   => '',
 						)
 					),
@@ -356,7 +356,7 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'videos_thumbnails',
-					'label'        => __( 'Thumbnails support', 'theme-text-domain' ),
+					'label'        => __( 'Thumbnails support', 'wp-vimeo-videos' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -372,7 +372,7 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_thumbnails' => array(
 							'value' => 1,
-							'label' => __( 'Enable experimental support for thumbnails. (Note: May result in increased api calls usage)', 'theme-text-domain' ),
+							'label' => __( 'Enable experimental support for thumbnails. (Note: May result in increased api calls usage)', 'wp-vimeo-videos' ),
 							'src'   => '',
 						)
 					),

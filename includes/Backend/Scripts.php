@@ -99,21 +99,21 @@ class Scripts implements ProviderInterface {
 
 		wp_register_script(
 			'wvv-vimeo-upload-block',
-			$this->plugin->url() . 'assets/admin/blocks/upload/main.js',
+			$this->plugin->url() . 'assets/blocks-legacy/upload/main.js',
 			array(
 				'wp-blocks',
 				'wp-editor',
 				'jquery',
 				'dgv-uploader'
 			),
-			filemtime( $this->plugin->path() . 'assets/admin/blocks/upload/main.js' )
+			filemtime( $this->plugin->path() . 'assets/blocks-legacy/upload/main.js' )
 		);
 
 		wp_register_style(
 			'wvv-vimeo-upload-block',
-			$this->plugin->url() . 'assets/admin/blocks/upload/main.css',
+			$this->plugin->url() . 'assets/blocks-legacy/upload/main.css',
 			array(),
-			filemtime( $this->plugin->path() . 'assets/admin/blocks/upload/main.css' ),
+			filemtime( $this->plugin->path() . 'assets/blocks-legacy/upload/main.css' ),
 			'all'
 		);
 
@@ -221,7 +221,7 @@ class Scripts implements ProviderInterface {
 			'uploads'             => $uploads,
 			'methods'             => $methods,
 			'words'               => array(
-				'block_name'   => __( 'WP Vimeo Upload', 'wp-vimeo-videos' ),
+				'block_name'   => __( 'Vimeify Upload (Old/Legacy/Deprecated)', 'wp-vimeo-videos' ),
 				'title'        => __( 'Title', 'wp-vimeo-videos' ),
 				'desc'         => __( 'Description', 'wp-vimeo-videos' ),
 				'file'         => __( 'File', 'wp-vimeo-videos' ),

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Vimeify - Upload, list, display and embed Vimeo videos
+ * Plugin Name:       Vimeify - Upload, Display & Embed Vimeo Videos
  * Plugin URI:        https://vimeify.com
  * Description:       Easily upload, embed and list Vimeo videos directly on your site
  * Version:           2.0.0
@@ -89,7 +89,8 @@ if ( ! function_exists( 'vimeify' ) ) {
 					'requests' => \Vimeify\Core\Components\Requests::class,
 					'logger'   => \Vimeify\Core\Components\Logger::class,
 					'vimeo'    => \Vimeify\Core\Components\Vimeo::class,
-					'views'    => \Vimeify\Core\Components\Views::class
+					'views'    => \Vimeify\Core\Components\Views::class,
+					'cache'    => \Vimeify\Core\Components\Cache::class,
 				]
 			] );
 

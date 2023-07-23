@@ -46,7 +46,7 @@ class Metaboxes extends BaseProvider {
 
 		$metabox = array(
 			'id'        => 'profile_settings',
-			'title'     => __( 'Profile Settings', 'theme-text-domain' ),
+			'title'     => __( 'Profile Settings', 'wp-vimeo-videos' ),
 			'desc'      => '',
 			'pages'     => array( 'dgv-uprofile' ),
 			'context'   => 'normal',
@@ -54,13 +54,13 @@ class Metaboxes extends BaseProvider {
 			'save_mode' => 'compact',
 			'fields'    => array(
 				array(
-					'label' => __( 'General', 'theme-text-domain' ),
+					'label' => __( 'General', 'wp-vimeo-videos' ),
 					'id'    => 'general',
 					'type'  => 'tab',
 				),
 				[
 					'id'           => 'behavior',
-					'label'        => __( 'Default Behavior', 'theme-text-domain' ),
+					'label'        => __( 'Default Behavior', 'wp-vimeo-videos' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -76,19 +76,19 @@ class Metaboxes extends BaseProvider {
 					'choices'      => array(
 						'store_in_library'    => array(
 							'value' => 1,
-							'label' => __( 'Enable saving videos locally (Media > Vimeo) that are uploded by using this profile', 'theme-text-domain' ),
+							'label' => __( 'Store videos uploaded with this profile in the Local library', 'wp-vimeo-videos' ),
 							'src'   => '',
 						),
 						'use_pull_method'     => array(
 							'value' => 1,
-							'label' => __( 'Prefer "pull" uploads where that is possible', 'theme-text-domain' ),
-							'desc'  => __( 'Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable', 'wp-vimeo-videos' ),
+							'label' => __( 'Prefer "pull" uploads where that is possible', 'wp-vimeo-videos' ),
+							'desc'  => __( 'Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable.', 'wp-vimeo-videos' ),
 							'src'   => '',
 						)
 					),
 				],
 				array(
-					'label' => __( 'Privacy', 'theme-text-domain' ),
+					'label' => __( 'Privacy', 'wp-vimeo-videos' ),
 					'id'    => 'privacy',
 					'type'  => 'tab',
 				),
@@ -125,7 +125,7 @@ class Metaboxes extends BaseProvider {
 				],
 
 				array(
-					'label' => __( 'Folders', 'theme-text-domain' ),
+					'label' => __( 'Folders', 'wp-vimeo-videos' ),
 					'id'    => 'folders',
 					'type'  => 'tab',
 				),
@@ -149,7 +149,7 @@ class Metaboxes extends BaseProvider {
 				],
 
 				array(
-					'label' => __( 'Embed Presets', 'theme-text-domain' ),
+					'label' => __( 'Embed Presets', 'wp-vimeo-videos' ),
 					'id'    => 'embed_presets',
 					'type'  => 'tab',
 				),

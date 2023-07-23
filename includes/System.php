@@ -25,6 +25,7 @@
 namespace Vimeify\Core;
 
 use Vimeify\Core\Abstracts\Interfaces\SystemInterface;
+use Vimeify\Core\Components\Cache;
 use Vimeify\Core\Components\Database;
 use Vimeify\Core\Components\Logger;
 use Vimeify\Core\Components\Requests;
@@ -72,6 +73,12 @@ class System implements SystemInterface {
 	protected $requests;
 
 	/**
+	 * The Requests instance
+	 * @var Cache
+	 */
+	protected $cache;
+
+	/**
 	 * The config
 	 * @var array
 	 */
@@ -92,12 +99,13 @@ class System implements SystemInterface {
 		$this->set_vimeo( new $this->config['components']['vimeo']( $this ) );
 		$this->set_views( new $this->config['components']['views']( $this ) );
 		$this->set_requests( new $this->config['components']['requests']( $this ) );
+		$this->set_cache( new $this->config['components']['cache']( $this ) );
 	}
 
 	/**
 	 * Set the vimeo instance
 	 *
-	 * @param  Vimeo  $vimeo
+	 * @param Vimeo $vimeo
 	 *
 	 * @return void
 	 */
@@ -108,7 +116,7 @@ class System implements SystemInterface {
 	/**
 	 * Set the database instance
 	 *
-	 * @param  Database  $database
+	 * @param Database $database
 	 *
 	 * @return void
 	 */
@@ -119,7 +127,7 @@ class System implements SystemInterface {
 	/**
 	 * Set the settings instance
 	 *
-	 * @param  Settings  $settings
+	 * @param Settings $settings
 	 *
 	 * @return void
 	 */
@@ -130,7 +138,7 @@ class System implements SystemInterface {
 	/**
 	 * Set the logger instance
 	 *
-	 * @param  Logger  $logger
+	 * @param Logger $logger
 	 *
 	 * @return void
 	 */
@@ -141,7 +149,7 @@ class System implements SystemInterface {
 	/**
 	 * Set the view instance
 	 *
-	 * @param  Views  $views
+	 * @param Views $views
 	 *
 	 * @return void
 	 */
@@ -152,12 +160,23 @@ class System implements SystemInterface {
 	/**
 	 * Set the requests instance
 	 *
-	 * @param  Requests  $requests
+	 * @param Requests $requests
 	 *
 	 * @return void
 	 */
 	public function set_requests( Requests $requests ) {
 		$this->requests = $requests;
+	}
+
+	/**
+	 * Set the cache instance
+	 *
+	 * @param Cache $requests
+	 *
+	 * @return void
+	 */
+	public function set_cache( Cache $cache ) {
+		$this->cache = $cache;
 	}
 
 	/**
@@ -206,6 +225,14 @@ class System implements SystemInterface {
 	 */
 	public function requests() {
 		return $this->requests;
+	}
+
+	/**
+	 * The Cache API
+	 * @return Cache
+	 */
+	public function cache() {
+		return $this->cache;
 	}
 
 	/**

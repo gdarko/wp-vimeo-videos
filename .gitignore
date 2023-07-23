@@ -1,2 +1,4 @@
 vendor/
+blocks/node_modules/
+blocls/node_modules/*
 composer.lock

@@ -29,6 +29,7 @@ use Vimeify\Core\Components\Database;
 use Vimeify\Core\Utilities\Formatters\ByteFormatter;
 use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 use Vimeify\Core\Utilities\Validators\NetworkValidator;
+use Vimeo\Exceptions\VimeoRequestException;
 
 class Ajax extends BaseProvider {
 
@@ -62,7 +63,7 @@ class Ajax extends BaseProvider {
 	 */
 	public function store_upload() {
 
-		$logtag = 'DGV-EDITOR-UPLOAD';
+		$logtag = 'DGV-STORE-UPLOAD';
 
 		if ( ! $this->plugin->system()->requests()->check_ajax_referer( 'dgvsecurity' ) ) {
 			wp_send_json_error( array(
@@ -83,14 +84,15 @@ class Ajax extends BaseProvider {
 			) );
 		}
 
-		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Untitled', 'wp-vimeo-videos' );
-		$description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
-		$size        = isset( $_POST['size'] ) ? intval( $_POST['size'] ) : false;
-		$meta        = isset( $_POST['meta'] ) && is_array( $_POST['meta'] ) ? array_map( 'sanitize_text_field', $_POST['meta'] ) : [];
-		$uri         = sanitize_text_field( $_POST['uri'] );
-		$source      = isset( $_REQUEST['source'] ) ? sanitize_text_field( $_REQUEST['source'] ) : null;
-		$hook_type   = isset( $_REQUEST['hook_type'] ) ? intval( $_REQUEST['hook_type'] ) : null;
+		$title        = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Untitled', 'wp-vimeo-videos' );
+		$description  = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
+		$size         = isset( $_POST['size'] ) ? intval( $_POST['size'] ) : false;
+		$meta         = isset( $_POST['meta'] ) && is_array( $_POST['meta'] ) ? array_map( 'sanitize_text_field', $_POST['meta'] ) : [];
+		$source       = isset( $_REQUEST['source'] ) ? sanitize_text_field( $_REQUEST['source'] ) : null;
+		$view_privacy = isset( $_POST['view_privacy'] ) && ! empty( $_POST['view_privacy'] ) ? sanitize_text_field( $_POST['view_privacy'] ) : null;
+		$folder_uri   = isset( $_POST['folder_uri'] ) && ! empty( $_POST['folder_uri'] ) ? sanitize_text_field( $_POST['folder_uri'] ) : null;
 
+		$uri = sanitize_text_field( $_POST['uri'] );
 
 		$vimeo_formatter = new VimeoFormatter();
 		$video_id        = $vimeo_formatter->uri_to_id( $uri );
@@ -108,21 +110,17 @@ class Ajax extends BaseProvider {
 			'vimeo_id'          => $video_id,
 			'vimeo_size'        => $size,
 			'vimeo_meta'        => $meta,
+			'overrides'         => [
+				'view_privacy' => $view_privacy,
+				'folder_uri'   => $folder_uri
+			],
 			'source'            => array(
 				'software' => $source,
 			),
 		);
 
-		switch ( $hook_type ) {
-			case 1:
-				$this->plugin->system()->logger()->log( 'Trigerred dgv_backend_after_upload.', $logtag );
-				do_action( 'dgv_backend_after_upload', $hook_data );
-				break;
-			case 2:
-				$this->plugin->system()->logger()->log( 'Trigerred dgv_frontend_after_upload.', $logtag );
-				do_action( 'dgv_frontend_after_upload', $hook_data );
-				break;
-		}
+		$this->plugin->system()->logger()->log( 'Triggered dgv_upload_complete.', $logtag );
+		do_action( 'dgv_upload_complete', $hook_data );
 
 		wp_send_json_success( array(
 			'message' => __( 'Video uploaded successfully.', 'wp-vimeo-videos' ),
@@ -172,7 +170,7 @@ class Ajax extends BaseProvider {
 
 			if ( isset( $_POST['post_id'] ) && is_numeric( $_POST['post_id'] ) ) {
 
-				$post_id = intval($_POST['post_id']);
+				$post_id = intval( $_POST['post_id'] );
 
 				$deleted = wp_delete_post( $post_id, 1 );
 				if ( $deleted ) {
@@ -751,10 +749,12 @@ class Ajax extends BaseProvider {
 			exit;
 		}
 
-		$ID        = isset( $_POST['attachment_id'] ) ? intval( $_POST['attachment_id'] ) : null;
-		$title     = isset( $_POST['vimeo_title'] ) && strlen( $_POST['vimeo_title'] ) > 0 ? sanitize_text_field( $_POST['vimeo_title'] ) : null;
-		$desc      = isset( $_POST['vimeo_description'] ) && strlen( $_POST['vimeo_description'] ) > 0 ? sanitize_text_field( $_POST['vimeo_description'] ) : null;
-		$view_priv = isset( $_POST['vimeo_view_privacy'] ) && ! empty( $_POST['vimeo_view_privacy'] ) ? sanitize_text_field( $_POST['vimeo_view_privacy'] ) : null;
+		$ID           = isset( $_POST['attachment_id'] ) ? intval( $_POST['attachment_id'] ) : null;
+		$title        = isset( $_POST['vimeo_title'] ) && strlen( $_POST['vimeo_title'] ) > 0 ? sanitize_text_field( $_POST['vimeo_title'] ) : null;
+		$desc         = isset( $_POST['vimeo_description'] ) && strlen( $_POST['vimeo_description'] ) > 0 ? sanitize_text_field( $_POST['vimeo_description'] ) : null;
+		$view_privacy = isset( $_POST['vimeo_view_privacy'] ) && ! empty( $_POST['vimeo_view_privacy'] ) ? sanitize_text_field( $_POST['vimeo_view_privacy'] ) : null;
+		$folder_uri   = isset( $_POST['vimeo_folder_uri'] ) && ! empty( $_POST['vimeo_folder_uri'] ) ? sanitize_text_field( $_POST['vimeo_folder_uri'] ) : null;
+
 
 		if ( is_null( $ID ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid attachment', 'wp-vimeo-videos' ) ) );
@@ -790,13 +790,14 @@ class Ajax extends BaseProvider {
 			/**
 			 * Upload success hook
 			 */
-			do_action( 'dgv_backend_after_upload', array(
+			do_action( 'dgv_upload_complete', array(
 				'vimeo_title'       => $title,
 				'vimeo_description' => $desc,
 				'vimeo_id'          => $vimeo_id,
 				'vimeo_size'        => $file_size,
 				'overrides'         => array(
-					'view_privacy' => $view_priv,
+					'view_privacy' => $view_privacy,
+					'folder_uri'   => $folder_uri,
 				),
 				'source'            => array(
 					'software' => 'Backend.Form.Attachment',

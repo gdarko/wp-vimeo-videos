@@ -25,9 +25,14 @@
 namespace Vimeify\Core\Shared;
 
 use Vimeify\Core\Abstracts\BaseProvider;
+use Vimeify\Core\Traits\AfterUpload;
+use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 use Vimeify\Core\Utilities\Validators\FileValidator;
+use Vimeo\Exceptions\VimeoRequestException;
 
 class Hooks extends BaseProvider {
+
+	use AfterUpload;
 
 	/**
 	 * Registers sepcific piece of functionality
@@ -36,8 +41,13 @@ class Hooks extends BaseProvider {
 	public function register() {
 
 		add_filter( 'upload_mimes', [ $this, 'allowed_mime_types' ], 15 );
-		add_action( 'wp_vimeo_upload_process_default_time_limit', [ $this, 'upload_process_default_time_limit' ], 10, 1 );
+		add_action( 'wp_vimeo_upload_process_default_time_limit', [
+			$this,
+			'upload_process_default_time_limit'
+		], 10, 1 );
 		add_action( 'init', [ $this, 'load_text_domain' ] );
+
+		add_action( 'dgv_upload_complete', [ $this, 'upload_complete' ], 5 );
 
 		$this->register_integrations();
 	}
@@ -110,5 +120,104 @@ class Hooks extends BaseProvider {
 			false,
 			$this->plugin->path() . 'languages' . DIRECTORY_SEPARATOR
 		);
+	}
+
+	/**
+	 * Handle after upload hook in Admin area
+	 *
+	 * @param $args
+	 *
+	 * @since 1.7.0
+	 */
+	public function upload_complete( $args ) {
+
+		$logtag = 'DGV-UPLOAD-HOOKS';
+		$this->plugin->system()->logger()->log( sprintf( 'Running upload_complete hook.' ), $logtag );
+		$this->plugin->system()->logger()->log( 'Data: ', json_encode( [
+			'args' => $args
+		] ) );
+
+		/**
+		 * Make sure we are on the right track.
+		 */
+		if ( ! isset( $args['vimeo_id'] ) ) {
+			$this->plugin->system()->logger()->log( 'No vimeo id found. Failed to execute post upload hooks. (backend)', $logtag );
+
+			return;
+		}
+
+		/**
+		 * Obtain some important data.
+		 */
+		$response        = $args['vimeo_id'];
+		$vimeo_formatter = new VimeoFormatter();
+		$uri             = $vimeo_formatter->response_to_uri( $response );
+
+		/**
+		 * Signal start
+		 */
+		$this->plugin->system()->logger()->log( sprintf( 'Processing hooks for %s', $uri ), $logtag );
+
+		/**
+		 * Retrieve the source
+		 */
+		$source = isset( $args['source']['software'] ) ? $args['source']['software'] : null;
+		if ( empty( $source ) ) {
+			$this->plugin->system()->logger()->log( sprintf( '-- Source (%s) not found.', ( $source ? $source : 'NULL' ) ), $logtag );
+		} else {
+			$this->plugin->system()->logger()->log( sprintf( '-- Source found: %s.', $source ) );
+		}
+
+		/**
+		 * Retrieve the profile
+		 */
+		$profile_id = $this->plugin->system()->settings()->get_upload_profile_by_context( $source );
+		if ( empty( $profile_id ) ) {
+			$this->plugin->system()->logger()->log( '-- No upload profile found. Please go to Vimeify > Upload Profiles and create one, then go to Vimeify Settings > Upload profiles and select the desired ones where you need them.', $logtag );
+		} else {
+			$this->plugin->system()->logger()->log( '-- Using profile with ID: ' . $profile_id, $logtag );
+		}
+
+		/**
+		 * Set Folder
+		 */
+		$folder_uri = isset( $args['overrides']['folder_uri'] ) ? $args['overrides']['folder_uri'] : $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'folder', 'default' );
+		$this->set_folder( $uri, $folder_uri, $logtag );
+
+		/**
+		 * Set Embed privacy
+		 */
+		if ( $this->plugin->system()->vimeo()->supports_embed_privacy() ) {
+			$whitelisted_domains = $this->plugin->system()->settings()->get_upload_profile_whitelisted_domains( $profile_id );
+			$this->set_embed_privacy( $uri, $whitelisted_domains, $logtag );
+		}
+
+		/**
+		 * Set Embed presets
+		 */
+		if ( $this->plugin->system()->vimeo()->supports_embed_presets() ) {
+			$preset_uri = $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'embed_preset' );
+			$this->set_embed_preset( $uri, $preset_uri, $logtag );
+		}
+
+		/**
+		 * Set View privacy
+		 */
+		$view_privacy = isset( $args['overrides']['view_privacy'] ) ? $args['overrides']['view_privacy'] : $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'view_privacy' );
+		if ( $this->plugin->system()->vimeo()->supports_view_privacy_option( $view_privacy ) ) {
+			$this->set_view_privacy( $uri, $view_privacy, $logtag );
+		}
+
+		/**
+		 * Create local video
+		 */
+		if ( (int) $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'store_in_library', 0 ) ) {
+			$this->create_local_video( $args, $logtag );
+		}
+
+		/**
+		 * Signal finish
+		 */
+		$this->plugin->system()->logger()->log( 'Finished upload_complete hook.', $logtag );
 	}
 }

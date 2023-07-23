@@ -228,9 +228,9 @@
         var search_phrase = $(this).find('input[name=video_title]').val();
         var opts = '';
         if (search_phrase !== '') {
-            var vimeoProfile = new WPVimeoVideos.Profile(DGV_Modal_Config.access_token);
             var wrapperFound = $(this).closest('.dgv-insert-type-search').find('.dgv-videos-found');
             var wrapper404 = $(this).closest('.dgv-insert-type-search').find('.dgv-videos-404');
+            var vimeoProfile = new WPVimeoVideos.Profile(DGV_Modal_Config.access_token);
             vimeoProfile.search({
                 'page': 1,
                 'per_page': 100,

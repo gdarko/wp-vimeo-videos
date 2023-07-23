@@ -27,6 +27,7 @@ namespace Vimeify\Core;
 use Vimeify\Core\Abstracts\BaseProvider;
 use Vimeify\Core\Backend\Backend;
 use Vimeify\Core\Frontend\Frontend;
+use Vimeify\Core\RestAPI\RestAPI;
 use Vimeify\Core\Shared\Shared;
 use Vimeify\Core\Utilities\ProcessManager;
 
@@ -51,6 +52,12 @@ class Boot extends BaseProvider {
 	public $shared;
 
 	/**
+	 * The rest API
+	 * @var RestAPI
+	 */
+	public $restApi;
+
+	/**
 	 * Registers sepcific piece of functionality
 	 * @return void
 	 */
@@ -63,6 +70,7 @@ class Boot extends BaseProvider {
 		$this->shared   = $this->boot( Shared::class );
 		$this->frontend = $this->boot( Frontend::class );
 		$this->backend  = $this->boot( Backend::class );
+		$this->restApi  = $this->boot( RestAPI::class );
 
 		do_action( 'vimeify_booted', $this );
 	}
@@ -98,6 +106,10 @@ class Boot extends BaseProvider {
 	 */
 	public function shared() {
 		return $this->shared;
+	}
+
+	public function restApi() {
+		return $this->restApi;
 	}
 
 }

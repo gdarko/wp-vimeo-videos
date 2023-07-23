@@ -102,12 +102,22 @@ trait AfterUpload {
 	 * @since 1.7.0
 	 */
 	protected function set_embed_preset( $uri, $preset_uri, $logtag ) {
-		if ( empty( $preset_uri ) || 'default' === $preset_uri ) {
+
+		if ( empty( $preset_uri ) ) {
+			$this->plugin->system()->logger()->log( '-- Embed preset not configured, skipping.', $logtag );
+
 			return;
 		}
+
+		if ( 'default' === $preset_uri ) {
+			$this->plugin->system()->logger()->log( '-- Embed preset skipped. Default is no embed preset.', $logtag );
+
+			return;
+		}
+
 		try {
 			$this->plugin->system()->vimeo()->set_video_embed_preset( $uri, $preset_uri );
-			$this->plugin->system()->logger()->log( sprintf('-- Embed preset %s set', $preset_uri), $logtag );
+			$this->plugin->system()->logger()->log( sprintf( '-- Embed preset %s set', $preset_uri ), $logtag );
 		} catch ( \Exception $e ) {
 			$this->plugin->system()->logger()->log( sprintf( '-- Failed to set embed preset (%s)', $e->getMessage() ), $logtag );
 		}
@@ -124,13 +134,21 @@ trait AfterUpload {
 	 */
 	protected function set_folder( $uri, $folder_uri, $logtag ) {
 
-		if ( empty( $folder_uri ) || 'default' === $folder_uri ) {
+		if ( empty( $folder_uri ) ) {
+			$this->plugin->system()->logger()->log( '-- Folder not configured, skipping.', $logtag );
+
+			return;
+		}
+
+		if ( 'default' === $folder_uri ) {
+			$this->plugin->system()->logger()->log( '-- Folder skipped. Default is no folder.', $logtag );
+
 			return;
 		}
 
 		try {
 			$this->plugin->system()->vimeo()->set_video_folder( $uri, $folder_uri );
-			$this->plugin->system()->logger()->log( sprintf('-- Folder %s set', $folder_uri), $logtag );
+			$this->plugin->system()->logger()->log( sprintf( '-- Folder %s set', $folder_uri ), $logtag );
 		} catch ( \Exception $e ) {
 			$this->plugin->system()->logger()->log( sprintf( '-- Failed to set folder (%s)', $e->getMessage() ), $logtag );
 		}

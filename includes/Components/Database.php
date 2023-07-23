@@ -27,7 +27,6 @@ namespace Vimeify\Core\Components;
 use Vimeify\Core\Abstracts\Interfaces\DatabaseInterface;
 use Vimeify\Core\Abstracts\Interfaces\SystemComponentInterface;
 use Vimeify\Core\Abstracts\Interfaces\SystemInterface;
-use Vimeify\Core\Utilities\Arrays\DotNotation;
 use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 
 /**
@@ -47,7 +46,7 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 
 	/**
 	 * The WPDB Instance
-	 * @var wpdb
+	 * @var \wpdb
 	 */
 	protected $db;
 
@@ -84,6 +83,10 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 			'offset'         => isset( $args['offset'] ) ? $args['offset'] : 0,
 			'post_status'    => 'publish'
 		);
+
+		if ( isset( $args['paged'] ) ) {
+			$params['paged'] = (int) $args['paged'];
+		}
 		if ( isset( $args['author'] ) ) {
 			$params['author'] = $args['author'];
 		}

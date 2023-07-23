@@ -713,7 +713,7 @@ class Vimeo implements VimeoInterface {
 			/**
 			 * Upload success hook
 			 */
-			do_action( 'dgv_backend_after_upload', array(
+			do_action( 'dgv_upload_complete', array(
 				'vimeo_title'       => isset( $params['name'] ) ? $params['name'] : '',
 				'vimeo_description' => isset( $params['description'] ) ? $params['description'] : '',
 				'vimeo_id'          => $this->formatter->uri_to_id( $response ),
@@ -754,7 +754,7 @@ class Vimeo implements VimeoInterface {
 			/**
 			 * Upload success hook
 			 */
-			do_action( 'dgv_backend_after_upload', array(
+			do_action( 'dgv_upload_complete', array(
 				'vimeo_title'       => isset( $params['name'] ) ? $params['name'] : '',
 				'vimeo_description' => isset( $params['description'] ) ? $params['description'] : '',
 				'vimeo_id'          => $this->formatter->uri_to_id( $response ),

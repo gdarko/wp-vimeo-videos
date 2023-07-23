@@ -6,7 +6,7 @@
 wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
     title: DGVGTB.words.block_name,
     icon: 'video-alt',
-    category: 'common',
+    category: 'media',
     attributes: {
         title: {type: 'string'},
         description: {type: 'string'},

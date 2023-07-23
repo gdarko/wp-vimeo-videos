@@ -38,5 +38,6 @@ class Shared extends BaseProvider {
 		$this->boot( Migrations::class );
 		$this->boot( PostTypes::class );
 		$this->boot( Scripts::class );
+		$this->boot( Blocks::class );
 	}
 }
