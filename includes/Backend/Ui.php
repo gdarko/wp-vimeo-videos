@@ -218,7 +218,7 @@ class Ui extends BaseProvider {
 	 */
 	public function plugin_action_links( $links ) {
 		$links = array_merge( array(
-			'<a href="' . esc_url( admin_url( '/options-general.php?page=dgv-settings' ) ) . '">' . __( 'Settings',
+			'<a href="' . esc_url( admin_url( '/admin.php?page=dgv-settings' ) ) . '">' . __( 'Settings',
 				'wp-vimeo-videos' ) . '</a>'
 		), $links );
 
