@@ -29,6 +29,7 @@ use Vimeify\Core\Abstracts\BaseProvider;
 class Ui extends BaseProvider {
 
 	const PAGE_VIMEO = 'vimeify';
+	const PAGE_UPLOAD = 'vimeify-upload';
 	const PAGE_SETTINGS = 'vimeify';
 
 
@@ -67,26 +68,34 @@ class Ui extends BaseProvider {
 	public function register_admin_menu() {
 
 		add_menu_page(
-			__('Vimeify - Vimeo Uploads', 'vimeify'),
-			__('Vimeify', 'vimeify'),
-			'upload_files',
+			__( 'Vimeify - Vimeo Uploads', 'vimeify' ),
+			__( 'Vimeify', 'vimeify' ),
+			'edit_others_posts',
 			'vimeify',
-			array( $this, 'render_vimeo_page' ),
-			$this->plugin->icon('20'),
+			array( $this, 'render_main_page' ),
+			$this->plugin->icon( '20' ),
 			5
 		);
 
-		add_submenu_page('vimeify',
-			__('Vimeify - All Videos', 'vimeify'),
-			__('All Videos', 'vimeify'),
-			'upload_files',
+		add_submenu_page( 'vimeify',
+			__( 'Vimeify - All Videos', 'vimeify' ),
+			__( 'All Videos', 'vimeify' ),
+			'edit_others_posts',
 			'vimeify'
+		);
+
+		add_submenu_page( 'vimeify',
+			__( 'Vimeify - All Videos', 'vimeify' ),
+			__( 'Upload New', 'vimeify' ),
+			'upload_files',
+			'vimeify-upload',
+			array( $this, 'render_upload_page' ),
 		);
 
 		add_submenu_page(
 			'vimeify',
-			__('Vimeify - Upload Profiles', 'vimeify'),
-			__('Upload Profiles'),
+			__( 'Vimeify - Upload Profiles', 'vimeify' ),
+			__( 'Upload Profiles' ),
 			'upload_files',
 			'edit.php?post_type=dgv-uprofile'
 		);
@@ -96,8 +105,17 @@ class Ui extends BaseProvider {
 	/**
 	 * Renders the vimeo pages
 	 */
-	public function render_vimeo_page() {
+	public function render_main_page() {
 		$this->plugin->system()->views()->render_view( 'admin/partials/library', [
+			'plugin' => $this->plugin,
+		] );
+	}
+
+	/**
+	 * Renders the vimeo pages
+	 */
+	public function render_upload_page() {
+		$this->plugin->system()->views()->render_view( 'admin/partials/library-upload', [
 			'plugin' => $this->plugin,
 		] );
 	}
@@ -203,7 +221,7 @@ class Ui extends BaseProvider {
 			$disallowed = array();
 			$page       = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : null;
 			if ( ! in_array( $page, $disallowed ) ) {
-				$this->plugin->system()->views()->get_view( 'admin/partials/instructions', ['plugin' => $this->plugin] );
+				$this->plugin->system()->views()->get_view( 'admin/partials/instructions', [ 'plugin' => $this->plugin ] );
 			}
 		}
 	}
@@ -211,7 +229,7 @@ class Ui extends BaseProvider {
 	/**
 	 * Add a link to the settings page on the plugins.php page.
 	 *
-	 * @param  array  $links  List of existing plugin action links.
+	 * @param array $links List of existing plugin action links.
 	 *
 	 * @return array         List of modified plugin action links.
 	 *

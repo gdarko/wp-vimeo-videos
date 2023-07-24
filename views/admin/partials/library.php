@@ -33,19 +33,7 @@ $core_validator = new \Vimeify\Core\Utilities\Validators\CoreValidator();
 		include 'outdated.php';
 	} else {
 
-		if ( isset( $_GET['action'] ) && $_GET['action'] === 'new' ) {
-
-			if ( $plugin->system()->vimeo()->is_connected ) {
-				if ( $plugin->system()->vimeo()->can_upload() ) {
-					include 'library-upload.php';
-				} else {
-					include 'not-allowed-upload.php';
-				}
-			} else {
-				include 'not-connected.php';
-			}
-
-		} elseif ( isset( $_GET['action'] ) && $_GET['action'] === 'edit' && isset( $_GET['id'] ) ) {
+		if ( isset( $_GET['action'] ) && $_GET['action'] === 'edit' && isset( $_GET['id'] ) ) {
 			include 'library-edit.php';
 		} elseif ( ( ! isset( $_GET['action'] ) || empty( $_GET['action'] ) ) || ( isset( $_GET['action'] ) && ( 'delete' === $_GET['action'] || - 1 === (int) $_GET['action'] ) ) ) {
 			include 'library-list.php';

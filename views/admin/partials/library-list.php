@@ -27,7 +27,7 @@
 
 <h2 class="dgv-skip-margins"><?php _e( 'Vimeo Videos', 'wp-vimeo-videos' ); ?>
 
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_VIMEO . '&action=new' ) ); ?>" class="page-title-action"><?php _e( 'Upload new', 'wp-vimeo-videos' ); ?></a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_UPLOAD ) ); ?>" class="page-title-action"><?php _e( 'Upload new', 'wp-vimeo-videos' ); ?></a>
 
 	<?php if ( current_user_can( 'manage_options' ) ): ?>
         <a href="<?php echo esc_url( $plugin->settings_url() ); ?>" class="page-title-action" title="<?php _e( 'Settings', 'wp-vimeo-videos' ); ?>">
