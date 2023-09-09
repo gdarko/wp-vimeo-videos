@@ -18,7 +18,7 @@
     "optimize-autoloader": true
   },
   "require-dev": {
-    "yoast/phpunit-polyfills": "^1.0"
+    "yoast/phpunit-polyfills": "^2.0"
   },
   "scripts": {
     "post-install-cmd": [
