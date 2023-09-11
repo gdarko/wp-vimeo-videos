@@ -63,4 +63,12 @@ abstract class BaseProvider implements ProviderInterface {
 
 		return $instance;
 	}
+
+	/**
+	 * Return the plugin instance
+	 * @return PluginInterface|Plugin
+	 */
+	public function plugin() {
+		return $this->plugin;
+	}
 }

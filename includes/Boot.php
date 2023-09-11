@@ -63,7 +63,7 @@ class Boot extends BaseProvider {
 	 */
 	public function register() {
 
-		ProcessManager::create( $this->plugin() );
+		$this->init_process_manager();
 
 		do_action( 'vimeify_booting', $this );
 
@@ -73,6 +73,15 @@ class Boot extends BaseProvider {
 		$this->restApi  = $this->boot( RestAPI::class );
 
 		do_action( 'vimeify_booted', $this );
+	}
+
+	/**
+	 * Initializes the process manager instance.
+	 * @return void
+	 */
+	public function init_process_manager() {
+		ProcessManager::create( $this->plugin() );
+		ProcessManager::instance();
 	}
 
 

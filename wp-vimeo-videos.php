@@ -101,6 +101,8 @@ if ( ! function_exists( 'vimeify' ) ) {
 			$boot->register();
 		}
 
+		$boot->init_process_manager();
+
 		return $boot;
 	}
 }
