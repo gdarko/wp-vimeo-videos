@@ -21,13 +21,18 @@
     "yoast/phpunit-polyfills": "^2.0"
   },
   "scripts": {
+    "modify_function_access": [
+      "find . -type f -exec sed -i 's/protected function perform_upload_tus/protected function perform_upload_tus/g' {} +"
+    ],
     "post-install-cmd": [
       "composer install --working-dir=./libraries/vimeo-php-guzzle7",
-      "composer install --working-dir=./libraries/vimeo-php-guzzle6"
+      "composer install --working-dir=./libraries/vimeo-php-guzzle6",
+      "@modify_function_access"
     ],
     "post-update-cmd":  [
       "composer update --working-dir=./libraries/vimeo-php-guzzle7",
-      "composer update --working-dir=./libraries/vimeo-php-guzzle6"
+      "composer update --working-dir=./libraries/vimeo-php-guzzle6",
+      "@modify_function_access"
     ]
   }
 }
