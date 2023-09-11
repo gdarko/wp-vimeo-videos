@@ -421,7 +421,7 @@ class Options extends BaseProvider {
 		}, 10, 2 );
 		add_filter( 'opb_header_version_text', function ( $text, $page_id ) {
 			if ( $this->plugin->settings_key() === $page_id ) {
-				$text = __( 'Vimeo Settings', 'wp-vimeo-videos' );
+				$text = __( 'Vimeify Settings', 'wp-vimeo-videos' );
 			}
 
 			return $text;
