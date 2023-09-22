@@ -37,9 +37,7 @@ class Scripts extends BaseProvider {
 	public function register() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_scripts' ], 0 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ], 0 );
-
 		add_action( 'wp_enqueue_editor', [ $this, 'enqueue_scripts_tinymce' ], 1000 );
-
 		add_action( 'before_wp_tiny_mce', [ $this, 'tinymce_globals' ] );
 		add_action( 'after_setup_theme', [ $this, 'tinymce_styles' ] );
 		add_filter( 'mce_buttons', [ $this, 'tinymce_vimeo_button' ] );
@@ -154,6 +152,14 @@ class Scripts extends BaseProvider {
 	public function register_scripts() {
 
 		$request_validator = new RequestValidator();
+
+		wp_register_style(
+			'dgv-iconfont',
+			$this->plugin->url() . 'assets/resources/iconfont/css/vimeify.css',
+			null,
+			null,
+			'all'
+		);
 
 		wp_register_script(
 			'dgv-http',

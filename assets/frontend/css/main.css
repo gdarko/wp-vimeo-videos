@@ -26,3 +26,39 @@
     padding: 2px;
     background: #000000;
 }
+
+
+.dgv-table-wrapper {
+    margin-bottom: 20px;
+}
+.dgv-table {
+    margin-bottom: 10px;
+}
+.dgv-table tr th {
+    text-align: left;
+}
+.dgv-table tr td.dgv-row-actions, .dgv-table tr th.dgv-head-actions  {
+    text-align:center;
+}
+
+.dgv-table-pagination-list {
+    display: inline-block;
+    padding-left: 0 !important;
+    margin-left: 0!important;
+    margin-top: 10px !important;
+    margin-bottom: 0!important;
+}
+.dgv-table-pagination {
+    text-align: center;
+}
+.dgv-table-pagination-list li:last-child {
+    margin-right: 0;
+}
+.dgv-table-pagination-list li {
+    display: inline-block;
+    margin-right: 2px;
+    margin-left: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}

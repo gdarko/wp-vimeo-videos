@@ -43,7 +43,7 @@ class Scripts extends BaseProvider {
 	 */
 	public function enqueue_styles() {
 		wp_register_style(
-			$this->plugin->slug(),
+			'dgv-frontend',
 			$this->plugin->url() . 'assets/frontend/css/main.css',
 			array(),
 			$this->plugin->plugin_version(),

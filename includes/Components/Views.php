@@ -45,8 +45,8 @@ class Views implements ViewsInterface, SystemComponentInterface {
 	/**
 	 * The constructor
 	 *
-	 * @param  SystemInterface  $system
-	 * @param  array  $args
+	 * @param SystemInterface $system
+	 * @param array $args
 	 *
 	 * @since 2.0.0
 	 */
@@ -68,7 +68,7 @@ class Views implements ViewsInterface, SystemComponentInterface {
 	 * Renders view with data
 	 *
 	 * @param $view
-	 * @param  array  $data
+	 * @param array $data
 	 *
 	 * @since    2.0.0
 	 *
@@ -89,7 +89,7 @@ class Views implements ViewsInterface, SystemComponentInterface {
 	 * Renders view with data
 	 *
 	 * @param $view
-	 * @param  array  $data
+	 * @param array $data
 	 *
 	 * @return false|string
 	 * @since    2.0.0
@@ -107,15 +107,16 @@ class Views implements ViewsInterface, SystemComponentInterface {
 	 * Returns the view path
 	 *
 	 * @param $view
-	 * @param  bool  $dir
+	 * @param bool $dir
 	 *
 	 * @return string
 	 * @since 2.0.0
 	 */
 	public function get_path( $view, $dir = false ) {
 		$view = str_replace( '/', DIRECTORY_SEPARATOR, $view );
+		$path = $dir ? $this->path . $view : $this->path . $view . '.php';
 
-		return $dir ? $this->path . $view : $this->path . $view . '.php';
+		return apply_filters( 'dgv_views_path', $path, $view, $dir );
 	}
 
 

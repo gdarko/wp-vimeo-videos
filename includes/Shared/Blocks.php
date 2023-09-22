@@ -161,7 +161,7 @@ class Blocks extends BaseProvider {
 			return sprintf( '<p>%s</p>', __( 'No Vimeo.com video selected. Please edit this post and find the corresponding Vimeify Upload block to set video.', 'wp-vimeo-videos' ) );
 		}
 
-		wp_enqueue_style( $this->plugin->slug() );
+		wp_enqueue_style( 'dgv-frontend' );
 
 		return $this->plugin->system()->views()->get_view( 'frontend/partials/video', array(
 			'vimeo_uri' => $block_attributes['currentValue']

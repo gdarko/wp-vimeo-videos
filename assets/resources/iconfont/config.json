@@ -1,0 +1,22 @@
+{
+  "name": "vimeify",
+  "css_prefix_text": "vimeify-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "6b44ce2430177c5b05a1d1575ccaaf5c",
+      "css": "vimeo",
+      "code": 62077,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c5fd349cbd3d23e4ade333789c29c729",
+      "css": "eye",
+      "code": 59392,
+      "src": "fontawesome"
+    }
+  ]
+}

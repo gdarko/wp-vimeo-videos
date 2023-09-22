@@ -26,6 +26,7 @@ namespace Vimeify\Core\Frontend;
 
 use Vimeify\Core\Abstracts\BaseProvider;
 use Vimeify\Core\Components\Database;
+use Vimeify\Core\Frontend\Views\VideosTable;
 
 class Hooks extends BaseProvider {
 
@@ -37,6 +38,7 @@ class Hooks extends BaseProvider {
 		add_shortcode( 'vimeo_video', array( $this, 'shortcode_video' ) ); // DEPRECATED.
 		add_shortcode( 'dgv_vimeo_video', array( $this, 'shortcode_video' ) ); // DEPRECATED.
 		add_shortcode( 'vimeify_video', array( $this, 'shortcode_video' ) );
+		add_shortcode( 'vimeify_videos_table', array( $this, 'shortcode_videos_table' ) );
 		add_filter( 'the_content', [ $this, 'video_contents' ] );
 	}
 
@@ -58,13 +60,28 @@ class Hooks extends BaseProvider {
 		}
 
 		if ( ! empty( $video_id ) ) {
-			wp_enqueue_style( $this->plugin->slug() );
+			wp_enqueue_style( 'dgv-frontend' );
 			$content = $this->plugin->system()->views()->get_view( 'frontend/partials/video', array(
 				'vimeo_id' => $video_id
 			) );
 		}
 
 		return apply_filters( 'dgv_shortcode_output', $content, $video_id, $this->plugin );
+	}
+
+	/**
+	 * The videos table shortcode
+	 * @return string
+	 */
+	public function shortcode_videos_table( $atts ) {
+		$view = apply_filters( 'dgv_view_videos_table', null, $this->plugin );
+		if ( is_null( $view ) ) {
+			$view = new VideosTable( $this->plugin );
+		}
+		$view->enqueue();
+		$atts = shortcode_atts( $view->get_defaults(), $atts );
+
+		return $view->output( $atts );
 	}
 
 	/**
