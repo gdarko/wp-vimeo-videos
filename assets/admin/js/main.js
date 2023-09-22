@@ -399,7 +399,7 @@ var notice = function (message, type) {
         }
     });
 
-    // Save :: Embed Privacy
+    // Save :: Embed Privacy (Legacy)
     $(document).on('submit', '#dgv-video-save-embed-privacy', function (e) {
         var data = $(this).serialize();
         var $btn = $(this).find('button[type=submit].button-primary');
@@ -439,6 +439,58 @@ var notice = function (message, type) {
         return false;
     });
 
+    // Save :: Embed Privacy (current)
+    $(document).on('click','.dgv-embed-privacy-whitelist button[name=admin_action]', function(e){
+        e.preventDefault();
+        var $btn = $(this);
+        var $wrap = $(this).closest('.dgv-embed-privacy-whitelist');
+        var $txt_domain = $wrap.find('#privacy_embed_domain');
+        var $txt_uri = $wrap.find('input[name=uri]');
+        var $domain_list = $wrap.find('.privacy-embed-whitelisted-domains');
+
+        let data = {
+            privacy_embed: 'whitelist',
+            privacy_embed_domain: $txt_domain.val(),
+            uri: $txt_uri.val(),
+        }
+        $.ajax({
+            url: DGV.ajax_url + '?action=dgv_handle_embed_privacy&_wpnonce=' + DGV.nonce,
+            type: 'POST',
+            data: data,
+            beforeSend: function () {
+                $btn.prepend('<span class="dashicons dashicons-update dgv-dashicon dgv-spin"></span>');
+            },
+            success: function (response) {
+                var type = response.success ? 'success' : 'error';
+                var domain = response.data.domain_added;
+                if (response.success) {
+                    if (response.data.hasOwnProperty('domain_added') && $domain_list.html().indexOf(domain) < 0) {
+                        $domain_list.append('<li>' + domain + ' <a href="#" class="submitdelete dgv-delete-domain" data-domain="' + domain + '" data-uri="' + response.data.uri + '">(' + DGV.remove_lower + ')</a></li>')
+                    }
+                    document.getElementById('dgv-video-preview').src = document.getElementById('dgv-video-preview').src
+
+                }
+                if (response.data.hasOwnProperty('message')) {
+                    var title = response.success ? DGV.success : DGV.sorry;
+                    swal.fire(title, response.data.message, type);
+                }
+            },
+            error: function () {
+                swal.fire(DGV.sorry, DGV.http_error, 'error');
+            },
+            complete: function () {
+                var $icon = $btn.find('.dgv-dashicon');
+                $icon.removeClass('dashicons-update dgv-spin').addClass('dashicons-yes')
+                $txt_domain.val('');
+                $btn.prop('disabled', true);
+
+                setTimeout(function () {
+                    $icon.detach().remove();
+                }, 1000);
+            }
+        });
+    });
+
     // Save :: Delete domain
     $(document).on('click', '.dgv-delete-domain', function (e) {
         e.preventDefault();
@@ -462,6 +514,7 @@ var notice = function (message, type) {
                     swal.fire(DGV.sorry, DGV.delete_whitelist_domain_error, 'error');
                 }
 
+                document.getElementById('dgv-video-preview').src = document.getElementById('dgv-video-preview').src
             },
             error: function () {
                 swal.fire(DGV.sorry, DGV.http_error, 'error');

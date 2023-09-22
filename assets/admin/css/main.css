@@ -713,3 +713,75 @@ table.dgv-status-wrapper {
 .toplevel_page_vimeify img {
     width: 18px;
 }
+
+/* Edit page */
+#vimeify-sortables {
+    margin-top: 25px;
+}
+.dgv-pedit-section {
+    width: 100%;
+    display: block;
+    clear: both;
+    box-sizing:border-box;
+}
+.dgv-pedit-description textarea {
+    display: block;
+    width: 100%;
+}
+.dgv-pedit-description label {
+    width: 100%;
+    display: block;
+}
+.dgv-pedit-section > h4 {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    font-size:14px;
+}
+@media(min-width: 1520px) {
+    .dgv-pedit-description {
+        padding-left:15px;
+        padding-right:15px;
+    }
+    .dgv-pedit-section .dgv-pedit-preview, .dgv-pedit-section .dgv-pedit-description {
+        width: 45%;
+        float: left;
+    }
+}
+
+.dgv-pedit-section .dgv-pedit-section--fields {
+    padding: 10px;
+    background: #f7f7f7;
+    border: 1px dotted gray;
+}
+
+.dgv-pedit-section--row {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.dgv-pedit-section--row input[type=text], .dgv-pedit-section--row textarea, .dgv-pedit-section--row select {
+    display: block;
+    width: 100%;
+}
+
+.dgv-pedit-section--row label {
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    margin-bottom:5px;
+}
+
+.dgv-pedit-footer {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.dgv-embed-privacy-whitelist button {
+    margin-top: 5px !important;
+}
+.dgv-embed-privacy-whitelist {
+    margin-top: 5px;
+}

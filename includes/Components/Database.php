@@ -42,6 +42,7 @@ use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 class Database implements DatabaseInterface, SystemComponentInterface {
 
 	const POST_TYPE_UPLOADS = 'dgv-upload';
+	const TAX_CATEGORY = 'dgv-category';
 	const POST_TYPE_UPLOAD_PROFILES = 'dgv-uprofile';
 
 	/**

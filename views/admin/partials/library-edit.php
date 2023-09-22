@@ -78,6 +78,10 @@ $vimeo_formatter = new \Vimeify\Core\Utilities\Formatters\VimeoFormatter();
 
 	$embed_preset_uri = isset( $video['body']['embed']['uri'] ) && ! empty( $video['body']['embed']['uri'] ) ? $video['body']['embed']['uri'] : null; //eg. /presets/120554271
 	$folder_uri       = isset( $video['body']['parent_folder']['uri'] ) && ! empty( $video['body']['parent_folder']['uri'] ) ? $video['body']['parent_folder']['uri'] : null; //eg. /users/120624714/projects/2801250
+	$link             = get_post_meta( $video_id, 'dgv_embed_link', true );
+	if ( empty( $link ) ) {
+		$link = sprintf( 'https://player.vimeo.com/%s', $vimeo_id );
+	}
 	?>
 
     <div class="wvv-row">
@@ -91,7 +95,9 @@ $vimeo_formatter = new \Vimeify\Core\Utilities\Formatters\VimeoFormatter();
                     </div>
                     <div class="inside">
                         <div class="form-row">
-							<?php echo do_shortcode( '[dgv_vimeo_video id="' . $vimeo_id . '"]' ); ?>
+                            <div class='dgv-embed-container'>
+                                <iframe id="dgv-video-preview" src='<?php echo esc_url( $link ); ?>' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                            </div>
                         </div>
                         <form id="dgv-video-save-basic" action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="post">
                             <div class="form-row">
@@ -244,7 +250,7 @@ $vimeo_formatter = new \Vimeify\Core\Utilities\Formatters\VimeoFormatter();
                                         <select id="folder_uri" name="folder_uri" class="dgv-select2" data-action="dgv_folder_search" data-placeholder="<?php _e( 'Select folder...', 'wp-vimeo-videos' ); ?>">
                                             <option value="default" <?php selected( 'default', $current_folder_uri ); ?>><?php _e( 'Default (no folder)', 'wp-vimeo-videos' ); ?></option>
 											<?php if ( ! empty( $current_folder_uri ) ): ?>
-                                                <option selected value="<?php echo esc_attr($current_folder_uri); ?>"><?php echo esc_html($current_folder_name); ?></option>
+                                                <option selected value="<?php echo esc_attr( $current_folder_uri ); ?>"><?php echo esc_html( $current_folder_name ); ?></option>
 											<?php endif; ?>
                                         </select>
                                     </div>
