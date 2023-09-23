@@ -322,6 +322,10 @@ class Settings implements SettingsInterface, SystemComponentInterface {
 				break;
 		}
 
+		if ( empty( $profile ) ) {
+			$profile = $this->get( 'upload_profiles.default' );
+		}
+
 		if ( is_numeric( $profile ) ) {
 			$profile = (int) $profile;
 		}

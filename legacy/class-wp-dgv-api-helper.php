@@ -353,8 +353,8 @@ class WP_DGV_Api_Helper {
 		if ( $max_exec_time > 0 && $max_exec_time < 240 ) {
 			array_push( $problems, array(
 				'code' => 'exec_time_low',
-				'info' => sprintf( __( 'Your <strong>max_exuction_time</strong> configuration is %s seconds which is very low. Larger uploads that exceed %s seconds for uploading will be dropped by the system and you may see "Uploading..." forever in Vimeo.' ), $max_exec_time, $max_exec_time ),
-				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_exuction_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
+				'info' => sprintf( __( 'Your <strong>max_execution_time</strong> configuration is %s seconds which is very low. Larger uploads that exceed %s seconds for uploading will be dropped by the system and you may see "Uploading..." forever in Vimeo.' ), $max_exec_time, $max_exec_time ),
+				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_execution_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
 			) );
 		}
 
