@@ -22,7 +22,8 @@
   },
   "scripts": {
     "modify_function_access": [
-      "find . -type f -exec sed -i 's/protected function perform_upload_tus/protected function perform_upload_tus/g' {} +"
+      "find libraries/vimeo-php-guzzle6/vendor/vimeo -type f  -name '*.php' -exec sed -i 's/private function perform_upload_tus/protected function perform_upload_tus/g' {} +",
+      "find libraries/vimeo-php-guzzle7/vendor/vimeo -type f  -name '*.php' -exec sed -i 's/private function perform_upload_tus/protected function perform_upload_tus/g' {} +"
     ],
     "post-install-cmd": [
       "composer install --working-dir=./libraries/vimeo-php-guzzle7",
