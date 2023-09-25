@@ -29,11 +29,14 @@ namespace Vimeify\Core\Utilities;
  */
 class ScreenOptions {
 
+	const PAGE_PREFIX = 'toplevel_page_';
+
 	/**
 	 * List of options
 	 * @var array
 	 */
 	private $options;
+
 
 	/**
 	 * Constructor
@@ -45,7 +48,7 @@ class ScreenOptions {
 		$this->options = $options;
 
 		foreach ( $this->options as $admin_page => $choices ) {
-			add_action( "load-media_page_$admin_page", [ $this, 'get_screen_options' ] );
+			add_action( "load-".self::PAGE_PREFIX.$admin_page, [ $this, 'get_screen_options' ] );
 		}
 
 		add_filter( 'screen_settings', [ $this, 'show_screen_options' ], 10, 2 );
@@ -59,6 +62,7 @@ class ScreenOptions {
 	 * @return array The screen option function names.
 	 */
 	private function screen_options() {
+
 		$screen_options = [];
 
 		foreach ( $this->options as $page_name => $options ) {
@@ -80,12 +84,11 @@ class ScreenOptions {
 
 		$screen = get_current_screen();
 
-
-		if ( ! is_object( $screen ) ) {
+        if ( ! is_object( $screen ) ) {
 			return;
 		}
 
-		$page_id = str_replace( 'media_page_', '', $screen->id );
+		$page_id = str_replace( self::PAGE_PREFIX, '', $screen->id );
 		if ( ! array_key_exists( $page_id, $this->options ) ) {
 			return;
 		}
@@ -163,7 +166,7 @@ class ScreenOptions {
 			return $status;
 		}
 
-		$page_id = str_replace( 'media_page_', '', $args->base );
+		$page_id = str_replace( self::PAGE_PREFIX, '', $args->base );
 
 		if ( ! array_key_exists( $page_id, $this->options ) ) {
 			return $status;
@@ -212,7 +215,7 @@ class ScreenOptions {
 			$screen = get_current_screen();
 		}
 		$screen_options = get_user_meta( get_current_user_id(), 'dgv_screen_options_page', true );
-		$option_id      = str_replace( 'media_page_', '', $screen->id ) . '_' . $option . '_page';
+		$option_id      = str_replace( self::PAGE_PREFIX, '', $screen->id ) . '_' . $option . '_page';
 
 		return isset( $screen_options[ $option_id ] ) ? $screen_options[ $option_id ] : $default;
 
