@@ -39,7 +39,7 @@ class Scripts implements ProviderInterface {
 	/**
 	 * The plugin
 	 *
-	 * @param  Plugin  $plugin
+	 * @param Plugin $plugin
 	 */
 	public function __construct( Plugin $plugin ) {
 		$this->plugin = $plugin;
@@ -216,7 +216,7 @@ class Scripts implements ProviderInterface {
 			'nonce'               => wp_create_nonce( 'dgvsecurity' ),
 			'access_token'        => $this->plugin->system()->settings()->get( 'api_credentials.access_token' ),
 			'enable_vimeo_search' => $this->plugin->system()->settings()->get( 'admin.gutenberg.enable_account_search' ),
-			'default_privacy'     => $this->plugin->system()->settings()->get_default_view_privacy('admin_gutenberg'),
+			'default_privacy'     => $this->plugin->system()->settings()->get_default_view_privacy( 'admin_gutenberg' ),
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
 			'uploads'             => $uploads,
 			'methods'             => $methods,
@@ -238,11 +238,12 @@ class Scripts implements ProviderInterface {
 				'select_video'                      => __( 'Select video', 'wp-vimeo-videos' ),
 				'upload_success'                    => __( 'Video uploaded successfully!', 'wp-vimeo-videos' ),
 				'block_title'                       => __( 'Insert Vimeo Video', 'wp-vimeo-videos' ),
-				'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'wp-vimeo-videos' )
+				'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'wp-vimeo-videos' ),
+				'select_existing_video'             => __( 'Select existing video', 'wp-vimeo-videos' ),
 			),
 			'upload_form_options' => array(
 				'enable_view_privacy' => (int) $this->plugin->system()->settings()->get( 'admin.gutenberg.enable_view_privacy', 0 ),
-				'privacy_view'          => $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ),
+				'privacy_view'        => $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ),
 			)
 		) );
 		wp_enqueue_style( 'wvv-vimeo-upload-block' );
@@ -267,7 +268,7 @@ class Scripts implements ProviderInterface {
 			'nonce'                         => wp_create_nonce( 'dgvsecurity' ),
 			'ajax_url'                      => admin_url( 'admin-ajax.php' ),
 			'access_token'                  => $this->plugin->system()->settings()->get( 'api_credentials.access_token' ),
-			'default_privacy'               => $this->plugin->system()->settings()->get_default_view_privacy('admin_classic'),
+			'default_privacy'               => $this->plugin->system()->settings()->get_default_view_privacy( 'admin_classic' ),
 			'sorry'                         => __( 'Sorry', 'wp-vimeo-videos' ),
 			'upload_invalid_file'           => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
 			'delete_not_allowed'            => __( 'Delete is not allowed because your account doesn\'t have the correct delete scope required by Vimeo.' ),
@@ -294,7 +295,7 @@ class Scripts implements ProviderInterface {
 			'explanation'                   => __( 'Explanation', 'wp-vimeo-videos' ),
 			'upload_form_options'           => array(
 				'enable_view_privacy' => (int) $this->plugin->system()->settings()->get( 'admin.upload_forms.enable_view_privacy', 0 ),
-				'privacy_view'          => $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ),
+				'privacy_view'        => $this->plugin->system()->vimeo()->get_view_privacy_options_for_forms( 'admin' ),
 			)
 		) );
 	}

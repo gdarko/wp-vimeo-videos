@@ -472,7 +472,7 @@ wp.blocks.registerBlockType('dgv/wp-vimeo-video', {
             // METHOD: EXISTING
         } else if (props.attributes.method === 'existing') {
 
-            var uploads_options = getUploadsDropdown(vimeo_video_id, uploads, 'Select existing video');
+            var uploads_options = getUploadsDropdown(vimeo_video_id, uploads, DGVGTB.phrases.select_existing_video);
             var existing_params = {onChange: updateCurrentVimeoId, className: 'dgv-field-row', key: 'options--71'};
             var current_video_id = props.attributes.vimeo_id;
             if(current_video_id) {
