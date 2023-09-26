@@ -26,6 +26,7 @@ namespace Vimeify\Core\Frontend;
 
 use Vimeify\Core\Abstracts\BaseProvider;
 use Vimeify\Core\Components\Database;
+use Vimeify\Core\Frontend\Views\Video;
 use Vimeify\Core\Frontend\Views\VideosTable;
 
 class Hooks extends BaseProvider {
@@ -40,6 +41,7 @@ class Hooks extends BaseProvider {
 		add_shortcode( 'vimeify_video', array( $this, 'shortcode_video' ) );
 		add_shortcode( 'vimeify_videos_table', array( $this, 'shortcode_videos_table' ) );
 		add_filter( 'the_content', [ $this, 'video_contents' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 15 );
 	}
 
 	/**
@@ -50,23 +52,14 @@ class Hooks extends BaseProvider {
 	 * @return false|string
 	 */
 	public function shortcode_video( $atts ) {
-		$a        = shortcode_atts( array( 'id' => '', ), $atts );
-		$content  = '';
-		$video_id = isset( $a['id'] ) ? $a['id'] : null;
-
-		$pre_output = apply_filters( 'dgv_shortcode_pre_output', null, $video_id, $this->plugin );
-		if ( ! is_null( $pre_output ) ) {
-			return $pre_output;
+		$view = apply_filters( 'dgv_view_video', null, $this->plugin );
+		if ( is_null( $view ) ) {
+			$view = new Video( $this->plugin );
 		}
+		$view->enqueue();
+		$atts = shortcode_atts( $view->get_defaults(), $atts );
 
-		if ( ! empty( $video_id ) ) {
-			wp_enqueue_style( 'dgv-frontend' );
-			$content = $this->plugin->system()->views()->get_view( 'frontend/partials/video', array(
-				'vimeo_id' => $video_id
-			) );
-		}
-
-		return apply_filters( 'dgv_shortcode_output', $content, $video_id, $this->plugin );
+		return $view->output( $atts );
 	}
 
 	/**
@@ -120,5 +113,20 @@ class Hooks extends BaseProvider {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Enqueue the scripts
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+
+		global $post;
+
+		if ( is_singular( Database::POST_TYPE_UPLOADS ) || ( $post instanceof \WP_Post && ! empty( $post->post_content ) && has_shortcode( $post->post_content, 'vimeify_video' ) ) ) {
+			$video = new Video( $this->plugin );
+			$video->enqueue();
+		}
+
 	}
 }

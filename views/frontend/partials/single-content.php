@@ -22,12 +22,20 @@
  * Code developed by Darko Gjorgjijoski <dg@darkog.com>.
  **********************************************************************/
 
-/* @var \WP_Post $post */
-/* @var string $content */
+/* @var \Vimeify\Core\System $plugin */
+/* @var \Vimeify\Core\System $system */
 
-$vimeo_id = $this->db_helper->get_vimeo_id( $post->ID );
-if ( ! empty( $vimeo_id ) ) {
-	$before  = '<div class="dgv-vimeo-preview">[dgv_vimeo_video id="' . esc_attr( $vimeo_id ) . '"]</div>';
-	$content = $before . $content;
-	echo $content;
+try {
+	$plugin = vimeify()->plugin();
+	$system = $plugin->system();
+	$video  = new \Vimeify\Core\Frontend\Views\Video( $plugin );
+} catch ( \Exception $e ) {
+	echo sprintf( '<p>%s</p>', $e->getMessage() );
+
+	return;
 }
+?>
+
+<div class="dgv-vimeo-preview">
+	<?php echo $video->output( [ 'post_id' => get_the_ID() ] ); ?>
+</div>

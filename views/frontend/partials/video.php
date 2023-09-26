@@ -23,16 +23,20 @@
  **********************************************************************/
 
 /* @var string $vimeo_id */
+/* @var string $embed_url */
+/* @var string $vimeo_uri */
 
-if(isset($vimeo_id)) {
-	$embed_url = sprintf( 'https://player.vimeo.com/video/%s', $vimeo_id );
-} else if(isset($vimeo_uri)) {
-	$embed_url = sprintf( 'https://player.vimeo.com/%s', str_replace('/videos/', 'video/', $vimeo_uri) );
-} else {
-    $embed_url = '';
+if ( empty( $embed_url ) ) {
+	if ( isset( $vimeo_id ) ) {
+		$embed_url = sprintf( 'https://player.vimeo.com/video/%s', $vimeo_id );
+	} else if ( isset( $vimeo_uri ) ) {
+		$embed_url = sprintf( 'https://player.vimeo.com/%s', str_replace( '/videos/', 'video/', $vimeo_uri ) );
+	} else {
+		$embed_url = '';
+	}
 }
 
 ?>
 <div class='dgv-embed-container'>
-	<?php echo sprintf( "<iframe src='%s' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>", esc_url($embed_url) ); ?>
+	<?php echo sprintf( "<iframe src='%s' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>", esc_url( $embed_url ) ); ?>
 </div>

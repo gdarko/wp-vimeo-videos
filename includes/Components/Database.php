@@ -60,7 +60,7 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	/**
 	 * Constructor
 	 *
-	 * @param  SystemInterface  $system
+	 * @param SystemInterface $system
 	 * @param $args
 	 */
 	public function __construct( SystemInterface $system, $args = [] ) {
@@ -72,8 +72,8 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	/**
 	 * Return all the vimeo videos from the local database.
 	 *
-	 * @param  array  $args
-	 * @param  string  $type
+	 * @param array $args
+	 * @param string $type
 	 *
 	 * @return int[]|WP_Post[]|WP_Query
 	 */
@@ -123,7 +123,7 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	 * Return the vimeo video id for specific local vimeo video.
 	 *
 	 * @param $post_id
-	 * @param  int
+	 * @param int
 	 *
 	 * @return mixed
 	 */
@@ -146,7 +146,7 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	public function get_post_id( $vimeo_uri_or_id ) {
 
 		$formatter = new VimeoFormatter();
-		$vimeo_id  = $formatter->id_to_uri( $vimeo_uri_or_id ); // Ensure id.
+		$vimeo_id  = $formatter->uri_to_id( $vimeo_uri_or_id ); // Ensure id.
 		$table     = $this->db->postmeta;
 		$query     = $this->db->prepare( "SELECT post_id FROM {$table} PM WHERE PM.meta_key='dgv_response' AND PM.meta_value='%s'", $vimeo_id );
 
@@ -175,8 +175,8 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	 *
 	 * @param $title
 	 * @param $description
-	 * @param $vimeo_id  - (eg. 18281821)
-	 * @param  string  $context
+	 * @param $vimeo_id - (eg. 18281821)
+	 * @param string $context
 	 *
 	 * @return int|WP_Error
 	 */
@@ -228,7 +228,7 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	/**
 	 * Check for uploads
 	 *
-	 * @param  bool  $current_user_uploads_only
+	 * @param bool $current_user_uploads_only
 	 *
 	 * @return array
 	 */

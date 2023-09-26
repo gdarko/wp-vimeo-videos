@@ -4,12 +4,13 @@ namespace Vimeify\Core\Abstracts;
 
 use Vimeify\Core\Abstracts\Interfaces\PluginInterface;
 use Vimeify\Core\Abstracts\Interfaces\ViewInterface;
+use Vimeify\Core\Plugin;
 
 abstract class BaseView implements ViewInterface {
 
 	/**
 	 * The plugin interface
-	 * @var PluginInterface
+	 * @var PluginInterface|Plugin
 	 */
 	protected $plugin = null;
 
