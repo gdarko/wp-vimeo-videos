@@ -52,7 +52,7 @@ class VideosTable extends BaseView {
 				'text'      => __( 'View', 'wp-vimeo-videos' ),
 				'condition' => $single_pages,
 				'action'    => function ( $entry ) {
-					/* @var WP_Post $entry */
+					/* @var \WP_Post $entry */
 					return [
 						'link'   => get_permalink( $entry->ID ),
 						'target' => '_blank',

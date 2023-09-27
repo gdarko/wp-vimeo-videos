@@ -45,7 +45,7 @@ class Blocks extends BaseProvider {
 	 * @return void
 	 */
 	public function register_blocks() {
-		$block_path = $this->plugin->path() . 'blocks/dist/upload/';
+		$block_path = $this->plugin->path() . 'blocks/dist/video/';
 
 		if ( ! file_exists( $block_path . 'index.asset.php' ) ) {
 			return;
@@ -55,7 +55,7 @@ class Blocks extends BaseProvider {
 
 		wp_register_script(
 			'vimeify-upload-block',
-			$this->plugin->url() . 'blocks/dist/upload/index.js',
+			$this->plugin->url() . 'blocks/dist/video/index.js',
 			[ 'dgv-uploader' ] + $asset_file['dependencies'],
 			$asset_file['version']
 		);
@@ -147,9 +147,16 @@ class Blocks extends BaseProvider {
 
 		wp_register_style(
 			'vimeify-upload-editor',
-			$this->plugin->url() . 'blocks/dist/upload/index.css',
+			$this->plugin->url() . 'blocks/dist/video/index.css',
 			array(),
-			filemtime( $this->plugin->path() . 'blocks/dist/upload/index.css' )
+			filemtime( $this->plugin->path() . 'blocks/dist/video/index.css' )
+		);
+
+		wp_register_style(
+			'vimeify-table-editor',
+			$this->plugin->url() . 'blocks/dist/videos-table/index.css',
+			array(),
+			filemtime( $this->plugin->path() . 'blocks/dist/videos-table/index.css' )
 		);
 	}
 
