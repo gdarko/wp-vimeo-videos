@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/upload/edit.js":
-/*!****************************!*\
-  !*** ./src/upload/edit.js ***!
-  \****************************/
+/***/ "./src/video/edit.js":
+/*!***************************!*\
+  !*** ./src/video/edit.js ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -14,7 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./src/upload/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./src/video/editor.scss");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
@@ -371,10 +371,10 @@ const Edit = ({
 
 /***/ }),
 
-/***/ "./src/upload/save.js":
-/*!****************************!*\
-  !*** ./src/upload/save.js ***!
-  \****************************/
+/***/ "./src/video/save.js":
+/*!***************************!*\
+  !*** ./src/video/save.js ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -411,10 +411,10 @@ const Save = () => {
 
 /***/ }),
 
-/***/ "./src/upload/editor.scss":
-/*!********************************!*\
-  !*** ./src/upload/editor.scss ***!
-  \********************************/
+/***/ "./src/video/editor.scss":
+/*!*******************************!*\
+  !*** ./src/video/editor.scss ***!
+  \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -473,13 +473,13 @@ module.exports = window["wp"]["element"];
 
 /***/ }),
 
-/***/ "./src/upload/block.json":
-/*!*******************************!*\
-  !*** ./src/upload/block.json ***!
-  \*******************************/
+/***/ "./src/video/block.json":
+/*!******************************!*\
+  !*** ./src/video/block.json ***!
+  \******************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://json.schemastore.org/block.json","apiVersion":2,"name":"vimeify/upload","title":"Vimeify Upload","textdomain":"wp-vimeo-videos","icon":"video-alt","category":"media","example":{},"editorScript":"file:./index.js","editorStyle":["file:./editor.css","vimeify-upload-editor"]}');
+module.exports = JSON.parse('{"$schema":"https://json.schemastore.org/block.json","apiVersion":2,"name":"vimeify/video","title":"Vimeify: Video","textdomain":"wp-vimeo-videos","icon":"video-alt","category":"media","example":{},"editorScript":"file:./index.js","editorStyle":["file:./editor.css","vimeify-upload-editor"]}');
 
 /***/ })
 
@@ -554,15 +554,15 @@ module.exports = JSON.parse('{"$schema":"https://json.schemastore.org/block.json
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-/*!*****************************!*\
-  !*** ./src/upload/index.js ***!
-  \*****************************/
+/*!****************************!*\
+  !*** ./src/video/index.js ***!
+  \****************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block.json */ "./src/upload/block.json");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/upload/edit.js");
-/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/upload/save.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block.json */ "./src/video/block.json");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/video/edit.js");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/video/save.js");
 /********************************************************************
  * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
  * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)

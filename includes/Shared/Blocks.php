@@ -26,6 +26,8 @@ namespace Vimeify\Core\Shared;
 
 use Vimeify\Core\Abstracts\BaseProvider;
 use Vimeify\Core\Abstracts\Interfaces\CacheInterface;
+use Vimeify\Core\Frontend\Views\Video;
+use Vimeify\Core\Utilities\Formatters\VimeoFormatter;
 
 class Blocks extends BaseProvider {
 
@@ -43,7 +45,7 @@ class Blocks extends BaseProvider {
 	 * @return void
 	 */
 	public function register_blocks() {
-		$block_path = $this->plugin->path() . 'blocks/dist/upload/';
+		$block_path = $this->plugin->path() . 'blocks/dist/video/';
 
 		if ( ! file_exists( $block_path . 'index.asset.php' ) ) {
 			return;
@@ -53,7 +55,7 @@ class Blocks extends BaseProvider {
 
 		wp_register_script(
 			'vimeify-upload-block',
-			$this->plugin->url() . 'blocks/dist/upload/index.js',
+			$this->plugin->url() . 'blocks/dist/video/index.js',
 			[ 'dgv-uploader' ] + $asset_file['dependencies'],
 			$asset_file['version']
 		);
@@ -145,9 +147,16 @@ class Blocks extends BaseProvider {
 
 		wp_register_style(
 			'vimeify-upload-editor',
-			$this->plugin->url() . 'blocks/dist/upload/index.css',
+			$this->plugin->url() . 'blocks/dist/video/index.css',
 			array(),
-			filemtime( $this->plugin->path() . 'blocks/dist/upload/index.css' )
+			filemtime( $this->plugin->path() . 'blocks/dist/video/index.css' )
+		);
+
+		wp_register_style(
+			'vimeify-table-editor',
+			$this->plugin->url() . 'blocks/dist/videos-table/index.css',
+			array(),
+			filemtime( $this->plugin->path() . 'blocks/dist/videos-table/index.css' )
 		);
 	}
 
@@ -161,11 +170,16 @@ class Blocks extends BaseProvider {
 			return sprintf( '<p>%s</p>', __( 'No Vimeo.com video selected. Please edit this post and find the corresponding Vimeify Upload block to set video.', 'wp-vimeo-videos' ) );
 		}
 
-		wp_enqueue_style( 'dgv-frontend' );
+		$frm      = new VimeoFormatter();
+		$uri      = $block_attributes['currentValue'];
+		$video_id = $frm->uri_to_id( $uri );
+		$post_id  = $this->plugin->system()->database()->get_post_id( $video_id );
+		$video    = new Video( $this->plugin );
 
-		return $this->plugin->system()->views()->get_view( 'frontend/partials/video', array(
-			'vimeo_uri' => $block_attributes['currentValue']
-		) );
-
+		if ( $post_id ) {
+			return $video->output( [ 'post_id' => $post_id ] );
+		} else {
+			return $video->output( [ 'id' => $video_id ] );
+		}
 	}
 }

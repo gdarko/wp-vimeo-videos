@@ -123,9 +123,16 @@ class Hooks extends BaseProvider {
 
 		global $post;
 
-		if ( is_singular( Database::POST_TYPE_UPLOADS ) || ( $post instanceof \WP_Post && ! empty( $post->post_content ) && has_shortcode( $post->post_content, 'vimeify_video' ) ) ) {
+		$is_post = $post instanceof \WP_Post;
+
+		if ( is_singular( Database::POST_TYPE_UPLOADS ) || ($is_post && has_shortcode( $post->post_content, 'vimeify_video' ) ) ) {
 			$video = new Video( $this->plugin );
 			$video->enqueue();
+		}
+
+		if ( $is_post && has_shortcode( $post->post_content, 'vimeify_videos_table' ) ) {
+			$table = new VideosTable( $this->plugin );
+			$table->enqueue();
 		}
 
 	}
