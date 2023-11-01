@@ -258,7 +258,7 @@ const Edit = ({attributes, setAttributes}) => {
                             onChange={(value) => setDescription(value)}
                         />
 
-                        {isViewPrivacyEnabled && <SelectControl
+                        {parseInt(isViewPrivacyEnabled) === 1 && <SelectControl
                             label={i18n.words.view_privacy}
                             help={i18n.phrases.view_privacy_help}
                             value={viewPrivacy}
@@ -267,7 +267,7 @@ const Edit = ({attributes, setAttributes}) => {
                             })}
                             onChange={(newValue) => setViewPrivacy(newValue)}
                         />}
-                        {isFoldersEnabled && <div>
+                        {parseInt(isFoldersEnabled) === 1 && <div>
                             <TextControl
                                 label={i18n.words.folder}
                                 placeholder={i18n.phrases.folder_placeholder}
