@@ -1157,7 +1157,7 @@ class Ajax extends BaseProvider {
 		$profile_id = $this->plugin->system()->settings()->get( 'upload_profiles.admin_other' );
 		$default    = $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'view_privacy' );
 
-		$privacy = $input === 'default' || ( empty( $input ) ? $default : $input );
+		$privacy = $input === 'default' ? 'default' : ( empty( $input ) ? $default : $input );
 		if ( $this->plugin->system()->vimeo()->supports_view_privacy_option( $privacy ) ) {
 			return $privacy;
 		} else {
