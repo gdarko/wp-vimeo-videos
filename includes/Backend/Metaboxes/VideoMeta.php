@@ -324,6 +324,12 @@ class VideoMeta {
                     title.readOnly = true;
                     title.disabled = true;
                 }
+                let video_name = document.querySelector('#video_name');
+                if(video_name) {
+                    video_name.addEventListener('input', function(e){
+                        title.value = e.target.value;
+                    })
+                }
             })
 		</script>
 		<?php

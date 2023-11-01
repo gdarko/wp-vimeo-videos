@@ -751,9 +751,10 @@ table.dgv-status-wrapper {
 }
 
 .dgv-pedit-section .dgv-pedit-section--fields {
-    padding: 10px;
-    background: #f7f7f7;
-    border: 1px dotted gray;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #bdbdbd;
+    border-radius: 2px;
 }
 
 .dgv-pedit-section--row {
