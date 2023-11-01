@@ -62,11 +62,11 @@
                     <div class="dgv-pedit-section--fields">
                         <div class="dgv-pedit-section--row">
                             <label for="video_name"><?php _e( 'Name', 'wp-vimeo-videos' ); ?></label>
-                            <input type="text" name="video_name" id="video_name" value="<?php echo esc_attr( $video['body']['name'] ); ?>" autocomplete="off">
+                            <input type="text" name="video_name" id="video_name" value="<?php echo esc_attr( wp_unslash( $video['body']['name'] ) ); ?>" autocomplete="off">
                         </div>
                         <div class="dgv-pedit-section--row">
                             <label for="video_description"><?php _e( 'Description', 'wp-vimeo-videos' ); ?></label>
-                            <textarea name="video_description" id="video_description" rows="4"><?php echo esc_attr( $video['body']['description'] ); ?></textarea>
+                            <textarea name="video_description" id="video_description" rows="4"><?php echo esc_attr( wp_unslash( $video['body']['description'] ) ); ?></textarea>
                         </div>
 						<?php do_action( 'dgv_video_edit_basic_section', $plugin ); ?>
                     </div>

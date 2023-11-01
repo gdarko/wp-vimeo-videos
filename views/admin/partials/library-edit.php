@@ -102,11 +102,11 @@ $vimeo_formatter = new \Vimeify\Core\Utilities\Formatters\VimeoFormatter();
                         <form id="dgv-video-save-basic" action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="post">
                             <div class="form-row">
                                 <label for="name"><?php _e( 'Name', 'wp-vimeo-videos' ); ?></label>
-                                <input type="text" name="name" id="name" value="<?php echo esc_attr( $video['body']['name'] ); ?>" autocomplete="off">
+                                <input type="text" name="name" id="name" value="<?php echo esc_attr( wp_unslash( $video['body']['name'] ) ); ?>" autocomplete="off">
                             </div>
                             <div class="form-row">
                                 <label for="description"><?php _e( 'Description', 'wp-vimeo-videos' ); ?></label>
-                                <textarea name="description" id="description"><?php echo esc_attr( $video['body']['description'] ); ?></textarea>
+                                <textarea name="description" id="description"><?php echo esc_attr( wp_unslash( $video['body']['description'] ) ); ?></textarea>
                             </div>
                             <div class="form-row">
                                 <label for="view_privacy"><?php _e( 'View Privacy', 'wp-vimeo-videos' ); ?></label>

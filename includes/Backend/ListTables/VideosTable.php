@@ -188,7 +188,7 @@ class VideosTable extends \WP_List_Table {
 		$vimeo_uri  = $this->plugin->system()->database()->get_vimeo_uri( $item->ID );
 		$vimeo_id   = $this->plugin->system()->database()->get_vimeo_id( $item->ID );
 		$url_vimeo  = $this->plugin->system()->database()->get_vimeo_link( $item->ID );
-		$url_edit   = admin_url( 'admin.php?page=' . Ui::PAGE_VIMEO . '&action=edit&id=' . $item->ID );
+		$url_edit   = $this->plugin->system()->database()->get_edit_link( $item->ID );
 		$url_local  = get_permalink( $item->ID );
 
 		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_edit, $item->ID, __( 'Manage this video', 'wp-vimeo-videos' ), __( 'Manage', 'wp-vimeo-videos' ) );
