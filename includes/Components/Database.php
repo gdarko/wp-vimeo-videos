@@ -294,7 +294,7 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 	 * @return string
 	 */
 	public function get_edit_link( $post_id ) {
-		$legacy = apply_filters( 'dgg_legacy_edit_link', false );
+		$legacy = apply_filters( 'dgv_legacy_edit_link', false );
 
 		return $legacy ? admin_url( 'admin.php?page=' . Ui::PAGE_VIMEO . '&action=edit&id=' . esc_attr( $post_id ) ) : get_edit_post_link( $post_id );
 	}
