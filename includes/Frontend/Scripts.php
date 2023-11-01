@@ -33,7 +33,15 @@ class Scripts extends BaseProvider {
 	 * @return void
 	 */
 	public function register() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
+	}
+
+	/**
+	 * Register scripts
+	 * @return void
+	 */
+	public function register_scripts() {
+		$this->register_styles();
 	}
 
 	/**
@@ -41,15 +49,20 @@ class Scripts extends BaseProvider {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	private function register_styles() {
 		wp_register_style(
-			'dgv-frontend',
-			$this->plugin->url() . 'assets/frontend/css/main.css',
+			'dgv-frontend-video',
+			$this->plugin->url() . 'assets/frontend/css/video.css',
+			array(),
+			$this->plugin->plugin_version(),
+			'all'
+		);
+		wp_register_style(
+			'dgv-frontend-videos-table',
+			$this->plugin->url() . 'assets/frontend/css/videos-table.css',
 			array(),
 			$this->plugin->plugin_version(),
 			'all'
 		);
 	}
-
-
 }

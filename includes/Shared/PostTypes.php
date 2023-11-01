@@ -136,9 +136,10 @@ class PostTypes extends BaseProvider {
 			'show_admin_column'          => true,
 			'show_in_nav_menus'          => true,
 			'show_tagcloud'              => true,
+			'show_in_rest'               => true,
 			'rewrite'                    => false,
 		);
-		register_taxonomy( 'dgv-category', array( 'dgv-upload' ), $args );
+		register_taxonomy( Database::TAX_CATEGORY, array( 'dgv-upload' ), $args );
 	}
 
 	/**

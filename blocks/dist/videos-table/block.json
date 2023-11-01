@@ -2,14 +2,14 @@
   "$schema": "https://json.schemastore.org/block.json",
   "apiVersion": 2,
   "name": "vimeify/videos-table",
-  "title": "Vimeify: Videos Table",
+  "title": "Vimeify: Vimeo Videos Table",
   "textdomain": "wp-vimeo-videos",
   "icon": "video-alt",
   "category": "media",
   "example": {},
   "editorScript": "file:./index.js",
   "editorStyle": [
-    "file:./editor.css",
-    "vimeify-upload-editor"
+    "dgv-iconfont",
+    "vimeify-videos-table-block-editor"
   ]
 }

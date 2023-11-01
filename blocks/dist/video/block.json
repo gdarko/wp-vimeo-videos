@@ -9,7 +9,6 @@
   "example": {},
   "editorScript": "file:./index.js",
   "editorStyle": [
-    "file:./editor.css",
-    "vimeify-upload-editor"
+    "vimeify-video-block-editor"
   ]
 }

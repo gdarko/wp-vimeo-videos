@@ -12,7 +12,7 @@ class VideosTable extends BaseView {
 	 * Enqueue the required styles
 	 * @var string[]
 	 */
-	protected $styles = [ 'dgv-frontend', 'dgv-iconfont' ];
+	protected $styles = [ 'dgv-frontend-videos-table', 'dgv-iconfont' ];
 	protected $page_query_key = 'page_number';
 
 	/**
@@ -21,15 +21,15 @@ class VideosTable extends BaseView {
 	 */
 	protected function get_output() {
 
-		$paged = get_query_var( $this->page_query_key ) ? get_query_var( $this->page_query_key ) : 1;
+		$paged = isset( $_REQUEST[ $this->page_query_key ] ) ? (int) $_REQUEST[ $this->page_query_key ] : 1;
 
 		$query_args = [
 			'post_type'      => Database::POST_TYPE_UPLOADS,
 			'orderby'        => $this->args['orderby'],
 			'order'          => $this->args['order'],
-			'posts_per_page' => $this->args['per_page'],
+			'posts_per_page' => $this->args['posts_per_page'],
 			'paged'          => $paged,
-			'author'         => get_current_user_id(),
+			'author'         => ! empty( $this->args['author'] ) ? $this->args['author'] : 'any',
 		];
 
 		if ( ! empty( $this->args['category'] ) ) {
@@ -55,10 +55,10 @@ class VideosTable extends BaseView {
 					/* @var \WP_Post $entry */
 					return [
 						'link'   => get_permalink( $entry->ID ),
-						'target' => '_blank',
+						'target' => '_self',
 					];
 				}
-			]
+			],
 		];
 
 		$_actions = apply_filters( 'dgv_frontend_view_video_table_actions', $_actions );
@@ -89,10 +89,11 @@ class VideosTable extends BaseView {
 	 */
 	public function set_defaults() {
 		$this->defaults = [
-			'orderby'  => 'date',
-			'order'    => 'desc',
-			'per_page' => 3,
-			'category' => '',
+			'orderby'        => 'date',
+			'order'          => 'desc',
+			'posts_per_page' => 3,
+			'category'       => '',
+			'author'         => 'any',
 		];
 	}
 

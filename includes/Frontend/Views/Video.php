@@ -7,7 +7,7 @@ use Vimeo\Exceptions\VimeoRequestException;
 
 class Video extends BaseView {
 
-	protected $styles = [ 'dgv-frontend' ];
+	protected $styles = [ 'dgv-frontend-video' ];
 
 	/**
 	 * Set the defaults

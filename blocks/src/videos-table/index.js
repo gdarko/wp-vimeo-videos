@@ -36,6 +36,26 @@ registerBlockType( name, {
 		currentValue: {
 			type: 'string',
 		},
+		author: {
+			type: 'string',
+			default: '-1',
+		},
+		category: {
+			type: 'string',
+			default: '-1',
+		},
+		posts_per_page: {
+			type: 'string',
+			default: '6',
+		},
+		order: {
+			type: 'string',
+			default: 'DESC',
+		},
+		orderby: {
+			type: 'string',
+			default: 'date',
+		},
 	},
 	edit: Edit,
 	save: Save
