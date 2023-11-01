@@ -132,10 +132,7 @@ class Hooks extends BaseProvider {
 	public function upload_complete( $args ) {
 
 		$logtag = 'DGV-UPLOAD-HOOKS';
-		$this->plugin->system()->logger()->log( sprintf( 'Running upload_complete hook.' ), $logtag );
-		$this->plugin->system()->logger()->log( 'Data: ', json_encode( [
-			'args' => $args
-		] ) );
+		$this->plugin->system()->logger()->log( sprintf( 'Running upload_complete hook. (%s)', wp_json_encode( ['args' => $args ] ) ), $logtag );
 
 		/**
 		 * Make sure we are on the right track.
