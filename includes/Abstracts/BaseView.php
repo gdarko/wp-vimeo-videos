@@ -87,6 +87,14 @@ abstract class BaseView implements ViewInterface {
 	}
 
 	/**
+	 * Return the style dependencies
+	 * @return string[]
+	 */
+	public function get_required_styles() {
+		return $this->styles;
+	}
+
+	/**
 	 * Set the defaults
 	 *
 	 * @param array $args

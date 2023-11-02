@@ -74,6 +74,7 @@ const Edit = ({attributes, setAttributes}) => {
                                     value={attributes.category}
                                     options={categories}
                                     onChange={ category => setAttributes( { category } ) }
+                                    multiple={true}
                                 />
                             </fieldset>
                             <fieldset>

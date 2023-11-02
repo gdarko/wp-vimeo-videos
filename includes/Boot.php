@@ -27,6 +27,7 @@ namespace Vimeify\Core;
 use Vimeify\Core\Abstracts\BaseProvider;
 use Vimeify\Core\Backend\Backend;
 use Vimeify\Core\Frontend\Frontend;
+use Vimeify\Core\Integrations\Registry;
 use Vimeify\Core\RestAPI\RestAPI;
 use Vimeify\Core\Shared\Shared;
 use Vimeify\Core\Utilities\ProcessManager;
@@ -58,10 +59,18 @@ class Boot extends BaseProvider {
 	public $restApi;
 
 	/**
+	 * The integrations
+	 * @var Registry
+	 */
+	public $integrations;
+
+	/**
 	 * Registers sepcific piece of functionality
 	 * @return void
 	 */
 	public function register() {
+
+		$this->integrations = $this->boot( Registry::class );
 
 		$this->init_process_manager();
 

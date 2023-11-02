@@ -147,4 +147,48 @@ class VideosTable extends BaseView {
 
 		return $output;
 	}
+
+	/**
+	 * Return the users
+	 * @return array
+	 */
+	public function get_authors() {
+
+		$args = apply_filters( 'dgv_view_videos_table_get_users_args', [
+			'role__in' => [ 'administrator', 'editor', 'author', 'contributor' ],
+			'number'   => 200,
+			'orderby'  => 'name',
+			'order'    => 'asc',
+		] );
+
+		$data  = [];
+		$users = get_users( $args );
+		foreach ( $users as $item ) {
+			$data[ $item->ID ] = ! empty( $item->display_name ) ? $item->display_name : $item->user_email;
+		}
+
+		return apply_filters( 'dgv_view_videos_table_get_users', $data );
+	}
+
+	/**
+	 * Return the terms
+	 * @return array
+	 */
+	public function get_categories() {
+
+		$args = apply_filters( 'dgv_view_videos_table_get_categories_args', [
+			'taxonomy' => Database::TAX_CATEGORY,
+			'number'   => 200,
+			'orderby'  => 'name',
+			'order'    => 'asc',
+		] );
+
+		$data  = [];
+		$terms = get_terms( $args );
+		foreach ( $terms as $item ) {
+			$data[ $item->term_id ] = $item->name;
+		}
+
+		return apply_filters( 'dgv_view_videos_table_get_categories', $data );
+	}
 }
