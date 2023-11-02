@@ -43,9 +43,9 @@ class VideosTable extends \Elementor\Widget_Base {
 	 *
 	 * Retrieve oEmbed widget name.
 	 *
+	 * @return string Widget name.
 	 * @since 1.0.0
 	 * @access public
-	 * @return string Widget name.
 	 */
 	public function get_name() {
 		return 'videos-table';
@@ -56,10 +56,10 @@ class VideosTable extends \Elementor\Widget_Base {
 	 *
 	 * Retrieve the list of style dependencies the element requires.
 	 *
+	 * @return array
 	 * @since 1.9.0
 	 * @access public
 	 *
-	 * @return array
 	 */
 	public function get_style_depends() {
 		return $this->view->get_required_styles();
@@ -70,9 +70,9 @@ class VideosTable extends \Elementor\Widget_Base {
 	 *
 	 * Retrieve oEmbed widget title.
 	 *
+	 * @return string Widget title.
 	 * @since 1.0.0
 	 * @access public
-	 * @return string Widget title.
 	 */
 	public function get_title() {
 		return esc_html__( 'Vimeify: Vimeo Videos Table', 'wp-vimeo-videos' );
@@ -83,9 +83,9 @@ class VideosTable extends \Elementor\Widget_Base {
 	 *
 	 * Retrieve oEmbed widget icon.
 	 *
+	 * @return string Widget icon.
 	 * @since 1.0.0
 	 * @access public
-	 * @return string Widget icon.
 	 */
 	public function get_icon() {
 		return 'eicon-video-camera';
@@ -96,9 +96,9 @@ class VideosTable extends \Elementor\Widget_Base {
 	 *
 	 * Retrieve a URL where the user can get more information about the widget.
 	 *
+	 * @return string Widget help URL.
 	 * @since 1.0.0
 	 * @access public
-	 * @return string Widget help URL.
 	 */
 	public function get_custom_help_url() {
 		return 'https://vimeify.com/codex/elementor';
@@ -109,9 +109,9 @@ class VideosTable extends \Elementor\Widget_Base {
 	 *
 	 * Retrieve the list of categories the oEmbed widget belongs to.
 	 *
+	 * @return array Widget categories.
 	 * @since 1.0.0
 	 * @access public
-	 * @return array Widget categories.
 	 */
 	public function get_categories() {
 		return [ 'general' ];
@@ -122,9 +122,9 @@ class VideosTable extends \Elementor\Widget_Base {
 	 *
 	 * Retrieve the list of keywords the oEmbed widget belongs to.
 	 *
+	 * @return array Widget keywords.
 	 * @since 1.0.0
 	 * @access public
-	 * @return array Widget keywords.
 	 */
 	public function get_keywords() {
 		return [ 'vimeo', 'video', 'videos', 'table' ];
@@ -144,7 +144,7 @@ class VideosTable extends \Elementor\Widget_Base {
 			'content_section',
 			[
 				'label' => esc_html__( 'Content', 'wp-vimeo-videos' ),
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -152,31 +152,31 @@ class VideosTable extends \Elementor\Widget_Base {
 		$options = [
 			'any' => esc_html__( 'Any', 'wp-vimeo-videos' ),
 		];
-		if(!empty($authors)) {
-			$options = array_merge($options, $authors);
+		if ( ! empty( $authors ) ) {
+			$options = array_merge( $options, $authors );
 		}
 		$this->add_control(
 			'author',
 			[
-				'label' => esc_html__( 'Author', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Author', 'textdomain' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'any',
 				'options' => $options,
 			]
 		);
 
 		$categories = $this->view->get_categories();
-		$options = [
+		$options    = [
 			'any' => esc_html__( 'Any', 'wp-vimeo-videos' ),
 		];
-		if(!empty($categories)) {
-			$options = array_merge($options, $categories);
+		if ( ! empty( $categories ) ) {
+			$options = array_merge( $options, $categories );
 		}
 		$this->add_control(
 			'category',
 			[
-				'label' => esc_html__( 'Category', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Category', 'textdomain' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'any',
 				'options' => $options,
 			]
@@ -185,10 +185,10 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'order',
 			[
-				'label' => esc_html__( 'Order Direction', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Order Direction', 'textdomain' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'asc',
-				'options'     => [
+				'options' => [
 					'desc' => esc_html__( 'DESC', 'wp-vimeo-videos' ),
 					'asc'  => esc_html__( 'ASC', 'wp-vimeo-videos' ),
 				],
@@ -198,10 +198,10 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'orderby',
 			[
-				'label' => esc_html__( 'Order By', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Order By', 'textdomain' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'title',
-				'options'     => [
+				'options' => [
 					'title' => esc_html__( 'Title', 'wp-vimeo-videos' ),
 					'date'  => esc_html__( 'Date', 'wp-vimeo-videos' ),
 				],
@@ -211,11 +211,11 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'posts_per_page',
 			[
-				'label' => esc_html__( 'Videos number', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'min' => 1,
-				'max' => 500,
-				'step' => 1,
+				'label'   => esc_html__( 'Videos number', 'textdomain' ),
+				'type'    => \Elementor\Controls_Manager::NUMBER,
+				'min'     => 1,
+				'max'     => 500,
+				'step'    => 1,
 				'default' => max( 3, (int) get_option( 'posts_per_page' ) ),
 			]
 		);
@@ -237,12 +237,12 @@ class VideosTable extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$params = [
-			'posts_per_page'  => ! empty($settings['posts_per_page'] ) ? (int)$settings['posts_per_page'] : 6,
-			'author'          => ! empty($settings['author'] ) && is_numeric($settings['author'] ) && (int)$settings['author'] >= 1 ? (int)$settings['author'] : 'any',
-			'category'        => ! empty($settings['category'] ) && is_numeric($settings['category'] ) && (int)$settings['category'] >= 1 ? (int)$settings['category'] : null,
-			'order'           => ! empty($settings['order'] ) ?$settings['order'] : 'desc',
-			'order_by'        => ! empty($settings['orderby'] ) ? (int)$settings['orderby'] : 'date',
-			'show_pagination' => isset($settings['show_pagination'] ) ? (bool)$settings['posts_per_page'] : false,
+			'posts_per_page'  => ! empty( $settings['posts_per_page'] ) ? (int) $settings['posts_per_page'] : 6,
+			'author'          => ! empty( $settings['author'] ) && is_numeric( $settings['author'] ) && (int) $settings['author'] >= 1 ? (int) $settings['author'] : 'any',
+			'category'        => ! empty( $settings['category'] ) && is_numeric( $settings['category'] ) && (int) $settings['category'] >= 1 ? (int) $settings['category'] : null,
+			'order'           => ! empty( $settings['order'] ) ? $settings['order'] : 'desc',
+			'order_by'        => ! empty( $settings['orderby'] ) ? (int) $settings['orderby'] : 'date',
+			'show_pagination' => isset( $settings['show_pagination'] ) ? (bool) $settings['posts_per_page'] : false,
 		];
 
 		echo '<div class="vimeify-videos-table-widget">';
