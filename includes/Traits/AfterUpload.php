@@ -86,6 +86,10 @@ trait AfterUpload {
 				}
 			}
 
+			$profile_id = $this->plugin->system()->settings()->get_upload_profile_by_context( $source );
+
+			do_action( 'dgv_local_video_created', $post_id, $data, $profile_id, $logtag );
+
 			$this->plugin->system()->logger()->log( sprintf( '-- Local video #%s created', $post_id ), $logtag );
 		} else {
 			$this->plugin->system()->logger()->log( sprintf( '-- Failed to create local video (%s)', $post_id->get_error_message() ), $logtag );

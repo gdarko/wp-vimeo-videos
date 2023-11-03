@@ -132,7 +132,7 @@ class Hooks extends BaseProvider {
 	public function upload_complete( $args ) {
 
 		$logtag = 'DGV-UPLOAD-HOOKS';
-		$this->plugin->system()->logger()->log( sprintf( 'Running upload_complete hook. (%s)', wp_json_encode( ['args' => $args ] ) ), $logtag );
+		$this->plugin->system()->logger()->log( sprintf( 'Running upload_complete hook. (%s)', wp_json_encode( [ 'args' => $args ] ) ), $logtag );
 
 		/**
 		 * Make sure we are on the right track.
@@ -211,6 +211,11 @@ class Hooks extends BaseProvider {
 		if ( (int) $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'behavior.store_in_library', 1 ) ) {
 			$this->create_local_video( $args, $logtag );
 		}
+
+		/**
+		 * Upload complete hook
+		 */
+		do_action( 'dgv_upload_complete_hook_finished', $this, $args, $profile_id );
 
 		/**
 		 * Signal finish
