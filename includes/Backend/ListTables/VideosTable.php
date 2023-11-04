@@ -33,6 +33,8 @@ use Vimeify\Core\Backend\Ui;
 
 class VideosTable extends \WP_List_Table {
 
+    protected $page_status;
+
 	/**
 	 * Is authors only
 	 * @var int
@@ -191,11 +193,11 @@ class VideosTable extends \WP_List_Table {
 		$url_edit   = $this->plugin->system()->database()->get_edit_link( $item->ID );
 		$url_local  = get_permalink( $item->ID );
 
-		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_edit, $item->ID, __( 'Manage this video', 'wp-vimeo-videos' ), __( 'Manage', 'wp-vimeo-videos' ) );
-		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', $url_vimeo, $item->ID, __( 'Vimeo video link', 'wp-vimeo-videos' ), __( 'Vimeo Link', 'wp-vimeo-videos' ) );
+		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_edit, $item->ID, __( 'Manage this video', 'wp-vimeo-videos' ), __( 'Edit', 'wp-vimeo-videos' ) );
 		if ( $this->front_pages ) {
 			$actions['view'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_local, $item->ID, __( 'View the video on the front-end', 'wp-vimeo-videos' ), __( 'View', 'wp-vimeo-videos' ) );
 		}
+		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', $url_vimeo, $item->ID, __( 'Vimeo video link', 'wp-vimeo-videos' ), __( 'Vimeo Link', 'wp-vimeo-videos' ) );
 
 		$delete_cap = apply_filters( 'dgv_vimeo_cap_delete', 'delete_posts' );
 		if ( current_user_can( $delete_cap ) ) {
@@ -218,12 +220,15 @@ class VideosTable extends \WP_List_Table {
 			$description = wp_trim_words( $item->post_content, 30 );
 		}
 
+
+
 		return sprintf(
-			'<a class="%s" href="%s">%s<strong>%s</strong></a> %s %s',
+			'<strong><a class="%s" href="%s">%s<strong>%s</strong></a> %s</strong> %s %s',
 			esc_attr( $thumbnail_class ),
 			esc_url( $url_edit ),
 			$thumbnail,
 			esc_html( $item->post_title ),
+            $item->post_status === 'draft' ? ' — <span class="post-state">'.__('Draft', 'wp-vimeo-videos').'</span>' : '',
 			esc_html( $description ),
 			$this->row_actions( $actions )
 		);
@@ -292,7 +297,7 @@ class VideosTable extends \WP_List_Table {
 		$hidden                = array();
 		$sortable              = $this->get_sortable_columns();
 		$this->_column_headers = array( $columns, $hidden, $sortable );
-		$per_page              = 20;
+		$per_page              = 12;
 		$current_page          = $this->get_pagenum();
 		$offset                = ( $current_page - 1 ) * $per_page;
 		$this->page_status     = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : '2';

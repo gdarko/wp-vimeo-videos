@@ -83,7 +83,7 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 			'post_type'      => self::POST_TYPE_UPLOADS,
 			'posts_per_page' => isset( $args['number'] ) ? $args['number'] : - 1,
 			'offset'         => isset( $args['offset'] ) ? $args['offset'] : 0,
-			'post_status'    => 'publish'
+			'post_status'    => ['publish', 'draft']
 		);
 
 		if ( isset( $args['paged'] ) ) {
@@ -95,6 +95,8 @@ class Database implements DatabaseInterface, SystemComponentInterface {
 		if ( isset( $args['s'] ) ) {
 			$params['s'] = $args['s'];
 		}
+
+		$params = apply_filters( 'dgv_get_videos', $params, $args );
 
 		if ( 'items' === $type ) {
 			$result = get_posts( $params );

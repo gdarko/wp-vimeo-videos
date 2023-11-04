@@ -587,7 +587,6 @@ p.wvv-info {
     display: inline-block !important;
 }
 .wvv-thumb-link {
-    display: block;
     width: 100%;
 }
 .wvv-std-list {
@@ -785,4 +784,11 @@ table.dgv-status-wrapper {
 }
 .dgv-embed-privacy-whitelist {
     margin-top: 5px;
+}
+
+/**
+Delete action
+ */
+body.post-type-dgv-upload #delete-action {
+    display:none;
 }
