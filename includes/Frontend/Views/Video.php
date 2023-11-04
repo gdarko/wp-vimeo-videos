@@ -8,6 +8,7 @@ use Vimeo\Exceptions\VimeoRequestException;
 class Video extends BaseView {
 
 	protected $styles = [ 'dgv-frontend-video' ];
+	protected $scripts = [ 'dgv-frontend-video' ];
 
 	/**
 	 * Set the defaults
@@ -43,7 +44,8 @@ class Video extends BaseView {
 			$output = $pre_output;
 		} else {
 			$data = array(
-				'vimeo_id' => $vimeo_id,
+				'vimeo_id'  => $vimeo_id,
+				'thumbnail' => $this->plugin->system()->vimeo()->get_thumbnail( $vimeo_id, 'large' )
 			);
 			if ( ! empty( $embed_url ) ) {
 				$data['embed_url'] = $embed_url;

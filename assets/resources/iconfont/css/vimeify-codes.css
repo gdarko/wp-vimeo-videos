@@ -1,3 +1,16 @@
 
 .vimeify-eye:before { content: '\e800'; } /* '' */
+.vimeify-play:before { content: '\e801'; } /* '' */
+.vimeify-play-circled2:before { content: '\e802'; } /* '' */
+.vimeify-search:before { content: '\e803'; } /* '' */
+.vimeify-heart:before { content: '\e804'; } /* '' */
+.vimeify-heart-empty:before { content: '\e805'; } /* '' */
+.vimeify-star:before { content: '\e806'; } /* '' */
+.vimeify-star-empty:before { content: '\e807'; } /* '' */
+.vimeify-user:before { content: '\e808'; } /* '' */
+.vimeify-video:before { content: '\e809'; } /* '' */
+.vimeify-folder-open:before { content: '\e80a'; } /* '' */
+.vimeify-ccw:before { content: '\e80b'; } /* '' */
+.vimeify-filter:before { content: '\f0b0'; } /* '' */
+.vimeify-play-circled:before { content: '\f144'; } /* '' */
 .vimeify-vimeo:before { content: '\f27d'; } /* '' */

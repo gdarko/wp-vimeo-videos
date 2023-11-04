@@ -50,13 +50,24 @@ class Scripts extends BaseProvider {
 	 * @since    1.0.0
 	 */
 	private function register_styles() {
-		wp_register_style(
+
+		// Video Element
+		wp_enqueue_style(
 			'dgv-frontend-video',
 			$this->plugin->url() . 'assets/frontend/css/video.css',
-			array(),
+			array('dgv-iconfont'),
 			$this->plugin->plugin_version(),
 			'all'
 		);
+		wp_register_script(
+			'dgv-frontend-video',
+			$this->plugin->url() . 'assets/frontend/js/video.js',
+			array(),
+			$this->plugin->plugin_version(),
+			true
+		);
+
+		// Videos Table Element
 		wp_register_style(
 			'dgv-frontend-videos-table',
 			$this->plugin->url() . 'assets/frontend/css/videos-table.css',

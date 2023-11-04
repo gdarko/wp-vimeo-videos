@@ -75,7 +75,7 @@ class VideosTable extends \Elementor\Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return esc_html__( 'Vimeify: Vimeo Videos Table', 'wp-vimeo-videos' );
+		return esc_html__( 'Vimeify Videos Table', 'wp-vimeo-videos' );
 	}
 
 	/**

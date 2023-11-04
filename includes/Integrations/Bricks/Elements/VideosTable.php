@@ -42,7 +42,7 @@ class VideosTable extends \Bricks\Element {
 	 * @return array|string|string[]
 	 */
 	public function get_label() {
-		return esc_html__( 'Vimeify: Vimeo Videos Table', 'wp-vimeo-videos' );
+		return esc_html__( 'Vimeify Videos Table', 'wp-vimeo-videos' );
 	}
 
 	/**

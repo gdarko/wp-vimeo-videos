@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'vimeify';
-  src: url('../font/vimeify.eot?1556575');
-  src: url('../font/vimeify.eot?1556575#iefix') format('embedded-opentype'),
-       url('../font/vimeify.woff2?1556575') format('woff2'),
-       url('../font/vimeify.woff?1556575') format('woff'),
-       url('../font/vimeify.ttf?1556575') format('truetype'),
-       url('../font/vimeify.svg?1556575#vimeify') format('svg');
+  src: url('../font/vimeify.eot?90258357');
+  src: url('../font/vimeify.eot?90258357#iefix') format('embedded-opentype'),
+       url('../font/vimeify.woff2?90258357') format('woff2'),
+       url('../font/vimeify.woff?90258357') format('woff'),
+       url('../font/vimeify.ttf?90258357') format('truetype'),
+       url('../font/vimeify.svg?90258357#vimeify') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'vimeify';
-    src: url('../font/vimeify.svg?1556575#vimeify') format('svg');
+    src: url('../font/vimeify.svg?90258357#vimeify') format('svg');
   }
 }
 */
@@ -55,4 +55,17 @@
 }
 
 .vimeify-eye:before { content: '\e800'; } /* '' */
+.vimeify-play:before { content: '\e801'; } /* '' */
+.vimeify-play-circled2:before { content: '\e802'; } /* '' */
+.vimeify-search:before { content: '\e803'; } /* '' */
+.vimeify-heart:before { content: '\e804'; } /* '' */
+.vimeify-heart-empty:before { content: '\e805'; } /* '' */
+.vimeify-star:before { content: '\e806'; } /* '' */
+.vimeify-star-empty:before { content: '\e807'; } /* '' */
+.vimeify-user:before { content: '\e808'; } /* '' */
+.vimeify-video:before { content: '\e809'; } /* '' */
+.vimeify-folder-open:before { content: '\e80a'; } /* '' */
+.vimeify-ccw:before { content: '\e80b'; } /* '' */
+.vimeify-filter:before { content: '\f0b0'; } /* '' */
+.vimeify-play-circled:before { content: '\f144'; } /* '' */
 .vimeify-vimeo:before { content: '\f27d'; } /* '' */

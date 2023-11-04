@@ -1677,11 +1677,14 @@ class Vimeo implements VimeoInterface {
 			// Handle old thumbnails.
 			@rename( $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id, $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-medium' );
 		}
-		if ( file_exists( $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-' . $size ) ) {
-			$thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-' . $size;
+
+		$file_name = $vimeo_id . '-' . $size;
+
+		if ( file_exists( $thumbs_path . DIRECTORY_SEPARATOR . $file_name ) ) {
+			$thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $file_name;
 		} else {
 			foreach ( array( 'jpg', 'png' ) as $ext ) {
-				$_thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-' . $size . '.' . $ext;
+				$_thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $file_name . '.' . $ext;
 				if ( file_exists( $_thumb_file ) ) {
 					$thumb_file = $_thumb_file;
 					break;
@@ -1694,36 +1697,38 @@ class Vimeo implements VimeoInterface {
 		// Video image exists locally? Yupii
 		if ( ! is_null( $thumb_file ) ) {
 			$_base_url = $tmp_dir->url;
-			$url       = "{$_base_url}/thumbs/" . basename( $thumb_file );
+			$url       = "{$_base_url}/thumbs/" . $file_name;
 		} else {
 			// Check cache
 			$key  = 'wvv_' . $vimeo_id . '_thumb';
 			$_url = get_transient( $key );
 			// Obtain url of the video image
 			if ( false === $_url ) {
-				$result = wp_remote_get( "http://vimeo.com/api/v2/video/{$vimeo_id}.json" );
-				if ( ! is_wp_error( $result ) ) {
-					if ( isset( $result['response']['code'] ) && $result['response']['code'] === 200 ) {
-						$data = json_decode( $result['body'] );
-						$key  = 'thumbnail_' . $size;
-						if ( isset( $data[0]->$key ) ) {
-							$url = $data[0]->$key;
-						}
+				// First try the open endpoint.
+				$response = wp_remote_get( "http://vimeo.com/api/v2/video/{$vimeo_id}.json" );
+				if ( ! is_wp_error( $response ) ) {
+					$result = wp_remote_retrieve_body( $response );
+					$result = ! empty( $result ) ? json_decode( $result, true ) : [];
+					$key    = 'thumbnail_' . $size;
+					if ( ! empty( $result[0][ $key ] ) ) {
+						$url = $result[0][ $key ];
 					}
 				}
+				// Still no thumbnail found? Check the api
 				if ( is_null( $url ) ) {
 					try {
 						$ranges   = [ 'small' => 200, 'medium' => 600, 'large' => 800 ];
 						$pictures = $this->get( "/videos/{$vimeo_id}" );
 						if ( isset( $pictures['body']['pictures']['sizes'] ) && is_array( $pictures['body']['pictures']['sizes'] ) ) {
 							foreach ( $pictures['body']['pictures']['sizes'] as $picture ) {
-								if ( (int) $ranges[ $size ] >= (int) $picture['width'] ) {
+								if ( (int) $picture['width'] >= (int) $ranges[ $size ] ) {
 									$url = $picture['link'];
 									break;
 								}
 							}
 						}
-					} catch ( \Exception $e ) {}
+					} catch ( \Exception $e ) {
+					}
 				}
 				if ( ! is_null( $url ) ) {
 					set_transient( $key, $url, HOUR_IN_SECONDS * 10 );
