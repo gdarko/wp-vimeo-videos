@@ -2,10 +2,11 @@
 
 namespace Vimeify\Core\Backend\Metaboxes;
 
+use Vimeify\Core\Abstracts\Interfaces\ProviderInterface;
 use Vimeify\Core\Components\Database;
 use Vimeify\Core\Plugin;
 
-class VideoMeta {
+class VideoMeta implements ProviderInterface {
 	/**
 	 * The plugin instance
 	 * @var Plugin
@@ -109,7 +110,6 @@ class VideoMeta {
 		$embed_preset_uri = isset( $_POST['embed_preset_uri'] ) ? sanitize_text_field( $_POST['embed_preset_uri'] ) : '';
 		$privacy_embed    = isset( $_POST['privacy_embed'] ) ? sanitize_text_field( $_POST['privacy_embed'] ) : '';
 		$view_privacy     = isset( $_POST['view_privacy'] ) ? sanitize_text_field( $_POST['view_privacy'] ) : 'anybody';
-
 
 		/**
 		 * 1. Basic details & privacy
@@ -253,7 +253,7 @@ class VideoMeta {
 		/**
 		 * Other save hooks...
 		 */
-		do_action( 'dgv_video_edit_save', $this->plugin );
+		do_action( 'dgv_video_edit_save', $this->plugin, $video_uri, $post_id );
 
 	}
 

@@ -3,9 +3,10 @@
 namespace Vimeify\Core\Backend\Metaboxes;
 
 use IgniteKit\WP\OptionBuilder\Framework;
+use Vimeify\Core\Abstracts\Interfaces\ProviderInterface;
 use Vimeify\Core\Plugin;
 
-class UploadProfileMeta {
+class UploadProfileMeta implements ProviderInterface {
 
 	/**
 	 * The plugin instance

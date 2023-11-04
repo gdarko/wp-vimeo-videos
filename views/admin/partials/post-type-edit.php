@@ -18,7 +18,7 @@
 	<?php else: ?>
 		<?php
 		// Gather data
-		$vimeo = array();
+		$video = array();
 		try {
 			$video = $plugin->system()->vimeo()->get_video_by_local_id( $video_id, array(
 				'uri',
@@ -32,6 +32,7 @@
 				'privacy',
 				'embed',
 				'parent_folder',
+                'content_rating',
 				'upload'
 			) );
 		} catch ( \Exception $e ) {
@@ -47,7 +48,7 @@
 		}
 		?>
 
-		<?php do_action( 'dgv_video_edit_top', $plugin ); ?>
+		<?php do_action( 'dgv_video_edit_top', $plugin, $video, $video_id ); ?>
 
         <div class="dgv-pedit-section">
             <input type="hidden" name="video_uri" value="<?php echo esc_attr( $video['body']['uri'] ); ?>">
@@ -68,7 +69,7 @@
                             <label for="video_description"><?php _e( 'Description', 'wp-vimeo-videos' ); ?></label>
                             <textarea name="video_description" id="video_description" rows="4"><?php echo esc_attr( wp_unslash( $video['body']['description'] ) ); ?></textarea>
                         </div>
-						<?php do_action( 'dgv_video_edit_basic_section', $plugin ); ?>
+						<?php do_action( 'dgv_video_edit_basic_section', $plugin, $video, $video_id ); ?>
                     </div>
                 </div>
             </div>
@@ -119,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-				<?php do_action( 'dgv_video_edit_privacy_section', $plugin ); ?>
+				<?php do_action( 'dgv_video_edit_privacy_section', $plugin, $video, $video_id ); ?>
             </div>
         </div>
         <div class="dgv-pedit-section">
@@ -167,10 +168,10 @@
                         </select>
 					<?php endif; ?>
                 </div>
-				<?php do_action( 'dgv_video_edit_other_section', $plugin ); ?>
+				<?php do_action( 'dgv_video_edit_other_section', $plugin, $video, $video_id ); ?>
             </div>
         </div>
-		<?php do_action( 'dgv_video_edit_bottom', $plugin ); ?>
+		<?php do_action( 'dgv_video_edit_bottom', $plugin, $video, $video_id ); ?>
 	<?php endif; ?>
 
 </div>

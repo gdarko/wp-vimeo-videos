@@ -836,18 +836,15 @@ class Vimeo implements VimeoInterface {
 	 * Set the content rating class
 	 *
 	 * @param $uri
-	 * @param $content_rating
+	 * @param string|array $content_rating
 	 *
 	 * @return mixed
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
 	 */
 	public function set_content_rating( $uri, $content_rating ) {
 
+		$content_rating = (array) $content_rating;
 		$content_rating = $this->filter_content_rating( $content_rating );
-
-		if ( null === $content_rating ) {
-			return null;
-		}
 
 		$response = $this->api->request( $uri, array(
 			'content_rating' => $content_rating
@@ -859,18 +856,20 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Filter the content rating class
 	 *
-	 * @param $content_rating
+	 * @param array $content_rating
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function filter_content_rating( $content_rating ) {
 		$content_ratings = array_keys( $this->get_available_content_ratings() );
-
-		if ( ! in_array( $content_rating, $content_ratings ) ) {
-			return null;
+		$filtered        = [];
+		foreach ( $content_rating as $item ) {
+			if ( in_array( $item, $content_ratings ) ) {
+				$filtered[] = $item;
+			}
 		}
 
-		return $content_rating;
+		return $filtered;
 	}
 
 	/**
