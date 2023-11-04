@@ -206,7 +206,7 @@ class VideosTable extends \WP_List_Table {
 		$thumbnail_class = '';
 
 		if ( ! empty( $vimeo_id ) && $this->thumbs_support ) {
-			$thumb_url = $this->plugin->system()->vimeo()->get_thumbnail( $vimeo_id );
+			$thumb_url = $this->plugin->system()->vimeo()->get_thumbnail( $vimeo_id, 'small' );
 			if ( ! empty( $thumb_url ) ) {
 				$thumbnail_class = 'wvv-thumb-link';
 				$thumbnail       = '<img src="' . esc_url( $thumb_url ) . '"/>';

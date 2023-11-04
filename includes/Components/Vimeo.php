@@ -1653,27 +1653,35 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Returns the thumbnail url
 	 *
-	 * @param $post_id
+	 * @param $vimeo_id
+	 * @param string $size
 	 *
 	 * @return string
 	 */
-	public function get_thumbnail( $vimeo_id ) {
+	public function get_thumbnail( $vimeo_id, $size = 'large' ) {
+
+		// Validate size
+		if ( ! in_array( $size, [ 'small', 'medium', 'large' ] ) ) {
+			$size = 'large';
+		}
 
 		// Retrieve the thumbs path
-
-		$tmp_dir = $this->system->tmp_dir();
-
+		$tmp_dir     = $this->system->tmp_dir();
 		$thumbs_path = trailingslashit( $tmp_dir->path ) . 'thumbs';
 
 		// Check if there is existing thumb
 		$thumb_file = null;
 
-		if ( file_exists( $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id ) ) {
-			$thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id;
+		// Find existing thumbnail
+		if ( $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id ) {
+			// Handle old thumbnails.
+			@rename( $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id, $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-medium' );
+		}
+		if ( file_exists( $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-' . $size ) ) {
+			$thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-' . $size;
 		} else {
 			foreach ( array( 'jpg', 'png' ) as $ext ) {
-				$_thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '.' . $ext;
-
+				$_thumb_file = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-' . $size . '.' . $ext;
 				if ( file_exists( $_thumb_file ) ) {
 					$thumb_file = $_thumb_file;
 					break;
@@ -1685,39 +1693,37 @@ class Vimeo implements VimeoInterface {
 
 		// Video image exists locally? Yupii
 		if ( ! is_null( $thumb_file ) ) {
-
 			$_base_url = $tmp_dir->url;
 			$url       = "{$_base_url}/thumbs/" . basename( $thumb_file );
-
 		} else {
-
 			// Check cache
 			$key  = 'wvv_' . $vimeo_id . '_thumb';
 			$_url = get_transient( $key );
-
 			// Obtain url of the video image
 			if ( false === $_url ) {
 				$result = wp_remote_get( "http://vimeo.com/api/v2/video/{$vimeo_id}.json" );
 				if ( ! is_wp_error( $result ) ) {
 					if ( isset( $result['response']['code'] ) && $result['response']['code'] === 200 ) {
 						$data = json_decode( $result['body'] );
-						if ( isset( $data[0]->thumbnail_medium ) ) {
-							$url = $data[0]->thumbnail_medium;
+						$key  = 'thumbnail_' . $size;
+						if ( isset( $data[0]->$key ) ) {
+							$url = $data[0]->$key;
 						}
 					}
 				}
 				if ( is_null( $url ) ) {
 					try {
-						$pictures = $this->get( "/videos/{$vimeo_id}?sizes=250x150" );
-						if ( isset( $pictures['body']['pictures']['sizes'] ) ) {
-							$sizes = $pictures['body']['pictures']['sizes'];
-							if ( is_array( $sizes ) && count( $sizes ) >= 1 ) {
-								$url = $sizes[0]['link'];
+						$ranges   = [ 'small' => 200, 'medium' => 600, 'large' => 800 ];
+						$pictures = $this->get( "/videos/{$vimeo_id}" );
+						if ( isset( $pictures['body']['pictures']['sizes'] ) && is_array( $pictures['body']['pictures']['sizes'] ) ) {
+							foreach ( $pictures['body']['pictures']['sizes'] as $picture ) {
+								if ( (int) $ranges[ $size ] >= (int) $picture['width'] ) {
+									$url = $picture['link'];
+									break;
+								}
 							}
 						}
-					} catch ( \Exception $e ) {
-					}
-
+					} catch ( \Exception $e ) {}
 				}
 				if ( ! is_null( $url ) ) {
 					set_transient( $key, $url, HOUR_IN_SECONDS * 10 );
@@ -1743,7 +1749,7 @@ class Vimeo implements VimeoInterface {
 						$file_ext  = $_file_ext[0];
 					}
 					if ( wp_mkdir_p( $thumbs_path ) ) {
-						$thumb_path = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id;
+						$thumb_path = $thumbs_path . DIRECTORY_SEPARATOR . $vimeo_id . '-' . $size;
 						if ( ! empty( $file_ext ) ) {
 							$thumb_path .= '.' . $file_ext;
 						}
