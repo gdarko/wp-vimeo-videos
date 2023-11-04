@@ -45,14 +45,12 @@ class VideoMeta implements ProviderInterface {
 	 * @return array|mixed
 	 */
 	public function menu_classes( $menu ) {
+		if ( self::is_video_edit() || self::is_categories() ) {
 
-		if ( ! self::is_edit() ) {
-			return $menu;
-		}
-
-		foreach ( $menu as $i => $item ) {
-			if ( 'vimeify' === $item[2] ) {
-				$menu[ $i ][4] = add_cssclass( 'wp-has-current-submenu wp-menu-open', $item[4] );
+			foreach ( $menu as $i => $item ) {
+				if ( 'vimeify' === $item[2] ) {
+					$menu[ $i ][4] = add_cssclass( 'wp-has-current-submenu wp-menu-open', $item[4] );
+				}
 			}
 		}
 
@@ -68,7 +66,7 @@ class VideoMeta implements ProviderInterface {
 	 * @return mixed|string
 	 */
 	function submenu_file( $submenu_file, $parent_file ) {
-		if ( ! self::is_edit() ) {
+		if ( ! self::is_video_edit() ) {
 			return $submenu_file;
 		}
 
@@ -274,7 +272,7 @@ class VideoMeta implements ProviderInterface {
 	 * @return void
 	 */
 	public function disable_new_posts() {
-		if ( self::is_edit() ) {
+		if ( self::is_video_edit() ) {
 			echo '<style type="text/css">
         .page-title-action { display:none; }
         </style>';
@@ -313,7 +311,7 @@ class VideoMeta implements ProviderInterface {
 	 * @return void
 	 */
 	public function footer_scripts() {
-		if ( ! self::is_edit() ) {
+		if ( ! self::is_video_edit() ) {
 			return;
 		}
 		?>
@@ -371,10 +369,20 @@ class VideoMeta implements ProviderInterface {
 	 * Check if page is edit
 	 * @return bool
 	 */
-	public static function is_edit() {
+	public static function is_video_edit() {
 		global $pagenow;
 
 		return is_admin() && $pagenow === 'post.php' && isset( $_GET['post'] ) && get_post_type( $_GET['post'] ) === Database::POST_TYPE_UPLOADS;
+	}
+
+	/**
+	 * Check if page is edit
+	 * @return bool
+	 */
+	public static function is_categories() {
+		global $pagenow;
+
+		return is_admin() && $pagenow === 'edit-tags.php' && isset( $_GET['taxonomy'] ) && $_GET['taxonomy']=== Database::TAX_CATEGORY;
 	}
 
 	/**

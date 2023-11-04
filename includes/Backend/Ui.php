@@ -24,7 +24,9 @@
 
 namespace Vimeify\Core\Backend;
 
+use Automattic\WooCommerce\Admin\API\Data;
 use Vimeify\Core\Abstracts\BaseProvider;
+use Vimeify\Core\Components\Database;
 
 class Ui extends BaseProvider {
 
@@ -47,7 +49,7 @@ class Ui extends BaseProvider {
 		add_filter( 'manage_media_columns', [ $this, 'manage_media_columns' ], 15, 1 );
 		add_action( 'manage_media_custom_column', [ $this, 'manage_media_custom_column' ], 15, 2 );
 		add_filter( 'plugin_action_links_' . $this->plugin->basename(), [ $this, 'plugin_action_links' ], 100, 1 );
-
+		add_filter( 'parent_file', [ $this, 'parent_file' ] );
 
 		$this->screen_options = new \Vimeify\Core\Utilities\ScreenOptions(
 			[
@@ -58,6 +60,21 @@ class Ui extends BaseProvider {
 			]
 		);
 
+	}
+
+	/**
+	 * Manage parent file
+	 * @param $parent_file
+	 *
+	 * @return mixed
+	 */
+	public function parent_file($parent_file){
+		global $submenu_file;
+		if (isset($_GET['taxonomy']) && $_GET['taxonomy'] == Database::TAX_CATEGORY) {
+			$submenu_file = 'edit-tags.php?taxonomy='.Database::TAX_CATEGORY.'&post_type='.Database::POST_TYPE_UPLOADS;
+		}
+
+		return $parent_file;
 	}
 
 	/**
@@ -90,6 +107,14 @@ class Ui extends BaseProvider {
 			'upload_files',
 			'vimeify-upload',
 			array( $this, 'render_upload_page' ),
+		);
+
+		add_submenu_page(
+			'vimeify',
+			__( 'Vimeify - Categories', 'vimeify' ),
+			__( 'Categories' ),
+			'edit_others_posts',
+			'edit-tags.php?taxonomy=dgv-category&post_type=' . Database::POST_TYPE_UPLOADS
 		);
 
 		add_submenu_page(
