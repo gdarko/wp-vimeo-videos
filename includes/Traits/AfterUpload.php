@@ -24,6 +24,7 @@
 
 namespace Vimeify\Core\Traits;
 
+use Vimeify\Core\Components\Database;
 use Vimeify\Core\Plugin;
 
 /**
@@ -48,6 +49,10 @@ trait AfterUpload {
 		$source      = isset( $data['source'] ) ? $data['source'] : array();
 
 		if ( ! is_wp_error( $post_id ) ) {
+
+			$software   = isset( $data['source']['software'] ) ? $data['source']['software'] : null;
+			$profile_id = (int) $this->plugin->system()->settings()->get_upload_profile_by_context( $software );
+
 			/**
 			 * Update meta
 			 */
@@ -86,7 +91,11 @@ trait AfterUpload {
 				}
 			}
 
-			$profile_id = $this->plugin->system()->settings()->get_upload_profile_by_context( $source );
+			/**
+			 * Set category
+			 */
+			$category = (int) $this->plugin->system()->settings()->get_upload_profile_option( $profile_id, 'category' );
+			$this->set_category( $post_id, $category, $logtag );
 
 			do_action( 'dgv_local_video_created', $post_id, $data, $profile_id, $logtag );
 
@@ -204,6 +213,62 @@ trait AfterUpload {
 			} else {
 				$this->plugin->system()->logger()->log( sprintf( '-- Failed to set view privacy %s for %s. Unsupported on %s plan', $privacy, $uri, $this->plugin->system()->vimeo()->get_plan( true ) ), $logtag );
 			}
+		}
+	}
+
+	/**
+	 * Set view privacy
+	 *
+	 * @param $uri
+	 * @param $content_rating
+	 * @param $logtag
+	 *
+	 * @since 2.0.0
+	 */
+	protected function set_content_rating( $uri, $content_rating, $logtag ) {
+
+		$classes = array_keys( $this->plugin->system()->vimeo()->get_available_content_ratings() );
+
+		if ( in_array( $content_rating, $classes ) ) {
+			if ( $this->plugin->system()->vimeo()->can_edit() ) {
+				try {
+					if ( null === $this->plugin->system()->vimeo()->set_content_rating( $uri, $content_rating ) ) {
+						$this->plugin->system()->logger()->log( sprintf( '-- Unable to set content rating: %s', $content_rating ), $logtag );
+					} else {
+						$this->plugin->system()->logger()->log( sprintf( '-- Content rating class set to %s for %s', $content_rating, $uri ), $logtag );
+					}
+				} catch ( \Exception $e ) {
+					$this->plugin->system()->logger()->log( sprintf( '-- Failed to set content rating class %s for %s. Error: (%s)', $content_rating, $uri, $e->getMessage() ), $logtag );
+				}
+			} else {
+				$this->plugin->system()->logger()->log( sprintf( '-- Failed to set content rating class %s for %s. Unsupported on %s plan', $content_rating, $uri, $this->plugin->system()->vimeo()->get_plan( true ) ), $logtag );
+			}
+		} else {
+			$this->plugin->system()->logger()->log( sprintf( '-- Content rating class %s is not valid. Skipping.', $content_rating ), $logtag );
+		}
+	}
+
+
+	/**
+	 * Set category
+	 *
+	 * @param $post_id
+	 * @param $category
+	 * @param $logtag
+	 *
+	 * @return void
+	 */
+	protected function set_category( $post_id, $category, $logtag ) {
+		if ( ! empty( $category ) && is_numeric( $category ) && (int) $category > 0 ) {
+			$category = get_term( $category, Database::TAX_CATEGORY );
+			if ( ! empty( $category ) ) {
+				wp_set_object_terms( $post_id, (int) $category->term_id, Database::TAX_CATEGORY, true );
+				$this->plugin->system()->logger()->log( sprintf( '-- Local video category set: "%s"', $category->name ), $logtag );
+			} else {
+				$this->plugin->system()->logger()->log( '-- Local video category not set. Category not found.', $logtag );
+			}
+		} else {
+			$this->plugin->system()->logger()->log( '-- Local video category not set. Category ID not set or empty.', $logtag );
 		}
 	}
 

@@ -215,7 +215,7 @@ class Hooks extends BaseProvider {
 		/**
 		 * Upload complete hook
 		 */
-		do_action( 'dgv_upload_complete_hook_finished', $this, $args, $profile_id );
+		do_action( 'dgv_upload_complete_hook_finished', $this, $args, $profile_id, $logtag );
 
 		/**
 		 * Signal finish

@@ -183,7 +183,7 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Constructor
 	 *
-	 * @param  SystemInterface  $system
+	 * @param SystemInterface $system
 	 * @param $args
 	 */
 	public function __construct( SystemInterface $system, $args = [] ) {
@@ -197,7 +197,7 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Connect to vimeo
 	 *
-	 * @param  bool  $flush_cache
+	 * @param bool $flush_cache
 	 *
 	 * @since 1.0.0
 	 *
@@ -304,10 +304,10 @@ class Vimeo implements VimeoInterface {
 		// Check connection, if wrong bail immediately.
 		if ( ! $this->is_authenticated_connection ) {
 			$problems[] = array(
-                'code' => 'unauthenticated',
-                'info' => __('Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos'),
-                "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
-            );
+				'code' => 'unauthenticated',
+				'info' => __( 'Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+			);
 
 			return $problems;
 		}
@@ -316,51 +316,51 @@ class Vimeo implements VimeoInterface {
 		if ( $this->is_connected ) {
 			if ( ! $this->can_upload() ) {
 				$problems[] = array(
-                    'code' => 'cant_upload',
-                    'info' => __('Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos'),
-                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
-                );
+					'code' => 'cant_upload',
+					'info' => __( 'Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos' ),
+					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+				);
 			}
 			if ( ! $this->can_edit() ) {
 				$problems[] = array(
-                    'code' => 'cant_edit',
-                    'info' => __('Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos'),
-                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
-                );
+					'code' => 'cant_edit',
+					'info' => __( 'Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos' ),
+					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+				);
 			}
 			if ( ! $this->can_delete() ) {
 				$problems[] = array(
-                    'code' => 'cant_delete',
-                    'info' => __('Your Access Token is missing "Delete" scope. This will prevent deleting Videos from the admin dashboard.'),
-                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
-                );
+					'code' => 'cant_delete',
+					'info' => __( 'Your Access Token is missing "Delete" scope. This will prevent deleting Videos from the admin dashboard.' ),
+					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+				);
 			}
 
-            if ( ! $this->supports_folders() ) {
-                $problems[] = array(
-                    'code' => 'cant_use_folders',
-                    'info' => __('Your Access Token is missing "Interact" scope. This will prevent using the Folders feature in the Video edit screen.'),
-                    "fix" => sprintf(__('To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos'), implode(', ', $this->scopes_required))
-                );
-            }
+			if ( ! $this->supports_folders() ) {
+				$problems[] = array(
+					'code' => 'cant_use_folders',
+					'info' => __( 'Your Access Token is missing "Interact" scope. This will prevent using the Folders feature in the Video edit screen.' ),
+					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+				);
+			}
 		}
 
 		$max_exec_time = ini_get( 'max_execution_time' );
 		if ( $max_exec_time > 0 && $max_exec_time < 240 ) {
 			$problems[] = array(
-                'code' => 'exec_time_low',
-                'info' => sprintf(__('Your <strong>max_execution_time</strong> configuration is %s seconds which is very low. Larger uploads that exceed %s seconds for uploading will be dropped by the system and you may see "Uploading..." forever in Vimeo.'), $max_exec_time, $max_exec_time),
-                "fix" => sprintf(__('To fix the issue find your php.ini and increase max_execution_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos'))
-            );
+				'code' => 'exec_time_low',
+				'info' => sprintf( __( 'Your <strong>max_execution_time</strong> configuration is %s seconds which is very low. Larger uploads that exceed %s seconds for uploading will be dropped by the system and you may see "Uploading..." forever in Vimeo.' ), $max_exec_time, $max_exec_time ),
+				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_execution_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
+			);
 		}
 
 		$max_input_time = ini_get( 'max_input_time' );
 		if ( $max_input_time > 0 && $max_input_time < 240 ) {
 			$problems[] = array(
-                'code' => 'input_time_low',
-                'info' => sprintf(__('Your <strong>max_input_time</strong> configuration is %s seconds which is very low. The client connection will be dropped after %s seconds from initating the upload. This is especially required for people with slow connection as it takes more seconds to upload a file.'), $max_input_time, $max_input_time),
-                "fix" => sprintf(__('To fix the issue find your php.ini and increase max_input_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos'))
-            );
+				'code' => 'input_time_low',
+				'info' => sprintf( __( 'Your <strong>max_input_time</strong> configuration is %s seconds which is very low. The client connection will be dropped after %s seconds from initating the upload. This is especially required for people with slow connection as it takes more seconds to upload a file.' ), $max_input_time, $max_input_time ),
+				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_input_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
+			);
 		}
 
 		return $problems;
@@ -594,8 +594,8 @@ class Vimeo implements VimeoInterface {
 	 * Return list of videos
 	 * @url https://developer.vimeo.com/api/reference/videos#get_videos
 	 *
-	 * @param  array  $params
-	 * @param  bool  $try_all
+	 * @param array $params
+	 * @param bool $try_all
 	 *
 	 * @return array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -609,9 +609,9 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Attempt to get as much as possible videos from the Vimeo.com API without hitting the rate limits.
 	 *
-	 * @param  array  $params
-	 * @param  bool  $recursive
-	 * @param  int  $calls_buffer
+	 * @param array $params
+	 * @param bool $recursive
+	 * @param int $calls_buffer
 	 *
 	 * @return array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -682,8 +682,8 @@ class Vimeo implements VimeoInterface {
 	 * Uploads/streams the video to vimeo
 	 *
 	 * @param $file_path
-	 * @param  array  $params
-	 * @param  bool  $process_after_hook  (Processing the after hook will make sure the local video is created and other settings processed like, folders, privacy, etc)
+	 * @param array $params
+	 * @param bool $process_after_hook (Processing the after hook will make sure the local video is created and other settings processed like, folders, privacy, etc)
 	 *
 	 * @return array
 	 *
@@ -733,10 +733,10 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Upload via pull method. Only url to the file is required.
 	 *
-	 * @param  string  $file_url
-	 * @param  array  $params
-	 * @param  bool  $process_after_hook  (Processing the after hook will make sure the local video is created and other settings processed like, folders, privacy, etc)
-	 * @param  null  $additional_data  (Eg. file_path - Provide if you want the vimeo cron to delete the file after it is pulled)
+	 * @param string $file_url
+	 * @param array $params
+	 * @param bool $process_after_hook (Processing the after hook will make sure the local video is created and other settings processed like, folders, privacy, etc)
+	 * @param null $additional_data (Eg. file_path - Provide if you want the vimeo cron to delete the file after it is pulled)
 	 *
 	 * @return array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -833,6 +833,47 @@ class Vimeo implements VimeoInterface {
 	}
 
 	/**
+	 * Set the content rating class
+	 *
+	 * @param $uri
+	 * @param $content_rating
+	 *
+	 * @return mixed
+	 * @throws \Vimeo\Exceptions\VimeoRequestException
+	 */
+	public function set_content_rating( $uri, $content_rating ) {
+
+		$content_rating = $this->filter_content_rating( $content_rating );
+
+		if ( null === $content_rating ) {
+			return null;
+		}
+
+		$response = $this->api->request( $uri, array(
+			'content_rating' => $content_rating
+		), 'PATCH' );
+
+		return $this->prepare_response( $response );
+	}
+
+	/**
+	 * Filter the content rating class
+	 *
+	 * @param $content_rating
+	 *
+	 * @return void
+	 */
+	public function filter_content_rating( $content_rating ) {
+		$content_ratings = array_keys( $this->get_available_content_ratings() );
+
+		if ( ! in_array( $content_rating, $content_ratings ) ) {
+			return null;
+		}
+
+		return $content_rating;
+	}
+
+	/**
 	 * Returns whitelisted domains
 	 *
 	 * @param $uri
@@ -888,7 +929,7 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Returns formatted array of available view privacy options for upload
 	 *
-	 * @param  string  $context
+	 * @param string $context
 	 *
 	 * @return array
 	 * @since 1.5.0
@@ -975,7 +1016,7 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * The unavailable text
 	 *
-	 * @param  null  $plan
+	 * @param null $plan
 	 *
 	 * @return string
 	 * @since 1.5.0
@@ -990,8 +1031,8 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Set additional metadata for the video, if response is not provided then obtain it.
 	 *
-	 * @param $post_id  - local video id
-	 * @param $response  - Response data from /videos/{video_id} endpoint(s), need to be supplied.
+	 * @param $post_id - local video id
+	 * @param $response - Response data from /videos/{video_id} endpoint(s), need to be supplied.
 	 *
 	 * @return void
 	 *
@@ -1020,8 +1061,8 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Set additional metadata for the video.
 	 *
-	 * @param $post_id  - local video id
-	 * @param $api_result  - Response data from /videos/{video_id} endpoint(s), $response['body'] need to be supplied.
+	 * @param $post_id - local video id
+	 * @param $api_result - Response data from /videos/{video_id} endpoint(s), $response['body'] need to be supplied.
 	 *
 	 * @return void
 	 *
@@ -1135,7 +1176,7 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Returns folders
 	 *
-	 * @param  array  $query
+	 * @param array $query
 	 *
 	 * @return null|array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -1165,7 +1206,7 @@ class Vimeo implements VimeoInterface {
 	 * Return folder form the API
 	 *
 	 * @param $uri
-	 * @param  int  $cache_ttl  - In minutes
+	 * @param int $cache_ttl - In minutes
 	 *
 	 * @return array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -1256,7 +1297,7 @@ class Vimeo implements VimeoInterface {
 	 * Creates upload attempt
 	 *
 	 * @param $file_path
-	 * @param  array  $params
+	 * @param array $params
 	 *
 	 * @return array
 	 * @throws \Exception
@@ -1367,7 +1408,7 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Returns the current plan
 	 *
-	 * @param  false  $formatted
+	 * @param false $formatted
 	 *
 	 * @return string
 	 * @since 1.5.1
@@ -1388,7 +1429,7 @@ class Vimeo implements VimeoInterface {
 	/**
 	 * Returns folders
 	 *
-	 * @param  array  $query
+	 * @param array $query
 	 *
 	 * @return null|array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -1418,7 +1459,7 @@ class Vimeo implements VimeoInterface {
 	 * Return folder form the API
 	 *
 	 * @param $uri
-	 * @param  int  $cache_ttl  - In minutes
+	 * @param int $cache_ttl - In minutes
 	 *
 	 * @return array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -1546,7 +1587,7 @@ class Vimeo implements VimeoInterface {
 	 * Retrieve video from vimeo API.
 	 *
 	 * @param $id
-	 * @param  array  $fields
+	 * @param array $fields
 	 *
 	 * @return array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -1567,7 +1608,7 @@ class Vimeo implements VimeoInterface {
 	 * Returns video form the api
 	 *
 	 * @param $id
-	 * @param  array  $fields
+	 * @param array $fields
 	 *
 	 * @return array
 	 * @throws \Vimeo\Exceptions\VimeoRequestException
@@ -1753,7 +1794,7 @@ class Vimeo implements VimeoInterface {
 	 * Returns the collection response in the following format.
 	 *
 	 * @param $response
-	 * @param  bool  $headers
+	 * @param bool $headers
 	 *
 	 * @return array
 	 * @since 1.7.0
@@ -1801,5 +1842,21 @@ class Vimeo implements VimeoInterface {
 		}
 
 		return $metadata;
+	}
+
+	/**
+	 * Return the available content rating classes
+	 * @return array
+	 */
+	public function get_available_content_ratings() {
+		return [
+			'safe'          => __( 'All Audiences', 'wp-vimeo-videos' ),
+			'unrated'       => __( 'Not Yet Rated', 'wp-vimeo-videos' ),
+			'advertisement' => __( 'Contains advertisement', 'wp-vimeo-videos' ),
+			'violence'      => __( 'Violence', 'wp-vimeo-videos' ),
+			'drugs'         => __( 'Drug / alcohol use', 'wp-vimeo-videos' ),
+			'language'      => __( 'Profanity / sexually suggestive content', 'wp-vimeo-videos' ),
+			'nudity'        => __( 'Nudity', 'wp-vimeo-videos' ),
+		];
 	}
 }

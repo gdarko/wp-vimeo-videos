@@ -254,7 +254,7 @@ class UploadProfileMeta {
 	protected function create_embed_presets_settings() {
 
 		$label = __( 'Which Embed Preset the uploaded video will use', 'wp-vimeo-videos' );
-		$desc  = __( 'Select embed preset for the Vimeo uploads performed in the Front-End. Choose "Default" to omit the embed presets.', 'wp-vimeo-videos' );
+		$desc  = __( 'Select embed preset for the Vimeo uploads that use this profile. Choose "Default" to omit the embed presets.', 'wp-vimeo-videos' );
 
 
 		if ( $this->plugin->system()->vimeo()->supports_embed_presets() ) {

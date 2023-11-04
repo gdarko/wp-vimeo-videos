@@ -177,10 +177,11 @@ class VideosTable extends BaseView {
 	public function get_categories() {
 
 		$args = apply_filters( 'dgv_view_videos_table_get_categories_args', [
-			'taxonomy' => Database::TAX_CATEGORY,
-			'number'   => 200,
-			'orderby'  => 'name',
-			'order'    => 'asc',
+			'taxonomy'   => Database::TAX_CATEGORY,
+			'number'     => 200,
+			'orderby'    => 'name',
+			'order'      => 'asc',
+			'hide_empty' => false,
 		] );
 
 		$data  = [];
