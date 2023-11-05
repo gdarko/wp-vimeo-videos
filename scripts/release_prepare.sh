@@ -34,7 +34,7 @@ rm -rf node_modules
 rm -rf package-lock.json
 npm install --legacy-peer-deps
 npm run prod
-if [ ! -d "$PLUGIN_DIR/blocks/dist" ] OR [ ! -d "$PLUGIN_DIR/assets/admin/dist" ]; then
+if [ ! -d "$PLUGIN_DIR/blocks/dist" ] || [ ! -d "$PLUGIN_DIR/assets/admin/dist" ]; then
   echo "Unable to build with NPM"
   exit
 fi
