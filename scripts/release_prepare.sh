@@ -14,6 +14,8 @@ PLUGINS_ROOT_DIR="$(
 )"
 PLUGIN_SLUG=$(basename $PLUGIN_DIR)
 
+cd $PLUGIN_DIR
+
 if [[ -f "$PLUGIN_DIR/composer.json" ]]; then
   rm -rf "$PLUGIN_DIR/vendor"
   composer install --no-dev
@@ -23,6 +25,10 @@ if [ -f "$PLUGINS_ROOT_DIR/$PLUGIN_SLUG.zip" ]; then
   rm "$PLUGINS_ROOT_DIR/$PLUGIN_SLUG.zip"
 fi
 
+cd "$PLUGIN_DIR/blocks"
+rm -rf node_modules
+rm -rf package-lock.json
+npm install --legacy-peer-deps
 cd "$PLUGIN_DIR"
 rm -rf node_modules
 rm -rf package-lock.json

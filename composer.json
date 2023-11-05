@@ -22,15 +22,19 @@
   },
   "scripts": {
     "modify_function_access": [
-      "find libraries/vimeo-php-guzzle6/vendor/vimeo -type f  -name '*.php' -exec sed -i '' 's/private function perform_upload_tus/protected function perform_upload_tus/g' {} +",
-      "find libraries/vimeo-php-guzzle7/vendor/vimeo -type f  -name '*.php' -exec sed -i '' 's/private function perform_upload_tus/protected function perform_upload_tus/g' {} +"
+      "find libraries/vimeo-php-guzzle6/vendor/vimeo -type f  -name '*.php' -exec sed -i.bak 's/private function perform_upload_tus/protected function perform_upload_tus/g' {} +",
+      "find libraries/vimeo-php-guzzle7/vendor/vimeo -type f  -name '*.php' -exec sed -i.bak 's/private function perform_upload_tus/protected function perform_upload_tus/g' {} +"
     ],
     "post-install-cmd": [
+      "rm -rf libraries/vimeo-php-guzzle7/vendor",
+      "rm -rf libraries/vimeo-php-guzzle6/vendor",
       "composer install --working-dir=./libraries/vimeo-php-guzzle7",
       "composer install --working-dir=./libraries/vimeo-php-guzzle6",
       "@modify_function_access"
     ],
     "post-update-cmd":  [
+      "rm -rf libraries/vimeo-php-guzzle7/vendor",
+      "rm -rf libraries/vimeo-php-guzzle6/vendor",
       "composer update --working-dir=./libraries/vimeo-php-guzzle7",
       "composer update --working-dir=./libraries/vimeo-php-guzzle6",
       "@modify_function_access"
