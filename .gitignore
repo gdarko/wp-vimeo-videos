@@ -1,6 +1,8 @@
 vendor/
 blocks/node_modules/
 blocks/node_modules/*
+blocks/dist
+blocks/dist/*
 assets/admin/dist
 assets/admin/dist/*
 assets/frontend/dist
