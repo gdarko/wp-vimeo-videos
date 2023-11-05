@@ -54,14 +54,14 @@ class Scripts extends BaseProvider {
 		// Video Element
 		wp_enqueue_style(
 			'dgv-frontend-video',
-			$this->plugin->url() . 'assets/frontend/css/video.css',
+			$this->plugin->url() . 'assets/frontend/dist/styles/video.min.css',
 			array('dgv-iconfont'),
 			$this->plugin->plugin_version(),
 			'all'
 		);
 		wp_register_script(
 			'dgv-frontend-video',
-			$this->plugin->url() . 'assets/frontend/js/video.js',
+			$this->plugin->url() . 'assets/frontend/dist/scripts/video.min.js',
 			array(),
 			$this->plugin->plugin_version(),
 			true
@@ -70,7 +70,7 @@ class Scripts extends BaseProvider {
 		// Videos Table Element
 		wp_register_style(
 			'dgv-frontend-videos-table',
-			$this->plugin->url() . 'assets/frontend/css/videos-table.css',
+			$this->plugin->url() . 'assets/frontend/dist/styles/videos-table.min.css',
 			array(),
 			$this->plugin->plugin_version(),
 			'all'

@@ -1,0 +1,2020 @@
+# Copyright (C) 2023 Darko Gjorgjijoski
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Vimeify - Upload, Display and Embed Vimeo Videos 2.0.0\n"
+"Report-Msgid-Bugs-To: https:/vimeify.com/\n"
+"Last-Translator: Vimeify (https://vimeify.com/)\n"
+"Language-Team: Vimeify (https://vimeify.com/translate/) <info@vimeify.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-11-05T14:30:58+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: wp-vimeo-videos\n"
+
+#. Plugin Name of the plugin
+msgid "Vimeify - Upload, Display and Embed Vimeo Videos"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://vimeify.com"
+msgstr ""
+
+#. Description of the plugin
+msgid "Easily upload, embed and list Vimeo videos directly on your site"
+msgstr ""
+
+#. Author of the plugin
+msgid "Darko Gjorgjijoski"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://darkog.com"
+msgstr ""
+
+#: includes/Backend/Ajax.php:70
+#: includes/Backend/Ajax.php:254
+#: includes/Backend/Ajax.php:360
+#: includes/Backend/Ajax.php:452
+#: includes/Backend/Ajax.php:520
+#: includes/Backend/Ajax.php:632
+#: includes/Backend/Ajax.php:743
+#: includes/Backend/Ajax.php:837
+#: includes/Backend/Ajax.php:893
+#: includes/Backend/Ajax.php:930
+#: includes/Backend/Ajax.php:977
+#: includes/Backend/Ajax.php:1027
+#: includes/Backend/Ajax.php:1071
+#: includes/Backend/Ajax.php:1120
+msgid "Security Check Failed."
+msgstr ""
+
+#: includes/Backend/Ajax.php:76
+msgid "Unauthorized action. User must be Author, Editor or Administrator to edit."
+msgstr ""
+
+#: includes/Backend/Ajax.php:83
+msgid "Invalid request."
+msgstr ""
+
+#: includes/Backend/Ajax.php:87
+#: includes/Components/Vimeo.php:1253
+#: includes/Components/Vimeo.php:1505
+#: legacy/class-wp-dgv-api-helper.php:1434
+msgid "Untitled"
+msgstr ""
+
+#: includes/Backend/Ajax.php:126
+msgid "Video uploaded successfully."
+msgstr ""
+
+#: includes/Backend/Ajax.php:142
+#: includes/Backend/Ajax.php:151
+#: includes/Backend/Ajax.php:158
+msgid "Permission denied"
+msgstr ""
+
+#: includes/Backend/Ajax.php:167
+msgid "Missing video"
+msgstr ""
+
+#: includes/Backend/Ajax.php:208
+#: includes/Backend/Ajax.php:228
+msgid "Sorry!"
+msgstr ""
+
+#: includes/Backend/Ajax.php:221
+#: includes/Backend/Ajax.php:237
+#: includes/Backend/Scripts.php:279
+#: includes/Shared/Scripts.php:321
+msgid "Success"
+msgstr ""
+
+#: includes/Backend/Ajax.php:222
+msgid "Video deleted successfully!"
+msgstr ""
+
+#: includes/Backend/Ajax.php:229
+msgid "The video was not deleted."
+msgstr ""
+
+#: includes/Backend/Ajax.php:238
+msgid "Video deleted successfully. However we had a trouble deleting the vimeo from vimeo.com. It may be deleted or belongs to different account."
+msgstr ""
+
+#: includes/Backend/Ajax.php:261
+#: includes/Backend/Ajax.php:367
+#: includes/Backend/Ajax.php:459
+#: includes/Backend/Ajax.php:900
+msgid "Unauthorized action"
+msgstr ""
+
+#: includes/Backend/Ajax.php:268
+#: includes/Backend/Ajax.php:374
+#: includes/Backend/Ajax.php:466
+#: includes/Backend/Ajax.php:748
+#: includes/Backend/Ajax.php:842
+#: includes/Backend/Ajax.php:907
+msgid "Invalid request"
+msgstr ""
+
+#: includes/Backend/Ajax.php:280
+msgid "Please enter valid name"
+msgstr ""
+
+#: includes/Backend/Ajax.php:322
+msgid "Video saved successfully"
+msgstr ""
+
+#: includes/Backend/Ajax.php:327
+msgid "Error saving the video"
+msgstr ""
+
+#: includes/Backend/Ajax.php:333
+msgid "Unknown error."
+msgstr ""
+
+#: includes/Backend/Ajax.php:385
+msgid "Invalid embed privacy mehtod."
+msgstr ""
+
+#: includes/Backend/Ajax.php:399
+msgid "Invalid domain. Please enter valid domain name."
+msgstr ""
+
+#: includes/Backend/Ajax.php:408
+msgid "Domain added to embed whitelist."
+msgstr ""
+
+#: includes/Backend/Ajax.php:415
+msgid "Failed to add domain to the embed whitelist."
+msgstr ""
+
+#: includes/Backend/Ajax.php:421
+#: includes/Backend/Ajax.php:505
+#: includes/Backend/Ajax.php:570
+#: includes/Backend/Ajax.php:608
+#: includes/Backend/Ajax.php:681
+#: includes/Backend/Ajax.php:719
+msgid "Invalid response received from vimeo"
+msgstr ""
+
+#: includes/Backend/Ajax.php:428
+msgid "Embed privacy changed successfully."
+msgstr ""
+
+#: includes/Backend/Ajax.php:475
+msgid "Invalid video URI specified"
+msgstr ""
+
+#: includes/Backend/Ajax.php:488
+msgid "Error removing domain from whitelist."
+msgstr ""
+
+#: includes/Backend/Ajax.php:495
+msgid "Domain removed successfully"
+msgstr ""
+
+#: includes/Backend/Ajax.php:499
+msgid "Failed to remove domain from embed privacy whitelist."
+msgstr ""
+
+#: includes/Backend/Ajax.php:532
+#: includes/Backend/Ajax.php:644
+msgid "Video missing."
+msgstr ""
+
+#: includes/Backend/Ajax.php:538
+msgid "Folder missing."
+msgstr ""
+
+#: includes/Backend/Ajax.php:555
+msgid "Video removed from folder successfully."
+msgstr ""
+
+#: includes/Backend/Ajax.php:564
+#: includes/Backend/Ajax.php:602
+msgid "Unable to change folder. %s"
+msgstr ""
+
+#: includes/Backend/Ajax.php:582
+#: includes/Backend/Ajax.php:693
+msgid "Unexpected error! Sorry."
+msgstr ""
+
+#: includes/Backend/Ajax.php:593
+msgid "Video moved to folder successfully."
+msgstr ""
+
+#: includes/Backend/Ajax.php:650
+msgid "Preset missing."
+msgstr ""
+
+#: includes/Backend/Ajax.php:666
+msgid "Embed preset removed from video successfully"
+msgstr ""
+
+#: includes/Backend/Ajax.php:675
+#: includes/Backend/Ajax.php:713
+msgid "Unable to change embed preset. %s"
+msgstr ""
+
+#: includes/Backend/Ajax.php:704
+msgid "Embed preset added to Video successfully."
+msgstr ""
+
+#: includes/Backend/Ajax.php:760
+#: includes/Backend/Ajax.php:849
+#: includes/Backend/Ajax.php:856
+#: includes/Backend/Ajax.php:879
+msgid "Invalid attachment"
+msgstr ""
+
+#: includes/Backend/Ajax.php:765
+msgid "Please enter valid video title."
+msgstr ""
+
+#: includes/Backend/Ajax.php:824
+msgid "Upload failed: "
+msgstr ""
+
+#: includes/Backend/Ajax.php:1001
+#: views/admin/partials/library-edit.php:245
+#: views/admin/partials/library-edit.php:251
+#: views/admin/partials/library-upload.php:79
+#: views/admin/partials/post-type-edit.php:160
+#: views/admin/partials/post-type-edit.php:164
+msgid "Default (no folder)"
+msgstr ""
+
+#: includes/Backend/Ajax.php:1095
+#: views/admin/partials/library-edit.php:205
+#: views/admin/partials/post-type-edit.php:144
+msgid "Default (no preset)"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:124
+msgid "No videos found"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:142
+#: includes/Backend/ListTables/VideosTable.php:146
+msgid "Copy to clipboard"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:170
+#: includes/Backend/Scripts.php:225
+#: includes/Backend/Scripts.php:286
+#: includes/Integrations/Bricks/Elements/VideosTable.php:134
+#: includes/Integrations/Elementor/Elements/VideosTable.php:205
+#: includes/Shared/Blocks/Video.php:60
+#: includes/Shared/Scripts.php:322
+#: views/admin/partials/library-upload.php:49
+#: views/frontend/partials/videos-table.php:13
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:96
+msgid "Title"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:171
+msgid "Embed"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:172
+#: includes/Integrations/Bricks/Elements/VideosTable.php:81
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:65
+msgid "Author"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:173
+msgid "Size"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:174
+msgid "Uploaded"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:196
+msgid "Manage this video"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:196
+msgid "Edit"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:198
+msgid "View the video on the front-end"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:198
+#: includes/Frontend/Views/VideosTable.php:52
+msgid "View"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:200
+msgid "Vimeo video link"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:200
+#: legacy/helpers.php:126
+#: views/admin/partials/media-buttons.php:73
+msgid "Vimeo Link"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:204
+msgid "Delete video from vimeo"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:204
+#: includes/Backend/ListTables/VideosTable.php:255
+msgid "Delete"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:231
+msgid "Draft"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:280
+msgid "Local"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:281
+msgid "Feature coming soon!"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:281
+#: includes/Shared/Scripts.php:290
+msgid "Vimeo"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:358
+#: includes/Backend/ListTables/VideosTable.php:359
+msgid "Filter by author"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:364
+msgid "Filter"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:365
+#: includes/Shared/Blocks/Video.php:69
+msgid "Clear"
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:400
+msgid "Unable to delete video(s). The required Vimeo API scope \"delete\" is missing."
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:426
+msgid "Video(s) deleted successfully."
+msgstr ""
+
+#: includes/Backend/ListTables/VideosTable.php:428
+msgid "Unable to delete video(s)"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:36
+msgid "General"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:42
+msgid "Default Behavior"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:58
+msgid "Store videos uploaded with this profile in the Local library"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:63
+msgid "Prefer \"pull\" uploads where that is possible"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:64
+msgid "Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable."
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:80
+msgid "Privacy"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:86
+msgid "Who can view the videos on vimeo.com"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:87
+msgid "Enable this if you want to prevent certain audiences from viewing your videos."
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:102
+msgid "Where the uploaded videos can be embedded (comma separated list of domains)"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:103
+msgid "Enable this if you want to prevent embedding your videos on other domains than those specified here."
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:122
+msgid "Folders"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:128
+msgid "Which Folder will be used for the uploaded videos"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:138
+#: views/admin/partials/library-edit.php:250
+#: views/admin/partials/library-upload.php:78
+#: views/admin/partials/post-type-edit.php:163
+msgid "Select folder..."
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:155
+msgid "Embed Presets"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:171
+msgid "Profile Settings"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:206
+msgid "Default / None"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:257
+msgid "Which Embed Preset the uploaded video will use"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:258
+msgid "Select embed preset for the Vimeo uploads that use this profile. Choose \"Default\" to omit the embed presets."
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:274
+#: views/admin/partials/library-edit.php:213
+#: views/admin/partials/post-type-edit.php:146
+msgid "Select preset..."
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:292
+msgid "Note"
+msgstr ""
+
+#: includes/Backend/Metaboxes/UploadProfileMeta.php:292
+msgid "Embed presets are supported on Vimeo Plus or higher plans."
+msgstr ""
+
+#: includes/Backend/Metaboxes/VideoMeta.php:250
+msgid "Vimeo Settings"
+msgstr ""
+
+#: includes/Backend/Options.php:47
+msgid "Overview"
+msgstr ""
+
+#: includes/Backend/Options.php:51
+msgid "API Credentials"
+msgstr ""
+
+#: includes/Backend/Options.php:61
+msgid "Connection"
+msgstr ""
+
+#: includes/Backend/Options.php:68
+msgid "Environment"
+msgstr ""
+
+#: includes/Backend/Options.php:75
+msgid "Troubleshooting"
+msgstr ""
+
+#: includes/Backend/Options.php:82
+#: views/admin/partials/instructions.php:74
+msgid "Client ID"
+msgstr ""
+
+#: includes/Backend/Options.php:99
+#: views/admin/partials/instructions.php:75
+msgid "Client Secret"
+msgstr ""
+
+#: includes/Backend/Options.php:116
+#: views/admin/partials/instructions.php:76
+msgid "Access Token"
+msgstr ""
+
+#: includes/Backend/Options.php:144
+msgid "Admin Settings"
+msgstr ""
+
+#: includes/Backend/Options.php:148
+msgid "Frontend Settings"
+msgstr ""
+
+#: includes/Backend/Options.php:152
+#: includes/Shared/PostTypes.php:154
+#: includes/Shared/PostTypes.php:181
+#: includes/Shared/PostTypes.php:182
+msgid "Upload Profiles"
+msgstr ""
+
+#: includes/Backend/Options.php:159
+msgid "Front-end Behavior"
+msgstr ""
+
+#: includes/Backend/Options.php:175
+msgid "Enable single video pages for the uploaded videos"
+msgstr ""
+
+#: includes/Backend/Options.php:185
+msgid "Upload Form"
+msgstr ""
+
+#: includes/Backend/Options.php:201
+msgid "Enable Vimeo View Privacy option in the WP-Admin Video upload form"
+msgstr ""
+
+#: includes/Backend/Options.php:206
+msgid "Enable Vimeo Folders option in the WP-Admin Video upload form"
+msgstr ""
+
+#: includes/Backend/Options.php:213
+msgid "Gutenberg Block"
+msgstr ""
+
+#: includes/Backend/Options.php:229
+msgid "Enable Vimeo View Privacy option in Gutenberg upload modal"
+msgstr ""
+
+#: includes/Backend/Options.php:234
+msgid "Enable Vimeo Folders option in Gutenberg upload modal"
+msgstr ""
+
+#: includes/Backend/Options.php:239
+msgid "Enable Vimeo account search option in upload form"
+msgstr ""
+
+#: includes/Backend/Options.php:244
+msgid "Enable Local Library search option in upload form"
+msgstr ""
+
+#: includes/Backend/Options.php:249
+msgid "Restrict to current user's uploads in Local Library search option"
+msgstr ""
+
+#: includes/Backend/Options.php:257
+msgid "TinyMCE Modal"
+msgstr ""
+
+#: includes/Backend/Options.php:273
+msgid "Enable Vimeo View Privacy option in upload modal"
+msgstr ""
+
+#: includes/Backend/Options.php:278
+msgid "Enable Vimeo Folders option in upload modal"
+msgstr ""
+
+#: includes/Backend/Options.php:283
+msgid "Enable Vimeo account search option in upload modal"
+msgstr ""
+
+#: includes/Backend/Options.php:288
+msgid "Enable local library search option in upload modal"
+msgstr ""
+
+#: includes/Backend/Options.php:293
+msgid "Restrict to current user's uploads in local library search option"
+msgstr ""
+
+#: includes/Backend/Options.php:301
+msgid "Video Management Page"
+msgstr ""
+
+#: includes/Backend/Options.php:302
+msgid "Select which video elements to be enabled for editing videos."
+msgstr ""
+
+#: includes/Backend/Options.php:317
+msgid "Enable Embed Presets panel in the single video management page"
+msgstr ""
+
+#: includes/Backend/Options.php:322
+msgid "Enable Embed Privacy panel in the single video management page"
+msgstr ""
+
+#: includes/Backend/Options.php:327
+msgid "Enable Folders panel in the single video management page"
+msgstr ""
+
+#: includes/Backend/Options.php:335
+msgid "Videos list table"
+msgstr ""
+
+#: includes/Backend/Options.php:351
+msgid "Only show the Videos uploaded by the current user on the Vimeo list table"
+msgstr ""
+
+#: includes/Backend/Options.php:359
+msgid "Thumbnails support"
+msgstr ""
+
+#: includes/Backend/Options.php:375
+msgid "Enable experimental support for thumbnails. (Note: May result in increased api calls usage)"
+msgstr ""
+
+#: includes/Backend/Options.php:424
+msgid "Vimeify Settings"
+msgstr ""
+
+#: includes/Backend/Options.php:486
+#: includes/Backend/Options.php:487
+#: includes/Backend/Ui.php:315
+#: views/admin/partials/library-list.php:33
+#: views/admin/partials/not-connected.php:47
+msgid "Settings"
+msgstr ""
+
+#: includes/Backend/Options.php:492
+msgid "Options updated!"
+msgstr ""
+
+#: includes/Backend/Options.php:493
+msgid "Options reset!"
+msgstr ""
+
+#: includes/Backend/Options.php:494
+msgid "Save changes"
+msgstr ""
+
+#: includes/Backend/Options.php:521
+msgid "Default"
+msgstr ""
+
+#: includes/Backend/Options.php:545
+msgid "Select profile..."
+msgstr ""
+
+#: includes/Backend/Options.php:566
+msgid "Default Profile"
+msgstr ""
+
+#: includes/Backend/Options.php:567
+msgid "Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc."
+msgstr ""
+
+#: includes/Backend/Options.php:571
+msgid "Gutenberg Block Editor"
+msgstr ""
+
+#: includes/Backend/Options.php:572
+msgid "Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend."
+msgstr ""
+
+#: includes/Backend/Options.php:576
+msgid "Classic Editor"
+msgstr ""
+
+#: includes/Backend/Options.php:577
+msgid "Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend."
+msgstr ""
+
+#: includes/Backend/Options.php:581
+msgid "Other Backend Forms"
+msgstr ""
+
+#: includes/Backend/Options.php:582
+msgid "Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below."
+msgstr ""
+
+#: includes/Backend/Scripts.php:86
+msgid "The results could not be loaded."
+msgstr ""
+
+#: includes/Backend/Scripts.php:87
+msgid "Please delete {number} character"
+msgstr ""
+
+#: includes/Backend/Scripts.php:88
+msgid "Please enter {number} or more characters"
+msgstr ""
+
+#: includes/Backend/Scripts.php:89
+msgid "Loading more results..."
+msgstr ""
+
+#: includes/Backend/Scripts.php:90
+msgid "You can only select {number} item"
+msgstr ""
+
+#: includes/Backend/Scripts.php:91
+msgid "No results found"
+msgstr ""
+
+#: includes/Backend/Scripts.php:92
+#: includes/Shared/Scripts.php:326
+msgid "Searching..."
+msgstr ""
+
+#: includes/Backend/Scripts.php:93
+msgid "Remove all items"
+msgstr ""
+
+#: includes/Backend/Scripts.php:94
+msgid "Remove item"
+msgstr ""
+
+#: includes/Backend/Scripts.php:95
+#: includes/Backend/Scripts.php:230
+#: includes/Shared/Blocks/Video.php:65
+#: includes/Shared/Scripts.php:325
+#: views/admin/partials/library-list.php:55
+msgid "Search"
+msgstr ""
+
+#: includes/Backend/Scripts.php:201
+#: includes/Shared/Blocks/Video.php:47
+#: includes/Shared/Scripts.php:342
+#: legacy/helpers.php:310
+msgid "Upload new Vimeo video"
+msgstr ""
+
+#: includes/Backend/Scripts.php:202
+#: includes/Shared/Blocks/Video.php:48
+#: includes/Shared/Scripts.php:343
+#: legacy/helpers.php:311
+msgid "Insert Vimeo video from local library"
+msgstr ""
+
+#: includes/Backend/Scripts.php:203
+#: includes/Shared/Blocks/Video.php:49
+#: includes/Shared/Scripts.php:344
+#: legacy/helpers.php:312
+msgid "Search your Vimeo account"
+msgstr ""
+
+#: includes/Backend/Scripts.php:224
+msgid "Vimeify Upload (Old/Legacy/Deprecated)"
+msgstr ""
+
+#: includes/Backend/Scripts.php:226
+#: includes/Backend/Scripts.php:287
+#: includes/Shared/Blocks/Video.php:61
+#: includes/Shared/Scripts.php:323
+#: views/admin/partials/library-edit.php:108
+#: views/admin/partials/library-upload.php:53
+#: views/admin/partials/post-type-edit.php:69
+msgid "Description"
+msgstr ""
+
+#: includes/Backend/Scripts.php:227
+#: includes/Shared/Blocks/Video.php:62
+#: includes/Shared/Scripts.php:329
+msgid "File"
+msgstr ""
+
+#: includes/Backend/Scripts.php:228
+#: includes/Shared/Blocks/Video.php:63
+msgid "Uploading..."
+msgstr ""
+
+#: includes/Backend/Scripts.php:229
+#: includes/Backend/Scripts.php:288
+#: includes/Shared/Blocks/Video.php:64
+#: includes/Shared/Scripts.php:327
+#: views/admin/partials/library-upload.php:98
+msgid "Upload"
+msgstr ""
+
+#: includes/Backend/Scripts.php:231
+#: includes/Backend/Scripts.php:272
+#: includes/Shared/Blocks/Video.php:66
+#: includes/Shared/Scripts.php:320
+msgid "Sorry"
+msgstr ""
+
+#: includes/Backend/Scripts.php:232
+#: includes/Backend/Scripts.php:291
+#: includes/Shared/Scripts.php:330
+msgid "Who can view this video?"
+msgstr ""
+
+#: includes/Backend/Scripts.php:235
+#: includes/Backend/Scripts.php:273
+#: includes/Shared/Blocks/Video.php:76
+#: includes/Shared/Scripts.php:335
+msgid "Please select valid video file."
+msgstr ""
+
+#: includes/Backend/Scripts.php:236
+#: includes/Shared/Blocks/Video.php:77
+#: includes/Shared/Scripts.php:336
+msgid "Invalid search phrase. Please enter valid search phrase."
+msgstr ""
+
+#: includes/Backend/Scripts.php:237
+#: includes/Shared/Blocks/Video.php:78
+msgid "Enter phrase"
+msgstr ""
+
+#: includes/Backend/Scripts.php:238
+#: includes/Shared/Blocks/Video.php:79
+msgid "Select video"
+msgstr ""
+
+#: includes/Backend/Scripts.php:239
+#: includes/Shared/Blocks/Video.php:80
+msgid "Video uploaded successfully!"
+msgstr ""
+
+#: includes/Backend/Scripts.php:240
+#: includes/Shared/Blocks/Video.php:81
+#: includes/Shared/Scripts.php:292
+#: includes/Shared/Scripts.php:333
+msgid "Insert Vimeo Video"
+msgstr ""
+
+#: includes/Backend/Scripts.php:241
+#: includes/Shared/Blocks/Video.php:82
+msgid "= Uploaded by someone else, not visible to you ="
+msgstr ""
+
+#: includes/Backend/Scripts.php:242
+msgid "Select existing video"
+msgstr ""
+
+#: includes/Backend/Scripts.php:275
+msgid "Are you sure?"
+msgstr ""
+
+#: includes/Backend/Scripts.php:276
+msgid "Are you sure you want to delete this video? This action deletes the video from the Vimeo and can not be reversed."
+msgstr ""
+
+#: includes/Backend/Scripts.php:277
+msgid "Sorry, the domain could not be deleted."
+msgstr ""
+
+#: includes/Backend/Scripts.php:278
+#: includes/Shared/Scripts.php:334
+msgid "Sorry there was a HTTP error. Please check the server logs or contact support."
+msgstr ""
+
+#: includes/Backend/Scripts.php:280
+msgid "Cancel"
+msgstr ""
+
+#: includes/Backend/Scripts.php:281
+msgid "Confirm"
+msgstr ""
+
+#: includes/Backend/Scripts.php:282
+msgid "Close"
+msgstr ""
+
+#: includes/Backend/Scripts.php:283
+#: views/admin/partials/library-edit.php:164
+#: views/admin/partials/post-type-edit.php:111
+msgid "remove"
+msgstr ""
+
+#: includes/Backend/Scripts.php:284
+msgid "Are you sure you want to delete this video?"
+msgstr ""
+
+#: includes/Backend/Scripts.php:285
+msgid "Yes, please"
+msgstr ""
+
+#: includes/Backend/Scripts.php:289
+msgid "Upload to vimeo"
+msgstr ""
+
+#: includes/Backend/Scripts.php:290
+msgid "Please correct the following errors"
+msgstr ""
+
+#: includes/Backend/Scripts.php:292
+msgid "Problem solution"
+msgstr ""
+
+#: includes/Backend/Scripts.php:293
+msgid "Loading..."
+msgstr ""
+
+#: includes/Backend/Scripts.php:294
+#: views/admin/partials/library-list.php:39
+#: views/admin/partials/library-stats.php:30
+msgid "Statistics"
+msgstr ""
+
+#: includes/Backend/Scripts.php:295
+msgid "Explanation"
+msgstr ""
+
+#: includes/Backend/Ui.php:58
+msgid "Show Description"
+msgstr ""
+
+#: includes/Backend/Ui.php:59
+msgid "Show Link instead of shortcode"
+msgstr ""
+
+#: includes/Backend/Ui.php:217
+#: includes/Backend/Ui.php:252
+msgid "WP Vimeo"
+msgstr ""
+
+#: includes/Components/Vimeo.php:214
+#: legacy/class-wp-dgv-api-helper.php:217
+msgid "Client ID is missing"
+msgstr ""
+
+#: includes/Components/Vimeo.php:216
+#: legacy/class-wp-dgv-api-helper.php:219
+msgid "Client Secret is missing"
+msgstr ""
+
+#: includes/Components/Vimeo.php:218
+#: legacy/class-wp-dgv-api-helper.php:221
+msgid "Access Token is missing"
+msgstr ""
+
+#: includes/Components/Vimeo.php:222
+#: legacy/class-wp-dgv-api-helper.php:225
+msgid "Vimeo not loaded"
+msgstr ""
+
+#: includes/Components/Vimeo.php:308
+#: legacy/class-wp-dgv-api-helper.php:312
+msgid "Your Access Token is of type \"Unauthenticated\". This will prevent normal operation of the plugin."
+msgstr ""
+
+#: includes/Components/Vimeo.php:309
+#: includes/Components/Vimeo.php:321
+#: includes/Components/Vimeo.php:328
+#: includes/Components/Vimeo.php:335
+#: includes/Components/Vimeo.php:343
+#: legacy/class-wp-dgv-api-helper.php:313
+#: legacy/class-wp-dgv-api-helper.php:325
+#: legacy/class-wp-dgv-api-helper.php:332
+#: legacy/class-wp-dgv-api-helper.php:339
+#: legacy/class-wp-dgv-api-helper.php:348
+msgid "To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new \"Auhtneticated\" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache."
+msgstr ""
+
+#: includes/Components/Vimeo.php:320
+#: legacy/class-wp-dgv-api-helper.php:324
+msgid "Your Access Token is missing \"Upload\" scope. This will prevent uploading new Videos to Vimeo."
+msgstr ""
+
+#: includes/Components/Vimeo.php:327
+#: legacy/class-wp-dgv-api-helper.php:331
+msgid "Your Access Token is missing \"Edit\" scope. This will prevent editing Videos from the edit screen."
+msgstr ""
+
+#: includes/Components/Vimeo.php:353
+#: legacy/class-wp-dgv-api-helper.php:357
+msgid "To fix the issue find your php.ini and increase max_execution_time value, if you use cPanel find PHP Settings or if you can't find anything contact your hosting provider."
+msgstr ""
+
+#: includes/Components/Vimeo.php:362
+#: legacy/class-wp-dgv-api-helper.php:366
+msgid "To fix the issue find your php.ini and increase max_input_time value, if you use cPanel find PHP Settings or if you can't find anything contact your hosting provider."
+msgstr ""
+
+#: includes/Components/Vimeo.php:989
+#: legacy/class-wp-dgv-api-helper.php:951
+msgid "Anybody"
+msgstr ""
+
+#: includes/Components/Vimeo.php:993
+#: legacy/class-wp-dgv-api-helper.php:955
+msgid "No one on vimeo.com site %s"
+msgstr ""
+
+#: includes/Components/Vimeo.php:997
+#: legacy/class-wp-dgv-api-helper.php:959
+msgid "Just you"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1001
+#: legacy/class-wp-dgv-api-helper.php:963
+msgid "Only those with link %s"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1005
+#: legacy/class-wp-dgv-api-helper.php:967
+msgid "Vimeo Followers"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1009
+#: legacy/class-wp-dgv-api-helper.php:971
+msgid "Vimeo Members"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1027
+#: legacy/class-wp-dgv-api-helper.php:989
+msgid "Not supported on %s"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1421
+#: legacy/class-wp-dgv-api-helper.php:1602
+msgid "Unknown"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1517
+msgid "Unrated (Default)"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1518
+#: includes/Components/Vimeo.php:1863
+msgid "All Audiences"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1519
+msgid "Mature"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1864
+msgid "Not Yet Rated"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1865
+msgid "Contains advertisement"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1866
+msgid "Violence"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1867
+msgid "Drug / alcohol use"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1868
+msgid "Profanity / sexually suggestive content"
+msgstr ""
+
+#: includes/Components/Vimeo.php:1869
+msgid "Nudity"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:45
+#: includes/Integrations/Elementor/Elements/VideosTable.php:78
+msgid "Vimeify Videos Table"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:54
+msgid "Query"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:72
+#: includes/Integrations/Bricks/Elements/VideosTable.php:94
+#: includes/Integrations/Elementor/Elements/VideosTable.php:153
+#: includes/Integrations/Elementor/Elements/VideosTable.php:170
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:38
+#: blocks/src/videos-table/edit.js:42
+msgid "Any"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:103
+#: includes/Shared/PostTypes.php:114
+msgid "Category"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:116
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:82
+msgid "Order Direction"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:119
+#: includes/Integrations/Elementor/Elements/VideosTable.php:192
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:85
+msgid "DESC"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:120
+#: includes/Integrations/Elementor/Elements/VideosTable.php:193
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:86
+msgid "ASC"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:131
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:93
+msgid "Order By"
+msgstr ""
+
+#: includes/Integrations/Bricks/Elements/VideosTable.php:135
+#: includes/Integrations/Elementor/Elements/VideosTable.php:206
+#: views/frontend/partials/videos-table.php:14
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:97
+msgid "Date"
+msgstr ""
+
+#: includes/Integrations/Elementor/Elements/VideosTable.php:146
+msgid "Content"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:34
+msgid "Default (No folder)"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:59
+msgid "Vimeify Upload"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:67
+#: views/admin/partials/library-edit.php:112
+#: views/admin/partials/library-upload.php:61
+#: views/admin/partials/post-type-edit.php:81
+msgid "View Privacy"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:68
+#: views/admin/partials/library-edit.php:236
+#: views/admin/partials/library-upload.php:76
+#: views/admin/partials/post-type-edit.php:162
+msgid "Folder"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:70
+#: views/admin/partials/library-edit.php:124
+#: views/admin/partials/library-edit.php:176
+#: views/admin/partials/library-edit.php:221
+#: views/admin/partials/library-edit.php:259
+msgid "Save"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:71
+msgid "Replace Video"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:72
+msgid "Select Video"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:73
+msgid "Videos List"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:83
+msgid "Upload/Select Vimeo Video"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:84
+msgid "Search your Local Library"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:85
+msgid "Search your Vimeo.com account"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:86
+msgid "Search for folders or leave blank"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:88
+msgid "Where this video should be uploaded to?"
+msgstr ""
+
+#: includes/Shared/Blocks/Video.php:130
+msgid "No Vimeo.com video selected. Please edit this post and find the corresponding Vimeify Upload block to set video."
+msgstr ""
+
+#: includes/Shared/PostTypes.php:50
+#: includes/Shared/PostTypes.php:55
+msgid "Vimeo Uploads"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:51
+msgid "Local Vimeo Library"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:53
+msgctxt "Post Type General Name"
+msgid "Vimeo Uploads"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:54
+msgctxt "Post Type Singular Name"
+msgid "Vimeo Uploads"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:56
+msgid "Vimeo Upload"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:57
+#: includes/Shared/PostTypes.php:156
+msgid "Item Archives"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:58
+#: includes/Shared/PostTypes.php:157
+msgid "Item Attributes"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:59
+#: includes/Shared/PostTypes.php:117
+msgid "Parent Item:"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:60
+#: includes/Shared/PostTypes.php:115
+msgid "All Items"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:61
+#: includes/Shared/PostTypes.php:119
+msgid "Add New Item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:62
+#: includes/Shared/PostTypes.php:161
+msgid "Add New"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:63
+msgid "New Item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:64
+#: includes/Shared/PostTypes.php:120
+msgid "Edit Item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:65
+#: includes/Shared/PostTypes.php:121
+#: includes/Shared/PostTypes.php:164
+msgid "Update Item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:66
+#: includes/Shared/PostTypes.php:122
+msgid "View Item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:67
+msgid "View Items"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:68
+msgid "Search Item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:69
+#: includes/Shared/PostTypes.php:168
+msgid "Not found"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:70
+#: includes/Shared/PostTypes.php:169
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:71
+#: includes/Shared/PostTypes.php:170
+msgid "Featured Image"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:72
+#: includes/Shared/PostTypes.php:171
+msgid "Set featured image"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:73
+#: includes/Shared/PostTypes.php:172
+msgid "Remove featured image"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:74
+#: includes/Shared/PostTypes.php:173
+msgid "Use as featured image"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:75
+#: includes/Shared/PostTypes.php:174
+msgid "Insert into item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:76
+#: includes/Shared/PostTypes.php:175
+msgid "Uploaded to this item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:77
+#: includes/Shared/PostTypes.php:130
+msgid "Items list"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:78
+#: includes/Shared/PostTypes.php:131
+msgid "Items list navigation"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:79
+msgid "Filter items list"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:112
+msgctxt "Taxonomy General Name"
+msgid "Categories"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:113
+msgctxt "Taxonomy Singular Name"
+msgid "Category"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:116
+msgid "Parent Item"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:118
+msgid "New Item Name"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:123
+msgid "Separate items with commas"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:124
+msgid "Add or remove items"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:125
+msgid "Choose from the most used"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:126
+msgid "Popular Items"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:127
+msgid "Search Items"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:128
+msgid "Not Found"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:129
+msgid "No items"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:152
+msgctxt "Post Type General Name"
+msgid "Upload Profiles"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:153
+msgctxt "Post Type Singular Name"
+msgid "Upload Profile"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:155
+msgid "Upload Profile"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:158
+msgid "Parent Profile:"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:159
+msgid "All Profiles"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:160
+msgid "Add New Profile"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:162
+msgid "New Profile"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:163
+msgid "Edit Profile"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:165
+msgid "View Profil"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:166
+msgid "View Profiles"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:167
+msgid "Search Profile"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:176
+msgid "Profiles list"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:177
+msgid "Profiles list navigation"
+msgstr ""
+
+#: includes/Shared/PostTypes.php:178
+msgid "Filter profiles list"
+msgstr ""
+
+#: includes/Shared/Scripts.php:199
+msgid "This file was not uploaded."
+msgstr ""
+
+#: includes/Shared/Scripts.php:200
+msgid "File limit has been reached ({fileLimit})."
+msgstr ""
+
+#: includes/Shared/Scripts.php:201
+#: includes/Utilities/Validators/FileValidator.php:49
+#: includes/Utilities/Validators/FileValidator.php:73
+#: legacy/helpers.php:541
+#: legacy/helpers.php:603
+msgid "File type is not allowed."
+msgstr ""
+
+#: includes/Shared/Scripts.php:202
+msgid "File exceeds the max size allowed."
+msgstr ""
+
+#. translators: %s - max allowed file size by a server.
+#: includes/Shared/Scripts.php:204
+msgid "File exceeds the upload limit allowed (%s)."
+msgstr ""
+
+#: includes/Shared/Scripts.php:208
+msgid "File upload is in progress. Please submit the form once uploading is completed."
+msgstr ""
+
+#: includes/Shared/Scripts.php:297
+#: includes/Shared/Scripts.php:339
+msgid "Are you sure you want to cancel the upload?"
+msgstr ""
+
+#: includes/Shared/Scripts.php:324
+msgid "Insert"
+msgstr ""
+
+#: includes/Shared/Scripts.php:328
+msgid "Uploading"
+msgstr ""
+
+#: includes/Shared/Scripts.php:337
+msgid "No uploaded videos found."
+msgstr ""
+
+#: includes/Shared/Scripts.php:338
+msgid "No matching videos found for your search"
+msgstr ""
+
+#: includes/Utilities/ScreenOptions.php:112
+msgid "Screen Options"
+msgstr ""
+
+#: includes/Utilities/ScreenOptions.php:122
+msgid "Apply"
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:82
+#: includes/Utilities/Validators/RequestValidator.php:120
+#: legacy/helpers.php:504
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:83
+#: includes/Utilities/Validators/RequestValidator.php:121
+#: legacy/helpers.php:505
+msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:84
+#: includes/Utilities/Validators/RequestValidator.php:122
+#: legacy/helpers.php:506
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:85
+#: includes/Utilities/Validators/RequestValidator.php:123
+#: legacy/helpers.php:507
+msgid "No file was uploaded."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:87
+#: includes/Utilities/Validators/RequestValidator.php:125
+#: legacy/helpers.php:509
+msgid "Missing a temporary folder."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:88
+#: includes/Utilities/Validators/RequestValidator.php:126
+#: legacy/helpers.php:510
+msgid "Failed to write file to disk."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:89
+#: includes/Utilities/Validators/RequestValidator.php:127
+#: legacy/helpers.php:511
+msgid "File upload stopped by extension."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:193
+msgid "Something went wrong while removing the file."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:232
+#: includes/Utilities/Uploads/FileChunkHandler.php:284
+#: includes/Utilities/Uploads/FileChunkHandler.php:312
+msgid "Something went wrong, please try again."
+msgstr ""
+
+#: includes/Utilities/Uploads/FileChunkHandler.php:377
+#: includes/Utilities/Validators/RequestValidator.php:131
+#: legacy/helpers.php:515
+msgid "File upload error. %s"
+msgstr ""
+
+#: includes/Utilities/Validators/FileValidator.php:68
+#: legacy/helpers.php:598
+msgid "File must have an extension."
+msgstr ""
+
+#. translators: $s - allowed file size in Mb.
+#: includes/Utilities/Validators/RequestValidator.php:71
+#: legacy/helpers.php:576
+msgid "File exceeds max size allowed (%s)."
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:148
+#: legacy/helpers.php:642
+msgid "Invalid video vimeo provided"
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:149
+#: legacy/helpers.php:643
+msgid "Video file is required. Please pick a valid video file."
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:150
+#: legacy/helpers.php:644
+msgid "Title is required. Please specify valid video title."
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:151
+#: legacy/helpers.php:645
+msgid "Unable to connect to Vimeo for the file upload."
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:152
+#: legacy/helpers.php:646
+msgid "Connection to Vimeo is successful. However we detected that the connection is made with unauthenticated access token. To connect to Vimeo successfully \"Authenticated\" Access Token is required with the proper Scopes selected."
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:153
+#: legacy/helpers.php:647
+msgid "Connection to Vimeo is successful. However we detected that the current Access Token is missing the Upload scope. To be able to upload Videos successfully \"Authenticated\" Access Token is required with all the Scopes selected."
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:154
+#: legacy/helpers.php:648
+msgid "Sorry, the current remaining quota in the Vimeo account is %s and this file is %s. Therefore the video can not be uploaded because the Vimeo account doesn't have enough free space."
+msgstr ""
+
+#: includes/Utilities/Validators/RequestValidator.php:157
+#: legacy/helpers.php:651
+msgid "Something went wrong. Please try again later."
+msgstr ""
+
+#: legacy/helpers.php:107
+#: views/admin/partials/media-buttons.php:37
+msgid "Not a video"
+msgstr ""
+
+#: legacy/helpers.php:114
+#: views/admin/partials/media-buttons.php:49
+msgid "Sorry! You are missing the 'upload' scope. Please check your Vimeo account and request 'upload' access to be able to upload videos from your WordPress site."
+msgstr ""
+
+#: legacy/helpers.php:116
+#: views/admin/partials/media-buttons.php:53
+msgid "Sorry! You don't have the required access to upload files."
+msgstr ""
+
+#: legacy/helpers.php:118
+#: views/admin/partials/library-upload.php:42
+#: views/admin/partials/media-buttons.php:57
+#: views/admin/partials/not-allowed-upload.php:28
+msgid "Upload to Vimeo"
+msgstr ""
+
+#: legacy/helpers.php:124
+#: views/admin/partials/media-buttons.php:70
+msgid "Delete from Vimeo"
+msgstr ""
+
+#: legacy/helpers.php:127
+#: views/admin/partials/media-buttons.php:67
+msgid "Video uploaded to Vimeo."
+msgstr ""
+
+#: views/admin/partials/instructions.php:41
+msgid "Thanks for installing"
+msgstr ""
+
+#: views/admin/partials/instructions.php:42
+msgid "Video Uploads for Vimeo"
+msgstr ""
+
+#: views/admin/partials/instructions.php:43
+msgid "This plugin allows you to easily upload and embed Vimeo videos through your WordPress website."
+msgstr ""
+
+#: views/admin/partials/instructions.php:44
+msgid "To %s please follow the steps below:"
+msgstr ""
+
+#: views/admin/partials/instructions.php:44
+msgid "get started"
+msgstr ""
+
+#: views/admin/partials/instructions.php:50
+msgid "1. Vimeo Developer Portal"
+msgstr ""
+
+#: views/admin/partials/instructions.php:53
+msgid "Create App"
+msgstr ""
+
+#: views/admin/partials/instructions.php:54
+msgid "Vimeo Developer Portal"
+msgstr ""
+
+#: views/admin/partials/instructions.php:55
+msgid "To get started and successfully connect the plugin to Vimeo you will need to sign up at %s and then %s that will be used by your website."
+msgstr ""
+
+#: views/admin/partials/instructions.php:62
+msgid "2. Request Upload Access"
+msgstr ""
+
+#: views/admin/partials/instructions.php:64
+msgid "In order to be able to upload videos from external software like this plugin you need to request Upload Access from Vimeo and wait for approval."
+msgstr ""
+
+#: views/admin/partials/instructions.php:65
+msgid "(1-5 days required for approval)"
+msgstr ""
+
+#: views/admin/partials/instructions.php:71
+msgid "3. Obtain API Credentials"
+msgstr ""
+
+#: views/admin/partials/instructions.php:77
+msgid "After your upload access is approved you will need to create access token and also collect the required credentials such as %s, %s, %s."
+msgstr ""
+
+#: views/admin/partials/instructions.php:84
+msgid "4. Setup Credentials"
+msgstr ""
+
+#: views/admin/partials/instructions.php:87
+msgid "settings"
+msgstr ""
+
+#: views/admin/partials/instructions.php:88
+msgid "Finally, assuming that you have upload access and all the credentials from the step 3, you need to enter those in the plugin %s page"
+msgstr ""
+
+#: views/admin/partials/instructions.php:96
+msgid "Read guide"
+msgstr ""
+
+#: views/admin/partials/instructions.php:105
+msgid "Support"
+msgstr ""
+
+#: views/admin/partials/instructions.php:107
+msgid "If you need any help setting up the plugin, feel free to get in touch with us and we can discuss more!"
+msgstr ""
+
+#: views/admin/partials/instructions.php:112
+msgid "Dismiss this notice"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:45
+msgid "Permalink:"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:51
+#: views/admin/partials/post-type-edit.php:15
+msgid "Please enter valid api credentails."
+msgstr ""
+
+#: views/admin/partials/library-edit.php:53
+#: views/admin/partials/post-type-edit.php:17
+msgid "Edit scope is missing. Please request Edit scope for your access token in the Vimeo Developer Tools in order to be able to edit videos"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:94
+msgid "Basic Information"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:104
+#: views/admin/partials/post-type-edit.php:65
+msgid "Name"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:125
+msgid "View on Vimeo"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:139
+msgid "Embed Privacy"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:144
+#: views/admin/partials/post-type-edit.php:92
+msgid "Embed privacy type"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:146
+#: views/admin/partials/post-type-edit.php:94
+msgid "Public"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:147
+#: views/admin/partials/post-type-edit.php:95
+msgid "Specific domains"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:151
+#: views/admin/partials/post-type-edit.php:98
+msgid "Enter domain (without http(s)://)"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:153
+#: views/admin/partials/post-type-edit.php:100
+msgid "Add"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:189
+msgid "Embed Preset"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:193
+#: views/admin/partials/post-type-edit.php:134
+msgid "Embed presets are only supported by the following plans:"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:198
+#: views/admin/partials/post-type-edit.php:139
+msgid "Your current plan is %s."
+msgstr ""
+
+#: views/admin/partials/library-edit.php:200
+#: views/admin/partials/post-type-edit.php:140
+msgid "Upgrade"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:211
+#: views/admin/partials/post-type-edit.php:131
+msgid "Embed preset"
+msgstr ""
+
+#: views/admin/partials/library-edit.php:240
+#: views/admin/partials/post-type-edit.php:155
+msgid "Folders are not supported without <strong>interact</strong> scope."
+msgstr ""
+
+#: views/admin/partials/library-edit.php:249
+msgid "Video folder"
+msgstr ""
+
+#: views/admin/partials/library-list.php:28
+msgid "Vimeo Videos"
+msgstr ""
+
+#: views/admin/partials/library-list.php:30
+msgid "Upload new"
+msgstr ""
+
+#: views/admin/partials/library-stats.php:34
+msgid "Total Uploaded"
+msgstr ""
+
+#: views/admin/partials/library-upload.php:88
+msgid "Video File"
+msgstr ""
+
+#: views/admin/partials/library-upload.php:104
+msgid "< Back to library"
+msgstr ""
+
+#: views/admin/partials/library.php:42
+msgid "Invalid action"
+msgstr ""
+
+#: views/admin/partials/not-allowed-upload.php:31
+#: views/admin/partials/not-connected.php:32
+msgid "Oh, snap!"
+msgstr ""
+
+#: views/admin/partials/not-allowed-upload.php:33
+msgid "Sorry. Looks like you are not allowed to upload videos to vimeo."
+msgstr ""
+
+#: views/admin/partials/not-allowed-upload.php:38
+msgid "Current scopes"
+msgstr ""
+
+#: views/admin/partials/not-allowed-upload.php:40
+msgid "Missing scopes"
+msgstr ""
+
+#: views/admin/partials/not-allowed-upload.php:46
+#: views/admin/partials/not-connected.php:37
+msgid "Please go to the %s and re-generate your access token with all the required scopes. If you need help check the link bellow."
+msgstr ""
+
+#: views/admin/partials/not-allowed-upload.php:52
+msgid "Documentation"
+msgstr ""
+
+#: views/admin/partials/not-connected.php:28
+msgid "Invalid API Details"
+msgstr ""
+
+#: views/admin/partials/not-connected.php:34
+msgid "Your Vimeo API credentials are missing or are invalid. Go to the <strong>Settings > Vimeo</strong> screen and enter valid vimeo details."
+msgstr ""
+
+#: views/admin/partials/not-connected.php:44
+msgid "Back"
+msgstr ""
+
+#: views/admin/partials/outdated.php:28
+msgid "Outdated PHP version"
+msgstr ""
+
+#: views/admin/partials/outdated.php:34
+msgid "The plugin requires at least PHP %s You currently have %s. Please contact the hosting provider to change your PHP version."
+msgstr ""
+
+#: views/admin/partials/post-type-edit.php:62
+msgid "Basic Details"
+msgstr ""
+
+#: views/admin/partials/post-type-edit.php:78
+msgid "Privacy Settings"
+msgstr ""
+
+#: views/admin/partials/post-type-edit.php:127
+msgid "Other Settings"
+msgstr ""
+
+#: views/admin/partials/status-api.php:34
+msgid "Status"
+msgstr ""
+
+#: views/admin/partials/status-api.php:38
+msgid "Connected"
+msgstr ""
+
+#: views/admin/partials/status-api.php:40
+msgid "Connected (Unauthenticated)"
+msgstr ""
+
+#: views/admin/partials/status-api.php:42
+msgid "Not Connected"
+msgstr ""
+
+#: views/admin/partials/status-api.php:51
+msgid "User"
+msgstr ""
+
+#: views/admin/partials/status-api.php:62
+msgid "Plan"
+msgstr ""
+
+#: views/admin/partials/status-api.php:72
+msgid "App"
+msgstr ""
+
+#: views/admin/partials/status-api.php:80
+msgid "Scopes"
+msgstr ""
+
+#: views/admin/partials/status-api.php:87
+msgid "No scopes found"
+msgstr ""
+
+#: views/admin/partials/status-api.php:98
+msgid "Quota"
+msgstr ""
+
+#: views/admin/partials/status-api.php:106
+msgid "%s / %s (resets on %s)"
+msgstr ""
+
+#: views/admin/partials/status-api.php:108
+msgid "%s / %s"
+msgstr ""
+
+#: views/admin/partials/status-api.php:117
+msgid "Rate Limits"
+msgstr ""
+
+#: views/admin/partials/status-api.php:124
+msgid "%s / %s per minute (resets on %s)"
+msgstr ""
+
+#: views/admin/partials/status-env.php:29
+msgid "PHP Version"
+msgstr ""
+
+#: views/admin/partials/status-env.php:38
+msgid "Web Server"
+msgstr ""
+
+#: views/admin/partials/status-env.php:47
+msgid "Max Upload Size"
+msgstr ""
+
+#: views/admin/partials/status-env.php:55
+msgid "Max Post Size"
+msgstr ""
+
+#: views/admin/partials/status-env.php:63
+msgid "Max Exec Time"
+msgstr ""
+
+#: views/admin/partials/status-env.php:71
+msgid "Max Input Time"
+msgstr ""
+
+#: views/admin/partials/status-env.php:79
+msgid "Memory Limit"
+msgstr ""
+
+#: views/admin/partials/status-env.php:87
+msgid "Operating System"
+msgstr ""
+
+#: views/admin/partials/status-issues.php:35
+msgid "Detected Problems"
+msgstr ""
+
+#: views/admin/partials/status-issues.php:38
+msgid "Fix the following problems to ensure proper function:"
+msgstr ""
+
+#: views/admin/partials/status-issues.php:45
+msgid "Fix prolbem"
+msgstr ""
+
+#: views/frontend/partials/videos-table.php:16
+msgid "Actions"
+msgstr ""
+
+#: views/frontend/partials/videos-table.php:48
+msgid "No resuls found"
+msgstr ""
+
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:73
+msgid "Categories"
+msgstr ""
+
+#: blocks/dist/videos-table/index.js:1
+#: blocks/src/videos-table/edit.js:104
+msgid "Videos number"
+msgstr ""
+
+#: blocks/dist/video/block.json
+msgctxt "block title"
+msgid "Vimeify: Vimeo Video"
+msgstr ""
+
+#: blocks/dist/videos-table/block.json
+msgctxt "block title"
+msgid "Vimeify: Vimeo Videos Table"
+msgstr ""
+
+#: blocks/src/video/block.json
+msgctxt "block title"
+msgid "Vimeify Vimeo Video"
+msgstr ""
+
+#: blocks/src/videos-table/block.json
+msgctxt "block title"
+msgid "Vimeify Videos Table"
+msgstr ""

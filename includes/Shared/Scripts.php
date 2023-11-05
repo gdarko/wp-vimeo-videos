@@ -103,7 +103,7 @@ class Scripts extends BaseProvider {
 	public function tinymce_vimeo_plugin( $plugin_array ) {
 
 		if ( $this->can_enqueue_vimeo_tinymce() ) {
-			$plugin_array['dgv_vimeo_button'] = $this->plugin->url() . 'assets/shared/js/tinymce-upload.js';
+			$plugin_array['dgv_vimeo_button'] = $this->plugin->url() . 'assets/shared/dist/scripts/tinymce-upload.min.js';
 		}
 
 		return $plugin_array;
@@ -114,7 +114,7 @@ class Scripts extends BaseProvider {
 	 */
 	public function tinymce_styles() {
 		/*if ( ! wp_script_is( 'dgv-upload-modal', 'enqueued' ) ) {
-			add_editor_style( $this->plugin->url() . 'shared/css/upload-modal.css' );
+			add_editor_style( $this->plugin->url() . 'shared/dist/styles/upload-modal.min.css' );
 		}*/
 		// Disabled, throws wp_script_is() warning.
 	}
@@ -163,7 +163,7 @@ class Scripts extends BaseProvider {
 
 		wp_register_script(
 			'dgv-http',
-			$this->plugin->url() . 'assets/shared/js/http.js',
+			$this->plugin->url() . 'assets/shared/dist/scripts/http.min.js',
 			null,
 			null,
 			true
@@ -187,9 +187,9 @@ class Scripts extends BaseProvider {
 
 		wp_register_script(
 			'dgv-chunked-upload',
-			$this->plugin->url() . 'assets/shared/js/chunked-upload.js',
+			$this->plugin->url() . 'assets/shared/dist/scripts/chunked-upload.min.js',
 			array( 'wp-util', 'dgv-dropzone', 'jquery' ),
-			filemtime( $this->plugin->path() . 'assets/shared/js/chunked-upload.js' ),
+			filemtime( $this->plugin->path() . 'assets/shared/dist/scripts/chunked-upload.min.js' ),
 			true
 		);
 
@@ -240,16 +240,16 @@ class Scripts extends BaseProvider {
 
 		wp_register_script(
 			'dgv-uploader',
-			$this->plugin->url() . 'assets/shared/js/uploader.js',
+			$this->plugin->url() . 'assets/shared/dist/scripts/uploader.min.js',
 			array( 'dgv-tus' ),
-			filemtime( $this->plugin->path() . 'assets/shared/js/uploader.js' )
+			filemtime( $this->plugin->path() . 'assets/shared/dist/scripts/uploader.min.js' )
 		);
 
 		wp_register_script(
 			'dgv-upload-modal',
-			$this->plugin->url() . 'assets/shared/js/upload-modal.js',
+			$this->plugin->url() . 'assets/shared/dist/scripts/upload-modal.min.js',
 			array( 'jquery', 'dgv-uploader', 'dgv-swal' ),
-			filemtime( $this->plugin->path() . 'assets/shared/js/upload-modal.js' )
+			filemtime( $this->plugin->path() . 'assets/shared/dist/scripts/upload-modal.min.js' )
 		);
 
 		$modal_config = $this->get_modal_config_params();
@@ -257,9 +257,9 @@ class Scripts extends BaseProvider {
 
 		wp_register_style(
 			'dgv-upload-modal',
-			$this->plugin->url() . 'assets/shared/css/upload-modal.css',
+			$this->plugin->url() . 'assets/shared/dist/styles/upload-modal.min.css',
 			array(),
-			filemtime( $this->plugin->path() . 'assets/shared/css/upload-modal.css' ),
+			filemtime( $this->plugin->path() . 'assets/shared/dist/styles/upload-modal.min.css' ),
 			'all'
 		);
 	}

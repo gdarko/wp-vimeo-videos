@@ -1,4 +1,12 @@
 vendor/
 blocks/node_modules/
-blocls/node_modules/*
+blocks/node_modules/*
+assets/admin/dist
+assets/admin/dist/*
+assets/frontend/dist
+assets/frontend/dist/*
+assets/shared/dist
+assets/shared/dist/*
+node_modules/
+node_modules/*
 composer.lock

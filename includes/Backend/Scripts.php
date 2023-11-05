@@ -119,9 +119,9 @@ class Scripts implements ProviderInterface {
 
 		wp_register_style(
 			'dgv-admin',
-			$this->plugin->url() . 'assets/admin/css/main.css',
+			$this->plugin->url() . 'assets/admin/dist/styles/main.min.css',
 			array(),
-			filemtime( $this->plugin->path() . 'assets/admin/css/main.css' ),
+			filemtime( $this->plugin->path() . 'assets/admin/dist/styles/main.min.css' ),
 			'all'
 		);
 	}
