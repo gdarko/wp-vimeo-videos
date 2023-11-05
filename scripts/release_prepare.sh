@@ -57,8 +57,7 @@ zip -r "$PLUGIN_SLUG.zip" "$PLUGIN_SLUG" \
   -x="*gulpfile.js*" \
   -x="*composer.json*" \
   -x="*composer.lock*" \
-  -x="node_modules" \
-  -x="node_modules/*" \
+  -x="node_modules*" \
   -x="*README.md*"
 
 echo "New version ready."
