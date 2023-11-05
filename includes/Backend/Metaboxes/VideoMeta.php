@@ -3,6 +3,7 @@
 namespace Vimeify\Core\Backend\Metaboxes;
 
 use Vimeify\Core\Abstracts\Interfaces\ProviderInterface;
+use Vimeify\Core\Backend\Ui;
 use Vimeify\Core\Components\Database;
 use Vimeify\Core\Plugin;
 
@@ -32,45 +33,7 @@ class VideoMeta implements ProviderInterface {
 		add_action( 'edit_form_after_title', [ $this, 'prioritize_meta_boxes' ] );
 		add_action( 'admin_menu', [ $this, 'disable_new_posts' ] );
 		add_action( 'save_post', [ $this, 'save_post' ], 10, 3 );
-		add_filter( 'add_menu_classes', [ $this, 'menu_classes' ] );
-		add_filter( 'submenu_file', [ $this, 'submenu_file' ], 10, 2 );
 		add_action( 'admin_footer', [ $this, 'footer_scripts' ] );
-	}
-
-	/**
-	 * Add the needed menu classes
-	 *
-	 * @param $menu
-	 *
-	 * @return array|mixed
-	 */
-	public function menu_classes( $menu ) {
-		if ( self::is_video_edit() || self::is_categories() ) {
-
-			foreach ( $menu as $i => $item ) {
-				if ( 'vimeify' === $item[2] ) {
-					$menu[ $i ][4] = add_cssclass( 'wp-has-current-submenu wp-menu-open', $item[4] );
-				}
-			}
-		}
-
-		return $menu;
-	}
-
-	/**
-	 * Highlight current item
-	 *
-	 * @param $submenu_file
-	 * @param $parent_file
-	 *
-	 * @return mixed|string
-	 */
-	function submenu_file( $submenu_file, $parent_file ) {
-		if ( ! self::is_video_edit() ) {
-			return $submenu_file;
-		}
-
-		return 'vimeify';
 	}
 
 	/**
@@ -272,7 +235,7 @@ class VideoMeta implements ProviderInterface {
 	 * @return void
 	 */
 	public function disable_new_posts() {
-		if ( self::is_video_edit() ) {
+		if ( Ui::is_upload_profiles() ) {
 			echo '<style type="text/css">
         .page-title-action { display:none; }
         </style>';
@@ -311,7 +274,7 @@ class VideoMeta implements ProviderInterface {
 	 * @return void
 	 */
 	public function footer_scripts() {
-		if ( ! self::is_video_edit() ) {
+		if ( ! Ui::is_upload_profiles() ) {
 			return;
 		}
 		?>
@@ -363,26 +326,6 @@ class VideoMeta implements ProviderInterface {
 		global $post, $wp_meta_boxes;
 		do_meta_boxes( get_current_screen(), 'vimeify', $post );
 		unset( $wp_meta_boxes['post']['vimeify'] );
-	}
-
-	/**
-	 * Check if page is edit
-	 * @return bool
-	 */
-	public static function is_video_edit() {
-		global $pagenow;
-
-		return is_admin() && $pagenow === 'post.php' && isset( $_GET['post'] ) && get_post_type( $_GET['post'] ) === Database::POST_TYPE_UPLOADS;
-	}
-
-	/**
-	 * Check if page is edit
-	 * @return bool
-	 */
-	public static function is_categories() {
-		global $pagenow;
-
-		return is_admin() && $pagenow === 'edit-tags.php' && isset( $_GET['taxonomy'] ) && $_GET['taxonomy']=== Database::TAX_CATEGORY;
 	}
 
 	/**

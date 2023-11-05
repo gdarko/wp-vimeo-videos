@@ -50,6 +50,7 @@ class Ui extends BaseProvider {
 		add_action( 'manage_media_custom_column', [ $this, 'manage_media_custom_column' ], 15, 2 );
 		add_filter( 'plugin_action_links_' . $this->plugin->basename(), [ $this, 'plugin_action_links' ], 100, 1 );
 		add_filter( 'parent_file', [ $this, 'parent_file' ] );
+		add_filter( 'add_menu_classes', [ $this, 'menu_classes' ] );
 
 		$this->screen_options = new \Vimeify\Core\Utilities\ScreenOptions(
 			[
@@ -63,18 +64,68 @@ class Ui extends BaseProvider {
 	}
 
 	/**
-	 * Manage parent file
+	 * Make the $submenu_file to be equal to the
+	 * Vimeify submenu links when visited an edit page.
+	 *
+	 * This will activate the submenu link if admin
+	 * uses edit page of that submenu item. Eg. Upload Profiles.
+	 *
 	 * @param $parent_file
 	 *
 	 * @return mixed
 	 */
-	public function parent_file($parent_file){
-		global $submenu_file;
-		if (isset($_GET['taxonomy']) && $_GET['taxonomy'] == Database::TAX_CATEGORY) {
-			$submenu_file = 'edit-tags.php?taxonomy='.Database::TAX_CATEGORY.'&post_type='.Database::POST_TYPE_UPLOADS;
+	public function parent_file( $parent_file ) {
+		global $submenu_file, $pagenow;
+
+		if ( isset( $_GET['taxonomy'] ) && $_GET['taxonomy'] == Database::TAX_CATEGORY ) {
+			$submenu_file = 'edit-tags.php?taxonomy=' . Database::TAX_CATEGORY . '&post_type=' . Database::POST_TYPE_UPLOADS;
+		} else if ( isset( $_GET['action'] ) && $_GET['action'] === 'edit' ) {
+			global $post;
+			if ( ! empty( $post->post_type ) && Database::POST_TYPE_UPLOADS === $post->post_type ) {
+				$submenu_file = 'edit.php?post_type='.Database::POST_TYPE_UPLOADS;
+			}
 		}
 
 		return $parent_file;
+	}
+
+	/**
+	 * Add the needed menu classes
+	 *
+	 * @param $menu
+	 *
+	 * @return array|mixed
+	 */
+	public function menu_classes( $menu ) {
+		if ( self::is_upload_profiles() || self::is_categories() ) {
+			foreach ( $menu as $i => $item ) {
+				if ( 'vimeify' === $item[2] ) {
+					$menu[ $i ][4] = add_cssclass( 'wp-has-current-submenu wp-menu-open', $item[4] );
+				}
+			}
+		}
+
+		return $menu;
+	}
+
+	/**
+	 * Check if page is edit
+	 * @return bool
+	 */
+	public static function is_upload_profiles() {
+		global $pagenow;
+
+		return is_admin() && $pagenow === 'post.php' && isset( $_GET['post'] ) && get_post_type( $_GET['post'] ) === Database::POST_TYPE_UPLOAD_PROFILES;
+	}
+
+	/**
+	 * Check if page is edit
+	 * @return bool
+	 */
+	public static function is_categories() {
+		global $pagenow;
+
+		return is_admin() && in_array($pagenow, ['edit-tags.php', 'term.php']) && isset( $_GET['taxonomy'] ) && $_GET['taxonomy']=== Database::TAX_CATEGORY;
 	}
 
 	/**
