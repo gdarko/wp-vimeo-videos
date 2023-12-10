@@ -70,13 +70,13 @@ class Scripts implements ProviderInterface {
 
 		wp_register_script(
 			'dgv-admin',
-			$this->plugin->url() . 'assets/admin/js/main.js',
+			$this->plugin->url() . 'assets/admin/dist/scripts/main.min.js',
 			array(
 				'jquery',
 				'dgv-uploader',
 				'dgv-http',
 			),
-			filemtime( $this->plugin->path() . 'assets/admin/js/main.js' ),
+			filemtime( $this->plugin->path() . 'assets/admin/dist/scripts/main.min.js' ),
 			true
 		);
 

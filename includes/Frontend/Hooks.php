@@ -40,6 +40,7 @@ class Hooks extends BaseProvider {
 		add_shortcode( 'dgv_vimeo_video', array( $this, 'shortcode_video' ) ); // DEPRECATED.
 		add_shortcode( 'vimeify_video', array( $this, 'shortcode_video' ) );
 		add_shortcode( 'vimeify_videos_table', array( $this, 'shortcode_videos_table' ) );
+		add_shortcode( 'vimeify_videos_grid', array( $this, 'vimeify_videos_grid' ) );
 		add_filter( 'the_content', [ $this, 'video_contents' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 15 );
 	}
@@ -125,7 +126,7 @@ class Hooks extends BaseProvider {
 
 		$is_post = $post instanceof \WP_Post;
 
-		if ( is_singular( Database::POST_TYPE_UPLOADS ) || ($is_post && has_shortcode( $post->post_content, 'vimeify_video' ) ) ) {
+		if ( is_singular( Database::POST_TYPE_UPLOADS ) || ( $is_post && has_shortcode( $post->post_content, 'vimeify_video' ) ) ) {
 			$video = new Video( $this->plugin );
 			$video->enqueue();
 		}

@@ -2,8 +2,9 @@
 // 2020. All Rights Reserved.
 // This file is licensed under the GPLv2 License.
 // License text available at https://opensource.org/licenses/gpl-2.0.php
-
-var WPVimeoVideos = {};
+if (!window.hasOwnProperty('WPVimeoVideos')) {
+    window['WPVimeoVideos'] = {};
+}
 
 /**
  * Uploader
@@ -12,7 +13,7 @@ var WPVimeoVideos = {};
  * @param params
  * @constructor
  */
-WPVimeoVideos.Uploader = function (accessToken, file, params) {
+window['WPVimeoVideos'].Uploader = function (accessToken, file, params) {
 
     /**
      * The access token.
