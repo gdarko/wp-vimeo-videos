@@ -40,7 +40,6 @@ class Hooks extends BaseProvider {
 		add_shortcode( 'dgv_vimeo_video', array( $this, 'shortcode_video' ) ); // DEPRECATED.
 		add_shortcode( 'vimeify_video', array( $this, 'shortcode_video' ) );
 		add_shortcode( 'vimeify_videos_table', array( $this, 'shortcode_videos_table' ) );
-		add_shortcode( 'vimeify_videos_grid', array( $this, 'vimeify_videos_grid' ) );
 		add_filter( 'the_content', [ $this, 'video_contents' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 15 );
 	}

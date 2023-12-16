@@ -1,0 +1,114 @@
+/* Copyright (c) 2020 Kumar Sidharth */
+
+$breakPoints : (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+) !default;
+
+$gridColumns: 12 !default;
+$gridRowGap: 24px !default;
+$gridColumnGap: 24px !default;
+$columnPrefix: '.dgv-col' !default;
+$alignPrefix: '.dgv-align' !default;
+
+$alignments: start, end, center, stretch;
+
+$horizontal-alignment : (
+        left: start,
+        right: end,
+        h-center: center,
+        h-stretch: stretch
+);
+
+$vertical-alignment : (
+        top: start,
+        bottom: end,
+        v-center: center,
+        v-stretch: stretch
+);
+
+.dgv-row,
+.dgv-grid {
+  display: grid;
+  row-gap: $gridRowGap;
+  column-gap: $gridColumnGap;
+  grid-template-columns: repeat($gridColumns, #{$gridColumns}fr);
+}
+
+/// $breakPoints {map<$key: string, $value: string>}
+/// $screenType {key in $breakPoints} default values xl, lg, md, sm, xs
+/// $size {value in $breakPoint} default values 1200px, 992px, 768px, 576px, 0
+@each $screenType, $size in $breakPoints {
+  @media screen and (min-width: $size) {
+    /// creates classes of type col-**-##
+    /// where ** can be xl, lg, md, sm, xs
+    /// ## can be 2 to 12
+    @for $column from $gridColumns through 2 {
+      #{$columnPrefix}-#{$screenType}-#{$column} {
+        grid-column: span $column;
+      }
+    }
+    /// creates classes of type d-**-none
+    /// where ** can be xl, lg, md, sm, xs
+    /// hides the element when the screen width is equal to `$size`
+    .d-#{$screenType}-none {
+      display: none;
+    }
+  }
+}
+
+/// creates classes of type col-##
+/// where ## can be 2 to 12
+@for $column from $gridColumns through 2 {
+  #{$columnPrefix}-#{$column} {
+    grid-column: span $column;
+  }
+}
+
+
+@each $alignment, $value in $horizontal-alignment {
+  /// horizontally align grid items
+  [class*="#{$columnPrefix}"] {
+    &#{$alignPrefix}-#{$alignment} {
+      justify-self: $value;
+    }
+  }
+
+  /// horizontally align grid
+  .dgv-grid#{$alignPrefix}-#{$alignment} {
+    justify-content: $value;
+  }
+}
+
+
+@each $alignment, $value in $vertical-alignment {
+  /// vertically align grid items
+  [class*="#{$columnPrefix}"] {
+    &#{$alignPrefix}-#{$alignment} {
+      align-self: $value;
+    }
+  }
+
+  /// vertically align grid
+  .dgv-grid#{$alignPrefix} {
+    &-#{$alignment} {
+      align-items: $value;
+    }
+  }
+
+}
+
+/// center align both horizontally and vertically
+[class*="#{$columnPrefix}"].center {
+  place-self: center;
+}
+
+.dgv-grid,
+.dgv-row {
+  &.center {
+    place-items: center;
+  }
+}

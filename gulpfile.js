@@ -58,6 +58,12 @@ let APP_SCRIPTS = [
 
 let APP_STYLES = [
     {
+        name: 'grid.scss',
+        src: 'assets/shared/src/styles/grid.scss',
+        dst: 'assets/shared/dist/styles',
+        type: 'shared',
+    },
+    {
         name: 'main.scss',
         src: 'assets/admin/src/styles/main.scss',
         dst: 'assets/admin/dist/styles',
