@@ -153,9 +153,18 @@ class Scripts extends BaseProvider {
 
 		$request_validator = new RequestValidator();
 
+
 		wp_register_style(
 			'dgv-iconfont',
 			$this->plugin->url() . 'assets/resources/iconfont/css/vimeify.css',
+			null,
+			null,
+			'all'
+		);
+
+		wp_register_style(
+			'dgv-grid',
+			$this->plugin->url() . 'assets/shared/dist/styles/grid.css',
 			null,
 			null,
 			'all'
