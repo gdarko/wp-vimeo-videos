@@ -3,7 +3,7 @@
  * Plugin Name:       Vimeify - Upload, Display and Embed Vimeo Videos
  * Plugin URI:        https://vimeify.com
  * Description:       Easily upload, embed and list Vimeo videos directly on your site
- * Version:           2.0.0
+ * Version:           2.0.0-alpha5
  * Author:            Darko Gjorgjijoski
  * Author URI:        https://darkog.com
  * License:           GPL-2.0+
@@ -41,6 +41,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'VIMEIFY_VERSION', '2.0.0-alpha5' );
+
 // Load the composer dependencies, bail if not set up.
 if ( ! file_exists( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' ) ) {
 	wp_die( 'You are using a Development version of Vimeify plugin, please run composer install.' );
@@ -76,7 +78,7 @@ if ( ! function_exists( 'vimeify' ) ) {
 				'tmp_dir_name'      => 'vimeify',
 				'min_php_version'   => '7.2.5',
 				'min_wp_version'    => '4.7',
-				'plugin_version'    => '2.0.0',
+				'plugin_version'    => VIMEIFY_VERSION,
 				'database_version'  => '100',
 				'settings_key'      => 'dgv_settings_v2',
 				'views_path'        => $plugin_path . 'views',
