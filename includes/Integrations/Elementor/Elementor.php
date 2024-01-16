@@ -4,7 +4,8 @@ namespace Vimeify\Core\Integrations\Elementor;
 
 use Vimeify\Core\Abstracts\BaseProvider;
 use Vimeify\Core\Abstracts\Interfaces\IntegrationInterface;
-use Vimeify\Core\Integrations\Elementor\Elements\VideosTable;
+
+use Vimeify\Core\Integrations\Elementor\Widgets\VideosTable;
 
 class Elementor extends BaseProvider implements IntegrationInterface {
 
@@ -48,7 +49,7 @@ class Elementor extends BaseProvider implements IntegrationInterface {
 
 			/* @var  \Elementor\Widgets_Manager $widgets_manager */
 
-			$widgets_manager->register( new VideosTable );
+			$widgets_manager->register( new VideosTable() );
 
 		} );
 

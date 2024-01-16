@@ -52,7 +52,7 @@ class Hooks extends BaseProvider {
 	 * @return false|string
 	 */
 	public function shortcode_video( $atts ) {
-		$view = apply_filters( 'dgv_view_video', null, $this->plugin );
+		$view = apply_filters( 'dgv_frontend_view_video', null, $this->plugin );
 		if ( is_null( $view ) ) {
 			$view = new Video( $this->plugin );
 		}
@@ -67,7 +67,7 @@ class Hooks extends BaseProvider {
 	 * @return string
 	 */
 	public function shortcode_videos_table( $atts ) {
-		$view = apply_filters( 'dgv_view_videos_table', null, $this->plugin );
+		$view = apply_filters( 'dgv_frontend_view_videos_table', null, $this->plugin );
 		if ( is_null( $view ) ) {
 			$view = new VideosTable( $this->plugin );
 		}

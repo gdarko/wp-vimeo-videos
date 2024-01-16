@@ -30,7 +30,7 @@ class VideosTable extends \Bricks\Element {
 		parent::__construct( $element );
 		$plugin = vimeify()->plugin();
 
-		$this->view = apply_filters( 'dgv_view_videos_table', null, $plugin );
+		$this->view = apply_filters( 'dgv_frontend_view_videos_table', null, $plugin );
 		if ( is_null( $this->view ) ) {
 			$this->view = new VideosTableView( $plugin );
 		}
@@ -143,7 +143,7 @@ class VideosTable extends \Bricks\Element {
 		$this->controls['posts_per_page'] = [
 			'tab'     => 'content',
 			'group'   => 'query',
-			'label'   => esc_html__( 'Videos number', 'bricks' ),
+			'label'   => esc_html__( 'Videos number', 'wp-vimeo-videos-pro' ),
 			'type'    => 'number',
 			'units'   => true,
 			'default' => max( 3, (int) get_option( 'posts_per_page' ) ),

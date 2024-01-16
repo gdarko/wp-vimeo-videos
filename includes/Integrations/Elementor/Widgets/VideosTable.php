@@ -1,6 +1,6 @@
 <?php
 
-namespace Vimeify\Core\Integrations\Elementor\Elements;
+namespace Vimeify\Core\Integrations\Elementor\Widgets;
 
 use Vimeify\Core\Frontend\Views\VideosTable as VideosTableView;
 
@@ -32,7 +32,7 @@ class VideosTable extends \Elementor\Widget_Base {
 
 		$plugin = vimeify()->plugin();
 
-		$this->view = apply_filters( 'dgv_view_videos_table', null, $plugin );
+		$this->view = apply_filters( 'dgv_frontend_view_videos_table', null, $plugin );
 		if ( is_null( $this->view ) ) {
 			$this->view = new VideosTableView( $plugin );
 		}

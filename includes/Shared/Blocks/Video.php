@@ -135,7 +135,7 @@ class Video extends BaseBlock {
 		$video_id = $frm->uri_to_id( $uri );
 		$post_id  = $this->plugin->system()->database()->get_post_id( $video_id );
 
-		$view = apply_filters( 'dgv_view_video', null, $this->plugin );
+		$view = apply_filters( 'dgv_frontend_view_video', null, $this->plugin );
 		if ( is_null( $view ) ) {
 			$view = new VideoView( $this->plugin );
 		}
