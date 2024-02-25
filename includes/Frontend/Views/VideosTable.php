@@ -73,11 +73,14 @@ class VideosTable extends BaseView {
 			}
 		}
 
+		$show_pagination = isset( $this->args['show_pagination'] ) && $this->args['show_pagination'];
+
 		return $this->plugin->system()->views()->get_view( 'frontend/partials/videos-table', [
-			'query'        => $loop_query,
-			'actions'      => $actions,
-			'single_pages' => $this->plugin->system()->settings()->get( 'frontend.behavior.enable_single_pages' ),
-			'pagination'   => $this->paginate( $loop_query ),
+			'query'           => $loop_query,
+			'actions'         => $actions,
+			'single_pages'    => $this->plugin->system()->settings()->get( 'frontend.behavior.enable_single_pages' ),
+			'pagination'      => $show_pagination ? $this->paginate( $loop_query ) : '',
+			'show_pagination' => $show_pagination,
 		] );
 
 	}

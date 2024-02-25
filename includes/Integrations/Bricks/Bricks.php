@@ -35,9 +35,7 @@ class Bricks extends BaseProvider implements IntegrationInterface {
 
 		$path = __DIR__ . DIRECTORY_SEPARATOR . 'Elements' . DIRECTORY_SEPARATOR;
 
-		$files = [
-			$path . 'VideosTable.php',
-		];
+		$files = apply_filters( 'dgv_integrations_bricks_elements', [ $path . 'VideosTable.php' ] );
 
 		foreach ( $files as $file ) {
 			\Bricks\Elements::register_element( $file );

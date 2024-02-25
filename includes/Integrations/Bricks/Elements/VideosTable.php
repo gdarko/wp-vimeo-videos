@@ -42,7 +42,7 @@ class VideosTable extends \Bricks\Element {
 	 * @return array|string|string[]
 	 */
 	public function get_label() {
-		return esc_html__( 'Vimeify Videos Table', 'wp-vimeo-videos' );
+		return esc_html__( 'Vimeify: Videos Table', 'wp-vimeo-videos' );
 	}
 
 	/**
@@ -143,10 +143,17 @@ class VideosTable extends \Bricks\Element {
 		$this->controls['posts_per_page'] = [
 			'tab'     => 'content',
 			'group'   => 'query',
-			'label'   => esc_html__( 'Videos number', 'wp-vimeo-videos-pro' ),
+			'label'   => esc_html__( 'Videos number', 'wp-vimeo-videos' ),
 			'type'    => 'number',
 			'units'   => true,
 			'default' => max( 3, (int) get_option( 'posts_per_page' ) ),
+		];
+
+		$this->controls['show_pagination'] = [
+			'tab'     => 'content',
+			'group'   => 'query',
+			'label'   => esc_html__( 'Pagination', 'wp-vimeo-videos' ),
+			'type'  => 'checkbox',
 		];
 
 	}

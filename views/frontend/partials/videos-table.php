@@ -2,6 +2,7 @@
 /* @var \Vimeify\Core\Plugin $plugin */
 /* @var \WP_Query $query */
 /* @var bool $single_pages_enabled */
+/* @var bool $show_pagination */
 /* @var array $actions */
 /* @var string $pagination */
 ?>
@@ -50,7 +51,7 @@
 		<?php endif; ?>
         </tbody>
     </table>
-	<?php if ( $query->max_num_pages > 1 ): ?>
+	<?php if ( $show_pagination && $query->max_num_pages > 1 ): ?>
 		<?php echo $pagination; ?>
 	<?php endif; ?>
 </div>
