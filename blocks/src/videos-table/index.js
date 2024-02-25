@@ -40,9 +40,9 @@ registerBlockType( name, {
 			type: 'string',
 			default: '-1',
 		},
-		category: {
-			type: 'string',
-			default: '-1',
+		categories: {
+			type: 'array',
+			default: [],
 		},
 		posts_per_page: {
 			type: 'string',
@@ -56,6 +56,10 @@ registerBlockType( name, {
 			type: 'string',
 			default: 'date',
 		},
+		show_pagination: {
+			type: 'string',
+			default: 'yes',
+		}
 	},
 	edit: Edit,
 	save: Save

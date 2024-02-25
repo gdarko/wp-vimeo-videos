@@ -47,15 +47,17 @@ class VideosTable extends BaseBlock {
 	public function render_block( $block_attributes, $content ) {
 
 		$params = [
-			'posts_per_page'  => ! empty( $block_attributes['posts_per_page'] ) ? (int) $block_attributes['posts_per_page'] : 6,
-			'author'          => ! empty( $block_attributes['author'] ) && (int) $block_attributes['author'] >= 1 ? (int) $block_attributes['author'] : 'any',
-			'category'        => ! empty( $block_attributes['author'] ) && (int) $block_attributes['category'] >= 1 ? (int) $block_attributes['category'] : null,
-			'order'           => ! empty( $block_attributes['order'] ) ? $block_attributes['order'] : 'desc',
-			'order_by'        => ! empty( $block_attributes['orderby'] ) ? (int) $block_attributes['orderby'] : 'date',
-			'show_pagination' => isset( $block_attributes['show_pagination'] ) ? (bool) $block_attributes['posts_per_page'] : false,
+            'posts_per_page' => ! empty($block_attributes['posts_per_page']) ? (int) $block_attributes['posts_per_page'] : 6,
+            'author'         => ! empty($block_attributes['author']) && (int) $block_attributes['author'] >= 1 ? (int) $block_attributes['author'] : 'any',
+            'categories'     => ! empty($block_attributes['categories']) && is_array($block_attributes['categories']) ? array_filter(array_map('intval', $block_attributes['categories']), function ($v) {
+                return $v > 0;
+            }) : [],
+            'order'          => ! empty($block_attributes['order']) ? $block_attributes['order'] : 'desc',
+            'order_by'       => ! empty($block_attributes['orderby']) ? (int) $block_attributes['orderby'] : 'date',
+            'show_pagination' => ! ( isset( $block_attributes['show_pagination'] ) && 'no' === $block_attributes['show_pagination'] ),
 		];
 
-		$view = apply_filters( 'dgv_frontend_view_videos_table', null, $this->plugin );
+        $view = apply_filters( 'dgv_frontend_view_videos_table', null, $this->plugin );
 		if ( is_null( $view ) ) {
 			$view = new \Vimeify\Core\Frontend\Views\VideosTable( $this->plugin );
 		}

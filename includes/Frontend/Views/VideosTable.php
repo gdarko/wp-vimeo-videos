@@ -32,12 +32,12 @@ class VideosTable extends BaseView {
 			'author'         => ! empty( $this->args['author'] ) ? $this->args['author'] : 'any',
 		];
 
-		if ( ! empty( $this->args['category'] ) ) {
+		if ( ! empty( $this->args['categories'] ) ) {
 			$query_args['tax_query'] = [
 				[
 					'taxonomy' => Database::TAX_CATEGORY,
-					'field'    => 'slug',
-					'terms'    => $this->args['category'],
+					'field'    => 'term_id',
+					'terms'    => count($this->args['categories'] ) > 1 ? array_map('intval', $this->args['categories'] ) : $this->args['categories'],
 				]
 			];
 		}
