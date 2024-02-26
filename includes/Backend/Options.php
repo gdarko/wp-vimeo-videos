@@ -485,7 +485,7 @@ class Options extends BaseProvider {
 					'parent_slug'     => 'vimeify',
 					'page_title'      => __( 'Settings', 'wp-vimeo-videos' ),
 					'menu_title'      => __( 'Settings', 'wp-vimeo-videos' ),
-					'capability'      => 'manage_options',
+					'capability'      => apply_filters( 'dgv_manage_options_capability', 'manage_options' ),
 					'menu_slug'       => 'dgv-settings',
 					'icon_url'        => null,
 					'position'        => null,

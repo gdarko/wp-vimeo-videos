@@ -29,7 +29,7 @@
 
     <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . \Vimeify\Core\Backend\Ui::PAGE_UPLOAD ) ); ?>" class="page-title-action"><?php _e( 'Upload new', 'wp-vimeo-videos' ); ?></a>
 
-	<?php if ( current_user_can( 'manage_options' ) ): ?>
+	<?php if ( current_user_can( apply_filters( 'dgv_manage_options_capability', 'manage_options' ) ) ): ?>
         <a href="<?php echo esc_url( $plugin->settings_url() ); ?>" class="page-title-action" title="<?php _e( 'Settings', 'wp-vimeo-videos' ); ?>">
             <span class="dashicons dashicons-admin-tools"></span>
         </a>
