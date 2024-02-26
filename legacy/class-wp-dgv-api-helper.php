@@ -32,6 +32,10 @@
  */
 class WP_DGV_Api_Helper {
 
+	// Quotas
+	const QUOTA_TYPE_VIDEOS_COUNT = 'video_count';
+	const QUOTA_TYPE_VIDEOS_SIZE = 'video_size';
+
 	/**
 	 * Cache key name when retrieving the folders
 	 * @var string
@@ -55,6 +59,10 @@ class WP_DGV_Api_Helper {
 	const PLAN_LIVE_PREMIUM = 'live_premium';
 	const PLAN_LIVE_BUSINESS = 'live_business';
 	const PLAN_LIVE_PRO = 'live_pro';
+	const PLAN_FREE = 'free';
+	const PLAN_ADVANCED = 'advanced';
+	const PLAN_STANDARD = 'standard';
+	const PLAN_STARTER  = 'starter';
 
 	/**
 	 * Is the api connected?
@@ -378,7 +386,7 @@ class WP_DGV_Api_Helper {
 	 *
 	 */
 	public function is_free() {
-		return $this->user_type === self::PLAN_BASIC;
+		return in_array( $this->user_type, [ self::PLAN_BASIC, self::PLAN_FREE ] );
 	}
 
 	/**
@@ -481,6 +489,33 @@ class WP_DGV_Api_Helper {
 	}
 
 	/**
+	 * Is starter plan?
+	 * @since 1.9.5
+	 * @return bool
+	 */
+	public function is_starter_plan() {
+		return $this->user_type === self::PLAN_STARTER;
+	}
+
+	/**
+	 * Is standard plan?
+	 * @since 1.9.5
+	 * @return bool
+	 */
+	public function is_standard_plan() {
+		return $this->user_type === self::PLAN_STANDARD;
+	}
+
+	/**
+	 * Is advanced plan?
+	 * @since 1.9.5
+	 * @return bool
+	 */
+	public function is_advanced_plan() {
+		return $this->user_type === self::PLAN_ADVANCED;
+	}
+
+	/**
 	 * Is ANY paid plan?
 	 *
 	 * @return bool
@@ -488,7 +523,7 @@ class WP_DGV_Api_Helper {
 	 *
 	 */
 	public function is_paid_plan() {
-		return $this->user_type !== self::PLAN_BASIC;
+		return !$this->is_free();
 	}
 
 	/**
@@ -550,14 +585,7 @@ class WP_DGV_Api_Helper {
 	 *
 	 */
 	public function supports_embed_presets() {
-		return $this->is_pro_plan()
-		       || $this->is_pro_unlimited_plan()
-		       || $this->is_live_pro_plan()
-		       || $this->is_business_plan()
-		       || $this->is_live_business_plan()
-		       || $this->is_premium_plan()
-		       || $this->is_live_premium_plan()
-		       || $this->is_producer_plan();
+		return $this->is_paid_plan();
 	}
 
 	/**
@@ -1569,6 +1597,15 @@ class WP_DGV_Api_Helper {
 	 */
 	public function get_current_remaining_quota() {
 		return isset( $this->upload_quota['space']['free'] ) ? (int) $this->upload_quota['space']['free'] : 0;
+	}
+
+	/**
+	 * Returns the current upload quota type
+	 * @since 1.9.5
+	 * @return mixed|string
+	 */
+	public function get_current_quota_type() {
+		return isset($this->upload_quota['space']['unit']) ? $this->upload_quota['space']['unit'] : '';
 	}
 
 	/**
