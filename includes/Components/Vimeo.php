@@ -46,6 +46,10 @@ class Vimeo implements VimeoInterface {
 	const PLAN_LIVE_PREMIUM = 'live_premium';
 	const PLAN_LIVE_BUSINESS = 'live_business';
 	const PLAN_LIVE_PRO = 'live_pro';
+	const PLAN_FREE = 'free';
+	const PLAN_ADVANCED = 'advanced';
+	const PLAN_STANDARD = 'standard';
+	const PLAN_STARTER  = 'starter';
 
 	/**
 	 * Cache key name when caching the vimeo user data
@@ -378,7 +382,7 @@ class Vimeo implements VimeoInterface {
 	 *
 	 */
 	public function is_free() {
-		return $this->user_type === self::PLAN_BASIC;
+		return in_array( $this->user_type, [ self::PLAN_BASIC, self::PLAN_FREE ] );
 	}
 
 	/**
@@ -481,6 +485,33 @@ class Vimeo implements VimeoInterface {
 	}
 
 	/**
+	 * Is starter plan?
+	 * @since 1.9.5
+	 * @return bool
+	 */
+	public function is_starter_plan() {
+		return $this->user_type === self::PLAN_STARTER;
+	}
+
+	/**
+	 * Is standard plan?
+	 * @since 1.9.5
+	 * @return bool
+	 */
+	public function is_standard_plan() {
+		return $this->user_type === self::PLAN_STANDARD;
+	}
+
+	/**
+	 * Is advanced plan?
+	 * @since 1.9.5
+	 * @return bool
+	 */
+	public function is_advanced_plan() {
+		return $this->user_type === self::PLAN_ADVANCED;
+	}
+
+	/**
 	 * Is ANY paid plan?
 	 *
 	 * @return bool
@@ -488,7 +519,7 @@ class Vimeo implements VimeoInterface {
 	 *
 	 */
 	public function is_paid_plan() {
-		return $this->user_type !== self::PLAN_BASIC;
+		return ! $this->is_free();
 	}
 
 	/**
@@ -551,15 +582,7 @@ class Vimeo implements VimeoInterface {
 	 */
 	public function supports_embed_presets() {
 
-		return $this->is_plus_plan()
-		       || $this->is_pro_plan()
-		       || $this->is_pro_unlimited_plan()
-		       || $this->is_live_pro_plan()
-		       || $this->is_business_plan()
-		       || $this->is_live_business_plan()
-		       || $this->is_premium_plan()
-		       || $this->is_live_premium_plan()
-		       || $this->is_producer_plan();
+		return $this->is_paid_plan();
 	}
 
 	/**
