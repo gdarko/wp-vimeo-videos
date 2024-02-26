@@ -35,7 +35,6 @@ const Edit = ({attributes, setAttributes}) => {
     const [categories, setCategories] = useState(null);
 
     const { show_pagination } = attributes;
-
     const createAuthorsOptions = (authors) => {
         const initial = [{label: __('Any', 'wp-vimeo-videos'), value: -1}]
         setAuthors(initial.concat(authors));
@@ -55,9 +54,6 @@ const Edit = ({attributes, setAttributes}) => {
             return {label: x.name, value: x.id}
         })));
     }
-
-    console.log('Pagination:');
-    console.log(show_pagination);
 
     return (
         <>
@@ -112,14 +108,18 @@ const Edit = ({attributes, setAttributes}) => {
                                 />
                             </fieldset>
 
-                            <ToggleControl
-                                label={__('Show Pagination', 'wp-vimeo-videos')}
-                                help={ show_pagination === 'yes' ?  __('Yes', 'wp-vimeo-videos') : __('No', 'wp-vimeo-videos') }
-                                checked={ show_pagination === 'yes' }
-                                onChange={(value) => {
-                                    setAttributes({show_pagination: value ? 'yes' : 'no'});
-                                }}
-                            />
+                            <fieldset>
+                                <ToggleControl
+                                    label={__('Show Pagination', 'wp-vimeo-videos')}
+                                    help={ show_pagination === 'yes' ?  __('Yes', 'wp-vimeo-videos') : __('No', 'wp-vimeo-videos') }
+                                    checked={ show_pagination === 'yes' }
+                                    onChange={(value) => {
+                                        setAttributes({show_pagination: value ? 'yes' : 'no'});
+                                    }}
+                                />
+                            </fieldset>
+
+
 
                         </div>
                     </InspectorControls>

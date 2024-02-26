@@ -153,8 +153,11 @@ class VideosTable extends \Elementor\Widget_Base {
 			'any' => esc_html__( 'Any', 'wp-vimeo-videos' ),
 		];
 		if ( ! empty( $authors ) ) {
-			$options = array_merge( $options, $authors );
+			foreach ( $authors as $key => $value ) {
+				$options[ $key ] = $value;
+			}
 		}
+
 		$this->add_control(
 			'author',
 			[

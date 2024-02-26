@@ -72,13 +72,15 @@ class VideosTable extends \Bricks\Element
     public function set_controls()
     {
 
-        $authors = $this->view->get_authors();
-        $options = [
-            'any' => esc_html__('Any', 'wp-vimeo-videos'),
-        ];
-        if ( ! empty($authors)) {
-            $options = array_merge($options, $authors);
-        }
+	    $authors = $this->view->get_authors();
+	    $options = [
+		    'any' => esc_html__( 'Any', 'wp-vimeo-videos' ),
+	    ];
+	    if ( ! empty( $authors ) ) {
+		    foreach ( $authors as $key => $value ) {
+			    $options[ $key ] = $value;
+		    }
+	    }
 
         $this->controls['author'] = [
             'tab'         => 'content',
