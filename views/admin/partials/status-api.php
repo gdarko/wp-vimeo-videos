@@ -24,8 +24,12 @@
 
 /* @var \Vimeify\Core\Plugin $plugin */
 
-$byte_formatter = new \Vimeify\Core\Utilities\Formatters\ByteFormatter();
-$date_formatter = new \Vimeify\Core\Utilities\Formatters\DateFormatter();
+use Vimeify\Core\Components\Vimeo;
+use Vimeify\Core\Utilities\Formatters\ByteFormatter;
+use Vimeify\Core\Utilities\Formatters\DateFormatter;
+
+$byte_formatter = new ByteFormatter();
+$date_formatter = new DateFormatter();
 
 ?>
 
@@ -89,27 +93,41 @@ $date_formatter = new \Vimeify\Core\Utilities\Formatters\DateFormatter();
 			?>
 		</td>
 	</tr>
-	<?php
-	$used = $plugin->system()->vimeo()->get_current_used_quota();
-	?>
-	<?php if ( $used ): ?>
-		<tr>
-			<th style="width: 20%">
+	<?php if ( ! empty( $plugin->system()->vimeo()->upload_quota ) ): ?>
+        <tr>
+            <th>
 				<?php _e( 'Quota', 'wp-vimeo-videos' ); ?>
-			</th>
-			<td>
+            </th>
+            <td>
 				<?php
-				$used  = $byte_formatter->format( (int) $plugin->system()->vimeo()->get_current_used_quota(), 2 );
-				$max   = $byte_formatter->format( (int) $plugin->system()->vimeo()->get_current_max_quota(), 2 );
-				$reset = $date_formatter->format_tz( $plugin->system()->vimeo()->get_quota_reset_date() );
-				if ( $reset ) {
-					echo sprintf( __( '%s / %s (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
-				} else {
-					echo sprintf( __( '%s / %s', 'wp-vimeo-videos' ), $used, $max );
+				switch ( $plugin->system()->vimeo()->get_current_quota_type() ) {
+					case Vimeo::QUOTA_TYPE_VIDEOS_COUNT:
+						$used  = $plugin->system()->vimeo()->get_current_used_quota();
+						$max   = $plugin->system()->vimeo()->get_current_max_quota();
+						$reset = $plugin->system()->vimeo()->get_quota_reset_date();
+						if ( $reset ) {
+							echo sprintf( __( '%s / %s (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
+						} else {
+							echo sprintf( __( '%s / %s', 'wp-vimeo-videos' ), $used, $max );
+						}
+						break;
+					case Vimeo::QUOTA_TYPE_VIDEOS_SIZE:
+						$used  = $byte_formatter->format( (int) $plugin->system()->vimeo()->get_current_used_quota(), 2 );
+						$max   = $byte_formatter->format( (int) $plugin->system()->vimeo()->get_current_max_quota(), 2 );
+						$reset = $date_formatter->format_tz( $plugin->system()->vimeo()->get_quota_reset_date() );
+						if ( $reset ) {
+							echo sprintf( __( '%s / %s (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
+						} else {
+							echo sprintf( __( '%s / %s', 'wp-vimeo-videos' ), $used, $max );
+						}
+						break;
+					default:
+						echo __( 'Unsupported account quota type.', 'wp-vimeo-videos' );
+						break;
 				}
 				?>
-			</td>
-		</tr>
+            </td>
+        </tr>
 	<?php endif; ?>
 	<?php if ( isset( $plugin->system()->vimeo()->headers['x-ratelimit-limit'] ) && is_numeric( $plugin->system()->vimeo()->headers['x-ratelimit-limit'] ) ): ?>
 		<tr>

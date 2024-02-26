@@ -31,6 +31,10 @@ use Vimeify\Core\Wrappers\VimeoAPI;
 
 class Vimeo implements VimeoInterface {
 
+	// Quotas
+	const QUOTA_TYPE_VIDEOS_COUNT = 'video_count';
+	const QUOTA_TYPE_VIDEOS_SIZE = 'video_size';
+
 	// Plans
 	const PLAN_BASIC = 'basic';
 	const PLAN_PLUS = 'plus';
@@ -1388,6 +1392,15 @@ class Vimeo implements VimeoInterface {
 	 */
 	public function get_current_remaining_quota() {
 		return isset( $this->upload_quota['space']['free'] ) ? (int) $this->upload_quota['space']['free'] : 0;
+	}
+
+	/**
+	 * Returns the current upload quota type
+	 * @since 1.9.5
+	 * @return mixed|string
+	 */
+	public function get_current_quota_type() {
+		return isset($this->upload_quota['space']['unit']) ? $this->upload_quota['space']['unit'] : '';
 	}
 
 	/**
