@@ -4,7 +4,7 @@
  * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
  * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
- * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/vimeify/
  *
  * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
  * it and/or modify it under the terms of the GNU General Public License as
@@ -27,7 +27,7 @@
 
 <h2><?php _e( 'Outdated PHP version', 'vimeify' ); ?></h2>
 
-<div id="wp-vimeo-videos" class="wvv-box">
+<div id="vimeify" class="wvv-box">
 
     <div class="form-row">
 

@@ -11,7 +11,7 @@
     "editor",
     "vimeify"
   ],
-  "homepage": "https://github.com/gdarko/wp-vimeo-videos",
+  "homepage": "https://github.com/vimeify/vimeify",
   "devDependencies": {
     "@wordpress/e2e-test-utils": "^9.5.0",
     "@wordpress/env": "^5.13.0",

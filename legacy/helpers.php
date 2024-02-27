@@ -111,9 +111,9 @@ function wvv_render_media_library_upload_buttons( $id ) {
 		$data = get_post_meta( $id, 'dgv', true );
 		if ( ! isset( $data['vimeo_id'] ) ) {
 			if ( ! $api->can_upload() ) {
-				$output .= '<p>' . __( "Sorry! You are missing the 'upload' scope. Please check your Vimeo account and request 'upload' access to be able to upload videos from your WordPress site.", "wp-vimeo-videos" ) . '</p>';
+				$output .= '<p>' . __( "Sorry! You are missing the 'upload' scope. Please check your Vimeo account and request 'upload' access to be able to upload videos from your WordPress site.", "vimeify" ) . '</p>';
 			} elseif ( ! current_user_can( 'upload_files' ) ) {
-				$output .= '<p>' . __( "Sorry! You don't have the required access to upload files.", "wp-vimeo-videos" ) . '</p>';
+				$output .= '<p>' . __( "Sorry! You don't have the required access to upload files.", "vimeify" ) . '</p>';
 			} else {
 				$output .= '<p><a target="_blank" class="button-primary dgv-upload-attachment" data-id="' . $id . '">' . __( 'Upload to Vimeo', 'vimeify' ) . '</a></p>';
 			}
@@ -321,7 +321,7 @@ function wvv_get_editor_insert_methods() {
 function wvv_get_tmp_dir() {
 	$uploads = wp_upload_dir();
 	$base    = trailingslashit( $uploads['basedir'] . DIRECTORY_SEPARATOR );
-	$dir     = "{$base}wp-vimeo-videos";
+	$dir     = "{$base}vimeify";
 	if ( is_writable( $base ) ) {
 		// Note: If dir already exists it will return TRUE
 		if ( wp_mkdir_p( $dir ) ) {
@@ -343,7 +343,7 @@ function wvv_get_tmp_dir() {
 function wvv_get_tmp_dir_url() {
 	$uploads = wp_upload_dir();
 
-	return $uploads['baseurl'] . '/wp-vimeo-videos';
+	return $uploads['baseurl'] . '/vimeify';
 }
 
 /**

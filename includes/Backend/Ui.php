@@ -4,7 +4,7 @@
  * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
  * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
- * This file is part of Vimeify Plugin - https://wordpress.org/plugins/wp-vimeo-videos/
+ * This file is part of Vimeify Plugin - https://wordpress.org/plugins/vimeify/
  *
  * Vimeify - Formerly "WP Vimeo Videos" is free software: you can redistribute
  * it and/or modify it under the terms of the GNU General Public License as
@@ -313,7 +313,7 @@ class Ui extends BaseProvider {
 	public function plugin_action_links( $links ) {
 		$links = array_merge( array(
 			'<a href="' . esc_url( admin_url( '/admin.php?page=dgv-settings' ) ) . '">' . __( 'Settings',
-				'wp-vimeo-videos' ) . '</a>'
+				'vimeify' ) . '</a>'
 		), $links );
 
 		return $links;

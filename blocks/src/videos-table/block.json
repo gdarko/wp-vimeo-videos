@@ -3,7 +3,7 @@
 	"apiVersion": 2,
 	"name": "vimeify/videos-table",
 	"title": "Vimeify Videos Table",
-	"textdomain": "wp-vimeo-videos",
+	"textdomain": "vimeify",
 	"icon": "video-alt",
 	"category": "media",
 	"example": {},

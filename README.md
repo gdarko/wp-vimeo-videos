@@ -11,6 +11,6 @@ composer install
 npm run prod
 ```
 
-Otherwise, please download already built version from [WordPress.org](https://wordpress.org/plugins/wp-vimeo-videos/).
+Otherwise, please download already built version from [WordPress.org](https://wordpress.org/plugins/vimeify/).
 
 &copy; 2023 - Darko Gjorgjijoski

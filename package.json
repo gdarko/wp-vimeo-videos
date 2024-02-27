@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp watch",
     "prod": "gulp run:build && gulp sass_all_unmin && cd blocks && npm run build && cd ..",
-    "makepot": "wp i18n make-pot . languages/wp-vimeo-videos.pot --headers='{\"Report-Msgid-Bugs-To\":\"https:/vimeify.com/\",\"Last-Translator\": \"Vimeify (https://vimeify.com/)\", \"Language-Team\": \"Vimeify (https://vimeify.com/translate/) <info@vimeify.com>\"}'"
+    "makepot": "wp i18n make-pot . languages/vimeify.pot --headers='{\"Report-Msgid-Bugs-To\":\"https:/vimeify.com/\",\"Last-Translator\": \"Vimeify (https://vimeify.com/)\", \"Language-Team\": \"Vimeify (https://vimeify.com/translate/) <info@vimeify.com>\"}'"
   },
   "author": "",
   "license": "ISC",
