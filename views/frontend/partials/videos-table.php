@@ -46,7 +46,7 @@
 			<?php endforeach; ?>
 		<?php else: ?>
             <tr>
-                <td colspan="4"><?php _e( 'No resuls found', 'vimeify' ); ?></td>
+                <td colspan="4"><?php _e( 'No results found', 'vimeify' ); ?></td>
             </tr>
 		<?php endif; ?>
         </tbody>
