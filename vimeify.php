@@ -6,6 +6,8 @@
  * Version:           1.0.0
  * Author:            Vimeify
  * Author URI:        https://vimeify.com
+ * Requires at least: 4.2
+ * Requires PHP:      7.0
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       vimeify
@@ -13,8 +15,8 @@
  *
  ********************************************************************
  *
- * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
- * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
+ * Copyright (C) 2024 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2024 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
  * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
  * This file is part of Vimeify Plugin - https://wordpress.org/plugins/vimeify/

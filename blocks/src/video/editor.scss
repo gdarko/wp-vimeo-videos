@@ -1,6 +1,6 @@
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://darkog.com/)
- * Copyright (C) 2023 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
+ * Copyright (C) 2024 Darko Gjorgjijoski (https://darkog.com/)
+ * Copyright (C) 2024 IDEOLOGIX MEDIA Dooel (https://ideologix.com/)
  *
  * This file is property of IDEOLOGIX MEDIA Dooel (https://ideologix.com)
  * This file is part of Vimeify Plugin - https://wordpress.org/plugins/vimeify/

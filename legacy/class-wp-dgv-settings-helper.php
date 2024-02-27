@@ -1,6 +1,6 @@
 <?php
 /********************************************************************
- * Copyright (C) 2023 Darko Gjorgjijoski (https://codeverve.com)
+ * Copyright (C) 2024 Darko Gjorgjijoski (https://codeverve.com)
  *
  * This file is part of Video Uploads for Vimeo PRO
  *
