@@ -11,10 +11,10 @@
     <table class="dgv-table table">
         <thead>
         <tr>
-            <th class="dgv-head-title"><?php _e( 'Title', 'wp-vimeo-videos' ); ?></th>
-            <th class="dgv-head-date"><?php _e( 'Date', 'wp-vimeo-videos' ); ?></th>
+            <th class="dgv-head-title"><?php _e( 'Title', 'vimeify' ); ?></th>
+            <th class="dgv-head-date"><?php _e( 'Date', 'vimeify' ); ?></th>
 			<?php if ( ! empty( $actions ) ): ?>
-                <th class="dgv-head-actions"><?php _e( 'Actions', 'wp-vimeo-videos' ); ?></th>
+                <th class="dgv-head-actions"><?php _e( 'Actions', 'vimeify' ); ?></th>
 			<?php endif; ?>
         </tr>
         </thead>
@@ -46,7 +46,7 @@
 			<?php endforeach; ?>
 		<?php else: ?>
             <tr>
-                <td colspan="4"><?php _e( 'No resuls found', 'wp-vimeo-videos' ); ?></td>
+                <td colspan="4"><?php _e( 'No resuls found', 'vimeify' ); ?></td>
             </tr>
 		<?php endif; ?>
         </tbody>

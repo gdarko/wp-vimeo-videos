@@ -75,7 +75,7 @@ class VideosTable extends \Elementor\Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return esc_html__( 'Vimeify Videos Table', 'wp-vimeo-videos' );
+		return esc_html__( 'Vimeify Videos Table', 'vimeify' );
 	}
 
 	/**
@@ -143,14 +143,14 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => esc_html__( 'Content', 'wp-vimeo-videos' ),
+				'label' => esc_html__( 'Content', 'vimeify' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$authors = $this->view->get_authors();
 		$options = [
-			'any' => esc_html__( 'Any', 'wp-vimeo-videos' ),
+			'any' => esc_html__( 'Any', 'vimeify' ),
 		];
 		if ( ! empty( $authors ) ) {
 			foreach ( $authors as $key => $value ) {
@@ -161,7 +161,7 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'author',
 			[
-				'label'   => esc_html__( 'Author', 'wp-vimeo-videos' ),
+				'label'   => esc_html__( 'Author', 'vimeify' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'any',
 				'options' => $options,
@@ -170,7 +170,7 @@ class VideosTable extends \Elementor\Widget_Base {
 
 		$categories = $this->view->get_categories();
 		$options    = [
-			'any' => esc_html__( 'Any', 'wp-vimeo-videos' ),
+			'any' => esc_html__( 'Any', 'vimeify' ),
 		];
 		if ( ! empty( $categories ) ) {
 			foreach ( $categories as $key => $value ) {
@@ -180,7 +180,7 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'categories',
 			[
-				'label'       => esc_html__( 'Categories', 'wp-vimeo-videos' ),
+				'label'       => esc_html__( 'Categories', 'vimeify' ),
 				'label_block' => true,
 				'type'        => \Elementor\Controls_Manager::SELECT2,
 				'default'     => [ 'any' ],
@@ -192,12 +192,12 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'order',
 			[
-				'label'   => esc_html__( 'Order Direction', 'wp-vimeo-videos' ),
+				'label'   => esc_html__( 'Order Direction', 'vimeify' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'asc',
 				'options' => [
-					'desc' => esc_html__( 'DESC', 'wp-vimeo-videos' ),
-					'asc'  => esc_html__( 'ASC', 'wp-vimeo-videos' ),
+					'desc' => esc_html__( 'DESC', 'vimeify' ),
+					'asc'  => esc_html__( 'ASC', 'vimeify' ),
 				],
 			]
 		);
@@ -205,12 +205,12 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'orderby',
 			[
-				'label'   => esc_html__( 'Order By', 'wp-vimeo-videos' ),
+				'label'   => esc_html__( 'Order By', 'vimeify' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'title',
 				'options' => [
-					'title' => esc_html__( 'Title', 'wp-vimeo-videos' ),
-					'date'  => esc_html__( 'Date', 'wp-vimeo-videos' ),
+					'title' => esc_html__( 'Title', 'vimeify' ),
+					'date'  => esc_html__( 'Date', 'vimeify' ),
 				],
 			]
 		);
@@ -218,7 +218,7 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'posts_per_page',
 			[
-				'label'   => esc_html__( 'Videos number', 'wp-vimeo-videos' ),
+				'label'   => esc_html__( 'Videos number', 'vimeify' ),
 				'type'    => \Elementor\Controls_Manager::NUMBER,
 				'min'     => 1,
 				'max'     => 500,
@@ -230,10 +230,10 @@ class VideosTable extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_pagination',
 			[
-				'label' => esc_html__( 'Show Pagination', 'wp-vimeo-videos' ),
+				'label' => esc_html__( 'Show Pagination', 'vimeify' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Show', 'wp-vimeo-videos' ),
-				'label_off' => esc_html__( 'Hide', 'wp-vimeo-videos' ),
+				'label_on' => esc_html__( 'Show', 'vimeify' ),
+				'label_off' => esc_html__( 'Hide', 'vimeify' ),
 				'return_value' => 'yes',
 				'default' => 'yes',
 			]

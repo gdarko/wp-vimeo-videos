@@ -45,7 +45,7 @@ class VideosTable extends \Bricks\Element
      */
     public function get_label()
     {
-        return esc_html__('Vimeify: Videos Table', 'wp-vimeo-videos');
+        return esc_html__('Vimeify: Videos Table', 'vimeify');
     }
 
     /**
@@ -55,12 +55,12 @@ class VideosTable extends \Bricks\Element
     public function set_control_groups()
     {
         $this->control_groups['query'] = [
-            'title' => esc_html__('Query', 'wp-vimeo-videos'),
+            'title' => esc_html__('Query', 'vimeify'),
             'tab'   => 'content',
         ];
 
         /*$this->control_groups['query'] = [
-            'title' => esc_html__( 'Settings', 'wp-vimeo-videos' ),
+            'title' => esc_html__( 'Settings', 'vimeify' ),
             'tab' => 'query',
         ];*/
     }
@@ -74,7 +74,7 @@ class VideosTable extends \Bricks\Element
 
 	    $authors = $this->view->get_authors();
 	    $options = [
-		    'any' => esc_html__( 'Any', 'wp-vimeo-videos' ),
+		    'any' => esc_html__( 'Any', 'vimeify' ),
 	    ];
 	    if ( ! empty( $authors ) ) {
 		    foreach ( $authors as $key => $value ) {
@@ -85,7 +85,7 @@ class VideosTable extends \Bricks\Element
         $this->controls['author'] = [
             'tab'         => 'content',
             'group'       => 'query',
-            'label'       => esc_html__('Author', 'wp-vimeo-videos'),
+            'label'       => esc_html__('Author', 'vimeify'),
             'type'        => 'select',
             'options'     => $options,
             'inline'      => false,
@@ -98,7 +98,7 @@ class VideosTable extends \Bricks\Element
 
         $categories = $this->view->get_categories();
         $options    = [
-            'any' => esc_html__('Any', 'wp-vimeo-videos'),
+            'any' => esc_html__('Any', 'vimeify'),
         ];
         if ( ! empty($categories)) {
            foreach($categories as $id => $value) {
@@ -109,7 +109,7 @@ class VideosTable extends \Bricks\Element
         $this->controls['categories'] = [
             'tab'         => 'content',
             'group'       => 'query',
-            'label'       => esc_html__('Categories', 'wp-vimeo-videos'),
+            'label'       => esc_html__('Categories', 'vimeify'),
             'type'        => 'select',
             'options'     => $options,
             'inline'      => false,
@@ -123,11 +123,11 @@ class VideosTable extends \Bricks\Element
         $this->controls['order'] = [
             'tab'         => 'content',
             'group'       => 'query',
-            'label'       => esc_html__('Order Direction', 'wp-vimeo-videos'),
+            'label'       => esc_html__('Order Direction', 'vimeify'),
             'type'        => 'select',
             'options'     => [
-                'desc' => esc_html__('DESC', 'wp-vimeo-videos'),
-                'asc'  => esc_html__('ASC', 'wp-vimeo-videos'),
+                'desc' => esc_html__('DESC', 'vimeify'),
+                'asc'  => esc_html__('ASC', 'vimeify'),
             ],
             'inline'      => false,
             'clearable'   => false,
@@ -138,11 +138,11 @@ class VideosTable extends \Bricks\Element
         $this->controls['orderby'] = [
             'tab'         => 'content',
             'group'       => 'query',
-            'label'       => esc_html__('Order By', 'wp-vimeo-videos'),
+            'label'       => esc_html__('Order By', 'vimeify'),
             'type'        => 'select',
             'options'     => [
-                'title' => esc_html__('Title', 'wp-vimeo-videos'),
-                'date'  => esc_html__('Date', 'wp-vimeo-videos'),
+                'title' => esc_html__('Title', 'vimeify'),
+                'date'  => esc_html__('Date', 'vimeify'),
             ],
             'inline'      => false,
             'clearable'   => false,
@@ -153,7 +153,7 @@ class VideosTable extends \Bricks\Element
         $this->controls['posts_per_page'] = [
             'tab'     => 'content',
             'group'   => 'query',
-            'label'   => esc_html__('Videos number', 'wp-vimeo-videos'),
+            'label'   => esc_html__('Videos number', 'vimeify'),
             'type'    => 'number',
             'units'   => true,
             'default' => max(3, (int) get_option('posts_per_page')),
@@ -162,7 +162,7 @@ class VideosTable extends \Bricks\Element
 		$this->controls['show_pagination'] = [
 			'tab'     => 'content',
 			'group'   => 'query',
-			'label'   => esc_html__( 'Show Pagination', 'wp-vimeo-videos' ),
+			'label'   => esc_html__( 'Show Pagination', 'vimeify' ),
 			'type'    => 'checkbox',
 			'default' => true,
 		];

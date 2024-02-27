@@ -205,16 +205,16 @@ class Scripts extends BaseProvider {
 		wp_localize_script( 'dgv-chunked-upload', 'DGV_CHUNKED_UPLOAD', array(
 			'url'             => admin_url( 'admin-ajax.php' ),
 			'errors'          => array(
-				'file_not_uploaded' => esc_html__( 'This file was not uploaded.', 'wp-vimeo-videos' ),
-				'file_limit'        => esc_html__( 'File limit has been reached ({fileLimit}).', 'wp-vimeo-videos' ),
-				'file_extension'    => esc_html__( 'File type is not allowed.', 'wp-vimeo-videos' ),
-				'file_size'         => esc_html__( 'File exceeds the max size allowed.', 'wp-vimeo-videos' ),
+				'file_not_uploaded' => esc_html__( 'This file was not uploaded.', 'vimeify' ),
+				'file_limit'        => esc_html__( 'File limit has been reached ({fileLimit}).', 'vimeify' ),
+				'file_extension'    => esc_html__( 'File type is not allowed.', 'vimeify' ),
+				'file_size'         => esc_html__( 'File exceeds the max size allowed.', 'vimeify' ),
 				'post_max_size'     => sprintf( /* translators: %s - max allowed file size by a server. */
-					esc_html__( 'File exceeds the upload limit allowed (%s).', 'wp-vimeo-videos' ),
+					esc_html__( 'File exceeds the upload limit allowed (%s).', 'vimeify' ),
 					$request_validator->max_upload_size()
 				),
 			),
-			'loading_message' => esc_html__( 'File upload is in progress. Please submit the form once uploading is completed.', 'wp-vimeo-videos' ),
+			'loading_message' => esc_html__( 'File upload is in progress. Please submit the form once uploading is completed.', 'vimeify' ),
 		) );
 
 		wp_register_script(
@@ -296,14 +296,14 @@ class Scripts extends BaseProvider {
 		// Config
 		$mce_icon     = apply_filters( 'dgv_mce_toolbar_icon_enable', true );
 		$mce_icon_url = $mce_icon ? apply_filters( 'dgv_mce_toolbar_icon_url', $this->plugin->icon() ) : null;
-		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'wp-vimeo-videos' ) );
+		$mce_text     = apply_filters( 'dgv_mce_toolbar_title', __( 'Vimeo', 'vimeify' ) );
 		$mce_text     = $mce_icon && $mce_text ? sprintf( ' %s', $mce_text ) : $mce_text;
-		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) );
+		$mce_tooltip  = apply_filters( 'dgv_mce_toolbar_tooltip', __( 'Insert Vimeo Video', 'vimeify' ) );
 		wp_localize_script( 'wp-tinymce', 'DGV_MCE_Config', array(
 			'phrases'  => array(
 				'tmce_title'            => $mce_text,
 				'tmce_tooltip'          => $mce_tooltip,
-				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'wp-vimeo-videos' ),
+				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'vimeify' ),
 			),
 			'icon'     => $mce_icon,
 			'icon_url' => $mce_icon_url,
@@ -326,31 +326,31 @@ class Scripts extends BaseProvider {
 			'enable_vimeo_search' => $this->plugin->system()->settings()->get( 'admin.tinymce.enable_account_search' ),
 			'enable_local_search' => $this->plugin->system()->settings()->get( 'admin.tinymce.enable_local_search' ),
 			'words'               => array(
-				'sorry'        => __( 'Sorry', 'wp-vimeo-videos' ),
-				'success'      => __( 'Success', 'wp-vimeo-videos' ),
-				'title'        => __( 'Title', 'wp-vimeo-videos' ),
-				'desc'         => __( 'Description', 'wp-vimeo-videos' ),
-				'insert'       => __( 'Insert', 'wp-vimeo-videos' ),
-				'search'       => __( 'Search', 'wp-vimeo-videos' ),
-				'searching3d'  => __( 'Searching...', 'wp-vimeo-videos' ),
-				'upload'       => __( 'Upload', 'wp-vimeo-videos' ),
-				'uploading3d'  => __( 'Uploading', 'wp-vimeo-videos' ),
-				'file'         => __( 'File', 'wp-vimeo-videos' ),
-				'privacy_view' => __( 'Who can view this video?', 'wp-vimeo-videos' ),
+				'sorry'        => __( 'Sorry', 'vimeify' ),
+				'success'      => __( 'Success', 'vimeify' ),
+				'title'        => __( 'Title', 'vimeify' ),
+				'desc'         => __( 'Description', 'vimeify' ),
+				'insert'       => __( 'Insert', 'vimeify' ),
+				'search'       => __( 'Search', 'vimeify' ),
+				'searching3d'  => __( 'Searching...', 'vimeify' ),
+				'upload'       => __( 'Upload', 'vimeify' ),
+				'uploading3d'  => __( 'Uploading', 'vimeify' ),
+				'file'         => __( 'File', 'vimeify' ),
+				'privacy_view' => __( 'Who can view this video?', 'vimeify' ),
 			),
 			'phrases'             => array(
-				'title'                 => apply_filters( 'dgv_upload_modal_title', __( 'Insert Vimeo Video', 'wp-vimeo-videos' ) ),
-				'http_error'            => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'wp-vimeo-videos' ),
-				'upload_invalid_file'   => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
-				'invalid_search_phrase' => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
-				'videos_not_found'      => __( 'No uploaded videos found.', 'wp-vimeo-videos' ),
-				'search_not_found'      => __( 'No matching videos found for your search', 'wp-vimeo-videos' ),
-				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'wp-vimeo-videos' )
+				'title'                 => apply_filters( 'dgv_upload_modal_title', __( 'Insert Vimeo Video', 'vimeify' ) ),
+				'http_error'            => __( 'Sorry there was a HTTP error. Please check the server logs or contact support.', 'vimeify' ),
+				'upload_invalid_file'   => __( 'Please select valid video file.', 'vimeify' ),
+				'invalid_search_phrase' => __( 'Invalid search phrase. Please enter valid search phrase.', 'vimeify' ),
+				'videos_not_found'      => __( 'No uploaded videos found.', 'vimeify' ),
+				'search_not_found'      => __( 'No matching videos found for your search', 'vimeify' ),
+				'cancel_upload_confirm' => esc_html__( 'Are you sure you want to cancel the upload?', 'vimeify' )
 			),
 			'methods'             => array(
-				'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos' ),
-				'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
-				'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos' ),
+				'upload' => __( 'Upload new Vimeo video', 'vimeify' ),
+				'local'  => __( 'Insert Vimeo video from local library', 'vimeify' ),
+				'search' => __( 'Search your Vimeo account', 'vimeify' ),
 			),
 			'upload_form_options' => array(
 				'enable_view_privacy' => (int) $this->plugin->system()->settings()->get( 'admin.tinymce.enable_view_privacy', 0 ),

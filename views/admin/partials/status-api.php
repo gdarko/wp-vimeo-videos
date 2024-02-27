@@ -35,15 +35,15 @@ $date_formatter = new DateFormatter();
 
 <tr>
 	<th style="width: 20%">
-		<?php _e( 'Status', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'Status', 'vimeify' ); ?>
 	</th>
 	<td>
 		<?php if ( $plugin->system()->vimeo()->is_connected && $plugin->system()->vimeo()->is_authenticated_connection ): ?>
-			<span class="wvv-status-green"><?php _e( 'Connected', 'wp-vimeo-videos' ); ?></span>
+			<span class="wvv-status-green"><?php _e( 'Connected', 'vimeify' ); ?></span>
 		<?php elseif ( $plugin->system()->vimeo()->is_connected && ! $plugin->system()->vimeo()->is_authenticated_connection ): ?>
-			<span class="wvv-status-yellow"><?php _e( 'Connected (Unauthenticated)', 'wp-vimeo-videos' ); ?></span>
+			<span class="wvv-status-yellow"><?php _e( 'Connected (Unauthenticated)', 'vimeify' ); ?></span>
 		<?php else: ?>
-			<span class="wvv-status-red"><?php _e( 'Not Connected', 'wp-vimeo-videos' ); ?></span>
+			<span class="wvv-status-red"><?php _e( 'Not Connected', 'vimeify' ); ?></span>
 		<?php endif; ?>
 	</td>
 </tr>
@@ -52,7 +52,7 @@ $date_formatter = new DateFormatter();
 	<?php if ( $plugin->system()->vimeo()->is_authenticated_connection ): ?>
 		<tr>
 			<th style="width: 20%">
-				<?php _e( 'User', 'wp-vimeo-videos' ); ?>
+				<?php _e( 'User', 'vimeify' ); ?>
 			</th>
 			<td>
 				<a href="<?php echo esc_url( $plugin->system()->vimeo()->user_link ); ?>" target="_blank"><?php echo esc_html( $plugin->system()->vimeo()->user_name ); ?></a>
@@ -63,7 +63,7 @@ $date_formatter = new DateFormatter();
 	<?php if ( $plugin->system()->vimeo()->is_authenticated_connection ): ?>
 		<tr>
 			<th style="width: 20%">
-				<?php _e( 'Plan', 'wp-vimeo-videos' ); ?>
+				<?php _e( 'Plan', 'vimeify' ); ?>
 			</th>
 			<td>
 				<?php echo esc_html( $plugin->system()->vimeo()->get_plan( true ) ); ?>
@@ -73,7 +73,7 @@ $date_formatter = new DateFormatter();
 
 	<tr>
 		<th style="width: 20%">
-			<?php _e( 'App', 'wp-vimeo-videos' ); ?>
+			<?php _e( 'App', 'vimeify' ); ?>
 		</th>
 		<td>
 			<?php echo esc_html($plugin->system()->vimeo()->app_name); ?>
@@ -81,14 +81,14 @@ $date_formatter = new DateFormatter();
 	</tr>
 	<tr>
 		<th style="width: 20%">
-			<?php _e( 'Scopes', 'wp-vimeo-videos' ); ?>
+			<?php _e( 'Scopes', 'vimeify' ); ?>
 		</th>
 		<td>
 			<?php
 			if ( ! empty( $plugin->system()->vimeo()->scopes ) ) {
 				echo implode( ', ', $plugin->system()->vimeo()->scopes );
 			} else {
-				echo __( 'No scopes found', 'wp-vimeo-videos' );
+				echo __( 'No scopes found', 'vimeify' );
 			}
 			?>
 		</td>
@@ -96,7 +96,7 @@ $date_formatter = new DateFormatter();
 	<?php if ( ! empty( $plugin->system()->vimeo()->upload_quota ) ): ?>
         <tr>
             <th>
-				<?php _e( 'Quota', 'wp-vimeo-videos' ); ?>
+				<?php _e( 'Quota', 'vimeify' ); ?>
             </th>
             <td>
 				<?php
@@ -106,9 +106,9 @@ $date_formatter = new DateFormatter();
 						$max   = $plugin->system()->vimeo()->get_current_max_quota();
 						$reset = $plugin->system()->vimeo()->get_quota_reset_date();
 						if ( $reset ) {
-							echo sprintf( __( '%s / %s (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
+							echo sprintf( __( '%s / %s (resets on %s)', 'vimeify' ), $used, $max, $reset );
 						} else {
-							echo sprintf( __( '%s / %s', 'wp-vimeo-videos' ), $used, $max );
+							echo sprintf( __( '%s / %s', 'vimeify' ), $used, $max );
 						}
 						break;
 					case Vimeo::QUOTA_TYPE_VIDEOS_SIZE:
@@ -116,13 +116,13 @@ $date_formatter = new DateFormatter();
 						$max   = $byte_formatter->format( (int) $plugin->system()->vimeo()->get_current_max_quota(), 2 );
 						$reset = $date_formatter->format_tz( $plugin->system()->vimeo()->get_quota_reset_date() );
 						if ( $reset ) {
-							echo sprintf( __( '%s / %s (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
+							echo sprintf( __( '%s / %s (resets on %s)', 'vimeify' ), $used, $max, $reset );
 						} else {
-							echo sprintf( __( '%s / %s', 'wp-vimeo-videos' ), $used, $max );
+							echo sprintf( __( '%s / %s', 'vimeify' ), $used, $max );
 						}
 						break;
 					default:
-						echo __( 'Unsupported account quota type.', 'wp-vimeo-videos' );
+						echo __( 'Unsupported account quota type.', 'vimeify' );
 						break;
 				}
 				?>
@@ -132,14 +132,14 @@ $date_formatter = new DateFormatter();
 	<?php if ( isset( $plugin->system()->vimeo()->headers['x-ratelimit-limit'] ) && is_numeric( $plugin->system()->vimeo()->headers['x-ratelimit-limit'] ) ): ?>
 		<tr>
 			<th style="width: 20%">
-				<?php _e( 'Rate Limits', 'wp-vimeo-videos' ); ?>
+				<?php _e( 'Rate Limits', 'vimeify' ); ?>
 			</th>
 			<td>
 				<?php
 				$used  = $plugin->system()->vimeo()->headers['x-ratelimit-limit'] - $plugin->system()->vimeo()->headers['x-ratelimit-remaining'];
 				$max   = $plugin->system()->vimeo()->headers['x-ratelimit-limit'];
 				$reset = $date_formatter->format_tz( $plugin->system()->vimeo()->headers['x-ratelimit-reset'] );
-				echo sprintf( __( '%s / %s per minute (resets on %s)', 'wp-vimeo-videos' ), $used, $max, $reset );
+				echo sprintf( __( '%s / %s per minute (resets on %s)', 'vimeify' ), $used, $max, $reset );
 				?>
 			</td>
 		</tr>

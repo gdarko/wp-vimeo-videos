@@ -27,11 +27,11 @@
 
 ?>
 <div class="dgv-stats-wrap">
-    <h4><?php _e('Statistics', 'wp-vimeo-videos' ); ?></h4>
+    <h4><?php _e('Statistics', 'vimeify' ); ?></h4>
     <table class="dgv-stats-table">
         <tbody>
         <tr>
-            <th><?php _e('Total Uploaded', 'wp-vimeo-videos'); ?></th>
+            <th><?php _e('Total Uploaded', 'vimeify'); ?></th>
             <td><?php echo esc_html($total_uploaded); ?></td>
         </tr>
         </tbody>

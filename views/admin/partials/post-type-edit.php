@@ -12,9 +12,9 @@
 
 <div class="dgv-pedit">
 	<?php if ( ! $plugin->system()->vimeo()->is_connected ): ?>
-        <p><?php _e( 'Please enter valid api credentails.', 'wp-vimeo-videos' ); ?></p>
+        <p><?php _e( 'Please enter valid api credentails.', 'vimeify' ); ?></p>
 	<?php elseif ( ! $plugin->system()->vimeo()->can_edit() ): ?>
-        <p><?php _e( 'Edit scope is missing. Please request Edit scope for your access token in the Vimeo Developer Tools in order to be able to edit videos', 'wp-vimeo-videos' ); ?></p>
+        <p><?php _e( 'Edit scope is missing. Please request Edit scope for your access token in the Vimeo Developer Tools in order to be able to edit videos', 'vimeify' ); ?></p>
 	<?php else: ?>
 		<?php
 		// Gather data
@@ -59,14 +59,14 @@
             </div>
             <div class="dgv-pedit-description">
                 <div class="dgv-pedit-section">
-                    <h4><?php _e( 'Basic Details', 'wp-vimeo-videos' ); ?></h4>
+                    <h4><?php _e( 'Basic Details', 'vimeify' ); ?></h4>
                     <div class="dgv-pedit-section--fields">
                         <div class="dgv-pedit-section--row">
-                            <label for="video_name"><?php _e( 'Name', 'wp-vimeo-videos' ); ?></label>
+                            <label for="video_name"><?php _e( 'Name', 'vimeify' ); ?></label>
                             <input type="text" name="video_name" id="video_name" value="<?php echo esc_attr( wp_unslash( $video['body']['name'] ) ); ?>" autocomplete="off">
                         </div>
                         <div class="dgv-pedit-section--row">
-                            <label for="video_description"><?php _e( 'Description', 'wp-vimeo-videos' ); ?></label>
+                            <label for="video_description"><?php _e( 'Description', 'vimeify' ); ?></label>
                             <textarea name="video_description" id="video_description" rows="4"><?php echo esc_attr( wp_unslash( $video['body']['description'] ) ); ?></textarea>
                         </div>
 						<?php do_action( 'dgv_video_edit_basic_section', $plugin, $video, $video_id ); ?>
@@ -75,10 +75,10 @@
             </div>
         </div>
         <div class="dgv-pedit-section">
-            <h4><?php _e( 'Privacy Settings', 'wp-vimeo-videos' ); ?></h4>
+            <h4><?php _e( 'Privacy Settings', 'vimeify' ); ?></h4>
             <div class="dgv-pedit-section--fields">
                 <div class="dgv-pedit-section--row">
-                    <label for="view_privacy"><?php _e( 'View Privacy', 'wp-vimeo-videos' ); ?></label>
+                    <label for="view_privacy"><?php _e( 'View Privacy', 'vimeify' ); ?></label>
                     <select name="view_privacy" id="view_privacy">
 						<?php foreach ( $view_privacy_opts as $key => $option ): ?><?php
 							$option_state = isset( $video['body']['privacy']['view'] ) && $video['body']['privacy']['view'] === $key ? ' selected ' : '';
@@ -89,15 +89,15 @@
                     </select>
                 </div>
                 <div class="dgv-pedit-section--row">
-                    <label for="privacy_embed"><?php _e( 'Embed privacy type', 'wp-vimeo-videos' ); ?></label>
+                    <label for="privacy_embed"><?php _e( 'Embed privacy type', 'vimeify' ); ?></label>
                     <select id="privacy_embed" name="privacy_embed" data-target=".dgv-embed-privacy-whitelist" data-show-target-if-value="whitelist" class="dgv-conditional-field">
-                        <option value="public" <?php selected( $video['body']['privacy']['embed'], 'public' ); ?>><?php _e( 'Public', 'wp-vimeo-videos' ); ?></option>
-                        <option value="whitelist" <?php selected( $video['body']['privacy']['embed'], 'whitelist' ); ?>><?php _e( 'Specific domains', 'wp-vimeo-videos' ); ?></option>
+                        <option value="public" <?php selected( $video['body']['privacy']['embed'], 'public' ); ?>><?php _e( 'Public', 'vimeify' ); ?></option>
+                        <option value="whitelist" <?php selected( $video['body']['privacy']['embed'], 'whitelist' ); ?>><?php _e( 'Specific domains', 'vimeify' ); ?></option>
                     </select>
                     <div class="dgv-embed-privacy-whitelist" style="<?php echo $video['body']['privacy']['embed'] !== 'whitelist' ? 'display:none;' : ''; ?>">
-                        <label for="privacy_embed_domain"><?php _e( 'Enter domain (without http(s)://)', 'wp-vimeo-videos' ); ?></label>
+                        <label for="privacy_embed_domain"><?php _e( 'Enter domain (without http(s)://)', 'vimeify' ); ?></label>
                         <input type="text" name="privacy_embed_domain" id="privacy_embed_domain"/>
-                        <button type="submit" name="admin_action" value="add_domain" class="button" disabled><?php _e( 'Add', 'wp-vimeo-videos' ); ?></button>
+                        <button type="submit" name="admin_action" value="add_domain" class="button" disabled><?php _e( 'Add', 'vimeify' ); ?></button>
                         <input type="hidden" name="uri" value="<?php echo esc_attr( $video['body']['uri'] ); ?>">
                         <div class="form-row">
                             <ul class="privacy-embed-whitelisted-domains">
@@ -108,7 +108,7 @@
 
 									if ( $domains['status'] === 200 ) {
 										foreach ( $domains['body']['data'] as $domain ) {
-											echo '<li>' . $domain['domain'] . ' <a href="#" class="submitdelete dgv-delete-domain" data-uri="' . $video['body']['uri'] . '" data-domain="' . $domain['domain'] . '">(' . __( 'remove', 'wp-vimeo-videos' ) . ')</a> </li>';
+											echo '<li>' . $domain['domain'] . ' <a href="#" class="submitdelete dgv-delete-domain" data-uri="' . $video['body']['uri'] . '" data-domain="' . $domain['domain'] . '">(' . __( 'remove', 'vimeify' ) . ')</a> </li>';
 										}
 									}
 								} catch ( \Vimeo\Exceptions\VimeoRequestException $e ) {
@@ -124,26 +124,26 @@
             </div>
         </div>
         <div class="dgv-pedit-section">
-            <h4><?php _e( 'Other Settings', 'wp-vimeo-videos' ); ?></h4>
+            <h4><?php _e( 'Other Settings', 'vimeify' ); ?></h4>
             <div class="dgv-pedit-section--fields">
                 <div class="dgv-pedit-section--row">
                     <label for="embed_preset_uri">
-						<?php _e( 'Embed preset', 'wp-vimeo-videos' ); ?>
+						<?php _e( 'Embed preset', 'vimeify' ); ?>
                     </label>
 					<?php if ( ! $plugin->system()->vimeo()->supports_embed_presets() ): ?>
-                        <p><?php echo sprintf( __( 'Embed presets are only supported by the following plans:', 'wp-vimeo-videos' ) ); ?></p>
+                        <p><?php echo sprintf( __( 'Embed presets are only supported by the following plans:', 'vimeify' ) ); ?></p>
                         <ul class="wvv-std-list">
                             <li>Vimeo PRO</li>
                             <li>Vimeo Business</li>
                             <li>Vimeo Premium</li>
-                        </ul><p><?php echo sprintf( __( 'Your current plan is %s.', 'wp-vimeo-videos' ), '<strong>' . 'Vimeo ' . ucfirst( $plugin->system()->vimeo()->user_type ) . '</strong>' ); ?></p>
-                        <p><a href="https://vimeo.com/upgrade" target="_blank" class="button"><?php _e( 'Upgrade', 'wp-vimeo-videos' ); ?></a></p>
+                        </ul><p><?php echo sprintf( __( 'Your current plan is %s.', 'vimeify' ), '<strong>' . 'Vimeo ' . ucfirst( $plugin->system()->vimeo()->user_type ) . '</strong>' ); ?></p>
+                        <p><a href="https://vimeo.com/upgrade" target="_blank" class="button"><?php _e( 'Upgrade', 'vimeify' ); ?></a></p>
 					<?php else: ?>
 						<?php
 						$current_preset_uri  = empty( $embed_preset_uri ) ? 'default' : $vimeo_formatter->embed_preset_uri_to_id( $embed_preset_uri );
-						$current_preset_name = ! empty( $current_preset_uri ) && ( 'default' != $current_preset_uri ) ? $plugin->system()->vimeo()->get_embed_preset_name( $current_preset_uri ) : __( 'Default (no preset)', 'wp-vimeo-videos' );
+						$current_preset_name = ! empty( $current_preset_uri ) && ( 'default' != $current_preset_uri ) ? $plugin->system()->vimeo()->get_embed_preset_name( $current_preset_uri ) : __( 'Default (no preset)', 'vimeify' );
 						?>
-                        <select id="embed_preset_uri" name="embed_preset_uri" class="dgv-select2" data-action="dgv_embed_preset_search" data-placeholder="<?php _e( 'Select preset...', 'wp-vimeo-videos' ); ?>">
+                        <select id="embed_preset_uri" name="embed_preset_uri" class="dgv-select2" data-action="dgv_embed_preset_search" data-placeholder="<?php _e( 'Select preset...', 'vimeify' ); ?>">
 							<?php if ( ! empty( $current_preset_uri ) ): ?>
                                 <option selected value="<?php echo esc_attr( $current_preset_uri ); ?>"><?php echo esc_html( $current_preset_name ); ?></option>
 							<?php endif; ?>
@@ -152,16 +152,16 @@
                 </div>
                 <div class="dgv-pedit-section--row">
 					<?php if ( ! $plugin->system()->vimeo()->supports_folders() ): ?>
-                        <p><?php echo __( 'Folders are not supported without <strong>interact</strong> scope.', 'wp-vimeo-videos' ); ?></p>
+                        <p><?php echo __( 'Folders are not supported without <strong>interact</strong> scope.', 'vimeify' ); ?></p>
                         <p><?php echo __( 'If you want to use Folders, please go to developer.vimeo.com/apps, regenerate your access token, add <strong>Interact</strong> to the scopes and finally replace your old token in Vimeo settings on your site.' ); ?></p>
 					<?php else: ?>
 						<?php
 						$current_folder_uri  = empty( $folder_uri ) ? 'default' : $folder_uri;
-						$current_folder_name = ! empty( $current_folder_uri ) && ( 'default' != $current_folder_uri ) ? $plugin->system()->vimeo()->get_folder_name( $current_folder_uri ) : __( 'Default (no folder)', 'wp-vimeo-videos' );
+						$current_folder_name = ! empty( $current_folder_uri ) && ( 'default' != $current_folder_uri ) ? $plugin->system()->vimeo()->get_folder_name( $current_folder_uri ) : __( 'Default (no folder)', 'vimeify' );
 						?>
-                        <label for="folder_uri"><?php _e( 'Folder', 'wp-vimeo-videos' ); ?></label>
-                        <select id="folder_uri" name="folder_uri" class="dgv-select2" data-action="dgv_folder_search" data-placeholder="<?php _e( 'Select folder...', 'wp-vimeo-videos' ); ?>">
-                            <option value="default" <?php selected( 'default', $current_folder_uri ); ?>><?php _e( 'Default (no folder)', 'wp-vimeo-videos' ); ?></option>
+                        <label for="folder_uri"><?php _e( 'Folder', 'vimeify' ); ?></label>
+                        <select id="folder_uri" name="folder_uri" class="dgv-select2" data-action="dgv_folder_search" data-placeholder="<?php _e( 'Select folder...', 'vimeify' ); ?>">
+                            <option value="default" <?php selected( 'default', $current_folder_uri ); ?>><?php _e( 'Default (no folder)', 'vimeify' ); ?></option>
 							<?php if ( ! empty( $current_folder_uri ) ): ?>
                                 <option selected value="<?php echo esc_attr( $current_folder_uri ); ?>"><?php echo esc_html( $current_folder_name ); ?></option>
 							<?php endif; ?>

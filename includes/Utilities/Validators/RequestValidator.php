@@ -68,7 +68,7 @@ class RequestValidator {
 		foreach ( $sizes as $size ) {
 			if ( $size > $max_size ) {
 				return sprintf( /* translators: $s - allowed file size in Mb. */
-					esc_html__( 'File exceeds max size allowed (%s).', 'wp-vimeo-videos' ),
+					esc_html__( 'File exceeds max size allowed (%s).', 'vimeify' ),
 					size_format( $max_size )
 				);
 			}
@@ -117,18 +117,18 @@ class RequestValidator {
 
 		$errors = array(
 			false,
-			esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'wp-vimeo-videos' ),
-			esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'wp-vimeo-videos' ),
-			esc_html__( 'The uploaded file was only partially uploaded.', 'wp-vimeo-videos' ),
-			esc_html__( 'No file was uploaded.', 'wp-vimeo-videos' ),
+			esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'vimeify' ),
+			esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'vimeify' ),
+			esc_html__( 'The uploaded file was only partially uploaded.', 'vimeify' ),
+			esc_html__( 'No file was uploaded.', 'vimeify' ),
 			'',
-			esc_html__( 'Missing a temporary folder.', 'wp-vimeo-videos' ),
-			esc_html__( 'Failed to write file to disk.', 'wp-vimeo-videos' ),
-			esc_html__( 'File upload stopped by extension.', 'wp-vimeo-videos' ),
+			esc_html__( 'Missing a temporary folder.', 'vimeify' ),
+			esc_html__( 'Failed to write file to disk.', 'vimeify' ),
+			esc_html__( 'File upload stopped by extension.', 'vimeify' ),
 		);
 
 		if ( array_key_exists( $error, $errors ) ) {
-			return sprintf( esc_html__( 'File upload error. %s', 'wp-vimeo-videos' ), $errors[ $error ] );
+			return sprintf( esc_html__( 'File upload error. %s', 'vimeify' ), $errors[ $error ] );
 		}
 
 		return false;
@@ -145,16 +145,16 @@ class RequestValidator {
 	 */
 	public static function get_upload_error( $key ) {
 		$messages = array(
-			'invalid_vimeo_video' => __( 'Invalid video vimeo provided', 'wp-vimeo-videos' ),
-			'invalid_file'        => __( 'Video file is required. Please pick a valid video file.', 'wp-vimeo-videos' ),
-			'invalid_title'       => __( 'Title is required. Please specify valid video title.', 'wp-vimeo-videos' ),
-			'not_connected'       => __( 'Unable to connect to Vimeo for the file upload.', 'wp-vimeo-videos' ),
-			'not_authenticated'   => __( 'Connection to Vimeo is successful. However we detected that the connection is made with unauthenticated access token. To connect to Vimeo successfully "Authenticated" Access Token is required with the proper Scopes selected.', 'wp-vimeo-videos' ),
-			'cant_upload'         => __( 'Connection to Vimeo is successful. However we detected that the current Access Token is missing the Upload scope. To be able to upload Videos successfully "Authenticated" Access Token is required with all the Scopes selected.', 'wp-vimeo-videos' ),
-			'quota_limit'         => __( 'Sorry, the current remaining quota in the Vimeo account is %s and this file is %s. Therefore the video can not be uploaded because the Vimeo account doesn\'t have enough free space.', 'wp-vimeo-videos' ),
+			'invalid_vimeo_video' => __( 'Invalid video vimeo provided', 'vimeify' ),
+			'invalid_file'        => __( 'Video file is required. Please pick a valid video file.', 'vimeify' ),
+			'invalid_title'       => __( 'Title is required. Please specify valid video title.', 'vimeify' ),
+			'not_connected'       => __( 'Unable to connect to Vimeo for the file upload.', 'vimeify' ),
+			'not_authenticated'   => __( 'Connection to Vimeo is successful. However we detected that the connection is made with unauthenticated access token. To connect to Vimeo successfully "Authenticated" Access Token is required with the proper Scopes selected.', 'vimeify' ),
+			'cant_upload'         => __( 'Connection to Vimeo is successful. However we detected that the current Access Token is missing the Upload scope. To be able to upload Videos successfully "Authenticated" Access Token is required with all the Scopes selected.', 'vimeify' ),
+			'quota_limit'         => __( 'Sorry, the current remaining quota in the Vimeo account is %s and this file is %s. Therefore the video can not be uploaded because the Vimeo account doesn\'t have enough free space.', 'vimeify' ),
 		);
 		if ( ! isset( $messages[ $key ] ) ) {
-			return __( 'Something went wrong. Please try again later.', 'wp-vimeo-videos' );
+			return __( 'Something went wrong. Please try again later.', 'vimeify' );
 		} else {
 			return $messages[ $key ];
 		}

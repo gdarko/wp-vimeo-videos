@@ -33,13 +33,13 @@ class UploadProfileMeta implements ProviderInterface {
 
 		// General Tab
 		$fields[]                 = [
-			'label' => __( 'General', 'wp-vimeo-videos' ),
+			'label' => __( 'General', 'vimeify' ),
 			'id'    => 'general',
 			'type'  => 'tab',
 		];
 		$general_default_behavior = apply_filters( 'dgv_upload_profile_fields_general_default_behavior', [
 			'id'           => 'behavior',
-			'label'        => __( 'Default Behavior', 'wp-vimeo-videos' ),
+			'label'        => __( 'Default Behavior', 'vimeify' ),
 			'desc'         => '',
 			'std'          => '',
 			'type'         => 'checkbox',
@@ -55,13 +55,13 @@ class UploadProfileMeta implements ProviderInterface {
 			'choices'      => [
 				'store_in_library' => [
 					'value' => 1,
-					'label' => __( 'Store videos uploaded with this profile in the Local library', 'wp-vimeo-videos' ),
+					'label' => __( 'Store videos uploaded with this profile in the Local library', 'vimeify' ),
 					'src'   => '',
 				],
 				'use_pull_method'  => [
 					'value' => 1,
-					'label' => __( 'Prefer "pull" uploads where that is possible', 'wp-vimeo-videos' ),
-					'desc'  => __( 'Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable.', 'wp-vimeo-videos' ),
+					'label' => __( 'Prefer "pull" uploads where that is possible', 'vimeify' ),
+					'desc'  => __( 'Recommended if your site is accessible on internet (not localhost, password protected, etc). Vimeo will download the video file from your server after upload then the file will be deleted from your server via cron later. This way videos will not be uploaded via PHP after form submission which is sometimes unreliable.', 'vimeify' ),
 					'src'   => '',
 				]
 			],
@@ -77,14 +77,14 @@ class UploadProfileMeta implements ProviderInterface {
 
 		// Privacy Tab
 		$fields[]           = [
-			'label' => __( 'Privacy', 'wp-vimeo-videos' ),
+			'label' => __( 'Privacy', 'vimeify' ),
 			'id'    => 'privacy',
 			'type'  => 'tab',
 		];
 		$fields[]           = [
 			'id'           => 'view_privacy',
-			'label'        => __( 'Who can view the videos on vimeo.com', 'wp-vimeo-videos' ),
-			'desc'         => __( 'Enable this if you want to prevent certain audiences from viewing your videos.', 'wp-vimeo-videos' ),
+			'label'        => __( 'Who can view the videos on vimeo.com', 'vimeify' ),
+			'desc'         => __( 'Enable this if you want to prevent certain audiences from viewing your videos.', 'vimeify' ),
 			'std'          => '',
 			'type'         => 'select',
 			'section'      => 'privacy',
@@ -99,8 +99,8 @@ class UploadProfileMeta implements ProviderInterface {
 		];
 		$fields[]           = [
 			'id'           => 'embed_domains',
-			'label'        => __( 'Where the uploaded videos can be embedded (comma separated list of domains)', 'wp-vimeo-videos' ),
-			'desc'         => __( 'Enable this if you want to prevent embedding your videos on other domains than those specified here.', 'wp-vimeo-videos' ),
+			'label'        => __( 'Where the uploaded videos can be embedded (comma separated list of domains)', 'vimeify' ),
+			'desc'         => __( 'Enable this if you want to prevent embedding your videos on other domains than those specified here.', 'vimeify' ),
 			'std'          => '',
 			'type'         => 'text',
 			'section'      => 'privacy',
@@ -119,13 +119,13 @@ class UploadProfileMeta implements ProviderInterface {
 
 		// Folder Tab
 		$fields[]           = [
-			'label' => __( 'Folders', 'wp-vimeo-videos' ),
+			'label' => __( 'Folders', 'vimeify' ),
 			'id'    => 'folders',
 			'type'  => 'tab',
 		];
 		$fields[]           = [
 			'id'           => 'folder',
-			'label'        => __( 'Which Folder will be used for the uploaded videos', 'wp-vimeo-videos' ),
+			'label'        => __( 'Which Folder will be used for the uploaded videos', 'vimeify' ),
 			'desc'         => __( 'Select a folder where the videos uploaded through different areas on your website that use this profile will be stored. Choose "Default" to omit the folders.' ),
 			'std'          => '',
 			'type'         => 'select',
@@ -135,7 +135,7 @@ class UploadProfileMeta implements ProviderInterface {
 				'action'   => 'dgv_folder_search',
 				'nonce'    => \wp_create_nonce( 'dgvsecurity' )
 			],
-			'placeholder'  => __( 'Select folder...', 'wp-vimeo-videos' ),
+			'placeholder'  => __( 'Select folder...', 'vimeify' ),
 			'rows'         => '',
 			'post_type'    => '',
 			'taxonomy'     => '',
@@ -152,7 +152,7 @@ class UploadProfileMeta implements ProviderInterface {
 
 		// Embed Presets Tab
 		$fields[]      = [
-			'label' => __( 'Embed Presets', 'wp-vimeo-videos' ),
+			'label' => __( 'Embed Presets', 'vimeify' ),
 			'id'    => 'embed_presets',
 			'type'  => 'tab',
 		];
@@ -168,7 +168,7 @@ class UploadProfileMeta implements ProviderInterface {
 		// Register metabox
 		$metabox = array(
 			'id'        => 'profile_settings',
-			'title'     => __( 'Profile Settings', 'wp-vimeo-videos' ),
+			'title'     => __( 'Profile Settings', 'vimeify' ),
 			'desc'      => '',
 			'pages'     => [ 'dgv-uprofile' ],
 			'context'   => 'normal',
@@ -203,7 +203,7 @@ class UploadProfileMeta implements ProviderInterface {
 		}
 		$current_value = isset( $settings[ $key ] ) ? $settings[ $key ] : null;
 
-		$current_name = __( 'Default / None', 'wp-vimeo-videos' );
+		$current_name = __( 'Default / None', 'vimeify' );
 		if ( ! empty( $current_value ) && ( 'default' != $current_value ) ) {
 			switch ( $type ) {
 				case 'folders':
@@ -254,8 +254,8 @@ class UploadProfileMeta implements ProviderInterface {
 	 */
 	protected function create_embed_presets_settings() {
 
-		$label = __( 'Which Embed Preset the uploaded video will use', 'wp-vimeo-videos' );
-		$desc  = __( 'Select embed preset for the Vimeo uploads that use this profile. Choose "Default" to omit the embed presets.', 'wp-vimeo-videos' );
+		$label = __( 'Which Embed Preset the uploaded video will use', 'vimeify' );
+		$desc  = __( 'Select embed preset for the Vimeo uploads that use this profile. Choose "Default" to omit the embed presets.', 'vimeify' );
 
 
 		if ( $this->plugin->system()->vimeo()->supports_embed_presets() ) {
@@ -271,7 +271,7 @@ class UploadProfileMeta implements ProviderInterface {
 					'action'   => 'dgv_embed_preset_search',
 					'nonce'    => \wp_create_nonce( 'dgvsecurity' )
 				],
-				'placeholder'  => __( 'Select preset...', 'wp-vimeo-videos' ),
+				'placeholder'  => __( 'Select preset...', 'vimeify' ),
 				'rows'         => '',
 				'post_type'    => '',
 				'taxonomy'     => '',
@@ -289,7 +289,7 @@ class UploadProfileMeta implements ProviderInterface {
 				'label'   => $label,
 				'type'    => 'html',
 				'section' => 'embed_presets',
-				'markup'  => sprintf( '<p><strong>%s</strong>: %s</p>', __( 'Note', 'wp-vimeo-videos' ), __( 'Embed presets are supported on Vimeo Plus or higher plans.', 'wp-vimeo-videos' ) ),
+				'markup'  => sprintf( '<p><strong>%s</strong>: %s</p>', __( 'Note', 'vimeify' ), __( 'Embed presets are supported on Vimeo Plus or higher plans.', 'vimeify' ) ),
 			];
 		}
 	}

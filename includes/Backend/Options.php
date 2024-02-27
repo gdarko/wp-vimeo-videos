@@ -44,11 +44,11 @@ class Options extends BaseProvider {
 		$required_sections = [
 			[
 				'id'    => 'overview',
-				'title' => __( 'Overview', 'wp-vimeo-videos' ),
+				'title' => __( 'Overview', 'vimeify' ),
 			],
 			[
 				'id'    => 'api_credentials',
-				'title' => __( 'API Credentials', 'wp-vimeo-videos' ),
+				'title' => __( 'API Credentials', 'vimeify' ),
 			],
 		];
 
@@ -58,28 +58,28 @@ class Options extends BaseProvider {
 			 */
 			[
 				'id'      => 'connection',
-				'label'   => __( 'Connection', 'wp-vimeo-videos' ),
+				'label'   => __( 'Connection', 'vimeify' ),
 				'type'    => 'html',
 				'section' => 'overview',
 				'markup'  => [ $this, 'create_overview_connection' ],
 			],
 			[
 				'id'      => 'environment',
-				'label'   => __( 'Environment', 'wp-vimeo-videos' ),
+				'label'   => __( 'Environment', 'vimeify' ),
 				'type'    => 'html',
 				'section' => 'overview',
 				'markup'  => [ $this, 'create_overview_environment' ],
 			],
 			[
 				'id'      => 'issues',
-				'label'   => __( 'Troubleshooting', 'wp-vimeo-videos' ),
+				'label'   => __( 'Troubleshooting', 'vimeify' ),
 				'type'    => 'html',
 				'section' => 'overview',
 				'markup'  => [ $this, 'create_overview_issues' ],
 			],
 			[
 				'id'           => 'client_id',
-				'label'        => __( 'Client ID', 'wp-vimeo-videos' ),
+				'label'        => __( 'Client ID', 'vimeify' ),
 				'desc'         => '',
 				'std'          => '',
 				'type'         => 'text',
@@ -96,7 +96,7 @@ class Options extends BaseProvider {
 			],
 			[
 				'id'           => 'client_secret',
-				'label'        => __( 'Client Secret', 'wp-vimeo-videos' ),
+				'label'        => __( 'Client Secret', 'vimeify' ),
 				'desc'         => '',
 				'std'          => '',
 				'type'         => 'text',
@@ -113,7 +113,7 @@ class Options extends BaseProvider {
 			],
 			[
 				'id'           => 'access_token',
-				'label'        => __( 'Access Token', 'wp-vimeo-videos' ),
+				'label'        => __( 'Access Token', 'vimeify' ),
 				'desc'         => '',
 				'std'          => '',
 				'type'         => 'text',
@@ -141,22 +141,22 @@ class Options extends BaseProvider {
 			$other_sections = [
 				[
 					'id'    => 'admin',
-					'title' => __( 'Admin Settings', 'wp-vimeo-videos' ),
+					'title' => __( 'Admin Settings', 'vimeify' ),
 				],
 				[
 					'id'    => 'frontend',
-					'title' => __( 'Frontend Settings', 'wp-vimeo-videos' ),
+					'title' => __( 'Frontend Settings', 'vimeify' ),
 				],
 				[
 					'id'    => 'upload_profiles',
-					'title' => __( 'Upload Profiles', 'wp-vimeo-videos' ),
+					'title' => __( 'Upload Profiles', 'vimeify' ),
 				],
 			];
 
 			$other_settings = [
 				[
 					'id'           => 'behavior',
-					'label'        => __( 'Front-end Behavior', 'wp-vimeo-videos' ),
+					'label'        => __( 'Front-end Behavior', 'vimeify' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -172,7 +172,7 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_single_pages' => array(
 							'value' => 1,
-							'label' => __( 'Enable single video pages for the uploaded videos', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable single video pages for the uploaded videos', 'vimeify' ),
 							'src'   => '',
 						),
 					),
@@ -182,7 +182,7 @@ class Options extends BaseProvider {
 				// Admin Settngs
 				[
 					'id'           => 'upload_forms',
-					'label'        => __( 'Upload Form', 'wp-vimeo-videos' ),
+					'label'        => __( 'Upload Form', 'vimeify' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -198,19 +198,19 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo View Privacy option in the WP-Admin Video upload form', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo View Privacy option in the WP-Admin Video upload form', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_folders'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo Folders option in the WP-Admin Video upload form', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo Folders option in the WP-Admin Video upload form', 'vimeify' ),
 							'src'   => '',
 						),
 					),
 				],
 				[
 					'id'           => 'gutenberg',
-					'label'        => __( 'Gutenberg Block', 'wp-vimeo-videos' ),
+					'label'        => __( 'Gutenberg Block', 'vimeify' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -226,27 +226,27 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo View Privacy option in Gutenberg upload modal', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo View Privacy option in Gutenberg upload modal', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_folders'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo Folders option in Gutenberg upload modal', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo Folders option in Gutenberg upload modal', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo account search option in upload form', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo account search option in upload form', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_local_search'      => array(
 							'value' => 1,
-							'label' => __( 'Enable Local Library search option in upload form', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Local Library search option in upload form', 'vimeify' ),
 							'src'   => '',
 						),
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Restrict to current user\'s uploads in Local Library search option', 'wp-vimeo-videos' ),
+							'label' => __( 'Restrict to current user\'s uploads in Local Library search option', 'vimeify' ),
 							'src'   => '',
 						)
 					),
@@ -254,7 +254,7 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'tinymce',
-					'label'        => __( 'TinyMCE Modal', 'wp-vimeo-videos' ),
+					'label'        => __( 'TinyMCE Modal', 'vimeify' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -270,27 +270,27 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_view_privacy'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo View Privacy option in upload modal', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo View Privacy option in upload modal', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_folders'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo Folders option in upload modal', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo Folders option in upload modal', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_account_search'    => array(
 							'value' => 1,
-							'label' => __( 'Enable Vimeo account search option in upload modal', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Vimeo account search option in upload modal', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_local_search'      => array(
 							'value' => 1,
-							'label' => __( 'Enable local library search option in upload modal', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable local library search option in upload modal', 'vimeify' ),
 							'src'   => '',
 						),
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'wp-vimeo-videos' ),
+							'label' => __( 'Restrict to current user\'s uploads in local library search option', 'vimeify' ),
 							'src'   => '',
 						)
 					),
@@ -298,8 +298,8 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'video_management',
-					'label'        => __( 'Video Management Page', 'wp-vimeo-videos' ),
-					'desc'         => __( 'Select which video elements to be enabled for editing videos.', 'wp-vimeo-videos' ),
+					'label'        => __( 'Video Management Page', 'vimeify' ),
+					'desc'         => __( 'Select which video elements to be enabled for editing videos.', 'vimeify' ),
 					'std'          => '',
 					'type'         => 'checkbox',
 					'section'      => 'admin',
@@ -314,17 +314,17 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_embed_presets' => array(
 							'value' => 1,
-							'label' => __( 'Enable Embed Presets panel in the single video management page', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Embed Presets panel in the single video management page', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_embed_privacy' => array(
 							'value' => 1,
-							'label' => __( 'Enable Embed Privacy panel in the single video management page', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Embed Privacy panel in the single video management page', 'vimeify' ),
 							'src'   => '',
 						),
 						'enable_folders'       => array(
 							'value' => 1,
-							'label' => __( 'Enable Folders panel in the single video management page', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable Folders panel in the single video management page', 'vimeify' ),
 							'src'   => '',
 						),
 					),
@@ -332,7 +332,7 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'videos_list_table',
-					'label'        => __( 'Videos list table', 'wp-vimeo-videos' ),
+					'label'        => __( 'Videos list table', 'vimeify' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -348,7 +348,7 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'show_author_uploads_only' => array(
 							'value' => 1,
-							'label' => __( 'Only show the Videos uploaded by the current user on the Vimeo list table', 'wp-vimeo-videos' ),
+							'label' => __( 'Only show the Videos uploaded by the current user on the Vimeo list table', 'vimeify' ),
 							'src'   => '',
 						)
 					),
@@ -356,7 +356,7 @@ class Options extends BaseProvider {
 
 				[
 					'id'           => 'videos_thumbnails',
-					'label'        => __( 'Thumbnails support', 'wp-vimeo-videos' ),
+					'label'        => __( 'Thumbnails support', 'vimeify' ),
 					'desc'         => '',
 					'std'          => '',
 					'type'         => 'checkbox',
@@ -372,7 +372,7 @@ class Options extends BaseProvider {
 					'choices'      => array(
 						'enable_thumbnails' => array(
 							'value' => 1,
-							'label' => __( 'Enable experimental support for thumbnails. (Note: May result in increased api calls usage)', 'wp-vimeo-videos' ),
+							'label' => __( 'Enable experimental support for thumbnails. (Note: May result in increased api calls usage)', 'vimeify' ),
 							'src'   => '',
 						)
 					),
@@ -421,7 +421,7 @@ class Options extends BaseProvider {
 		}, 10, 2 );
 		add_filter( 'opb_header_version_text', function ( $text, $page_id ) {
 			if ( $this->plugin->settings_key() === $page_id ) {
-				$text = __( 'Vimeify Settings', 'wp-vimeo-videos' );
+				$text = __( 'Vimeify Settings', 'vimeify' );
 			}
 
 			return $text;
@@ -483,15 +483,15 @@ class Options extends BaseProvider {
 				[
 					'id'              => $this->plugin->settings_key(),
 					'parent_slug'     => 'vimeify',
-					'page_title'      => __( 'Settings', 'wp-vimeo-videos' ),
-					'menu_title'      => __( 'Settings', 'wp-vimeo-videos' ),
+					'page_title'      => __( 'Settings', 'vimeify' ),
+					'menu_title'      => __( 'Settings', 'vimeify' ),
 					'capability'      => apply_filters( 'dgv_manage_options_capability', 'manage_options' ),
 					'menu_slug'       => 'dgv-settings',
 					'icon_url'        => null,
 					'position'        => null,
-					'updated_message' => __( 'Options updated!', 'wp-vimeo-videos' ),
-					'reset_message'   => __( 'Options reset!', 'wp-vimeo-videos' ),
-					'button_text'     => __( 'Save changes', 'wp-vimeo-videos' ),
+					'updated_message' => __( 'Options updated!', 'vimeify' ),
+					'reset_message'   => __( 'Options reset!', 'vimeify' ),
+					'button_text'     => __( 'Save changes', 'vimeify' ),
 					'show_buttons'    => true,
 					'show_subheader'  => false,
                     'hide_reset'      => true,
@@ -518,7 +518,7 @@ class Options extends BaseProvider {
 	 */
 	public function get_lazyloaded_options( $option, $section ) {
 		$current_value = $this->plugin->system()->settings()->get( sprintf( '%s.%s', $section, $option ), '' );
-		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? get_the_title( $current_value ) : __( 'Default', 'wp-vimeo-videos' );
+		$current_name = ! empty( $current_value ) && ( 'default' != $current_value ) ? get_the_title( $current_value ) : __( 'Default', 'vimeify' );
 		return [
 			[
 				'value' => $current_value,
@@ -542,7 +542,7 @@ class Options extends BaseProvider {
 				'action'   => 'dgv_upload_profile_search',
 				'nonce'    => \wp_create_nonce( 'dgvsecurity' )
 			],
-			'placeholder'  => __( 'Select profile...', 'wp-vimeo-videos' ),
+			'placeholder'  => __( 'Select profile...', 'vimeify' ),
 			'rows'         => '',
 			'post_type'    => '',
 			'taxonomy'     => '',
@@ -563,23 +563,23 @@ class Options extends BaseProvider {
 		return apply_filters( 'dgv_upload_profiles', [
 			[
 				'key'   => 'default',
-				'title' => __( 'Default Profile', 'wp-vimeo-videos' ),
-				'desc'  => __( 'Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc.', 'wp-vimeo-videos' )
+				'title' => __( 'Default Profile', 'vimeify' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made in other ways than the ones listed below, eg. PHP API, etc.', 'vimeify' )
 			],
 			[
 				'key'   => 'admin_gutenberg',
-				'title' => __( 'Gutenberg Block Editor', 'wp-vimeo-videos' ),
-				'desc'  => __( 'Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend.', 'wp-vimeo-videos' )
+				'title' => __( 'Gutenberg Block Editor', 'vimeify' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made through the Gutenberg (Block Editor) profile in the site admin/backend.', 'vimeify' )
 			],
 			[
 				'key'   => 'admin_classic',
-				'title' => __( 'Classic Editor', 'wp-vimeo-videos' ),
-				'desc'  => __( 'Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend.', 'wp-vimeo-videos' )
+				'title' => __( 'Classic Editor', 'vimeify' ),
+				'desc'  => __( 'Select the profile that will be used for uploads made through the TinyMCE (Classic Editor) profile in the site admin/backend.', 'vimeify' )
 			],
 			[
 				'key'   => 'admin_other',
-				'title' => __( 'Other Backend Forms', 'wp-vimeo-videos' ),
-				'desc'  => __( 'Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below.', 'wp-vimeo-videos' )
+				'title' => __( 'Other Backend Forms', 'vimeify' ),
+				'desc'  => __( 'Select the profile that will be used across different areas in the admin side, except those areas that you have defined settings for below.', 'vimeify' )
 			]
 		] );
 	}

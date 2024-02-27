@@ -121,7 +121,7 @@ class VideosTable extends \WP_List_Table {
 	 * @return void
 	 */
 	public function no_items() {
-		_e( 'No videos found', 'wp-vimeo-videos' );
+		_e( 'No videos found', 'vimeify' );
 	}
 
 	/**
@@ -139,11 +139,11 @@ class VideosTable extends \WP_List_Table {
 				if ( ! $this->show_link ) {
 					$vimeo_id = $this->plugin->system()->database()->get_vimeo_id( $item->ID );
 
-					return '<code class="embed-code">[dgv_vimeo_video id="' . $vimeo_id . '"]</code>' . sprintf( '<span class="dgv-copy-embed-code dashicons dashicons-admin-links" title="%s"></span>', __( 'Copy to clipboard', 'wp-vimeo-videos' ) );
+					return '<code class="embed-code">[dgv_vimeo_video id="' . $vimeo_id . '"]</code>' . sprintf( '<span class="dgv-copy-embed-code dashicons dashicons-admin-links" title="%s"></span>', __( 'Copy to clipboard', 'vimeify' ) );
 				} else {
 					$link = $this->plugin->system()->database()->get_vimeo_link( $item->ID );
 
-					return sprintf( '<code class="embed-code">%s</code> <span class="dgv-copy-embed-code dashicons dashicons-admin-links" title="%s"></span>', $link, __( 'Copy to clipboard', 'wp-vimeo-videos' ) );
+					return sprintf( '<code class="embed-code">%s</code> <span class="dgv-copy-embed-code dashicons dashicons-admin-links" title="%s"></span>', $link, __( 'Copy to clipboard', 'vimeify' ) );
 				}
 			case 'author':
                 $wp_formatter = new WPFormatter();
@@ -167,11 +167,11 @@ class VideosTable extends \WP_List_Table {
 		$columns                = array(
 			'cb' => '<input type="checkbox" />',
 		);
-		$columns['title']       = __( 'Title', 'wp-vimeo-videos' );
-		$columns['embed']       = __( 'Embed', 'wp-vimeo-videos' );
-		$columns['author']      = __( 'Author', 'wp-vimeo-videos' );
-		$columns['size']        = __( 'Size', 'wp-vimeo-videos' );
-		$columns['uploaded_at'] = __( 'Uploaded', 'wp-vimeo-videos' );
+		$columns['title']       = __( 'Title', 'vimeify' );
+		$columns['embed']       = __( 'Embed', 'vimeify' );
+		$columns['author']      = __( 'Author', 'vimeify' );
+		$columns['size']        = __( 'Size', 'vimeify' );
+		$columns['uploaded_at'] = __( 'Uploaded', 'vimeify' );
 
 		return $columns;
 	}
@@ -193,15 +193,15 @@ class VideosTable extends \WP_List_Table {
 		$url_edit   = $this->plugin->system()->database()->get_edit_link( $item->ID );
 		$url_local  = get_permalink( $item->ID );
 
-		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_edit, $item->ID, __( 'Manage this video', 'wp-vimeo-videos' ), __( 'Edit', 'wp-vimeo-videos' ) );
+		$actions['edit']  = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_edit, $item->ID, __( 'Manage this video', 'vimeify' ), __( 'Edit', 'vimeify' ) );
 		if ( $this->front_pages ) {
-			$actions['view'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_local, $item->ID, __( 'View the video on the front-end', 'wp-vimeo-videos' ), __( 'View', 'wp-vimeo-videos' ) );
+			$actions['view'] = sprintf( '<a href="%s" data-id="%d" title="%s">%s</a>', $url_local, $item->ID, __( 'View the video on the front-end', 'vimeify' ), __( 'View', 'vimeify' ) );
 		}
-		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', $url_vimeo, $item->ID, __( 'Vimeo video link', 'wp-vimeo-videos' ), __( 'Vimeo Link', 'wp-vimeo-videos' ) );
+		$actions['vimeo'] = sprintf( '<a href="%s" target="_blank" data-id="%d" title="%s">%s</a>', $url_vimeo, $item->ID, __( 'Vimeo video link', 'vimeify' ), __( 'Vimeo Link', 'vimeify' ) );
 
 		$delete_cap = apply_filters( 'dgv_vimeo_cap_delete', 'delete_posts' );
 		if ( current_user_can( $delete_cap ) ) {
-			$actions['delete'] = sprintf( '<a href="#" class="submitdelete dg-vimeo-delete" data-vimeo-uri="%s"  data-can-delete="%d" data-id="%d" title="%s">%s</a>', $vimeo_uri, $item->ID, $can_delete, __( 'Delete video from vimeo', 'wp-vimeo-videos' ), __( 'Delete', 'wp-vimeo-videos' ) );
+			$actions['delete'] = sprintf( '<a href="#" class="submitdelete dg-vimeo-delete" data-vimeo-uri="%s"  data-can-delete="%d" data-id="%d" title="%s">%s</a>', $vimeo_uri, $item->ID, $can_delete, __( 'Delete video from vimeo', 'vimeify' ), __( 'Delete', 'vimeify' ) );
 		}
 
 		$thumbnail       = '';
@@ -228,7 +228,7 @@ class VideosTable extends \WP_List_Table {
 			esc_url( $url_edit ),
 			$thumbnail,
 			esc_html( $item->post_title ),
-            $item->post_status === 'draft' ? ' — <span class="post-state">'.__('Draft', 'wp-vimeo-videos').'</span>' : '',
+            $item->post_status === 'draft' ? ' — <span class="post-state">'.__('Draft', 'vimeify').'</span>' : '',
 			esc_html( $description ),
 			$this->row_actions( $actions )
 		);
@@ -252,7 +252,7 @@ class VideosTable extends \WP_List_Table {
 	 */
 	public function get_bulk_actions() {
 		$actions = array(
-			'delete' => __( 'Delete', 'wp-vimeo-videos' ),
+			'delete' => __( 'Delete', 'vimeify' ),
 		);
 
 		return $actions;
@@ -277,8 +277,8 @@ class VideosTable extends \WP_List_Table {
 	 */
 	protected function get_views() {
 		return [
-			'local' => sprintf( '<a class="current" aria-current="page" href="%s">%s</a>', add_query_arg( [ 'type' => 'local' ], admin_url( 'admin.php?page=' . Ui::PAGE_VIMEO ) ), __( 'Local', 'wp-vimeo-videos' ) ),
-			'vimeo' => sprintf( '<a class="disabled" title="%s" href="#">%s</a>', __( 'Feature coming soon!', 'wp-vimeo-videos' ), __( 'Vimeo', 'wp-vimeo-videos' ) ),
+			'local' => sprintf( '<a class="current" aria-current="page" href="%s">%s</a>', add_query_arg( [ 'type' => 'local' ], admin_url( 'admin.php?page=' . Ui::PAGE_VIMEO ) ), __( 'Local', 'vimeify' ) ),
+			'vimeo' => sprintf( '<a class="disabled" title="%s" href="#">%s</a>', __( 'Feature coming soon!', 'vimeify' ), __( 'Vimeo', 'vimeify' ) ),
 		];
 	}
 
@@ -355,14 +355,14 @@ class VideosTable extends \WP_List_Table {
 					}
 					?>
                     <div class="alignleft actions">
-                        <label class="screen-reader-text" for="author"><?php __( 'Filter by author', 'wp-vimeo-videos' ); ?></label>
-                        <select name="author" id="author" class="postform dgv-select2 dgv-select2-clearable" data-action="dgv_user_search" data-placeholder="<?php _e( 'Filter by author', 'wp-vimeo-videos' ); ?>">
+                        <label class="screen-reader-text" for="author"><?php __( 'Filter by author', 'vimeify' ); ?></label>
+                        <select name="author" id="author" class="postform dgv-select2 dgv-select2-clearable" data-action="dgv_user_search" data-placeholder="<?php _e( 'Filter by author', 'vimeify' ); ?>">
 							<?php if ( ! empty( $filter_author ) ): ?>
                                 <option selected value="<?php echo esc_attr( $filter_author->ID ); ?>"><?php echo esc_html( $filter_author->display_name ); ?></option>
 							<?php endif; ?>
                         </select>
-                        <button type="submit" name="filter_action" id="post-query-submit" value="Filter" class="button"><?php _e( 'Filter', 'wp-vimeo-videos' ); ?></button>
-                        <a href="" class="dgv-clear-selection" data-target=".dgv-select2-clearable" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear', 'wp-vimeo-videos' ); ?></a>
+                        <button type="submit" name="filter_action" id="post-query-submit" value="Filter" class="button"><?php _e( 'Filter', 'vimeify' ); ?></button>
+                        <a href="" class="dgv-clear-selection" data-target=".dgv-select2-clearable" style="<?php echo $filter_author ? '' : 'display:none;'; ?>"><?php _e( 'Clear', 'vimeify' ); ?></a>
                     </div>
                 </div>
 			<?php endif; ?>
@@ -383,11 +383,11 @@ class VideosTable extends \WP_List_Table {
 			$nonce  = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( $_GET['_wpnonce'] ) : null;
 			$action = 'bulk-' . $this->_args['plural'];
 			if ( ! wp_verify_nonce( $nonce, $action ) ) {
-				wp_die( "Permission denied. Security check failed.", 'wp-vimeo-videos' );
+				wp_die( "Permission denied. Security check failed.", 'vimeify' );
 			}
 			$capability = isset( $capabilities[ $action ] ) ? $capabilities[ $action ] : null;
 			if ( ( $action && 'bulk-videos' !== $action ) && ! current_user_can( $capability ) ) {
-				wp_die( "Permission denied. You don't have access to perform DELETE on this resource.", 'wp-vimeo-videos' );
+				wp_die( "Permission denied. You don't have access to perform DELETE on this resource.", 'vimeify' );
 			}
 		}
 
@@ -397,7 +397,7 @@ class VideosTable extends \WP_List_Table {
 		switch ( $action ) {
 			case 'delete':
 				if ( ! $this->plugin->system()->vimeo()->can_delete() ) {
-					$signature = $this->flash->flash_message( __( 'Unable to delete video(s). The required Vimeo API scope "delete" is missing.', 'wp-vimeo-videos' ), 'error' );
+					$signature = $this->flash->flash_message( __( 'Unable to delete video(s). The required Vimeo API scope "delete" is missing.', 'vimeify' ), 'error' );
 					wp_redirect( $this->flash->get_current_url( $signature ) );
 					exit;
 				}
@@ -423,9 +423,9 @@ class VideosTable extends \WP_List_Table {
 					}
 				}
 				if ( $countD > 0 || $countV > 0 ) {
-					$signature = $this->flash->flash_message( __( 'Video(s) deleted successfully.', 'wp-vimeo-videos' ), 'success' );
+					$signature = $this->flash->flash_message( __( 'Video(s) deleted successfully.', 'vimeify' ), 'success' );
 				} else {
-					$signature = $this->flash->flash_message( __( 'Unable to delete video(s)', 'wp-vimeo-videos' ), 'error' );
+					$signature = $this->flash->flash_message( __( 'Unable to delete video(s)', 'vimeify' ), 'error' );
 				}
 
 				$url = $this->flash->get_current_url( $signature );

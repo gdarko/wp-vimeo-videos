@@ -46,7 +46,7 @@ class FileValidator {
 		$proper_filename = empty( $wp_filetype['proper_filename'] ) ? '' : $wp_filetype['proper_filename'];
 
 		if ( $proper_filename || ! $ext || ! $type ) {
-			return esc_html__( 'File type is not allowed.', 'wp-vimeo-videos' );
+			return esc_html__( 'File type is not allowed.', 'vimeify' );
 		}
 
 		return false;
@@ -65,12 +65,12 @@ class FileValidator {
 
 		// Make sure file has an extension first.
 		if ( empty( $ext ) ) {
-			return esc_html__( 'File must have an extension.', 'wp-vimeo-videos' );
+			return esc_html__( 'File must have an extension.', 'vimeify' );
 		}
 
 		// Validate extension against all allowed values.
 		if ( ! in_array( $ext, $this->allowed_extensions(), true ) ) {
-			return esc_html__( 'File type is not allowed.', 'wp-vimeo-videos' );
+			return esc_html__( 'File type is not allowed.', 'vimeify' );
 		}
 
 		return false;

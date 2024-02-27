@@ -222,15 +222,15 @@ class WP_DGV_Api_Helper {
 		$error = null;
 
 		if ( empty( $client_id ) || strlen( trim( $client_id ) ) === 0 ) {
-			$error = __( 'Client ID is missing', 'wp-vimeo-videos' );
+			$error = __( 'Client ID is missing', 'vimeify' );
 		} elseif ( empty( $client_secret ) || strlen( trim( $client_secret ) ) === 0 ) {
-			$error = __( 'Client Secret is missing', 'wp-vimeo-videos' );
+			$error = __( 'Client Secret is missing', 'vimeify' );
 		} elseif ( empty( $access_token ) || strlen( trim( $access_token ) ) === 0 ) {
-			$error = __( 'Access Token is missing', 'wp-vimeo-videos' );
+			$error = __( 'Access Token is missing', 'vimeify' );
 		}
 
 		if ( ! class_exists( '\Vimeo\Vimeo' ) ) {
-			$error = __( 'Vimeo not loaded', 'wp-vimeo-videos' );
+			$error = __( 'Vimeo not loaded', 'vimeify' );
 		}
 
 		$this->error = $error;
@@ -317,8 +317,8 @@ class WP_DGV_Api_Helper {
 		if ( ! $this->is_authenticated_connection ) {
 			array_push( $problems, array(
 				'code' => 'unauthenticated',
-				'info' => __( 'Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'wp-vimeo-videos' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+				'info' => __( 'Your Access Token is of type "Unauthenticated". This will prevent normal operation of the plugin.', 'vimeify' ),
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'vimeify' ), implode( ', ', $this->scopes_required ) )
 			) );
 
 			return $problems;
@@ -329,22 +329,22 @@ class WP_DGV_Api_Helper {
 			if ( ! $this->can_upload() ) {
 				array_push( $problems, array(
 					'code' => 'cant_upload',
-					'info' => __( 'Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'wp-vimeo-videos' ),
-					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+					'info' => __( 'Your Access Token is missing "Upload" scope. This will prevent uploading new Videos to Vimeo.', 'vimeify' ),
+					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'vimeify' ), implode( ', ', $this->scopes_required ) )
 				) );
 			}
 			if ( ! $this->can_edit() ) {
 				array_push( $problems, array(
 					'code' => 'cant_edit',
-					'info' => __( 'Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'wp-vimeo-videos' ),
-					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+					'info' => __( 'Your Access Token is missing "Edit" scope. This will prevent editing Videos from the edit screen.', 'vimeify' ),
+					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'vimeify' ), implode( ', ', $this->scopes_required ) )
 				) );
 			}
 			if ( ! $this->can_delete() ) {
 				array_push( $problems, array(
 					'code' => 'cant_delete',
 					'info' => __( 'Your Access Token is missing "Delete" scope. This will prevent deleting Videos from the admin dashboard.' ),
-					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+					"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'vimeify' ), implode( ', ', $this->scopes_required ) )
 				) );
 			}
 		}
@@ -353,7 +353,7 @@ class WP_DGV_Api_Helper {
 			array_push( $problems, array(
 				'code' => 'cant_use_folders',
 				'info' => __( 'Your Access Token is missing "Interact" scope. This will prevent using the Folders feature in the Video edit screen.' ),
-				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'wp-vimeo-videos' ), implode( ', ', $this->scopes_required ) )
+				"fix"  => sprintf( __( 'To fix the issue, go to Vimeo Developer Portal, select your application and remove your old Access Token. Generate new "Auhtneticated" Access Token and select the %s scopes. Once done, set the new Access Token in the Settings screen and Purge Cache.', 'vimeify' ), implode( ', ', $this->scopes_required ) )
 			) );
 		}
 
@@ -362,7 +362,7 @@ class WP_DGV_Api_Helper {
 			array_push( $problems, array(
 				'code' => 'exec_time_low',
 				'info' => sprintf( __( 'Your <strong>max_execution_time</strong> configuration is %s seconds which is very low. Larger uploads that exceed %s seconds for uploading will be dropped by the system and you may see "Uploading..." forever in Vimeo.' ), $max_exec_time, $max_exec_time ),
-				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_execution_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
+				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_execution_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'vimeify' ) )
 			) );
 		}
 
@@ -371,7 +371,7 @@ class WP_DGV_Api_Helper {
 			array_push( $problems, array(
 				'code' => 'input_time_low',
 				'info' => sprintf( __( 'Your <strong>max_input_time</strong> configuration is %s seconds which is very low. The client connection will be dropped after %s seconds from initating the upload. This is especially required for people with slow connection as it takes more seconds to upload a file.' ), $max_input_time, $max_input_time ),
-				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_input_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'wp-vimeo-videos' ) )
+				"fix"  => sprintf( __( 'To fix the issue find your php.ini and increase max_input_time value, if you use cPanel find PHP Settings or if you can\'t find anything contact your hosting provider.', 'vimeify' ) )
 			) );
 		}
 
@@ -976,27 +976,27 @@ class WP_DGV_Api_Helper {
 
 		return array(
 			'anybody'  => array(
-				'name'      => __( 'Anybody', 'wp-vimeo-videos' ),
+				'name'      => __( 'Anybody', 'vimeify' ),
 				'available' => true
 			),
 			'disable'  => array(
-				'name'      => trim( sprintf( __( 'No one on vimeo.com site %s', 'wp-vimeo-videos' ), $unsupported ) ),
+				'name'      => trim( sprintf( __( 'No one on vimeo.com site %s', 'vimeify' ), $unsupported ) ),
 				'available' => $this->supports_view_privacy_option_disable()
 			),
 			'nobody'   => array(
-				'name'      => __( 'Just you', 'wp-vimeo-videos' ),
+				'name'      => __( 'Just you', 'vimeify' ),
 				'available' => true
 			),
 			'unlisted' => array(
-				'name'      => trim( sprintf( __( 'Only those with link %s', 'wp-vimeo-videos' ), $unsupported ) ),
+				'name'      => trim( sprintf( __( 'Only those with link %s', 'vimeify' ), $unsupported ) ),
 				'available' => $this->supports_view_privacy_option_unlisted()
 			),
 			'contacts' => array(
-				'name'      => __( 'Vimeo Followers', 'wp-vimeo-videos' ),
+				'name'      => __( 'Vimeo Followers', 'vimeify' ),
 				'available' => true
 			),
 			'users'    => array(
-				'name'      => __( 'Vimeo Members', 'wp-vimeo-videos' ),
+				'name'      => __( 'Vimeo Members', 'vimeify' ),
 				'available' => true
 			),
 		);
@@ -1014,7 +1014,7 @@ class WP_DGV_Api_Helper {
 	public function get_unavailable_text( $plan = null ) {
 		$plan = is_null( $plan ) ? $this->user_type : $plan;
 
-		return sprintf( __( 'Not supported on %s', 'wp-vimeo-videos' ), 'Vimeo ' . ucfirst( $plan ) );
+		return sprintf( __( 'Not supported on %s', 'vimeify' ), 'Vimeo ' . ucfirst( $plan ) );
 	}
 
 	/**
@@ -1459,7 +1459,7 @@ class WP_DGV_Api_Helper {
 		if ( isset( $folder['results']['name'] ) ) {
 			return $folder['results']['name'];
 		} else {
-			return __( 'Untitled', 'wp-vimeo-videos' );
+			return __( 'Untitled', 'vimeify' );
 		}
 	}
 
@@ -1636,7 +1636,7 @@ class WP_DGV_Api_Helper {
 			return $plan;
 		}
 		if ( empty( $plan ) ) {
-			return __( 'Unknown', 'wp-vimeo-videos' );
+			return __( 'Unknown', 'vimeify' );
 		}
 		$plan = ucwords( str_replace( '_', ' ', $this->user_type ) );
 

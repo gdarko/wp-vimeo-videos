@@ -39,7 +39,7 @@ $core_validator = new \Vimeify\Core\Utilities\Validators\CoreValidator();
 			include 'library-list.php';
 
 		} else {
-			echo __( 'Invalid action', 'wp-vimeo-videos' );
+			echo __( 'Invalid action', 'vimeify' );
 		}
 	}
 	?>

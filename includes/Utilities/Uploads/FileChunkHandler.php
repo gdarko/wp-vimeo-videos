@@ -79,14 +79,14 @@ abstract class FileChunkHandler {
 
 		$this->file_upload_errors = array(
 			false,
-			esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'wp-vimeo-videos' ),
-			esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'wp-vimeo-videos' ),
-			esc_html__( 'The uploaded file was only partially uploaded.', 'wp-vimeo-videos' ),
-			esc_html__( 'No file was uploaded.', 'wp-vimeo-videos' ),
+			esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'vimeify' ),
+			esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'vimeify' ),
+			esc_html__( 'The uploaded file was only partially uploaded.', 'vimeify' ),
+			esc_html__( 'No file was uploaded.', 'vimeify' ),
 			'',
-			esc_html__( 'Missing a temporary folder.', 'wp-vimeo-videos' ),
-			esc_html__( 'Failed to write file to disk.', 'wp-vimeo-videos' ),
-			esc_html__( 'File upload stopped by extension.', 'wp-vimeo-videos' ),
+			esc_html__( 'Missing a temporary folder.', 'vimeify' ),
+			esc_html__( 'Failed to write file to disk.', 'vimeify' ),
+			esc_html__( 'File upload stopped by extension.', 'vimeify' ),
 		);
 
 		// Set tmp dir.
@@ -190,7 +190,7 @@ abstract class FileChunkHandler {
 	 */
 	public function ajax_remove_file() {
 
-		$default_error = esc_html__( 'Something went wrong while removing the file.', 'wp-vimeo-videos' );
+		$default_error = esc_html__( 'Something went wrong while removing the file.', 'vimeify' );
 
 		$validated_form_field = $this->validate();
 		if ( empty( $validated_form_field ) ) {
@@ -229,7 +229,7 @@ abstract class FileChunkHandler {
 	 */
 	public function ajax_upload_init() {
 
-		$default_error = esc_html__( 'Something went wrong, please try again.', 'wp-vimeo-videos' );
+		$default_error = esc_html__( 'Something went wrong, please try again.', 'vimeify' );
 
 		$validated_form_field = $this->validate();
 		if ( empty( $validated_form_field ) ) {
@@ -281,7 +281,7 @@ abstract class FileChunkHandler {
 	 */
 	public function ajax_upload_chunk() {
 
-		$default_error = esc_html__( 'Something went wrong, please try again.', 'wp-vimeo-videos' );
+		$default_error = esc_html__( 'Something went wrong, please try again.', 'vimeify' );
 
 		$validated_form_field = $this->validate();
 		if ( empty( $validated_form_field ) ) {
@@ -309,7 +309,7 @@ abstract class FileChunkHandler {
 	 * Ajax handler for finalizing a chunked upload.
 	 */
 	public function ajax_upload_finalize() {
-		$default_error = esc_html__( 'Something went wrong, please try again.', 'wp-vimeo-videos' );
+		$default_error = esc_html__( 'Something went wrong, please try again.', 'vimeify' );
 
 		$handler = FileChunk::from_current_request( array(
 			'input_name' => $this->input_name,
@@ -374,7 +374,7 @@ abstract class FileChunkHandler {
 		}
 
 		if ( array_key_exists( $error, $this->file_upload_errors ) ) {
-			return sprintf( esc_html__( 'File upload error. %s', 'wp-vimeo-videos' ), $this->file_upload_errors[ $error ] );
+			return sprintf( esc_html__( 'File upload error. %s', 'vimeify' ), $this->file_upload_errors[ $error ] );
 		}
 
 		return false;

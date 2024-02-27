@@ -247,7 +247,7 @@ class VideoMeta implements ProviderInterface {
 	 * @return void
 	 */
 	public function register_meta_boxes() {
-		add_meta_box( 'dgv-video-meta', __( 'Vimeo Settings', 'wp-vimeo-videos' ), [
+		add_meta_box( 'dgv-video-meta', __( 'Vimeo Settings', 'vimeify' ), [
 			$this,
 			'render_video_meta'
 		], Database::POST_TYPE_UPLOADS, 'vimeify', 'high' );

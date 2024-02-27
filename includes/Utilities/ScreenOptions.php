@@ -109,7 +109,7 @@ class ScreenOptions {
 	public function before() {
 		?>
         <fieldset><input type="hidden" name="wp_screen_options_nonce" value="<?php echo esc_textarea( wp_create_nonce( 'wp_screen_options_nonce' ) ); ?>">
-        <legend><?php esc_html_e( 'Screen Options', 'wp-vimeo-videos' ); ?></legend>        <div class="metabox-prefs">
+        <legend><?php esc_html_e( 'Screen Options', 'vimeify' ); ?></legend>        <div class="metabox-prefs">
         <div><input type="hidden" name="wp_screen_options[option]" value="dgv_screen_options_page"/></div>
         <div><input type="hidden" name="wp_screen_options[value]" value="yes"/></div>        <div class="dgv_screen_options_custom_fields">
 		<?php
@@ -119,7 +119,7 @@ class ScreenOptions {
 	 * The HTML markup to close the options.
 	 */
 	public function after() {
-		$button = get_submit_button( __( 'Apply', 'wp-vimeo-videos' ), 'button', 'screen-options-apply', false );
+		$button = get_submit_button( __( 'Apply', 'vimeify' ), 'button', 'screen-options-apply', false );
 		?>
         </div><!-- dgv_screen_options_custom_fields -->        </div><!-- metabox-prefs -->        </fieldset>        <br class="clear">
 		<?php

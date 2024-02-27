@@ -55,8 +55,8 @@ class Ui extends BaseProvider {
 		$this->screen_options = new \Vimeify\Core\Utilities\ScreenOptions(
 			[
 				self::PAGE_VIMEO => [
-					'description'              => __( 'Show Description', 'wp-vimeo-videos' ),
-					'link_insteadof_shortcode' => __( 'Show Link instead of shortcode', 'wp-vimeo-videos' ),
+					'description'              => __( 'Show Description', 'vimeify' ),
+					'link_insteadof_shortcode' => __( 'Show Link instead of shortcode', 'vimeify' ),
 				]
 			]
 		);
@@ -214,7 +214,7 @@ class Ui extends BaseProvider {
 		if ( isset( $_GET['post'] ) && 'attachment' === get_post_type( $_GET['post'] ) ) {
 			add_meta_box(
 				'wvv_info_metabox_' . intval( $_GET['post'] ),
-				__( 'WP Vimeo', 'wp-vimeo-videos' ),
+				__( 'WP Vimeo', 'vimeify' ),
 				array( $this, 'render_media_library_upload_metabox' ),
 				null,
 				'side'
@@ -249,7 +249,7 @@ class Ui extends BaseProvider {
 	 */
 	public function manage_media_columns( $columns ) {
 		if ( $this->plugin->system()->vimeo()->is_connected ) {
-			$columns['dgv_info'] = __( 'WP Vimeo', 'wp-vimeo-videos' );
+			$columns['dgv_info'] = __( 'WP Vimeo', 'vimeify' );
 		}
 
 		return $columns;

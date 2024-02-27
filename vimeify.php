@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:       Vimeify - Upload, Display and Embed Vimeo Videos
+ * Plugin Name:       Vimeify
  * Plugin URI:        https://vimeify.com
  * Description:       Easily upload, embed and list Vimeo videos directly on your site
- * Version:           2.0.0-alpha5
- * Author:            Darko Gjorgjijoski
- * Author URI:        https://darkog.com
+ * Version:           1.0.0
+ * Author:            Vimeify
+ * Author URI:        https://vimeify.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wp-vimeo-videos
+ * Text Domain:       vimeify
  * Domain Path:       /languages
  *
  ********************************************************************
@@ -41,7 +41,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'VIMEIFY_VERSION', '2.0.0-alpha5' );
+define( 'VIMEIFY_VERSION', '1.0.0' );
 
 // Load the composer dependencies, bail if not set up.
 if ( ! file_exists( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' ) ) {

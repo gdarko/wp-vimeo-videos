@@ -43,7 +43,7 @@ fi
 cd "$PLUGINS_ROOT_DIR"
 
 zip -r "$PLUGIN_SLUG.zip" "$PLUGIN_SLUG" \
-  -x="*scripts*" \
+  -x="*$PLUGIN_SLUG/scripts*" \
   -x="*assets/admin/src*" \
   -x="*assets/shared/src*" \
   -x="*assets/frontend/src*" \
@@ -58,6 +58,7 @@ zip -r "$PLUGIN_SLUG.zip" "$PLUGIN_SLUG" \
   -x="*composer.json*" \
   -x="*composer.lock*" \
   -x="*node_modules*" \
+  -x="*vimeo-api/composer.phar*" \
   -x="*README.md*"
 
 echo "New version ready."

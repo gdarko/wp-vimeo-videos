@@ -26,7 +26,7 @@
 
 <tr>
 	<th style="width: 20%">
-		<?php _e( 'PHP Version', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'PHP Version', 'vimeify' ); ?>
 	</th>
 	<td>
 		<?php echo PHP_VERSION; ?>
@@ -35,7 +35,7 @@
 <?php if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ): ?>
 	<tr>
 		<th>
-			<?php _e( 'Web Server', 'wp-vimeo-videos' ); ?>
+			<?php _e( 'Web Server', 'vimeify' ); ?>
 		</th>
 		<td>
 			<?php echo esc_html($_SERVER['SERVER_SOFTWARE']); ?>
@@ -44,7 +44,7 @@
 <?php endif; ?>
 <tr>
 	<th>
-		<?php _e( 'Max Upload Size', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'Max Upload Size', 'vimeify' ); ?>
 	</th>
 	<td>
 		<?php echo ini_get( 'upload_max_filesize' ); ?>
@@ -52,7 +52,7 @@
 </tr>
 <tr>
 	<th>
-		<?php _e( 'Max Post Size', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'Max Post Size', 'vimeify' ); ?>
 	</th>
 	<td>
 		<?php echo ini_get( 'post_max_size' ); ?>
@@ -60,7 +60,7 @@
 </tr>
 <tr>
 	<th>
-		<?php _e( 'Max Exec Time', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'Max Exec Time', 'vimeify' ); ?>
 	</th>
 	<td>
 		<?php echo ini_get( 'max_execution_time' ); ?>
@@ -68,7 +68,7 @@
 </tr>
 <tr>
 	<th>
-		<?php _e( 'Max Input Time', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'Max Input Time', 'vimeify' ); ?>
 	</th>
 	<td>
 		<?php echo ini_get( 'max_input_time' ); ?>
@@ -76,7 +76,7 @@
 </tr>
 <tr>
     <th>
-		<?php _e( 'Memory Limit', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'Memory Limit', 'vimeify' ); ?>
     </th>
     <td>
 		<?php echo sprintf('WP %s / PHP %s', WP_MEMORY_LIMIT, ini_get('memory_limit')); ?>
@@ -84,7 +84,7 @@
 </tr>
 <tr>
     <th>
-		<?php _e( 'Operating System', 'wp-vimeo-videos' ); ?>
+		<?php _e( 'Operating System', 'vimeify' ); ?>
     </th>
     <td>
 		<?php echo PHP_OS; ?>

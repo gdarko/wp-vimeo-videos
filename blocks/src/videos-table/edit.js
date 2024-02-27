@@ -36,11 +36,11 @@ const Edit = ({attributes, setAttributes}) => {
 
     const { show_pagination } = attributes;
     const createAuthorsOptions = (authors) => {
-        const initial = [{label: __('Any', 'wp-vimeo-videos'), value: -1}]
+        const initial = [{label: __('Any', 'vimeify'), value: -1}]
         setAuthors(initial.concat(authors));
     }
     const createCategoriesOptions = (authors) => {
-        const initial = [{label: __('Any', 'wp-vimeo-videos'), value: -1}]
+        const initial = [{label: __('Any', 'vimeify'), value: -1}]
         setCategories(initial.concat(authors));
     }
 
@@ -63,7 +63,7 @@ const Edit = ({attributes, setAttributes}) => {
                         <div className="dgv-inspector-controls-block">
                             <fieldset>
                                 <SelectControl
-                                    label={__('Author', 'wp-vimeo-videos')}
+                                    label={__('Author', 'vimeify')}
                                     value={attributes.author}
                                     options={authors}
                                     onChange={ author => setAttributes( { author } ) }
@@ -71,7 +71,7 @@ const Edit = ({attributes, setAttributes}) => {
                             </fieldset>
                             <fieldset>
                                 <SelectControl
-                                    label={__('Categories', 'wp-vimeo-videos')}
+                                    label={__('Categories', 'vimeify')}
                                     value={attributes.categories}
                                     options={categories}
                                     onChange={ categories => setAttributes( { categories } ) }
@@ -80,29 +80,29 @@ const Edit = ({attributes, setAttributes}) => {
                             </fieldset>
                             <fieldset>
                                 <SelectControl
-                                    label={__('Order Direction', 'wp-vimeo-videos')}
+                                    label={__('Order Direction', 'vimeify')}
                                     value={attributes.order}
                                     options={[
-                                        {label: __('DESC', 'wp-vimeo-videos'), value: 'desc'},
-                                        {label: __('ASC', 'wp-vimeo-videos'), value: 'asc'},
+                                        {label: __('DESC', 'vimeify'), value: 'desc'},
+                                        {label: __('ASC', 'vimeify'), value: 'asc'},
                                     ]}
                                     onChange={ order => setAttributes( { order } ) }
                                 />
                             </fieldset>
                             <fieldset>
                                 <SelectControl
-                                    label={__('Order By', 'wp-vimeo-videos')}
+                                    label={__('Order By', 'vimeify')}
                                     value={attributes.orderby}
                                     options={[
-                                        {label: __('Title', 'wp-vimeo-videos'), value: 'title'},
-                                        {label: __('Date', 'wp-vimeo-videos'), value: 'date'},
+                                        {label: __('Title', 'vimeify'), value: 'title'},
+                                        {label: __('Date', 'vimeify'), value: 'date'},
                                     ]}
                                     onChange={ orderby => setAttributes( { orderby } ) }
                                 />
                             </fieldset>
                             <fieldset>
                                 <TextControl
-                                    label={__('Videos number', 'wp-vimeo-videos')}
+                                    label={__('Videos number', 'vimeify')}
                                     value={attributes.posts_per_page}
                                     onChange={ posts_per_page => setAttributes( { posts_per_page } ) }
                                 />
@@ -110,8 +110,8 @@ const Edit = ({attributes, setAttributes}) => {
 
                             <fieldset>
                                 <ToggleControl
-                                    label={__('Show Pagination', 'wp-vimeo-videos')}
-                                    help={ show_pagination === 'yes' ?  __('Yes', 'wp-vimeo-videos') : __('No', 'wp-vimeo-videos') }
+                                    label={__('Show Pagination', 'vimeify')}
+                                    help={ show_pagination === 'yes' ?  __('Yes', 'vimeify') : __('No', 'vimeify') }
                                     checked={ show_pagination === 'yes' }
                                     onChange={(value) => {
                                         setAttributes({show_pagination: value ? 'yes' : 'no'});

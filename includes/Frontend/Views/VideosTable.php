@@ -49,7 +49,7 @@ class VideosTable extends BaseView {
 		$_actions = [
 			[
 				'icon'      => 'vimeify-eye',
-				'text'      => __( 'View', 'wp-vimeo-videos' ),
+				'text'      => __( 'View', 'vimeify' ),
 				'condition' => $single_pages,
 				'action'    => function ( $entry ) {
 					/* @var \WP_Post $entry */

@@ -31,7 +31,7 @@ class Video extends BaseBlock {
 		if ( $folders_enabled ) {
 			$folder = $this->plugin->system()->settings()->get_upload_profile_option_by_context( 'Backend.Editor.Gutenberg', 'folder' );
 			if ( empty( $folder ) || 'default' === $folder ) {
-				$default_folder = [ 'name' => __( 'Default (No folder)', 'wp-vimeo-videos' ), 'uri' => 'default' ];
+				$default_folder = [ 'name' => __( 'Default (No folder)', 'vimeify' ), 'uri' => 'default' ];
 			} else {
 				$default_folder = [
 					'name' => sprintf( '%s (Default)', $this->plugin->system()->cache()->remember( 'default_folder_name', function () use ( $folder ) {
@@ -44,9 +44,9 @@ class Video extends BaseBlock {
 		wp_localize_script( 'vimeify-video-block-editor', 'VimeifyUploadBlock', [
 			'nonce'               => wp_create_nonce( 'wp_rest' ),
 			'methods'             => array(
-				'upload' => __( 'Upload new Vimeo video', 'wp-vimeo-videos' ),
-				'local'  => __( 'Insert Vimeo video from local library', 'wp-vimeo-videos' ),
-				'search' => __( 'Search your Vimeo account', 'wp-vimeo-videos' ),
+				'upload' => __( 'Upload new Vimeo video', 'vimeify' ),
+				'local'  => __( 'Insert Vimeo video from local library', 'vimeify' ),
+				'search' => __( 'Search your Vimeo account', 'vimeify' ),
 			),
 			'upload_form_options' => array(
 				'enable_view_privacy' => (int) $this->plugin->system()->settings()->get( 'admin.gutenberg.enable_view_privacy', 0 ),
@@ -56,36 +56,36 @@ class Video extends BaseBlock {
 			),
 			'i18n'                => array(
 				'words'   => array(
-					'block_name'    => __( 'Vimeify Upload', 'wp-vimeo-videos' ),
-					'title'         => __( 'Title', 'wp-vimeo-videos' ),
-					'description'   => __( 'Description', 'wp-vimeo-videos' ),
-					'file'          => __( 'File', 'wp-vimeo-videos' ),
-					'uploading3d'   => __( 'Uploading...', 'wp-vimeo-videos' ),
-					'upload'        => __( 'Upload', 'wp-vimeo-videos' ),
-					'search'        => __( 'Search', 'wp-vimeo-videos' ),
-					'sorry'         => __( 'Sorry', 'wp-vimeo-videos' ),
-					'view_privacy'  => __( 'View Privacy', 'wp-vimeo-videos' ),
-					'folder'        => __( 'Folder', 'wp-vimeo-videos' ),
-					'clear'         => __( 'Clear', 'wp-vimeo-videos' ),
-					'save'          => __( 'Save', 'wp-vimeo-videos' ),
-					'video_replace' => __( 'Replace Video', 'wp-vimeo-videos' ),
-					'video_select'  => __( 'Select Video', 'wp-vimeo-videos' ),
-					'video_list'    => __( 'Videos List', 'wp-vimeo-videos' ),
+					'block_name'    => __( 'Vimeify Upload', 'vimeify' ),
+					'title'         => __( 'Title', 'vimeify' ),
+					'description'   => __( 'Description', 'vimeify' ),
+					'file'          => __( 'File', 'vimeify' ),
+					'uploading3d'   => __( 'Uploading...', 'vimeify' ),
+					'upload'        => __( 'Upload', 'vimeify' ),
+					'search'        => __( 'Search', 'vimeify' ),
+					'sorry'         => __( 'Sorry', 'vimeify' ),
+					'view_privacy'  => __( 'View Privacy', 'vimeify' ),
+					'folder'        => __( 'Folder', 'vimeify' ),
+					'clear'         => __( 'Clear', 'vimeify' ),
+					'save'          => __( 'Save', 'vimeify' ),
+					'video_replace' => __( 'Replace Video', 'vimeify' ),
+					'video_select'  => __( 'Select Video', 'vimeify' ),
+					'video_list'    => __( 'Videos List', 'vimeify' ),
 				),
 				'phrases' => array(
-					'upload_invalid_file'               => __( 'Please select valid video file.', 'wp-vimeo-videos' ),
-					'invalid_search_phrase'             => __( 'Invalid search phrase. Please enter valid search phrase.', 'wp-vimeo-videos' ),
-					'enter_phrase'                      => __( 'Enter phrase', 'wp-vimeo-videos' ),
-					'select_video'                      => __( 'Select video', 'wp-vimeo-videos' ),
-					'upload_success'                    => __( 'Video uploaded successfully!', 'wp-vimeo-videos' ),
-					'block_title'                       => __( 'Insert Vimeo Video', 'wp-vimeo-videos' ),
-					'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'wp-vimeo-videos' ),
-					'radio_title'                       => __( "Upload/Select Vimeo Video", 'wp-vimeo-videos' ),
-					'local_search_placeholder'          => __( 'Search your Local Library', 'wp-vimeo-videos' ),
-					'remote_search_placeholder'         => __( 'Search your Vimeo.com account', 'wp-vimeo-videos' ),
-					'folder_placeholder'                => __( 'Search for folders or leave blank', 'wp-vimeo-videos' ),
+					'upload_invalid_file'               => __( 'Please select valid video file.', 'vimeify' ),
+					'invalid_search_phrase'             => __( 'Invalid search phrase. Please enter valid search phrase.', 'vimeify' ),
+					'enter_phrase'                      => __( 'Enter phrase', 'vimeify' ),
+					'select_video'                      => __( 'Select video', 'vimeify' ),
+					'upload_success'                    => __( 'Video uploaded successfully!', 'vimeify' ),
+					'block_title'                       => __( 'Insert Vimeo Video', 'vimeify' ),
+					'existing_not_visible_current_user' => __( '= Uploaded by someone else, not visible to you =', 'vimeify' ),
+					'radio_title'                       => __( "Upload/Select Vimeo Video", 'vimeify' ),
+					'local_search_placeholder'          => __( 'Search your Local Library', 'vimeify' ),
+					'remote_search_placeholder'         => __( 'Search your Vimeo.com account', 'vimeify' ),
+					'folder_placeholder'                => __( 'Search for folders or leave blank', 'vimeify' ),
 					'view_privacy_help'                 => __( 'Who will be able to view t his video' ),
-					'folder_help'                       => __( 'Where this video should be uploaded to?', 'wp-vimeo-videos' ),
+					'folder_help'                       => __( 'Where this video should be uploaded to?', 'vimeify' ),
 				),
 			),
 			'restBase'            => get_rest_url(),
@@ -127,7 +127,7 @@ class Video extends BaseBlock {
 	 */
 	public function render_block( $block_attributes, $content ) {
 		if ( ! isset( $block_attributes['currentValue'] ) ) {
-			return sprintf( '<p>%s</p>', __( 'No Vimeo.com video selected. Please edit this post and find the corresponding Vimeify Upload block to set video.', 'wp-vimeo-videos' ) );
+			return sprintf( '<p>%s</p>', __( 'No Vimeo.com video selected. Please edit this post and find the corresponding Vimeify Upload block to set video.', 'vimeify' ) );
 		}
 
 		$frm      = new VimeoFormatter();
