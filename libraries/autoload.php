@@ -57,6 +57,9 @@ class VimeifyLoadNonComposerDependencies {
 	 * @return void
 	 */
 	public function load_background_processing() {
+		if ( class_exists( 'Vimeify_Async_Request' ) ) {
+			return;
+		}
 		require_once $this->dir . 'wp-background-processing/class-wp-async-request.php';
 		require_once $this->dir . 'wp-background-processing/class-wp-background-process.php';
 	}
