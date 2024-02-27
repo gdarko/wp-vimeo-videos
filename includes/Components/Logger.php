@@ -86,7 +86,7 @@ class Logger implements LoggerInterface, SystemComponentInterface {
 			}
 		}
 
-		$message = sprintf( '[%s] %s', date( 'Y-m-d H:i:s' ), $message );
+		$message = sprintf( '[%s] %s', gmdate( 'Y-m-d H:i:s' ), $message );
 
 		$this->writeln( $log_file_path, $message );
 
