@@ -871,7 +871,7 @@ class Ajax extends BaseProvider {
 						'id'     => $ID,
 						'plugin' => $this->plugin,
 					] ),
-					'data'              => json_encode( $response )
+					'data'              => wp_json_encode( $response )
 				) );
 
 			} catch ( \Exception $e ) {
