@@ -1,4 +1,7 @@
 <?php
+
+// Last checked e4c0e21a999de55d94cf66c0f79c3e1863d60216
+
 /**
  * WP Async Request
  *
@@ -6,11 +9,11 @@
  */
 
 /**
- * Abstract DGV_Async_Request class.
+ * Abstract Vimeify_Async_Request class.
  *
  * @abstract
  */
-abstract class DGV_Async_Request {
+abstract class Vimeify_Async_Request {
 
 	/**
 	 * Prefix
@@ -51,7 +54,7 @@ abstract class DGV_Async_Request {
 	protected $data = array();
 
 	/**
-	 * Initiate new async request
+	 * Initiate new async request.
 	 */
 	public function __construct() {
 		$this->identifier = $this->prefix . '_' . $this->action;
@@ -61,7 +64,7 @@ abstract class DGV_Async_Request {
 	}
 
 	/**
-	 * Set data used during the request
+	 * Set data used during the request.
 	 *
 	 * @param array $data Data.
 	 *
@@ -74,9 +77,9 @@ abstract class DGV_Async_Request {
 	}
 
 	/**
-	 * Dispatch the async request
+	 * Dispatch the async request.
 	 *
-	 * @return array|WP_Error
+	 * @return array|WP_Error|false HTTP Response array, WP_Error on failure, or false if not attempted.
 	 */
 	public function dispatch() {
 		$url  = add_query_arg( $this->get_query_args(), $this->get_query_url() );
@@ -86,7 +89,7 @@ abstract class DGV_Async_Request {
 	}
 
 	/**
-	 * Get query args
+	 * Get query args.
 	 *
 	 * @return array
 	 */
@@ -109,7 +112,7 @@ abstract class DGV_Async_Request {
 	}
 
 	/**
-	 * Get query URL
+	 * Get query URL.
 	 *
 	 * @return string
 	 */
@@ -129,7 +132,7 @@ abstract class DGV_Async_Request {
 	}
 
 	/**
-	 * Get post args
+	 * Get post args.
 	 *
 	 * @return array
 	 */
@@ -139,11 +142,11 @@ abstract class DGV_Async_Request {
 		}
 
 		$args = array(
-			'timeout'   => 3.00,
+			'timeout'   => 5,
 			'blocking'  => false,
 			'body'      => $this->data,
-			'cookies'   => $_COOKIE,
-			'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
+			'cookies'   => $_COOKIE, // Passing cookies ensures request is performed as initiating user.
+			'sslverify' => apply_filters( 'https_local_ssl_verify', false ), // Local requests, fine to pass false.
 		);
 
 		/**
@@ -155,23 +158,45 @@ abstract class DGV_Async_Request {
 	}
 
 	/**
-	 * Maybe handle
+	 * Maybe handle a dispatched request.
 	 *
 	 * Check for correct nonce and pass to handler.
+	 *
+	 * @return void|mixed
 	 */
 	public function maybe_handle() {
-		// Don't lock up other requests while processing
+		// Don't lock up other requests while processing.
 		session_write_close();
 
 		check_ajax_referer( $this->identifier, 'nonce' );
 
 		$this->handle();
 
-		wp_die();
+		return $this->maybe_wp_die();
 	}
 
 	/**
-	 * Handle
+	 * Should the process exit with wp_die?
+	 *
+	 * @param mixed $return What to return if filter says don't die, default is null.
+	 *
+	 * @return void|mixed
+	 */
+	protected function maybe_wp_die( $return = null ) {
+		/**
+		 * Should wp_die be used?
+		 *
+		 * @return bool
+		 */
+		if ( apply_filters( $this->identifier . '_wp_die', true ) ) {
+			wp_die();
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Handle a dispatched request.
 	 *
 	 * Override this method to perform any actions required
 	 * during the async request.
