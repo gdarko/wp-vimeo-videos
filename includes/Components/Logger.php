@@ -67,7 +67,7 @@ class Logger implements LoggerInterface, SystemComponentInterface {
 		}
 		$log_file_path = trailingslashit( $this->log_dir ) . $filename;
 		if ( file_exists( $log_file_path ) && filesize( $log_file_path ) > 10485760 ) {
-			@unlink( $log_file_path );
+			wp_delete_file( $log_file_path );
 		}
 		$is_object = false;
 		if ( ! is_string( $message ) && ! is_numeric( $message ) ) {

@@ -456,11 +456,11 @@ class FileChunk {
 	protected function delete_temporary_files() {
 
 		foreach ( $this->get_chunks() as $chunk ) {
-			@unlink( $chunk['file'] ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			wp_delete_file( $chunk['file'] );
 		}
 
 		$this->chunks = [];
-		@unlink( $this->get_metadata_file_path() ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		wp_delete_file( $this->get_metadata_file_path() );
 	}
 
 	/**

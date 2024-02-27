@@ -180,7 +180,7 @@ abstract class FileChunkHandler {
 			}
 
 			if ( ( time() - $modified ) >= $lifespan ) {
-				@unlink( $file ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+				wp_delete_file( $file );
 			}
 		}
 	}

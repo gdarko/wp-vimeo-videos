@@ -131,7 +131,7 @@ class Cron extends BaseProvider {
 				$diff_minutes = round( abs( $time_now - $time_age ) / 60, 2 );
 				$file_exists  = file_exists( $path );
 				if ( $diff_minutes >= $removal_delay_minutes && $file_exists ) {
-					if ( unlink( $path ) ) {
+					if ( @unlink( $path ) ) {
 						$this->plugin->system()->settings()->remove_from_temporary_files( $path );
 						$this->plugin->system()->logger()->log( sprintf( 'Deleted temporary video file %s after %s minutes', $path, $diff_minutes ), $logtag, 'cron.log' );
 					} else {
